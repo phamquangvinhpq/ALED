@@ -1,0 +1,40 @@
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+    .non-mobile-menu {display: none;}
+    .mobile-menu {display: block;}
+}
+
+@media only screen and (min-width: 768px) {
+    .non-mobile-menu {display: block;}
+    .mobile-menu {display: none;}
+}
+
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+    .top-left ul li {display: block;margin-right: 0;text-align: left;margin-bottom: 3px;}
+    .top-right ul li {display: block;margin-left: 0;text-align: left;margin-bottom: 3px;}
+    .top-right ul {padding-left: 0;}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.head .logo img {width:100%;height:auto;}
+	.head .search {padding-top: 6px;}
+}
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+	.head {padding-top: 10px;padding-bottom: 10px;}
+	.head .logo {text-align: center;}
+	.head .logo a {display: inline-block;}
+	.head .search {width: 100%;float: none;}
+	.head .search input[type="text"] {width: 100%;}
+	.head .search form {width: 100%;text-align: center;}
+	.head .search button {display: inline-block;}
+}
+
+
+@media only screen and (min-width: 0px) and (max-width: 810px) {
+	.slider-text .text-animated {padding-left: 50px;padding-right: 50px;}
+}
+
+@media (min-width: 768px) {
+	.modal-vit {
+	    width: 400px;
+	}
+}
