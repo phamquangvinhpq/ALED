@@ -6,7 +6,10 @@ export default function Favorite() {
   const loadFavorite = () => {
     fetch("http://localhost:8080/favorite?user_id=" + user_id)
       .then((response) => response.json())
-      .then((data) => setListFavorite(data));
+      .then((data) => 
+       setListFavorite(data),
+       
+       console.log(listFavorite));
   };
 
   useEffect(() => {
@@ -20,16 +23,18 @@ export default function Favorite() {
           <table className="table table-bordered t3">
             <thead>
               <tr>
-                <th>ID</th>
+                <th hidden>ID</th>
+                <th>STT</th>
                 <th>Course Title</th>
                 <th className="w-100">My Rating</th>
                 <th>Course Content</th>
               </tr>
             </thead>
             <tbody>
-            {listFavorite.map((favorite) => (
+            {listFavorite.map((favorite, index) => (
               <tr>
-              <td>{favorite.id}</td>
+              <td hidden>{favorite.id}</td>
+              <td>{index+1}</td>
               <td>{favorite.course_name}</td>
               <td>No Rating Given </td>
               <td>

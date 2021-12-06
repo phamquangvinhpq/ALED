@@ -44,7 +44,7 @@ export default function HeaderStudent() {
   }
 
   const onChangeDanhMuc = (event) => {
-    history.push("/Course")
+    history.push("/Course/"+event.target.value)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
     console.log(event.target.value);

@@ -11,6 +11,7 @@ export default function Course() {
   const [isEnable, setIsEnable] = useState(0);
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0)
+  let param = useParams();
   let pagesize = 6
 
   useEffect(() => {
@@ -33,15 +34,25 @@ export default function Course() {
 
       redirect: 'follow'
     };
-
-    fetch(`${DEFAULT_API}` + `course/get-all-by-page?page=${pg}&size=${pgsize}`, requestOptions)
+    if(param.id == 0){
+      fetch(`${DEFAULT_API}` + `course/get-all-by-page?page=${pg}&size=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         dispatch({ type: "GET_DATA", payload: result })
         setTotalCount(result.length) 
       })
+    }
+    else {
+    fetch(`${DEFAULT_API}` + `course/get-all-by-category?categoryId=${param.id}&page=0&size=${pagesize}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        dispatch({type: "GET_DATA", payload: result})   
+        console.log(result)
+        setIsEnable(isEnable + 1)
+      }
+      )
       .catch(error => console.log('error', error));
-  }
+  }}
 
   const nextPage = async () => {
     const pg = page < Math.ceil(totalCount / pagesize) ? page + 1 : page

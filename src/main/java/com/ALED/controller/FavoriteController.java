@@ -35,8 +35,8 @@ public class FavoriteController {
 	}
 	
 	@DeleteMapping()
-	public void delete(@RequestParam(name = "user_id", required = false) Integer user_id, @RequestParam(name = "course_id", required = false) Integer course_id) {
-		iFavoriteService.delete(user_id ,course_id);
+	public boolean delete(@RequestParam(name = "user_id", required = false) Integer user_id, @RequestParam(name = "course_id", required = false) Integer course_id) {
+		return iFavoriteService.delete(user_id ,course_id);
 	}
 
 }
