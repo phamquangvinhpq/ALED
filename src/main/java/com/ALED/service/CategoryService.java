@@ -70,6 +70,7 @@ public class CategoryService implements ICategoryService {
 		for (Category category : categorys) {
 			CategoryDTO categoryDTO = new CategoryDTO();
 			BeanUtils.copyProperties(category, categoryDTO);
+			categoryDTO.setCountCourse(categoryRepository.countCourse(category.getId()));
 			categoryDTOs.add(categoryDTO);
 		}
 		return categoryDTOs;

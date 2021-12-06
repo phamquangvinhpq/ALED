@@ -1,91 +1,91 @@
 import React, { useEffect, useState } from 'react'
+import swal from 'sweetalert';
+import { DEFAULT_API } from '../../../conf/env';
+import { useHistory } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
+import { useDispatch } from 'react-redux'
+
 
 export default function Homestd() {
-    let tim = 1;
-    const [DSkhoahoc, setDSkhoahoc] = useState([])
-    const [yeuthich, setyeuthic] = useState([])
-    const [ListFavorite, setListFavorite] = useState([]);
-    const [course_id, setCourse_id] = useState(0)
-    
+    const [listCourse, setListCourse] = useState([])
+    const [listFavorite, setListFavorite] = useState([]);
+    const [listCategories, setListCategories] = useState([]);
     const user_id = localStorage.getItem("userid")
+    const dispatch = useDispatch()
+    let history = useHistory();
 
     useEffect(() => {
-
-        loadkhoahoc();
-        dsyeuthic();
-        loadFavorite()
-    }, [
-        
-    ])
-
-    console.log(ListFavorite)
+        if(user_id){
+            loadFavorite();
+        }
+        loadListCategories();
+        loadListCourse();
+    }, []);
 
     const checkTym = (value) => {
-        if(ListFavorite.some(favorite => favorite.course_id === value)){
-
-            return <span onClick={() => deleteFavoriteClick(value)} className="heart-icon"><i className="fa fa-heart" /></span>
-        } else{
-
-            return <span onClick={() => addFavoriteClick(value)} className="heart-icon"><i className="fa fa-heart-o" /></span>
+        if(user_id){
+            if(listFavorite.some(favorite => favorite.course_id === value)){
+                return <span onClick={() => deleteFavorite(value)} className="heart-icon"><i className="fa fa-heart" /></span>
+            } else{
+                return <span onClick={() => addFavorite(value)} className="heart-icon"><i className="fa fa-heart-o" /></span>
+            }
         }
     }
 
-    const addFavoriteClick = (value) => {
-        console.log("Click thêm" + value)
-        setCourse_id(value)
-        addFavorite(value)
-    }
-
-    const deleteFavoriteClick = (value) => {
-        console.log("Click xóa" + value)
-        setCourse_id(value)
-        deleteFavorite(value)
-    }
-
     const deleteFavorite = (value) => {
-      var requestOptions = {
-        method: "DELETE",
-        redirect: "follow",
-      };
-
-      fetch(
-        "http://localhost:8080/favorite?user_id=" + user_id + "&course_id=" +  value, requestOptions
-      )
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+        var requestOptions = {
+            method: 'DELETE',
+            redirect: 'follow'
+          };
+          
+          fetch(`${DEFAULT_API}favorite?user_id=${user_id}&course_id=${value}`, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(swal("Thành Công", "Đã bỏ yêu thích", "success"))
+            .then(loadFavorite)
+            .catch(error => console.log('error', error));
     };
 
     const addFavorite = (value) => {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var raw = JSON.stringify({
-        user_id: user_id,
-        course_id: course_id,
-        status: 1,
-      });
-
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
-
-      fetch("http://localhost:8080/favorite?user_id=" + user_id , requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        
+        var raw = JSON.stringify({
+          "user_id": user_id,
+          "course_id": value,
+          "status": 1
+        });
+        
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+        
+        fetch(`${DEFAULT_API}favorite`, requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .then(swal("Thành Công", "Đã thêm yêu thích", "success"))
+          .then(loadFavorite)
+          .catch(error => console.log('error', error));
     };
 
     const loadFavorite = async () => {
-        fetch("http://localhost:8080/favorite?user_id=" + user_id)
+        var myHeaders = new Headers();
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(`${DEFAULT_API}favorite?user_id=${user_id}`, requestOptions)
           .then((response) => response.json())
           .then((response) => setListFavorite(response));
       };
 
-    const loadkhoahoc = async () => {
+    const loadListCourse = async () => {
         var myHeaders = new Headers();
 
         var requestOptions = {
@@ -94,18 +94,16 @@ export default function Homestd() {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/course", requestOptions)
+        fetch(`${DEFAULT_API}course`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result);
-                setDSkhoahoc(result)
+                setListCourse(result)
             })
             .catch(error => console.log('error', error));
     }
 
-
-
-    const dsyeuthic = async () => {
+    const loadListCategories = async () => {
         var myHeaders = new Headers();
 
         var requestOptions = {
@@ -114,15 +112,19 @@ export default function Homestd() {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/favorite?user_id=1", requestOptions)
+        fetch(`${DEFAULT_API}category/`, requestOptions)
             .then(response => response.json())
             .then(result => {
-            setyeuthic(result)
+                console.log(result);
+                setListCategories(result)
             })
             .catch(error => console.log('error', error));
     }
 
-
+    const onClickCategory = (select) => {
+        history.push(`/Course/${select}`)
+      };
+    
     return (
         <div>
             <div>
@@ -211,7 +213,7 @@ export default function Homestd() {
                             </div>
 
                             <div className="row grid">
-                                {DSkhoahoc.map((value, index) =>
+                                {listCourse.map((value, index) =>
                                     <div className="col-lg-4 col-md-6 grid-item marketing">
                                         <div className="single-course-item">
                                             <div className="course-image">
@@ -219,7 +221,7 @@ export default function Homestd() {
                                             </div>
                                             <div className="course-content margin-top-30">
                                                 <div className="course-title">
-                                                    <h4 className="home-2">{value.price}</h4>
+                                                    <h4 className="home-2">{value.courseName}</h4>
                                                 </div>
                                                 <div className="course-instructor-rating margin-top-20">
                                                     <div className="course-instructor">
@@ -227,14 +229,27 @@ export default function Homestd() {
                                                         <h6>john doe</h6>
                                                     </div>
                                                     <div className="course-rating">
-                                                        <ul>
+                                                        {/* <ul>
                                                             <li><i className="fa fa-star" /></li>
                                                             <li><i className="fa fa-star" /></li>
                                                             <li><i className="fa fa-star" /></li>
                                                             <li><i className="fa fa-star" /></li>
                                                             <li><i className="fa fa-star" /></li>
                                                         </ul>
-                                                        <span>4.2(30)</span>
+                                                        <span>4.2(30)</span> */}
+                                                        <span>
+                                                            <ReactStars
+                                                                edit={false}
+                                                                value={value.rate}
+                                                                size={24}
+                                                                isHalf={true}
+                                                                emptyIcon={<i className="far fa-star"></i>}
+                                                                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                                                fullIcon={<i className="fa fa-star"></i>}
+                                                                activeColor="#ffd700"
+                                                            />
+                                                            </span>{value.rate}<span>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div className="course-info margin-top-20">
@@ -253,7 +268,7 @@ export default function Homestd() {
                                                 </div>
                                                 <div className="course-price-cart margin-top-20">
                                                     <div className="course-price">
-                                                        <span className="span-big">$ 400.00</span>
+                                                        <span className="span-big">$ {value.price}</span>
                                                         <span className="span-cross">$ 500.00</span>
                                                     </div>
                                                 </div>
@@ -296,7 +311,9 @@ export default function Homestd() {
                                                     <li><i className="fa fa-circle-o" /><span>Placeat dolore quaerat itaque.</span></li>
                                                 </ul>
                                                 <div className="preview-button margin-top-20">
-                                                    <a href="course-details.html" className="template-button">course preview</a>
+                                                    <a onClick={() =>{
+                                                         history.replace("detail/"+value.id)
+                                                    }} className="template-button">course preview</a>
                                                     <a href="cart.html" className="template-button margin-left-10">buy now</a>
                                                 </div>
                                             </div>
@@ -319,124 +336,30 @@ export default function Homestd() {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-1-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">photography</h4>
+                         <div className="row">
+                            {listCategories.map((value, index) => 
+                                <div className="col-lg-3 col-md-6" onClick={() => onClickCategory(value.id)}>
+                                    <a>
+                                        <div className="single-category-item">
+                                            <div className="category-image">
+                                                <img src="assets/images/category-icon-1-home-2.png" alt="image" />
+                                                <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
+                                            </div>
+                                            <div className="category-content">
+                                                <div className="category-title">
+                                                    <h4 className="home-2">{value.name}</h4>
+                                                </div>
+                                                <span>{value.countCourse} Khóa Học</span>
+                                            </div>
                                         </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-2-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">web design</h4>
-                                        </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-3-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">blog wrining</h4>
-                                        </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-4-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">after effects</h4>
-                                        </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-5-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">marketing</h4>
-                                        </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-6-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">education</h4>
-                                        </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-7-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">UI UX design</h4>
-                                        </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
-                            <div className="col-lg-3 col-md-6">
-                                <a href="web-development.html"><div className="single-category-item">
-                                    <div className="category-image">
-                                        <img src="assets/images/category-icon-1-home-2.png" alt="image" />
-                                        <img src="assets/images/round-shape-3.png" alt="shape" className="feature-round-shape-3" />
-                                    </div>
-                                    <div className="category-content">
-                                        <div className="category-title">
-                                            <h4 className="home-2">web software</h4>
-                                        </div>
-                                        <span>03 course(S)</span>
-                                    </div>
-                                </div></a>
-                            </div>
+                                    </a>
+                                </div>
+                                )}
                         </div>
                         <div className="row">
                             <div className="col-12">
                                 <div className="category-section-link">
-                                    <h6>Dont's see wht you're looking for? <a href="web-development.html">See all categories.</a></h6>
+                                    <h6>Dont's see wht you're looking for? <a href="/Course">See all categories.</a></h6>
                                 </div>
                             </div>
                         </div>

@@ -54,13 +54,15 @@ public class FavoriteService implements IFavoriteService {
 	}
 
 	@Override
-	public void delete(Integer user_id, Integer course_id) {
+	public boolean delete(Integer user_id, Integer course_id) {
 		List<Favorite> entitys = favoriteRepository.findAllByUser(user_id);
 		for (Favorite entity : entitys) {
 			if (entity.getCourse_id() == course_id) {
 				favoriteRepository.delete(entity);
+				return true;
 			}
 		}
+		return false;
 	}
 	
 
