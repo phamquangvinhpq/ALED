@@ -10,6 +10,6 @@ public interface IFavoriteService {
 
 	public List<FavoriteDTO> findAllByUser(Integer userId);
 
-	public void delete(Integer user_id, Integer course_id);
+	public boolean delete(Integer user_id, Integer course_id);
 
 }

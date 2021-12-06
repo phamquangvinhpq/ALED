@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.CourseDTO;
-import com.ALED.entities.Author;
 import com.ALED.entities.Course;
 import com.ALED.repositories.AuthorRepository;
 import com.ALED.repositories.CategoryRepository;
@@ -33,6 +32,9 @@ public class CourseService implements ICourseService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	IRateService IrateService;
 
 	@Override
 	public List<CourseDTO> readAll() {
@@ -44,6 +46,7 @@ public class CourseService implements ICourseService {
 			courseDTO.setCategory_id(course.getCategory().getId());
 			courseDTO.setAuthor_id(course.getAuthor().getId());
 			courseDTO.setUser_id(course.getUsers().getId());
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
 			lstCourseDTO.add(courseDTO);
 		}
 		return lstCourseDTO;

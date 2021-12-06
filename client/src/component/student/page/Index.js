@@ -52,7 +52,7 @@ export default function Index() {
                         <Checkout1 />
                     </Route>
 
-                    <Route path="/Course">
+                    <Route path="/Course/:id">
                         <Course />
                     </Route>
                     

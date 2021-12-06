@@ -23,6 +23,8 @@ public class CourseDTO {
 
 	private Integer user_id;
 	private String type;
+	
+	private String rate;
 
 
 }
