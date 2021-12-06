@@ -1,8 +1,10 @@
 
 import React, { useEffect, useState } from 'react'
-
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
+import { useHistory } from "react-router-dom";
+
+
 export default function EnrolledCourses() {
   const [DSkhoahocdamua, setDSkhoahocdamua] = useState([])
   const [rate, setrate] = useState({
@@ -11,8 +13,9 @@ export default function EnrolledCourses() {
     course_id: "",
     comment: ""
   })
-
+  let history = useHistory();
   let id = localStorage.getItem("userid")
+
 
   const ratingChanged = (newRating) => {
     rate.star = newRating
@@ -32,6 +35,11 @@ export default function EnrolledCourses() {
 
   ]))
 
+  function chuyentrang(value) {
+    history.replace(`/wath/video/${value.course}`)
+    window.location.reload()
+  }
+
 
   // lấy danh sách khóa học đã mua ở bảng mycourse
   // lưu đánh giá và sao vào bảng rate 
@@ -42,9 +50,10 @@ export default function EnrolledCourses() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `mycourse/2`, requestOptions)
+    fetch(`${DEFAULT_API}` + `mycourse/${id}`, requestOptions)
       .then(response => response.json())
-      .then(result => { setDSkhoahocdamua(result) })
+      .then(result => { 
+        setDSkhoahocdamua(result) })
       .catch(error => console.log('error', error));
   }
 
@@ -153,7 +162,7 @@ export default function EnrolledCourses() {
                   <td>
                     No Rating Given		</td>
                   <td>
-                    <a target="_blank" className="btn btn-info btn-sm">Course Content</a>
+                    <a target="_blank" className="btn btn-info btn-sm" onClick={()=> chuyentrang(value)} >Course Content</a>
                   </td>
                   <td>
                     <a href className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalRating1" onClick={() => layidkh(value.course)}>Give Rating</a>

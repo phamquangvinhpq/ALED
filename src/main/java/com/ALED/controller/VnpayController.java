@@ -30,6 +30,7 @@ import com.ALED.DTO.CourseDTO;
 import com.ALED.DTO.MycourseDTO;
 import com.ALED.DTO.OrderDTO;
 import com.ALED.DTO.PayDTO;
+import com.ALED.entities.Course;
 import com.ALED.enums.confvpn;
 import com.ALED.repositories.UserRepository;
 import com.ALED.service.MycourseService;
@@ -68,8 +69,11 @@ public class VnpayController {
 		vnp_Params.put("vnp_Returnurl", confvpn.vnp_Returnurl);
 
 		context.setAttribute("user_id", payDTO.getUser_id());
+		
+	context.setAttribute("course", payDTO.getCourse_id());
+	
 
-		context.setAttribute("course", payDTO.getCourse_id());
+	
 
 		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");

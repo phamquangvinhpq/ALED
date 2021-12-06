@@ -133,7 +133,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id} ` + `/1`, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${id.id}`, requestOptions)
       .then(response => response.text())
       .then(result => {
         if (result === "nobought") {
@@ -165,7 +165,7 @@ export default function Courvideo() {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/1`, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
@@ -420,7 +420,7 @@ export default function Courvideo() {
 
                       <div class="panel">
 
-                        <a href="#" onClick={() => tesst(value)} className="btn btn-light" data-toggle="collapse" data-target={`#collapsible` + index} data-parent="#myAccordion">{value.name}</a>
+                        <a href="" onClick={() => tesst(value)} className="btn btn-light" data-toggle="collapse" data-target={`#collapsible` + index} data-parent="#myAccordion">{value.name}</a>
                         <div id={`collapsible` + index} class="collapse">
                           <div className="card-body">
                             {video.map((value, index) => (
@@ -428,7 +428,7 @@ export default function Courvideo() {
                               <div className="single-course-video" >
                                 <form> <input type="checkbox"
                                 /> &nbsp;&nbsp;
-                                  <a href="#" onClick={() => getData(value)} className="button-video">
+                                  <a href="" onClick={() => getData(value)} className="button-video">
                                     <i className="fa fa-play-circle" /> {value.name}
                                   </a>
                                 </form>
