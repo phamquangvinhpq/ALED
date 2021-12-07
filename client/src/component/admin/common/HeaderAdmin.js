@@ -10,7 +10,6 @@ export default function HeaderAdmin() {
                 <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span className="sr-only">Toggle navigation</span>
                 </a>
-                <span className="fl-l lh-50 c-fff fz-18 pl_15">Admin Panel</span>
                 <div className="navbar-custom-menu">
                     <ul className="nav navbar-nav">
                         <li>
@@ -24,10 +23,10 @@ export default function HeaderAdmin() {
                             <ul className="dropdown-menu">
                                 <li className="user-footer">
                                     <div>
-                                        <a href="https://phpscriptpoint.com/cc/courseplus/admin/profile" className="btn btn-default btn-flat">Edit Profile</a>
+                                        <a  className="btn btn-default btn-flat">Edit Profile</a>
                                     </div>
                                     <div>
-                                        <a href="https://phpscriptpoint.com/cc/courseplus/admin/login/logout" className="btn btn-default btn-flat">Log out</a>
+                                        <a className="btn btn-default btn-flat">Log out</a>
                                     </div>
                                 </li>
                             </ul>

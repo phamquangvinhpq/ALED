@@ -8,7 +8,7 @@ export default function CourseCategory() {
                     <h1>View Categories</h1>
                 </div>
                 <div className="content-header-right">
-                    <a href="https://phpscriptpoint.com/cc/courseplus/admin/category/add" className="btn btn-primary btn-sm">Add New</a>
+                    <a href="/admin/addCategory" className="btn btn-primary btn-sm">Add New</a>
                 </div>
             </section>
             <section className="content">
@@ -37,7 +37,7 @@ export default function CourseCategory() {
                                             </td>
                                             <td>No</td>
                                             <td>
-                                                <a href="https://phpscriptpoint.com/cc/courseplus/admin/category/edit/1" className="btn btn-primary btn-xs">Edit</a>
+                                                <a href="/admin/editCategory" className="btn btn-primary btn-xs">Edit</a>
                                                 <a href="https://phpscriptpoint.com/cc/courseplus/admin/category/delete/1" className="btn btn-danger btn-xs" onclick="return confirm('Are you sure?');">Delete</a>
                                             </td>
                                         </tr>
