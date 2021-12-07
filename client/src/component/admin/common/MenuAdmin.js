@@ -9,14 +9,14 @@ export default function MenuAdmin() {
         <br/><br/>
           <li className="treeview active">
             <a href="/admin/Dashboard">
-              <i className="fa fa-laptop" /> <span>Dashboard</span>
+              <i className="fa fa-laptop" /> <span className="fa-laptop1">Dashboard</span>
             </a>
           </li>
           
           <li className="treeview ">
             <a href="#">
               <i className="fa fa-newspaper-o" />
-              <span>Course</span>
+              <span className="fa-newspaper-o1">Course</span>
               <span className="pull-right-container">
                 <i className="fa fa-angle-left pull-right" />
               </span>
@@ -30,7 +30,7 @@ export default function MenuAdmin() {
           <li className="treeview ">
             <a href="#">
               <i className="fa fa-user-circle-o" />
-              <span>User Section</span>
+              <span className="fa-newspaper-o1">User Section</span>
               <span className="pull-right-container">
                 <i className="fa fa-angle-left pull-right" />
               </span>
@@ -43,7 +43,7 @@ export default function MenuAdmin() {
           </li>
           <li className="treeview ">
             <a href="/admin/Payment">
-              <i className="fa fa-usd" /> <span>Payment History</span>
+              <i className="fa fa-usd" /> <span className="fa-laptop1">Payment History</span>
             </a>
           </li>
           

@@ -11,6 +11,7 @@ import PaymentHistory from './PaymentHistory';
 import PendingCourse from './PendingCourses';
 import Students from './Students';
 import Users from './Users';
+import AddCategory from "./AddCategory";
 
 export default function IndexAdmin() {
     return (
@@ -48,6 +49,14 @@ export default function IndexAdmin() {
 
                             <Route path="/admin/CourseCategory">
                                 <CourseCategory />
+                            </Route>
+
+                            <Route path="/admin/addCategory">
+                                <AddCategory />
+                            </Route>
+
+                            <Route path="/admin/editCategory">
+                                <AddCategory />
                             </Route>
 
                             <Route path="/admin/ApprovedCourses">
