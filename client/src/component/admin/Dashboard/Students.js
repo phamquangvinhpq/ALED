@@ -21,38 +21,82 @@ export default function Students() {
                     <h4 className="modal-title">Payment Details</h4>
                   </div>
                   <div className="modal-body">
-                    <h4>Course: 1</h4>
-                    <div className="rTable mb_20">
-                      <div className="rTableRow">
-                        <div className="rTableHead">Course Title</div>
-                        <div className="rTableCell">Magento 2 Essential Video
-                          Training</div>
-                      </div>
-                      <div className="rTableRow">
-                        <div className="rTableHead">Course Price</div>
-                        <div className="rTableCell">11.39</div>
-                      </div>
-                      <div className="rTableRow">
-                        <div className="rTableHead">See Course Detail</div>
-                        <div className="rTableCell">
-                          <a href="https://phpscriptpoint.com/cc/courseplus/course/magento-2-essential-video-training" target="_blank" className="btn btn-success btn-xs">Course Detail</a>
-                        </div>
-                      </div>
-                      <div className="rTableRow">
-                        <div className="rTableHead">See Course Content</div>
-                        <div className="rTableCell">
-                          <a href="https://phpscriptpoint.com/cc/courseplus/admin/course/content/25" target="_blank" className="btn btn-info btn-xs">Course Content
-                            Detail</a>
-                        </div>
-                      </div>
-                    </div>
+                    {/*<h4>Course: 1</h4>*/}
+                    {/*<div className="rTable mb_20">*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">Course Title</div>*/}
+                    {/*    <div className="rTableCell">Magento 2 Essential Video*/}
+                    {/*      Training</div>*/}
+                    {/*  </div>*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">Course Price</div>*/}
+                    {/*    <div className="rTableCell">11.39</div>*/}
+                    {/*  </div>*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">See Course Detail</div>*/}
+                    {/*    <div className="rTableCell">*/}
+                    {/*      <a href="https://phpscriptpoint.com/cc/courseplus/course/magento-2-essential-video-training" target="_blank" className="btn btn-success btn-xs">Course Detail</a>*/}
+                    {/*    </div>*/}
+                    {/*  </div>*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">See Course Content</div>*/}
+                    {/*    <div className="rTableCell">*/}
+                    {/*      <a href="https://phpscriptpoint.com/cc/courseplus/admin/course/content/25" target="_blank" className="btn btn-info btn-xs">Course Content*/}
+                    {/*        Detail</a>*/}
+                    {/*    </div>*/}
+                    {/*  </div>*/}
+                    {/*</div>*/}
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
-            </div><table id="example1" className="table table-bordered table-striped">
+            </div>
+
+            <div id="enrolledCourses2" className="modal fade" role="dialog">
+              <div className="modal-dialog w-50-p">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">×</button>
+                    <h4 className="modal-title">Payment Details</h4>
+                  </div>
+                  <div className="modal-body">
+                    {/*<h4>Course: 1</h4>*/}
+                    {/*<div className="rTable mb_20">*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">Course Title</div>*/}
+                    {/*    <div className="rTableCell">Magento 2 Essential Video*/}
+                    {/*      Training</div>*/}
+                    {/*  </div>*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">Course Price</div>*/}
+                    {/*    <div className="rTableCell">11.39</div>*/}
+                    {/*  </div>*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">See Course Detail</div>*/}
+                    {/*    <div className="rTableCell">*/}
+                    {/*      <a href="https://phpscriptpoint.com/cc/courseplus/course/magento-2-essential-video-training" target="_blank" className="btn btn-success btn-xs">Course Detail</a>*/}
+                    {/*    </div>*/}
+                    {/*  </div>*/}
+                    {/*  <div className="rTableRow">*/}
+                    {/*    <div className="rTableHead">See Course Content</div>*/}
+                    {/*    <div className="rTableCell">*/}
+                    {/*      <a href="https://phpscriptpoint.com/cc/courseplus/admin/course/content/25" target="_blank" className="btn btn-info btn-xs">Course Content*/}
+                    {/*        Detail</a>*/}
+                    {/*    </div>*/}
+                    {/*  </div>*/}
+                    {/*</div>*/}
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <table id="example1" className="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th width={50}>SL</th>
@@ -75,7 +119,7 @@ export default function Students() {
                     Active </td>
                   <td>
                     <a href className="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#enrolledCourses1">Enrolled Courses</a>
-                    <a href="https://phpscriptpoint.com/cc/courseplus/admin/student/payment/2" className="btn btn-success btn-xs btn-block" target="_blank">Payment
+                    <a data-toggle="modal" data-target="#enrolledCourses2" className="btn btn-success btn-xs btn-block" target="_blank">Payment
                       History</a>
                   </td>
                 </tr>

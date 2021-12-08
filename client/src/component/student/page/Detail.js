@@ -116,6 +116,7 @@ export default function Detail() {
   }
 
   function getcheckout(value) {
+
     history.replace(`/checkout/${value.id}`)
 
   }
@@ -140,7 +141,6 @@ export default function Detail() {
         <div className="container">
           {coursebyid.map((value, index) =>
             <div className="row">
-
               <div className="col-md-3">
                 <div className="product-single-video">
                   <div className="play_video">
@@ -187,7 +187,7 @@ export default function Detail() {
                   <div className="buy-now">
                     <a href="" className="btn btn-block btn-primary">Add to Cart</a>
                     <a href="" className="btn btn-block btn-success">View Cart</a>
-                    <a href="" className="btn btn-block btn-warning" onClick={() => getcheckout(coursebyid)}>Proceed to Checkout</a>
+                    <a href="" className="btn btn-block btn-warning" onClick={() => getcheckout(value)}>Proceed to Checkout</a>
 
                   </div>
 
