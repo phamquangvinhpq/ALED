@@ -69,15 +69,19 @@ public class CourseController {
 		return courseService.save(courseDTO);
 	}
 
+	
 	@DeleteMapping("/delete/{id}")
 	public CourseDTO delete(@PathVariable Integer id) {
 		return courseService.delete(id);
 	}
+	
 
 	@GetMapping("/{id}")
-	public CourseDTO getById(@PathVariable Integer id) {
+	public List<CourseDTO> getById(@PathVariable Integer id) {
 		return courseService.detail(id);
 	}
+	
+	
 
 	@GetMapping("user/{id}")
 	public List<CourseDTO> getByUser(@PathVariable Integer id) {

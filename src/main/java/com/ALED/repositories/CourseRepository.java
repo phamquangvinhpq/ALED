@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ALED.entities.Course;
 
-
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
@@ -27,7 +26,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query(value = "SELECT * FROM course WHERE course_name LIKE %?1%", nativeQuery = true)
 	Page<Course> findByCourseName(String courseName, Pageable pageable);
 
-	@Query(value = "SELECT * FROM course c Where c.users_id = ?1",nativeQuery = true)
-	Page<Course> pagecour(Integer usersId,Pageable pageable);
+	@Query(value = "SELECT * FROM course c Where c.users_id = ?1", nativeQuery = true)
+	Page<Course> pagecour(Integer usersId, Pageable pageable);
+
+	@Query(value = "SELECT * FROM `course` WHERE id=:id ", nativeQuery = true)
+	List<Course> timcoursbyid(@Param("id") Integer id);
 
 }
