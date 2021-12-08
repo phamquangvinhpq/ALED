@@ -2,12 +2,18 @@ package com.ALED.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ALED.entities.Role;
@@ -29,6 +35,16 @@ public class UserServiceSystem implements IUserServiceSystem {
 	
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+	
+	
+
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
+
+	@Autowired
+    public JavaMailSender emailSender;
+	
 	
 	@Override
 	public List<Users> readAll() {
@@ -99,6 +115,44 @@ public class UserServiceSystem implements IUserServiceSystem {
 		userRoleRepository.saveAll(userRoles);
 		return user;
 	}
+
+	
+	
+	
+	@Override
+	public String forgotpassword(Users users) throws MessagingException {
+		Users user = userRepository.findByEmail(users.getEmail());
+		if (user != null) {
+		      double randomDouble = Math.random();
+	            randomDouble = randomDouble * 1000000 + 1;
+	            int randomInt = (int) randomDouble;
+	           
+			String newPassword = String.valueOf(randomInt);
+			user.setPassword(passwordEncoder.encode(newPassword));
+			userRepository.save(user);
+			
+
+			 SimpleMailMessage message = new SimpleMailMessage();
+			 
+		        message.setTo(user.getEmail());
+		        message.setSubject("MẬT KHẨU MỚI CỦA BẠN");
+		        
+		        message.setText("MẬT KHẨU MỚI CỦA BẠN LÀ :"+ newPassword);
+
+		        // Send Message!
+		       emailSender.send(message);
+
+		
+			return "thành công";
+		} else {
+			return "email không tồn tại";
+
+		}
+		
+	}
+	
+	
+	
 
 	
 

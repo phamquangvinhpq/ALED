@@ -106,8 +106,10 @@ export default function HeaderStudent() {
       courseName: event.target.value,
     });
 
-    console.log(event.target.value)
+   
   }
+
+  
 
 
   let accessToken = localStorage.getItem("accessToken");
@@ -119,6 +121,11 @@ export default function HeaderStudent() {
 
   });
 
+  const [gmail, setgmail] = useState({
+    gmail: '',
+   
+  });
+
   const onInputChange = (event) => {
     const { name, value } = event.target;
     settk({
@@ -127,9 +134,27 @@ export default function HeaderStudent() {
 
     });
 
+    setgmail({
+      ...gmail,
+      [name]: value,
+    })
+
     console.log(event.target.value)
 
   }
+
+  const onInputChangeemail = (event) => {
+    const { name, value } = event.target;
+    setgmail({
+      ...gmail,
+      [name]: value,
+
+    });
+    console.log(event.target.value)
+
+  }
+
+
   let history = useHistory();
 
   function chuyentrang() {
@@ -317,6 +342,41 @@ function chuyentrangcourse() {
   history.push("/Course")
 }
 
+
+
+
+// ----------------------------------------------
+const doipassword = async () =>{
+  var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "email": gmail.gmail
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://localhost:8080/forgot-password", requestOptions)
+  .then(response => response.text())
+  .then(result => {
+    if(result=="thành công")
+    {
+      alert(result)
+      history.replace("/home")
+      window.location.reload();
+    }
+    else{
+      alert(result)
+    }
+  })
+  .catch(error => console.log('error', error));
+}
+
   return (
     <div>
       <div className="top">
@@ -410,12 +470,12 @@ function chuyentrangcourse() {
                         <h4 className="modal-title">Forget Password?</h4>
                       </div>
                       <div className="modal-body">
-                        <form action="" className method="post" acceptCharset="utf-8">
+                        <form  acceptCharset="utf-8">
                           <div className="form-group">
                             <label >Email Address</label>
-                            <input type="email" className="form-control" name="user_email" placeholder="Email Address" required />
+                            <input type="email" className="form-control"  placeholder="Email Address" name="gmail" required  onChange={onInputChange}  />
                           </div>
-                          <button type="submit" className="btn btn-primary btn-success" name="form_forget_password">Submit</button>
+                          <a onClick={doipassword} className="btn btn-primary btn-success" name="form_forget_password">Submit</a>
                         </form>
                         <p className="mt_30">
                           <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal">Go to Login Page</a>

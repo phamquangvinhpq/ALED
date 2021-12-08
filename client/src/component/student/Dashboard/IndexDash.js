@@ -23,8 +23,6 @@ export default function IndexDash() {
                     <div className="container">
                     <Menusv />
                 <Switch>
-              
-              
                     <Route  path="/student/Dashboard">
                         <Dashboard />
                     </Route>

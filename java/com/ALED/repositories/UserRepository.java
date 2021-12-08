@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ALED.entities.Users;
@@ -22,8 +23,18 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
     @Query(value = "SELECT us FROM users us WHERE (?1 IS NULL OR us.username LIKE CONCAT('%', ?1, '%')) AND us.isEnable = true AND us.status = 1")
     Page<Users> pageUsersActive(String userName, Pageable pageable);
 
+    
+    
+    
     @Modifying
     @Transactional
     @Query(value = "UPDATE users us SET us.status = 0 WHERE us.id IN ?1")
     void deleteLsUser(List<Integer> lsId);
+    
+    
+    @Query(value = "select * from users where users.email =:email", nativeQuery = true)
+	Users findByEmail(@Param("email") String email);
+    
+    
 }
+
