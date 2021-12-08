@@ -29,5 +29,21 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query(value = "SELECT * FROM course c Where c.users_id = ?1",nativeQuery = true)
 	Page<Course> pagecour(Integer usersId,Pageable pageable);
+	
+	@Query(value = "SELECT COUNT(*) FROM mycourse INNER JOIN course on mycourse.course_id = course.id INNER JOIN author on course.author_id = author.id\r\n" + 
+			"WHERE course.author_id = ?1", nativeQuery = true)
+	Integer totalStudents(Integer authorId);
+	
+	@Query(value = "SELECT COUNT(*) from course c WHERE c.author_id = ?1", nativeQuery = true)
+	Integer totalCourse(Integer authorId);
+	
+	@Query(value = "SELECT COUNT(*) FROM rate INNER JOIN course on rate.course_id = course.id INNER JOIN author on course.author_id = author.id\r\n" + 
+			"WHERE course.author_id = ?1", nativeQuery = true)
+	Integer totalRating(Integer authorId);
+	
+	@Query(value = "SELECT AVG(rate.rate) FROM rate INNER JOIN course on rate.course_id = course.id INNER JOIN author on course.author_id = author.id\r\n" + 
+			"WHERE course.author_id = ?1", nativeQuery = true)
+	float instructorRating(Integer authorId);
+	
 
 }
