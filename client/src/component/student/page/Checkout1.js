@@ -3,8 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 export default function Checkout1() {
     const [khoahoc, setkhoahoc] = useState([])
+    const [DSkhoahoc, setDSkhoahoc] = useState({
+        courseName:'',
+        price:''
+    })
   
     let id = useParams();
+    let user_id=localStorage.getItem("userid");
+
+
     useEffect(() => {
         laykhoahoc();
 
@@ -24,6 +31,13 @@ export default function Checkout1() {
             .then(result => {
                
                 setkhoahoc(result)
+               
+               {result.map((value,index)=>
+
+                setDSkhoahoc(value)
+                
+                )}
+                
                 
             })
             .catch(error => console.log('error', error));
@@ -31,15 +45,18 @@ export default function Checkout1() {
     }
 
 
+    
+
+
     const pay = async () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-            "price": khoahoc.price,
-            "description": "mua khóa học " + khoahoc.courseName,
-            "user_id": "1",
-            "course_id": khoahoc.id
+            "price": DSkhoahoc.price,
+            "description": "mua khóa học " + DSkhoahoc.courseName,
+            "user_id": user_id,
+            "course_id": DSkhoahoc.id
         });
 
         var requestOptions = {
