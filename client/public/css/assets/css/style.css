@@ -672,16 +672,7 @@ img {
           opacity: .9; }
 
 .main-header {
-  padding: 20px 0;
-  background-image: linear-gradient(-90deg, #0DA692, #6c5ce7);
-}
-.logo-lg{
-  color: #bee5eb;
-}
-.lh-50{
-  color: #bee5eb;
-  margin-top: 50px;
-}
+  padding: 20px 0; }
   .main-header .header-logo img {
     width: auto;
     height: auto; }
@@ -4616,23 +4607,3 @@ img {
   max-width: 600px;
   height: auto;
   margin: auto; }
-.main-sidebar{
-  background-image: linear-gradient(-90deg, #0DA692, #6c5ce7);
-}
-.fa-laptop1{
-  font-weight: bold;
-  color:#bce8f1;
-}
-.fa-newspaper-o1{
-  font-weight: bold;
-  color:#bce8f1;
-}
-
-.sidebar-toggle{
-  color:#bce8f1;
-}
-
-.w-150{
-  height: 150px;
-  width: 150px;
-}
