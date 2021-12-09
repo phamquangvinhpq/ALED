@@ -45,9 +45,6 @@ export default function Checkout1() {
     }
 
 
-    
-
-
     const pay = async () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");

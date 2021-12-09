@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.LessionDTO;
+import com.ALED.entities.Lession;
 import com.ALED.service.FileService;
 import com.ALED.service.LessionService;
 
@@ -82,6 +83,12 @@ public class LessionController {
 	@GetMapping("/find-all-by-section")
 	public List<LessionDTO> findBySection(@RequestParam(name = "sectionId", required = false) Integer sectionId) {
 		return lessionService.findAllBySection(sectionId);
+	}
+	
+	
+	@PutMapping("/updateStaus")
+	public Lession updateStaus(@RequestBody Lession les) {
+		return lessionService.updatestatus(les);
 	}
 	
 	

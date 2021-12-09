@@ -37,10 +37,15 @@ export default function Routers() {
                         }}  >   
                         </Route>
 
+                        <Route path='/wath' >
+                        <Indexwath />
+                    </Route>
+
                     <Route path='/' >
                         <Indexstudent />
                     </Route>
                     
+
 
                 </Switch>
 

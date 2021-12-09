@@ -227,7 +227,6 @@ export default function HeaderStudent() {
 
   const [users, setusers] = useState({
     username: '',
-    password: '',
     email: '',
     name: '',
     roles: '',
@@ -260,7 +259,6 @@ export default function HeaderStudent() {
 
     var raw = JSON.stringify({
       "username": users.username,
-      "password": users.password,
       "address": " ",
       "email": users.email,
       "image": " ",
@@ -283,10 +281,18 @@ export default function HeaderStudent() {
     };
 
     fetch(`${DEFAULT_API}` + "auth/register", requestOptions)
-      .then(response => response.text())
+      .then(response => response.json())
       .then(result => {
-        console.log(result)
-        chuyentrang();
+        console.log(result);
+        if(result.loicode == -1)
+        {
+          alert("email  đã tồn tại")
+        }
+        else{
+          alert("kiểm tra email để lấy mật khẩu")
+          chuyentrang();
+        }
+       
       })
       .catch(error => console.log('error', error));
   }
@@ -444,10 +450,6 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                           <div className="form-group">
                             <label >User Name</label>
                             <input type="text" className="form-control"  name="username" onChange={onInputChangedangki} placeholder="Full Name" required />
-                          </div>
-                          <div className="form-group">
-                            <label >Password</label>
-                            <input type="password" className="form-control"  name="password" onChange={onInputChangedangki}  placeholder="password" required />
                           </div>
                           </div>
                           

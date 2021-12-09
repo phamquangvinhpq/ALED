@@ -13,6 +13,8 @@ export default function Courvideo() {
   const [video, setvideo] = useState([]);
   const [status, setStatus] = useState(0);
   const [sectionId, setSectionId] = useState(-1);
+  const [checked, setChecked] = useState(false);
+
 
   const [lession, setLession] = useState({
 
@@ -40,7 +42,7 @@ export default function Courvideo() {
   const deleteNoteClick = value => {
     console.log(value)
     deleteNote(value)
-    
+
   }
 
   const deleteNote = (value) => {
@@ -48,11 +50,11 @@ export default function Courvideo() {
       method: 'DELETE',
       redirect: 'follow'
     };
-    
+
     fetch("http://localhost:8080/note/" + value, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
-      .then(setStatus(status+1))
+      .then(setStatus(status + 1))
       .catch(error => console.log('error', error));
   }
 
@@ -76,7 +78,7 @@ export default function Courvideo() {
     fetch("http://localhost:8080/note", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
-      .then(setStatus(status+1))
+      .then(setStatus(status + 1))
       .catch((error) => console.log("error", error));
   };
 
@@ -85,12 +87,12 @@ export default function Courvideo() {
       method: 'GET',
       redirect: 'follow'
     };
-    
+
     fetch("http://localhost:8080/note?users_id=" + user_id + "&lession_id=" + lessionId, requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      setListNote(result);
-    })
+      .then((response) => response.json())
+      .then((result) => {
+        setListNote(result);
+      })
       .catch(error => console.log('error', error));
   }
 
@@ -115,7 +117,6 @@ export default function Courvideo() {
     )
       .then((response) => response.json())
       .then((result) => {
-
         console.log(result);
         setvideo(result);
 
@@ -146,8 +147,9 @@ export default function Courvideo() {
 
   const getData = (value) => {
     lession.linkVideo = value.linkVideo;
-    setStatus(status + 1)
+
     setLesssionId(value.id)
+    setStatus(status + 1)
   }
 
   const tesst = (value) => {
@@ -155,7 +157,38 @@ export default function Courvideo() {
     getLessionBySection();
     setStatus(status + 1)
 
+
   }
+
+
+
+
+  const updateStatus = async (value) => {
+    console.log(value.status);
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
+
+    // var raw = JSON.stringify({
+    //   "id": value.id,
+    //   "status": "1"
+    // });
+
+    // var requestOptions = {
+    //   method: 'PUT',
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: 'follow'
+    // };
+
+    // fetch("http://localhost:8080/lession/updateStaus", requestOptions)
+    //   .then(response => response.text())
+    //   .then(result =>{})
+    //   .catch(error => console.log('error', error));
+  }
+
+
+
+
 
   const loaddanhmuc = async () => {
     var myHeaders = new Headers();
@@ -168,7 +201,6 @@ export default function Courvideo() {
     fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setListSection(result);
       })
       .catch((error) => console.log("error", error));
@@ -184,7 +216,7 @@ export default function Courvideo() {
               <div className="col-lg-8">
                 <div className="header-left">
                   <div className="header-logo">
-                    <a href="index-2.html"><img src="assets/images/logo-both-color.png" alt="logo" /></a>
+                    <a ><img src="assets/images/logo-both-color.png" alt="logo" /></a>
                   </div>
                   <div className="header-title">
                     <h5>WordPress Development Beginner to Pro</h5>
@@ -193,8 +225,8 @@ export default function Courvideo() {
               </div>
               <div className="col-lg-4">
                 <div className="header-backend-buttons">
-                  <a href="#" className="template-button">leave a rating</a>
-                  <a href="#" className="template-button-2">share</a>
+                  <a className="template-button">leave a rating</a>
+                  <a className="template-button-2">share</a>
                 </div>
               </div>
             </div>
@@ -326,7 +358,7 @@ export default function Courvideo() {
                         <div className="content-bottom">
                           <h6>john doe</h6>
                           <span>5 min ago</span>
-                          <span><a href="#"><i className="fa fa-comments" /> 10 comments</a></span>
+                          <span><a  ><i className="fa fa-comments" /> 10 comments</a></span>
                         </div>
                       </div>
                     </div>
@@ -340,7 +372,7 @@ export default function Courvideo() {
                         <div className="content-bottom">
                           <h6>john doe</h6>
                           <span>5 min ago</span>
-                          <span><a href="#"><i className="fa fa-comments" /> 10 comments</a></span>
+                          <span><a  ><i className="fa fa-comments" /> 10 comments</a></span>
                         </div>
                       </div>
                     </div>
@@ -354,7 +386,7 @@ export default function Courvideo() {
                         <div className="content-bottom">
                           <h6>john doe</h6>
                           <span>5 min ago</span>
-                          <span><a href="#"><i className="fa fa-comments" /> 10 comments</a></span>
+                          <span><a  ><i className="fa fa-comments" /> 10 comments</a></span>
                         </div>
                       </div>
                     </div>
@@ -368,7 +400,7 @@ export default function Courvideo() {
                         <div className="content-bottom">
                           <h6>john doe</h6>
                           <span>5 min ago</span>
-                          <span><a href="#"><i className="fa fa-comments" /> 10 comments</a></span>
+                          <span><a  ><i className="fa fa-comments" /> 10 comments</a></span>
                         </div>
                       </div>
                     </div>
@@ -417,18 +449,21 @@ export default function Courvideo() {
                   <div class="accordion" id="myAccordion">
 
                     {listSection.map((value, index) =>
-
                       <div class="panel">
 
-                        <a href="" onClick={() => tesst(value)} className="btn btn-light" data-toggle="collapse" data-target={`#collapsible` + index} data-parent="#myAccordion">{value.name}</a>
+                        <a onClick={() => tesst(value)} className="btn btn-light" data-toggle="collapse" data-target={`#collapsible` + index} data-parent="#myAccordion">{value.name}</a>
                         <div id={`collapsible` + index} class="collapse">
                           <div className="card-body">
                             {video.map((value, index) => (
 
                               <div className="single-course-video" >
-                                <form> <input type="checkbox"
-                                /> &nbsp;&nbsp;
-                                  <a href="" onClick={() => getData(value)} className="button-video">
+                                <form>
+                                  <a onClick={() => getData(value)} className="btn btn-light">
+                                    <input type="checkbox"
+                                    
+                                      defaultChecked={checked}
+                                      
+                                    />   &nbsp;&nbsp;
                                     <i className="fa fa-play-circle" /> {value.name}
                                   </a>
                                 </form>
@@ -466,7 +501,7 @@ export default function Courvideo() {
                   <input onChange={(e) => changeNote(e)} type="text" placeholder="Create New Note" />
                   <a onClick={() => addNoteClick()} className="btn btn-primary" ><i class="fa fa-plus"></i></a>
                 </form>
-                {listNote.map((value, index) => 
+                {listNote.map((value, index) =>
                   <div>
                     <p key={index}>{value.note}</p>
                     <i onClick={() => deleteNoteClick(value.id)} class="fa fa-trash"></i>
@@ -496,8 +531,8 @@ export default function Courvideo() {
                 <h2>enhance your skills with <span>best online course</span></h2>
               </div>
               <div className="cta-button">
-                <a href="#" className="template-button margin-right-20">start teaching</a>
-                <a href="#" className="template-button-2">start learning</a>
+                <a className="template-button margin-right-20">start teaching</a>
+                <a className="template-button-2">start learning</a>
               </div>
             </div>
             <div className="col-xl-4 offset-xl-2 col-lg-6">

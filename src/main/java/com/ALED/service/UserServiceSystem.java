@@ -97,13 +97,20 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users create(Users user) {
-	    userRepository.save(user);	
+		
+		double randomDouble = Math.random();
+        randomDouble = randomDouble * 1000000 + 1;
+        int randomInt = (int) randomDouble;
+       
+	String newPassword = String.valueOf(randomInt);
+	user.setPassword(passwordEncoder.encode(newPassword));
+	
+	    userRepository.save(user);
+	    
 		// save user role
 		List<Role> inputRole = user.getRoles();
-		
 		List<UserRole> userRoles = inputRole.stream().map(e -> {
 			UserRole userRole = new UserRole();
-			
 			Optional<Role> optional = roleRepository.findById(e.getId());
 			if(optional.isPresent()) {
 				userRole.setRole(optional.get());
@@ -112,12 +119,23 @@ public class UserServiceSystem implements IUserServiceSystem {
 			return userRole; 
 		}).collect(Collectors.toList());
 		
+		
 		userRoleRepository.saveAll(userRoles);
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		 
+        message.setTo(user.getEmail());
+        message.setSubject(" ĐĂNG KÝ TÀI KHOẢN ALED");
+        
+        message.setText("MẬT KHẨU  CỦA BẠN LÀ :"+ newPassword);
+
+        // Send Message!
+       emailSender.send(message);
+       
+       
 		return user;
 	}
 
-	
-	
 	
 	@Override
 	public String forgotpassword(Users users) throws MessagingException {
