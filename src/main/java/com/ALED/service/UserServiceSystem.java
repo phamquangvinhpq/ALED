@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,8 +41,12 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users update(Users user) {
-		Optional<Users> optional = userRepository.findById(user.getId());
-		if (optional.isPresent()) {
+//		Optional<Users> optional = userRepository.findById(user.getId());
+		Users entity = userRepository.getById(user.getId());
+		if (entity != null) {
+			user.setPassword(entity.getPassword());
+			user.setUsername(entity.getUsername());
+			user.setEmail(entity.getEmail());
 			userRepository.save(user);
 		}
 		return user;
@@ -59,9 +64,9 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users detail(Integer id) {
-		Optional<Users> optional = userRepository.findById(id);
+//		Optional<Users> optional = userRepository.findById(id);
 
-		return optional.get();
+		return userRepository.getById(id);
 	}
 
 	@Override

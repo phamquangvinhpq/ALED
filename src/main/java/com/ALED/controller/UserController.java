@@ -33,7 +33,7 @@ public class UserController {
 		return userService.readAll();
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')  or  hasRole('ROLE_MANAGER')  ")
+//	@PreAuthorize("hasRole('ROLE_ADMIN')  or  hasRole('ROLE_MANAGER')  ")
 	@PutMapping("/user")
 	public Users update(@RequestBody Users vo) {
 		return userService.update(vo);

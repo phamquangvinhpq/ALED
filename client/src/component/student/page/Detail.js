@@ -17,15 +17,38 @@ export default function Detail() {
   const [coursebyid, setcoursebyid] = useState([]);
   let history = useHistory();
   let id = useParams();
+
+  const [infoTeacher, setInfoTeacher] = useState(Object);
+  const [rating, setRating] = useState();
+
   useEffect(() => {
     avgKH();
     countKH();
     loaddanhmuc();
     getCoursebyid();
     getLessionBySection();
-
-
   }, [status])
+
+
+  // useEffect(() => {
+  //   loadInfoTeacher();
+  // },[loadrating])
+
+  const loadInfoTeacher = (authorId) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/teacheroverview?author_id=${authorId}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setInfoTeacher(result);
+        setRating(result.instructorRating);
+        setRating(result.instructorRating);
+      })
+      .catch(error => console.log('error', error));
+  };
 
 
   const countKH = async () => {
@@ -110,7 +133,8 @@ export default function Detail() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        setcoursebyid(result)
+        setcoursebyid(result);
+        loadInfoTeacher(result.author_id)
       })
       .catch(error => console.log('error', error));
   }
@@ -302,19 +326,30 @@ export default function Detail() {
                 <div className="profile_content">
                   <p className="card_text">
                   </p><div className="review">
-                    <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star-half-o" /> (<span>4.33</span>)
+                    <span>
+                      <ReactStars
+                        edit={false}
+                        value={rating}
+                        size={24}
+                        isHalf={true}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                      />
+                    </span>
+                    </div>
+                  <div className="text-muted">
+                    <i className="fa fa-star" /> Instructor Rating {infoTeacher.instructorRating}
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-star" /> Instructor Rating 4.33
+                    <i className="fa fa-play-circle" /> Total Courses: {infoTeacher.totalCourse}
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-play-circle" /> Total Courses: 6
+                    <i className="fa fa-comment" /> Total Rating: {infoTeacher.totalRating}
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-comment" /> Total Rating: 5
-                  </div>
-                  <div className="text-muted">
-                    <i className="fa fa-user" /> Total Students: 9
+                    <i className="fa fa-user" /> Total Students: {infoTeacher.totalStudents}
                   </div>
                   <p />
                 </div>
