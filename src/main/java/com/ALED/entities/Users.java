@@ -12,6 +12,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
 @Data
@@ -40,27 +43,11 @@ public class Users  {
 
 	@OneToMany(mappedBy="users")
 	private List<Cart> carts;
-//
-//	//bi-directional one-to-one association to Note
-//	@OneToOne(mappedBy="user")
-//	private Note note;
-//
-//	//bi-directional many-to-one association to Order
-//	@OneToMany(mappedBy="user")
-//	private List<Order> orders;
-//
-//	//bi-directional many-to-one association to Rate
-//	@OneToMany(mappedBy="user")
-//	private List<Rate> rates;
-//
-//	//bi-directional many-to-one association to UserCourse
-//	@OneToMany(mappedBy="user")
-//	private List<UserCourse> userCourses;
-
 
     private Boolean isEnable;
    
     private Integer status;
+    
     
     
     @ManyToMany
@@ -70,16 +57,15 @@ public class Users  {
 			inverseJoinColumns = @JoinColumn(name = "roleId")
 			)
     private List<Role> roles;
-    
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<UserRole> userRole;
     
-    @OneToMany(mappedBy="user")
-	private List<Mycourse> mycourses;
-    
-
-    @OneToMany(mappedBy = "users")
-    private List<Course> usCourses;
+//    @OneToMany(mappedBy="user")
+//	private List<Mycourse> mycourses;
+//    
+//
+//    @OneToMany(mappedBy = "users")
+//    private List<Course> usCourses;
    
 
     public static enum Status {

@@ -42,46 +42,42 @@ public class CourseController {
 	}
 
 	@PutMapping("/edit")
-	public CourseDTO edit(@RequestBody @RequestParam("file") MultipartFile file, CourseDTO courseDTO)
+	public CourseDTO edit(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
 			throws IOException {
 		if (file.getContentType() != null) {
 			courseDTO.setImage(
-
-					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file)
-					);
-
+					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
 
 			courseDTO.setType(file.getContentType());
+		}else {
+			courseDTO.setImage(courseDTO.getImage());
+			courseDTO.setType("image/jpeg");
 		}
-		
+
 		return courseService.update(courseDTO);
 	}
 
 	@PostMapping("/save")
-	public CourseDTO save(@RequestBody @RequestParam("file") MultipartFile file, CourseDTO courseDTO)
+	public CourseDTO save(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
 			throws IOException {
 		if (file.getContentType() != null) {
 			courseDTO.setImage(
 					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
 			courseDTO.setType(file.getContentType());
 		}
-		
+
 		return courseService.save(courseDTO);
 	}
 
-	
 	@DeleteMapping("/delete/{id}")
 	public CourseDTO delete(@PathVariable Integer id) {
 		return courseService.delete(id);
 	}
-	
 
 	@GetMapping("/{id}")
 	public List<CourseDTO> getById(@PathVariable Integer id) {
 		return courseService.detail(id);
 	}
-	
-	
 
 	@GetMapping("user/{id}")
 	public List<CourseDTO> getByUser(@PathVariable Integer id) {
@@ -93,12 +89,13 @@ public class CourseController {
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
 		return courseService.getAllByName(courseName, page, size);
 	}
-	
+
 	@GetMapping("get-all-by-page")
-	public List<CourseDTO> getAllByNameAndUser(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+	public List<CourseDTO> getAllByNameAndUser(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "3") int size) {
 		return courseService.getAll(page, size);
 	}
-	
+
 	@GetMapping("get-all-by-category")
 	public List<CourseDTO> getAllByCategory(@RequestParam(required = false) Integer categoryId,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
@@ -106,7 +103,8 @@ public class CourseController {
 	}
 
 	@GetMapping("get-all-by-user")
-	public List<CourseDTO> getAllByPage(@RequestParam(required = false) Integer usersId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){
-		return courseService.findpage(usersId,page, size);
+	public List<CourseDTO> getAllByPage(@RequestParam(required = false) Integer usersId,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+		return courseService.findpage(usersId, page, size);
 	}
 }

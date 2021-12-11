@@ -16,14 +16,14 @@ export default function UpdateKH() {
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
-    console.log(selectedFile);
+    BaiGiang.image=URL.createObjectURL(event.target.files[0])
+
   };
 
   const [danhmuc, setdanhmuc] = useState([]);
 
   const [selectedDanhMuc, setSelectedDanhMuc] = useState(-1);
   const [isEnable, setIsEnable] = useState(0);
-  const [formdata, setformdata] = useState([])
   const [BaiGiang, setBaiGiang] = useState({
     courseName: "",
     price: "",
@@ -33,6 +33,8 @@ export default function UpdateKH() {
     category_id: "",
     author_id: ""
   })
+
+
 
   const [data, setdata] = useState({
     courseName: "",
@@ -48,8 +50,7 @@ export default function UpdateKH() {
 
     loadCategory();
     dulieusua();
-
-
+   
   }, [
 
   ])
@@ -64,23 +65,25 @@ export default function UpdateKH() {
     });
     console.log(event.target.value)
   }
+
   let id = useParams();
-  let user_id=localStorage.getItem("userid")
+  let user_id = localStorage.getItem("userid")
 
 
-  const updateCourse = () => {
+  const updateCourse = (event) => {
 
     var myHeaders = new Headers();
     var formdata = new FormData();
     formdata.append("id", id.id);
     formdata.append("courseName", BaiGiang.courseName);
     formdata.append("price", BaiGiang.price);
-    formdata.append("file", selectedFile);
+    formdata.append("file", event.files[0]);
     formdata.append("description", BaiGiang.description);
     formdata.append("status", "1");
     formdata.append("category_id", selectedDanhMuc);
     formdata.append("user_id", user_id);
     formdata.append("author_id", "1");
+    formdata.append("image", "hello");
     var requestOptions = {
       method: 'PUT',
       headers: myHeaders,
@@ -98,6 +101,7 @@ export default function UpdateKH() {
       .catch(error => console.log('error', error));
   }
 
+
   const dulieusua = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -111,20 +115,25 @@ export default function UpdateKH() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log("đã dến");
-        console.log(result);
+   
         setdata(result);
-        setBaiGiang(result);
+        {result.map((value,index)=>{
+          setBaiGiang(value)
+        })}
         
+  
 
       })
       .catch(error => console.log('error', error));
   }
 
+
   const onChangeDanhMuc = (event) => {
     setSelectedDanhMuc(event.target.value);
     console.log(event.target.value);
   };
+
+
 
   const loadCategory = async () => {
 
@@ -139,7 +148,7 @@ export default function UpdateKH() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` +"category/", requestOptions)
+    fetch(`${DEFAULT_API}` + "category/", requestOptions)
       .then(response => response.json())
       .then(result => {
         setdanhmuc(result)
@@ -147,6 +156,8 @@ export default function UpdateKH() {
       })
       .catch(error => console.log('error', error));
   }
+
+
 
   // const layid = (value) => {
   //   setgiatriID(value.id)
@@ -162,73 +173,83 @@ export default function UpdateKH() {
           <div className="tab-pane active" id="tab_info">
             <div className="box box-info pt_0">
               <div className="box-body">
-                <form className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
-                  <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Course Title *</label>
-                    <div className="col-sm-9">
+               
+                  <form className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Course Title *</label>
+                      <div className="col-sm-9">
 
-                      <input type="text" name="courseName" className="form-control" onChange={onInputChange} value={BaiGiang.courseName} />
+                        <input type="text" name="courseName" className="form-control" onChange={onInputChange} value={BaiGiang.courseName} />
 
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Course Price</label>
-                    <div className="col-sm-9">
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Course Price</label>
+                      <div className="col-sm-9">
 
-                      <input type="text" name="price" className="form-control" onChange={onInputChange} value={BaiGiang.price} />
+                        <input type="text" name="price" className="form-control" onChange={onInputChange} value={BaiGiang.price} />
 
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Description
-                      *</label>
-                    <div className="col-sm-9">
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Description
+                        *</label>
+                      <div className="col-sm-9">
 
-                      <input className="form-control h-120" name="description" value={BaiGiang.description} onChange={onInputChange} />
+                        <input className="form-control h-120" name="description" value={BaiGiang.description} onChange={onInputChange} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Featured Photo *</label>
-                    <div className="col-sm-6 pt_5">
-                      <input type="file" name="image" onChange={changeHandler} />
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Featured Photo *</label>
+                      <div className="col-sm-6 pt_5">
+                        <input  type="file" name="image"  onChange={changeHandler} accept="image/*" />
+                      </div>
                     </div>
-                  </div>
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">          </label>
+                      <div className="col-sm-9">
 
-                  <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Status *</label>
-                    <div className="col-sm-9">
-
-                      <input className="form-control editor" name="status" value={BaiGiang.status} onChange={onInputChange} />
-
+                      <img src={BaiGiang.image} className="w-100" />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Selece Category *</label>
-                    <div className="col-sm-6">
-                      <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                        <option>-- Chọn danh mục --</option>
+                    
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Status *</label>
+                      <div className="col-sm-9">
 
-                        {danhmuc.map((value, index) => {
-                          return (
-                            <option value={value.id} key={index}>
-                              {value.name}
-                            </option>
-                          );
-                        })}
-                      </select>
+                        <input className="form-control editor" name="status" value={BaiGiang.status} onChange={onInputChange} />
+
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="form-group">
-                    <div className="col-sm-offset-3 col-sm-9">
-                      <button type="button" className="btn btn-success pull-left c-button" onClick={
-                        (event) => {
-                          chuyentrang(event)
-                        }} name="form1">Update</button>
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Selece Category *</label>
+                      <div className="col-sm-6">
+                        <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
+                          <option>-- Chọn danh mục --</option>
+
+                          {danhmuc.map((value, index) => {
+                            return (
+                              <option value={value.id} key={index}>
+                                {value.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                </form>
+
+                    <div className="form-group">
+                      <div className="col-sm-offset-3 col-sm-9">
+                        <button type="button" className="btn btn-success pull-left c-button" onClick={
+                          (event) => {
+                            chuyentrang(event)
+                          }} name="form1">Update</button>
+                      </div>
+                    </div>
+                  </form>
+            
               </div>
             </div>
           </div>
