@@ -18,7 +18,7 @@ public interface SectionRepository extends JpaRepository<Section, Integer> {
 	 List<Section> timcour(@Param("id") Integer id);
 	 
 		
-		@Query(value = "SELECT * FROM favorite WHERE user_id=:user_id AND course_id =:course_id",nativeQuery = true)
+		@Query(value = "SELECT * FROM mycourse WHERE user_id=:user_id AND course_id =:course_id",nativeQuery = true)
 		String finbykhoahoc(@Param("user_id") Integer user_id,
 				@Param("course_id") Integer course_id);
 }

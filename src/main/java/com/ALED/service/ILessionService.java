@@ -3,6 +3,7 @@ package com.ALED.service;
 import java.util.List;
 
 import com.ALED.DTO.LessionDTO;
+import com.ALED.entities.Lession;
 
 public interface ILessionService {
 
@@ -19,5 +20,8 @@ public interface ILessionService {
 	public List<LessionDTO> findpage(Integer pageno, Integer pagesize);
 
 	public List<LessionDTO> findAllBySection(Integer sectionId);
+	
+	public Lession updatestatus(Lession lession);
+
 
 }

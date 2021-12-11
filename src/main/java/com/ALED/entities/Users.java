@@ -27,6 +27,7 @@ public class Users  {
     private String username;
     private String address;
 
+    @Column(name = "email", unique = true, length = 20)
 	private String email;
 
 	private String image;

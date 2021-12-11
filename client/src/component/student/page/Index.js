@@ -16,6 +16,8 @@ import Course from './Course';
 import Checkout1 from './Checkout1';
 
 export default function Index() {
+    let role =localStorage.getItem("role");
+
     return (
         <div>
              <BrowserRouter History={History}>
@@ -25,35 +27,27 @@ export default function Index() {
                         <Homestd />
                     </Route>
 
-                    <Route path="/ListCourse">
-                        <ListCourse />
-                    </Route>
+
                     <Route path="/Detail/:id">
                         <Detail />
                     </Route>
                     <Route path="/Viewdetail/:id">
                         <ViewDetail />
                     </Route>
-                    <Route path="/MyCourse">
-                        <MyCourse />
-                    </Route>
-                    <Route path="/Signup">
-                        <Signup />
-                    </Route>
 
-                    <Route path="/courvideo">
-                        <Courvideo />
-                    </Route>
                     
                     <Route path="/Cart">
                         <Cart />
                     </Route>
-                    <Route path="/Checkout/:id">
-                        <Checkout1 />
-                    </Route>
+               
 
                     <Route path="/Course/:id">
                         <Course />
+                    </Route>
+
+                    <Route path='/Checkout/:id' render={() => {
+                        return role == null ? alert("vui lòng đăng nhập")  :  <Checkout1 /> 
+                    }}  >
                     </Route>
                     
                 </Switch>

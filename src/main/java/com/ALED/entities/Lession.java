@@ -35,6 +35,7 @@ public class Lession implements Serializable {
 	
 	private String type;
 
+	private int status;
 	//bi-directional many-to-one association to Section
 	@ManyToOne
 	@JoinColumn(name = "section_id")

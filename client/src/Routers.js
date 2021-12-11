@@ -24,22 +24,28 @@ export default function Routers() {
                         }}  >   
                         </Route>
                    
-                    <Route path='/student' >
-                        <IndexDash />
-                    </Route>
+                  
 
-                    <Route path='/wath' >
+                    <Route path='/student' render={() =>{
+                            return  role == null  ? <Redirect to="/home" />   : <IndexDash /> 
+                        }}  >   
+                        </Route>
+
+
+                        <Route path='/admin' render={() =>{
+                            return  role === "ROLE_ADMIN"  ?  <IndexAdmin /> : <Redirect to="/home" />
+                        }}  >   
+                        </Route>
+
+                        <Route path='/wath' >
                         <Indexwath />
-                    </Route>
-
-                    <Route path='/admin' >
-                        <IndexAdmin />
                     </Route>
 
                     <Route path='/' >
                         <Indexstudent />
                     </Route>
                     
+
 
                 </Switch>
 

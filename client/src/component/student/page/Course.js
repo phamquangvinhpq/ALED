@@ -13,7 +13,7 @@ export default function Course() {
   const [totalCount, setTotalCount] = useState(0)
   let param = useParams();
   let pagesize = 6
-console.log(BaiGiang);
+
   useEffect(() => {
 
     loadBaiGiang();
@@ -80,7 +80,6 @@ console.log(BaiGiang);
       <div className="row align-items-center">
         <div className="col-md-6">
           <div className="course-tab">
-            
             <ul>
               <li className="active" data-filter="*"><h3>All courses</h3></li>
             </ul>
@@ -91,7 +90,6 @@ console.log(BaiGiang);
     </div>
     <div className="row grid" >
       {BaiGiang.map((value,index) =>
-       
        <div className="col-lg-4 col-sm-6 grid-item collection" key={index}>
             <div className="course-single-item" >
             <div className="course-image">

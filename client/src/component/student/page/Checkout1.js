@@ -3,8 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 export default function Checkout1() {
     const [khoahoc, setkhoahoc] = useState([])
+    const [DSkhoahoc, setDSkhoahoc] = useState({
+        courseName:'',
+        price:''
+    })
   
     let id = useParams();
+    let user_id=localStorage.getItem("userid");
+
+
     useEffect(() => {
         laykhoahoc();
 
@@ -22,7 +29,15 @@ export default function Checkout1() {
         fetch(`http://localhost:8080/course/${id.id}`, requestOptions)
             .then(response => response.json())
             .then(result => {
+               
                 setkhoahoc(result)
+               
+               {result.map((value,index)=>
+
+                setDSkhoahoc(value)
+                
+                )}
+                
                 
             })
             .catch(error => console.log('error', error));
@@ -35,10 +50,10 @@ export default function Checkout1() {
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-            "price": khoahoc.price,
-            "description": "mua khóa học " + khoahoc.courseName,
-            "user_id": "1",
-            "course_id": khoahoc.id
+            "price": DSkhoahoc.price,
+            "description": "mua khóa học " + DSkhoahoc.courseName,
+            "user_id": user_id,
+            "course_id": DSkhoahoc.id
         });
 
         var requestOptions = {
@@ -89,25 +104,27 @@ export default function Checkout1() {
                                             <th>Price</th>
                                         </tr>
                                     </thead>
+                                    {khoahoc.map((value,index) =>
                                     <tbody>
 
 
                                         <tr>
                                             <td>1</td>
                                             <td>
-                                                <img src={khoahoc.image} className="w-100" />
+                                                <img src={value.image} className="w-100" />
                                             </td>
-                                            <td>{khoahoc.courseName}</td>
-                                            <td>{khoahoc.price}</td>
+                                            <td>{value.courseName}</td>
+                                            <td>{value.price}</td>
                                         </tr>
 
                                         <tr>
                                             <td colSpan={3} className="tot tar">Total: </td>
-                                            <td colSpan={2} className="tot">{khoahoc.price}</td>
+                                            <td colSpan={2} className="tot">{value.price}</td>
                                         </tr>
 
 
                                     </tbody>
+                                     )}
                                 </table>
                             </div>
                             <div className="text-right">

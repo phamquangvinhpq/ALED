@@ -2,13 +2,18 @@ package com.ALED.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ALED.entities.Role;
@@ -31,6 +36,16 @@ public class UserServiceSystem implements IUserServiceSystem {
 	@Autowired
 	private UserRoleRepository userRoleRepository;
 	
+	
+
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
+
+	@Autowired
+    public JavaMailSender emailSender;
+	
+	
 	@Override
 	public List<Users> readAll() {
 
@@ -41,12 +56,8 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users update(Users user) {
-//		Optional<Users> optional = userRepository.findById(user.getId());
-		Users entity = userRepository.getById(user.getId());
-		if (entity != null) {
-			user.setPassword(entity.getPassword());
-			user.setUsername(entity.getUsername());
-			user.setEmail(entity.getEmail());
+		Optional<Users> optional = userRepository.findById(user.getId());
+		if (optional.isPresent()) {
 			userRepository.save(user);
 		}
 		return user;
@@ -64,9 +75,9 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users detail(Integer id) {
-//		Optional<Users> optional = userRepository.findById(id);
+		Optional<Users> optional = userRepository.findById(id);
 
-		return userRepository.getById(id);
+		return optional.get();
 	}
 
 	@Override
@@ -86,13 +97,20 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users create(Users user) {
-	    userRepository.save(user);	
+		
+		double randomDouble = Math.random();
+        randomDouble = randomDouble * 1000000 + 1;
+        int randomInt = (int) randomDouble;
+       
+	String newPassword = String.valueOf(randomInt);
+	user.setPassword(passwordEncoder.encode(newPassword));
+	
+	    userRepository.save(user);
+	    
 		// save user role
 		List<Role> inputRole = user.getRoles();
-		
 		List<UserRole> userRoles = inputRole.stream().map(e -> {
 			UserRole userRole = new UserRole();
-			
 			Optional<Role> optional = roleRepository.findById(e.getId());
 			if(optional.isPresent()) {
 				userRole.setRole(optional.get());
@@ -101,9 +119,58 @@ public class UserServiceSystem implements IUserServiceSystem {
 			return userRole; 
 		}).collect(Collectors.toList());
 		
+		
 		userRoleRepository.saveAll(userRoles);
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		 
+        message.setTo(user.getEmail());
+        message.setSubject(" ĐĂNG KÝ TÀI KHOẢN ALED");
+        
+        message.setText("MẬT KHẨU  CỦA BẠN LÀ :"+ newPassword);
+
+        // Send Message!
+       emailSender.send(message);
+       
+       
 		return user;
 	}
+
+	
+	@Override
+	public String forgotpassword(Users users) throws MessagingException {
+		Users user = userRepository.findByEmail(users.getEmail());
+		if (user != null) {
+		      double randomDouble = Math.random();
+	            randomDouble = randomDouble * 1000000 + 1;
+	            int randomInt = (int) randomDouble;
+	           
+			String newPassword = String.valueOf(randomInt);
+			user.setPassword(passwordEncoder.encode(newPassword));
+			userRepository.save(user);
+			
+
+			 SimpleMailMessage message = new SimpleMailMessage();
+			 
+		        message.setTo(user.getEmail());
+		        message.setSubject("MẬT KHẨU MỚI CỦA BẠN");
+		        
+		        message.setText("MẬT KHẨU MỚI CỦA BẠN LÀ :"+ newPassword);
+
+		        // Send Message!
+		       emailSender.send(message);
+
+		
+			return "thành công";
+		} else {
+			return "email không tồn tại";
+
+		}
+		
+	}
+	
+	
+	
 
 	
 
