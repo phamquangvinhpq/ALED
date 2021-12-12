@@ -38,11 +38,7 @@ export default function Index() {
                     <Route path="/Checkout/:id">
                         <Checkout1 />
                     </Route>
-                    <Route path="/Cart">
-                        <Cart />
-                    </Route>
-               
-
+                   
                     <Route path="/Course/:id">
                         <Course />
                     </Route>
