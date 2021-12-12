@@ -42,6 +42,11 @@ export default function Menusv() {
                                 </NavLink>
                             </li>
                             <li className>
+                                <NavLink to="/student/PaymentHistory">
+                                    Payment history
+                                </NavLink>
+                            </li>
+                            <li className>
                                 <NavLink to="/student/favorite">
                                     Favorite
                                 </NavLink>

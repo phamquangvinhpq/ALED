@@ -11,7 +11,6 @@ import Home from './Homestd';
 import Detail from './Detail';
 import ViewDetail from './ViewDetail';
 import Signup from './Signup';
-import Cart from './Cart';
 import Course from './Course';
 import Checkout1 from './Checkout1';
 
@@ -36,6 +35,9 @@ export default function Index() {
                     </Route>
 
                     
+                    <Route path="/Checkout/:id">
+                        <Checkout1 />
+                    </Route>
                     <Route path="/Cart">
                         <Cart />
                     </Route>
