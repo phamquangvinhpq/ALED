@@ -35,7 +35,7 @@ export default function Instructors() {
                                             <td>
                                                 Active </td>
                                             <td>
-                                                <a href="https://phpscriptpoint.com/cc/courseplus/admin/instructor/show-courses/8" className="btn btn-success btn-xs btn-block" target="_blank">Show
+                                                <a href="#" className="btn btn-success btn-xs btn-block" target="_blank">Show
                                                     Courses</a>
                                             </td>
                                         </tr>

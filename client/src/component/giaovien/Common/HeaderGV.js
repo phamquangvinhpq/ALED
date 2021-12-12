@@ -50,7 +50,7 @@ export default function HeaderGV() {
           <a href="index-2.html"><img src="assets/images/logo-both-color.png" alt="logo" /></a>
         </div>
         <ul>
-          <li className="have-submenu"><a href="   ">home</a>
+          <li className="have-submenu"><a href="#">home</a>
             <ul className="sub-menu">
               <li><a href="index-2.html">home 01</a></li>
               <li><a href="home-2.html">home 02</a></li>

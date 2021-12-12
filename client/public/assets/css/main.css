@@ -250,7 +250,7 @@ img.top-bar-photo {
 
 .menu-area {
     background: #6c5ce7;
-    background-image: linear-gradient(-90deg, #0DA692, #6c5ce7);
+    background-image: linear-gradient(-90deg, #28a745, #28a745);
 }
 
 .menu {
@@ -2965,5 +2965,36 @@ table.front-end-course-table .btn-danger {
 .lang-right-top, .lang-right-top select {
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
+}
+.rTable {
+    display: table;
+    width: 100%;
+    border: 1px solid #999999;
+}
+.rTableRow {
+    display: table-row;
+}
+.rTableHeading {
+    display: table-header-group;
+    background-color: #ddd;
+}
+.rTableHead {width: 30%;}
+.rTableCell, .rTableHead {
+    display: table-cell;
+    padding: 3px 10px;
+    border: 1px solid #999999;
+}
+.rTableHeading {
+    display: table-header-group;
+    background-color: #ddd;
+    font-weight: bold;
+}
+.rTableFoot {
+    display: table-footer-group;
+    font-weight: bold;
+    background-color: #ddd;
+}
+.rTableBody {
+    display: table-row-group;
 }
 

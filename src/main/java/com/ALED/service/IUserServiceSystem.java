@@ -25,5 +25,6 @@ public interface IUserServiceSystem {
 	public Users searchUser(String keyword);
 	
 	public String forgotpassword(Users user) throws MessagingException;
+	
 
 }

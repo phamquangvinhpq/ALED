@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 export default function HeaderAdmin() {
     return (
         <header className="main-header">
-            <a href="https://phpscriptpoint.com/cc/courseplus/admin/dashboard" className="logo">
+            <a className="logo">
                 <span className="logo-lg">CoursePlus</span>
             </a>
             <nav className="navbar navbar-static-top">
@@ -13,7 +13,7 @@ export default function HeaderAdmin() {
                 <div className="navbar-custom-menu">
                     <ul className="nav navbar-nav">
                         <li>
-                            <a href="https://phpscriptpoint.com/cc/courseplus/" target="_blank">Visit Website</a>
+                            <a target="_blank">Visit Website</a>
                         </li>
                         <li className="dropdown user user-menu">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">

@@ -150,7 +150,7 @@ export default function Detail() {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>Shopping Cart</h1>
+              <h1>Detail</h1>
               <h3>
                 <a href="../index.html">Home</a>
                 <i className="fa fa-angle-right" />

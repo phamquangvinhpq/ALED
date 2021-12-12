@@ -128,7 +128,7 @@ export default function Checkout1() {
                                 </table>
                             </div>
                             <div className="text-right">
-                                <a href="https://phpscriptpoint.com/cc/courseplus/cart/view" className="btn btn-success">Back to Cart Page</a>
+                                <a  className="btn btn-success">Back to Cart Page</a>
                             </div>
                             <div className="text-right">
                                 <a className="btn btn-success" onClick={pay}>thanh toán ngay </a>

@@ -12,6 +12,7 @@ import PendingCourse from './PendingCourses';
 import Students from './Students';
 import Users from './Users';
 import AddCategory from "./AddCategory";
+import AddUser from './AddUser';
 
 export default function IndexAdmin() {
     return (
@@ -29,6 +30,10 @@ export default function IndexAdmin() {
 
                             <Route path="/admin/users">
                                 <Users />
+                            </Route>
+
+                            <Route path="/admin/adduser">
+                                <AddUser />
                             </Route>
 
                             <Route path="/admin/Students">
