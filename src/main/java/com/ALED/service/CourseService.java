@@ -71,6 +71,7 @@ public class CourseService implements ICourseService {
 		if (optional.isPresent()) {
 			Course course = optional.get();
 			BeanUtils.copyProperties(author, course);
+
 			course.setCategory(categoryRepository.getById(author.getCategory_id()));
 			
 			courseRepository.save(course);
