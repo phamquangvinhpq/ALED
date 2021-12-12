@@ -24,6 +24,11 @@
             $(".category-drawer").removeClass("active");
         });
 
+        $('.menuvalue').on('click', function(){
+            var id =$(this).text();
+            console.log(id);
+        });
+
         // MouseHover Animation
         var hoverLayer = $(".hero-section");
 		var heroImgOne = $(".hero-small-image-1");

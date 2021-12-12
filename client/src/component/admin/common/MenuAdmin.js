@@ -13,6 +13,7 @@ export default function MenuAdmin() {
             </a>
           </li>
 
+          <li className="treeview ">
           <li className="treeview">
             <a href="#">
               <i className="fa fa-newspaper-o" />
@@ -22,6 +23,21 @@ export default function MenuAdmin() {
               </span>
             </a>
             <ul className="treeview-menu">
+              <li > 
+                <NavLink to="/admin/CourseCategory">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Course Category</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/ApprovedCourses">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Approved Courses</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/PendingCourse">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Courses</span>
+                </NavLink>
+              </li>
               <li > <NavLink to="/admin/CourseCategory">
                 <i className="fa fa-circle-o"  /> <span className="fa-laptop1">Course Category</span> 
               </NavLink></li>
@@ -39,9 +55,21 @@ export default function MenuAdmin() {
               </span>
             </a>
             <ul className="treeview-menu">
-              <li><a href="/admin/users"><i className="fa fa-circle-o" />Users</a></li>
-              <li><a href="/admin/Students"><i className="fa fa-circle-o" />Students</a></li>
-              <li><a href="/admin/Instructors"><i className="fa fa-circle-o" />Instructors</a></li>
+            <li > 
+                <NavLink to="/admin/users">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Users</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/Students">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Students</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/Instructors">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Instructors</span>
+                </NavLink>
+              </li>
             </ul>
           </li>
           <li className="treeview ">

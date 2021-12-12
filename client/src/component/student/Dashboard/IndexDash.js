@@ -10,6 +10,7 @@ import ListCourse from './EditProfile';
 
 import Not404 from './Not404';
 import Favorite from '../page/Favorite';
+import PaymentHistory from './PaymentHistory';
 
 
 
@@ -34,6 +35,9 @@ export default function IndexDash() {
                     </Route>
                     <Route  path="/student/EnrolledCourses">
                         <EnrolledCourses />
+                    </Route>
+                    <Route  path="/student/PaymentHistory">
+                        <PaymentHistory />
                     </Route>
                     <Route  path="/student/favorite">
                         <Favorite />

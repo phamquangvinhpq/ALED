@@ -8,6 +8,9 @@ export default function Users() {
                 <div className="content-header-left">
                     <h1>View Users (Students / Instructors)</h1>
                 </div>
+                <div className="content-header-right">
+                    <a href="/admin/adduser" className="btn btn-primary btn-sm">Add New</a>
+                </div>
             </section>
             <section className="content">
                 <div className="row">
