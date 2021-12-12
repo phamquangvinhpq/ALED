@@ -56,12 +56,19 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users update(Users user) {
-		Optional<Users> optional = userRepository.findById(user.getId());
-		if (optional.isPresent()) {
+		Users entity = userRepository.getById(user.getId());
+		if (entity != null) {
+			user.setPassword(entity.getPassword());
+			user.setUsername(entity.getUsername());
+			user.setEmail(entity.getEmail());
+			user.setStatus(entity.getStatus());
+			user.setIsEnable(entity.getIsEnable());
+			user.setRoles(entity.getRoles());
 			userRepository.save(user);
 		}
 		return user;
 	}
+
 
 	@Override
 	public Users delete(Integer id) {

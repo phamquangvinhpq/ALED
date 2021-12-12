@@ -48,7 +48,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	
 	@Query(value = "SELECT AVG(rate.rate) FROM rate INNER JOIN course on rate.course_id = course.id INNER JOIN author on course.author_id = author.id\r\n" + 
 			"WHERE course.author_id = ?1", nativeQuery = true)
-	float instructorRating(Integer authorId);
+	String instructorRating(Integer authorId);
 
 
 }
