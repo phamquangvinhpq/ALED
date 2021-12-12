@@ -70,14 +70,17 @@ export default function UpdateKH() {
   let user_id = localStorage.getItem("userid")
 
 
-  const updateCourse = () => {
+  const updateCourse = (e) => {
 
     var myHeaders = new Headers();
     var formdata = new FormData();
     formdata.append("id", id.id);
     formdata.append("courseName", BaiGiang.courseName);
     formdata.append("price", BaiGiang.price);
-    formdata.append("file","");
+   
+      formdata.append("file",selectedFile);
+    
+    
     formdata.append("description", BaiGiang.description);
     formdata.append("status", "1");
     formdata.append("category_id", selectedDanhMuc);

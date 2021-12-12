@@ -21,7 +21,7 @@ export default function Detail() {
 
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [rating, setRating] = useState();
-  const result = Object.values(infoTeacher);
+  
 
 
   useEffect(() => {
@@ -30,6 +30,7 @@ export default function Detail() {
     getCoursebyid();
     getLessionBySection();
     loaduserrate();
+    
 
   }, [status])
 
@@ -82,12 +83,12 @@ export default function Detail() {
   };
 
 
+
   const loaduserrate = async () => {
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
-
     fetch(`${DEFAULT_API}` + `rate/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => { setuserrate(result) })
@@ -130,7 +131,6 @@ export default function Detail() {
       .catch(error => console.log('error', error));
   }
 
-
   const tesst = (value) => {
     setSectionId(value.id)
     getLessionBySection();
@@ -140,6 +140,12 @@ export default function Detail() {
   function getcheckout(value) {
 
     history.replace(`/checkout/${value.id}`)
+
+  }
+
+    function viewDetail(value) {
+
+    history.replace(`/Viewdetail/1`)
 
   }
 
@@ -367,7 +373,7 @@ export default function Detail() {
                 <br />
                 Copiosae
               </div>
-              <div className="author-detail-button mt_30"><a href="ViewDetail" className="btn btn-success btn-lg">View Detail</a>
+              <div className="author-detail-button mt_30"><a href="" onClick={viewDetail} className="btn btn-success btn-lg">View Detail</a>
               </div>
             </div>
           </div>

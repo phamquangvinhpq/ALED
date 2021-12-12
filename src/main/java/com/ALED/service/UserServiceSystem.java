@@ -135,6 +135,7 @@ public class UserServiceSystem implements IUserServiceSystem {
         message.setSubject(" ĐĂNG KÝ TÀI KHOẢN ALED");
         
         message.setText("MẬT KHẨU  CỦA BẠN LÀ :"+ newPassword);
+       
 
         // Send Message!
        emailSender.send(message);

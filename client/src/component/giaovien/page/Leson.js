@@ -95,6 +95,7 @@ export default function Leson() {
       .then(response => response.text())
       .then((result) => {
         console.log("đã gọi api");
+        setStatus(status+1)
         console.log(result)
       })
       .catch(error => console.log('error', error)
