@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-// import useState from 'react-usestateref'
+import React, { useEffect } from 'react'
+import useState from 'react-usestateref'
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
 import { Link, useParams } from 'react-router-dom'
@@ -18,55 +18,14 @@ export default function Detail() {
   const [userrate, setuserrate] = useState([]);
   let history = useHistory();
   let id = useParams();
-
-  const [infoTeacher, setInfoTeacher] = useState(Object);
-<<<<<<< Updated upstream
-  const [rating, setRating] = useState();
-=======
-
->>>>>>> Stashed changes
-
   useEffect(() => {
     countKH();
     loaddanhmuc();
     getCoursebyid();
     getLessionBySection();
+    loaduserrate();
+
   }, [status])
-
-  const loadInfoTeacher = (authorId) => {
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-    
-    fetch(`http://localhost:8080/teacheroverview?author_id=${authorId}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        setInfoTeacher(result);
-      })
-      .catch(error => console.log('error', error));
-  };
-
-
-  // useEffect(() => {
-  //   loadInfoTeacher();
-  // },[loadrating])
-
-  const loadInfoTeacher = (authorId) => {
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-    
-    fetch(`http://localhost:8080/teacheroverview?author_id=${authorId}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        setInfoTeacher(result);
-        setRating(result.instructorRating);
-        setRating(result.instructorRating);
-      })
-      .catch(error => console.log('error', error));
-  };
 
 
   const countKH = async () => {
@@ -144,13 +103,7 @@ export default function Detail() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-<<<<<<< Updated upstream
-        setcoursebyid(result);
-        loadInfoTeacher(result.author_id)
-=======
         setcoursebyid(result)
-        loadInfoTeacher(result[0].author_id)
->>>>>>> Stashed changes
       })
       .catch(error => console.log('error', error));
   }
@@ -351,34 +304,19 @@ export default function Detail() {
                 <div className="profile_content">
                   <p className="card_text">
                   </p><div className="review">
-                    <span>
-                      <ReactStars
-                        edit={false}
-<<<<<<< Updated upstream
-                        value={rating}
-=======
-                        value={infoTeacher.instructorRating}
->>>>>>> Stashed changes
-                        size={24}
-                        isHalf={true}
-                        emptyIcon={<i className="far fa-star"></i>}
-                        halfIcon={<i className="fa fa-star-half-alt"></i>}
-                        fullIcon={<i className="fa fa-star"></i>}
-                        activeColor="#ffd700"
-                      />
-                    </span>
-                    </div>
-                  <div className="text-muted">
-                    <i className="fa fa-star" /> Instructor Rating {infoTeacher.instructorRating}
+                    <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star-half-o" /> (<span>4.33</span>)
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-play-circle" /> Total Courses: {infoTeacher.totalCourse}
+                    <i className="fa fa-star" /> Instructor Rating 4.33
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-comment" /> Total Rating: {infoTeacher.totalRating}
+                    <i className="fa fa-play-circle" /> Total Courses: 6
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-user" /> Total Students: {infoTeacher.totalStudents}
+                    <i className="fa fa-comment" /> Total Rating: 5
+                  </div>
+                  <div className="text-muted">
+                    <i className="fa fa-user" /> Total Students: 9
                   </div>
                   <p />
                 </div>
@@ -394,7 +332,7 @@ export default function Detail() {
                 <br />
                 Copiosae
               </div>
-              <div className="author-detail-button mt_30"><a href="ViewDetail" className="btn btn-success btn-lg">View Detail</a>
+              <div className="author-detail-button mt_30"><a href=""  className="btn btn-success btn-lg">View Detail</a>
               </div>
             </div>
           </div>
