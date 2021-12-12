@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import useState from 'react-usestateref'
+import React, { useEffect, useState } from 'react'
+// import useState from 'react-usestateref'
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
 import { Link, useParams } from 'react-router-dom'
@@ -20,7 +20,11 @@ export default function Detail() {
   let id = useParams();
 
   const [infoTeacher, setInfoTeacher] = useState(Object);
+<<<<<<< Updated upstream
   const [rating, setRating] = useState();
+=======
+
+>>>>>>> Stashed changes
 
   useEffect(() => {
     countKH();
@@ -28,6 +32,20 @@ export default function Detail() {
     getCoursebyid();
     getLessionBySection();
   }, [status])
+
+  const loadInfoTeacher = (authorId) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/teacheroverview?author_id=${authorId}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setInfoTeacher(result);
+      })
+      .catch(error => console.log('error', error));
+  };
 
 
   // useEffect(() => {
@@ -126,8 +144,13 @@ export default function Detail() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+<<<<<<< Updated upstream
         setcoursebyid(result);
         loadInfoTeacher(result.author_id)
+=======
+        setcoursebyid(result)
+        loadInfoTeacher(result[0].author_id)
+>>>>>>> Stashed changes
       })
       .catch(error => console.log('error', error));
   }
@@ -331,7 +354,11 @@ export default function Detail() {
                     <span>
                       <ReactStars
                         edit={false}
+<<<<<<< Updated upstream
                         value={rating}
+=======
+                        value={infoTeacher.instructorRating}
+>>>>>>> Stashed changes
                         size={24}
                         isHalf={true}
                         emptyIcon={<i className="far fa-star"></i>}
@@ -367,7 +394,7 @@ export default function Detail() {
                 <br />
                 Copiosae
               </div>
-              <div className="author-detail-button mt_30"><a href=""  className="btn btn-success btn-lg">View Detail</a>
+              <div className="author-detail-button mt_30"><a href="ViewDetail" className="btn btn-success btn-lg">View Detail</a>
               </div>
             </div>
           </div>
