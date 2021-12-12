@@ -40,11 +40,11 @@ export default function ApprovedCourses() {
                                             <td>
                                                 David Beckham </td>
                                             <td>
-                                                <a href="https://phpscriptpoint.com/cc/courseplus/course/build-an-ecommerce-website-with-wordpress" className="btn btn-success btn-block btn-xs" target="_blank">See Course
+                                                <a href="#" className="btn btn-success btn-block btn-xs" target="_blank">See Course
                                                     Details</a>
-                                                <a href="https://phpscriptpoint.com/cc/courseplus/admin/course/content/30" className="btn btn-info btn-block btn-xs" target="_blank">See Course
+                                                <a href="#" className="btn btn-info btn-block btn-xs" target="_blank">See Course
                                                     Content Details</a>
-                                                <a href="https://phpscriptpoint.com/cc/courseplus/admin/course/make-pending/30" className="btn btn-danger btn-block btn-xs" onclick="return confirm('Are you sure want to make this course pending?');">Make
+                                                <a href="#s" className="btn btn-danger btn-block btn-xs" onclick="return confirm('Are you sure want to make this course pending?');">Make
                                                     this pending</a>
                                             </td>
                                         </tr>

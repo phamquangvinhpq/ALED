@@ -6,13 +6,13 @@ export default function MenuAdmin() {
     <aside className="main-sidebar">
       <section className="sidebar">
         <ul className="sidebar-menu">
-        <br/><br/>
+          <br /><br />
           <li className="treeview active">
             <a href="/admin/Dashboard">
               <i className="fa fa-laptop" /> <span className="fa-laptop1">Dashboard</span>
             </a>
           </li>
-          
+
           <li className="treeview ">
             <a href="#">
               <i className="fa fa-newspaper-o" />
@@ -22,9 +22,21 @@ export default function MenuAdmin() {
               </span>
             </a>
             <ul className="treeview-menu">
-              <li><a href="/admin/CourseCategory"><i className="fa fa-circle-o" />Course Category</a></li>
-              <li><a href="/admin/ApprovedCourses"><i className="fa fa-circle-o" />Approved Courses</a></li>
-              <li><a href="/admin/PendingCourse"><i className="fa fa-circle-o" />Pending Courses</a></li>
+              <li > 
+                <NavLink to="/admin/CourseCategory">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Course Category</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/ApprovedCourses">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Approved Courses</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/PendingCourse">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Courses</span>
+                </NavLink>
+              </li>
             </ul>
           </li>
           <li className="treeview ">
@@ -36,9 +48,21 @@ export default function MenuAdmin() {
               </span>
             </a>
             <ul className="treeview-menu">
-              <li><a href="/admin/users"><i className="fa fa-circle-o" />Users</a></li>
-              <li><a href="/admin/Students"><i className="fa fa-circle-o" />Students</a></li>
-              <li><a href="/admin/Instructors"><i className="fa fa-circle-o" />Instructors</a></li>
+            <li > 
+                <NavLink to="/admin/users">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Users</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/Students">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Students</span>
+                </NavLink>
+              </li>
+              <li > 
+                <NavLink to="/admin/Instructors">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Instructors</span>
+                </NavLink>
+              </li>
             </ul>
           </li>
           <li className="treeview ">
@@ -46,7 +70,7 @@ export default function MenuAdmin() {
               <i className="fa fa-usd" /> <span className="fa-laptop1">Payment History</span>
             </a>
           </li>
-          
+
         </ul>
       </section>
     </aside>

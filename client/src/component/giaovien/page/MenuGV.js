@@ -3,10 +3,9 @@ import { NavLink } from "react-router-dom";
 
 export default function MenuGV() {
 
-    
+
     return (
         <div>
-         
             <div>
                 <div className="page-banner bg-6c5ce7 pt_20 pb_20">
                     <div className="page-banner-bg" />
@@ -19,40 +18,39 @@ export default function MenuGV() {
                     </div>
                 </div>
 
-
                 <div className="col-md-3">
                     <div className="customer-sidebar">
                         <ul>
-                            <li className>
+                            <li className="menuvalue">
                                 <NavLink to="/giangvien/Dashboard">
                                     Dashboard
                                 </NavLink>
                             </li>
-                            <li className>
-                              <NavLink to="/giangvien/AddCourse">
-                                    Add Course			
-                                    </NavLink>
+                            <li className="menuvalue">
+                                <NavLink to="/giangvien/AddCourse">
+                                    Add Course
+                                </NavLink>
                             </li>
-                            <li className>
-                            <NavLink to="/giangvien/AllCourses">
-                                    All Courses		
-                                    </NavLink>	
+                            <li className="menuvalue">
+                                <NavLink to="/giangvien/AllCourses">
+                                    All Courses
+                                </NavLink>
                             </li>
-                            <li className>
-                            <NavLink to="/giangvien/AddCourse">
-                                    Withdraw History	
-                                    </NavLink>	
+                            <li className="menuvalue">
+                                <NavLink to="/giangvien/AddCourse">
+                                    Withdraw History
+                                </NavLink>
                             </li>
-                            <li className>
+                            <li className="menuvalue">
                                 <a href="">
-                                    Withdraw Money			</a>
+                                    Withdraw Money	
+                                </a>
                             </li>
                         </ul>
-                    </div>			</div>
-
+                    </div>			
+                </div>
             </div>
         </div>
-
 
     )
 }

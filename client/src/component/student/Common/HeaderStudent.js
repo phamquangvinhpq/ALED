@@ -44,7 +44,7 @@ export default function HeaderStudent() {
   }
 
   const onChangeDanhMuc = (event) => {
-    history.push("/Course/"+event.target.value)
+    history.push("/Course")
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
     console.log(event.target.value);
@@ -273,7 +273,7 @@ export default function HeaderStudent() {
 
   const quyenhuongdan = () => {
     setquyen(2)
-    settrangthai(0)
+    settrangthai()
   }
 
     const qlgiangvien = () =>{
@@ -317,6 +317,8 @@ function chuyentrangcourse() {
   history.push("/Course")
 }
 
+
+
   return (
     <div>
       <div className="top">
@@ -325,9 +327,9 @@ function chuyentrangcourse() {
             <div className="col-md-5 col-sm-5">
               <div className="top-left">
                 <ul>
-                  <li><a href="mailto:contact@yourwebsite.com"><i className="fa fa-envelope-o" />
-                    contact@yourwebsite.com</a></li>
-                  <li><a href="tel:contact@yourwebsite.com"><i className="fa fa-phone" /> 123-456-3257</a></li>
+                  <li><a href="mailto:aled@yourwebsite.com"><i className="fa fa-envelope-o" />
+                     aled@yourwebsite.com</a></li>
+                  <li><a href="tel:contact@yourwebsite.com"><i className="fa fa-phone" />  0869324951</a></li>
                 </ul>
               </div>
             </div>
@@ -339,14 +341,6 @@ function chuyentrangcourse() {
                     </a></li>}
                   {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
                   {role == null ? <li><a href="#" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="#" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
-                  <li className="lang-right-top">
-                    <i className="fa fa-language" />
-                    <select onchange="javascript:window.location.href='https://phpscriptpoint.com/cc/courseplus/LanguageSwitcher/switchLang/'+this.value;">
-                      <option value="english">English</option>
-                      <option value="bangla">Bangla</option>
-                      <option value="spanish">Spanish</option>
-                    </select>
-                  </li>
                 </ul>
 
                 <div className="modal fade" id="join_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -438,7 +432,7 @@ function chuyentrangcourse() {
           <div className="row">
             <div className="col-md-4 col-sm-3">
               <div className="logo">
-                <a href="index.html"><img src="https://phpscriptpoint.com/cc/courseplus/public/uploads/logo.png" alt="logo" /></a>
+                <a href="index.html"><img src="http://localhost:3000/logo1.jpg" alt="logo" /></a>
               </div>
             </div>
             <div className="col-md-8 col-sm-9">
@@ -514,61 +508,25 @@ function chuyentrangcourse() {
           <nav>
             <ul id="menu">
               <li><a  onClick={chuyentranglogin} href="">Home</a></li>
-              <li><a href="https://phpscriptpoint.com/cc/courseplus/about">About</a></li>
+              <li><a>About</a></li>
               <li className="static"><a href="javascript:void;">All Courses <i className="fa fa-angle-down" /></a>
                 <div className="mega-menu mega-full">
                   <ul>
                     <li className="mega-title"><a href="javascript:void;">Ecommerce</a></li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/magento">Magento</a>
+                    <li><a>Magento</a>
                     </li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/shopify">Shopify</a>
+                    <li><a >Shopify</a>
                     </li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/woocommerce">WooCommerce</a>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li className="mega-title"><a href="javascript:void;">Software Testing</a></li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/api-testing">API
-                        Testing</a></li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/automation-testing">Automation
-                        Testing</a></li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/selenium-testing">Selenium
-                        Testing</a></li>
-                  </ul>
-                  <ul>
-                    <li className="mega-title"><a href="javascript:void;">Web Design</a></li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/css">CSS</a>
-                    </li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/html5">HTML
-                        5</a></li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/photoshop">Photoshop</a>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li className="mega-title"><a href="javascript:void;">Web Development</a></li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/django">Django</a>
-                    </li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/php">PHP</a>
-                    </li>
-                    <li><a href="https://phpscriptpoint.com/cc/courseplus/category/wordpress">WordPress</a>
+                    <li><a>WooCommerce</a>
                     </li>
                   </ul>
                 </div>
               </li>
-              <li><a href="https://phpscriptpoint.com/cc/courseplus/faq">FAQ</a></li>
-              <li><a href="https://phpscriptpoint.com/cc/courseplus/contact">Contact</a></li>
+              <li><a>FAQ</a></li>
+              <li><a>Contact</a></li>
             </ul>
           </nav>
         </div>
-      </div>
-      <div className="col-md-3 cart-menu">
-        <ul className="nav navbar-nav navbar-right">
-          <li className="dropdown">
-            <a onClick={chuyentrangcart}  role="button" aria-expanded="false"> <span className="fa fa-gift bigicon" />
-              Items in Cart: {totalCart} <span className="caret" />
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
   </div>
