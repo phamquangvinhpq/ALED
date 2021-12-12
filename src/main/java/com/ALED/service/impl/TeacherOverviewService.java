@@ -1,5 +1,8 @@
 package com.ALED.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +21,15 @@ public class TeacherOverviewService implements ITeacherOverviewService{
 	
 
 	@Override
-	public TeacherOverviewDTO getInfo(Integer authorId) {
+	public List<TeacherOverviewDTO> getInfo(Integer authorId) {
+		List<TeacherOverviewDTO> listDTO = new ArrayList<TeacherOverviewDTO>();
 		TeacherOverviewDTO dto = new TeacherOverviewDTO();
 		dto.setTotalCourse(courseRepository.totalCourse(authorId));
 		dto.setTotalRating(courseRepository.totalRating(authorId));
 		dto.setInstructorRating(courseRepository.instructorRating(authorId));
 		dto.setTotalStudents(courseRepository.totalStudents(authorId));
-		return dto;
+		listDTO.add(dto);
+		return listDTO;
 	}
 
 }

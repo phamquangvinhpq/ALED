@@ -1,7 +1,9 @@
 package com.ALED.service;
 
+import java.util.List;
+
 import com.ALED.DTO.TeacherOverviewDTO;
 
 public interface ITeacherOverviewService {
-	TeacherOverviewDTO getInfo(Integer courseId);
+	List<TeacherOverviewDTO> getInfo(Integer courseId);
 }
