@@ -14,6 +14,7 @@ export default function MenuAdmin() {
           </li>
 
           <li className="treeview ">
+          <li className="treeview">
             <a href="#">
               <i className="fa fa-newspaper-o" />
               <span className="fa-newspaper-o1">Course</span>
@@ -37,8 +38,14 @@ export default function MenuAdmin() {
                   <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Courses</span>
                 </NavLink>
               </li>
+              <li > <NavLink to="/admin/CourseCategory">
+                <i className="fa fa-circle-o"  /> <span className="fa-laptop1">Course Category</span> 
+              </NavLink></li>
+              <li><a href="/admin/ApprovedCourses"><i className="fa fa-circle-o" /> <span className="fa-laptop1">Approved Courses</span></a></li>
+              <li><a href="/admin/PendingCourse"><i className="fa fa-circle-o" />Pending Courses</a></li>
             </ul>
           </li>
+          
           <li className="treeview ">
             <a href="#">
               <i className="fa fa-user-circle-o" />

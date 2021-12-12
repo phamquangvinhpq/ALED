@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.DTO.RateDTO;
+import com.ALED.DTO.UserRateDTO;
 import com.ALED.service.RateService;
 
 @RestController
@@ -18,7 +19,7 @@ public class RateController {
 	private RateService rateService;
 	
 	@GetMapping("/rate/{id}")
-	public List<RateDTO> rate(@PathVariable Integer id) {
+	public List<UserRateDTO> rate(@PathVariable Integer id) {
 		return rateService.detailcour(id);
 	}
 	

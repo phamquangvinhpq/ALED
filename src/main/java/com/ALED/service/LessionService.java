@@ -101,6 +101,7 @@ public class LessionService implements ILessionService {
 		}
 		return lessionDTO;
 	}
+	
 
 	@Override
 	public List<LessionDTO> findAllBySection(Integer sectionId) {
@@ -113,6 +114,20 @@ public class LessionService implements ILessionService {
 			lessionDTOs.add(lessionDTO);
 		}
 		return lessionDTOs;
+	}
+
+
+
+	@Override
+	public Lession updatestatus(Lession lession) {
+	Lession Lessions = lessionRepository.findByyid(lession.getId());
+	
+		if (Lessions != null) {
+			Lessions.setStatus(lession.getStatus());
+			lessionRepository.save(Lessions);
+		}
+		
+		return lession;
 	}
 
 }

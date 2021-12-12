@@ -30,6 +30,7 @@ import com.ALED.DTO.CourseDTO;
 import com.ALED.DTO.MycourseDTO;
 import com.ALED.DTO.OrderDTO;
 import com.ALED.DTO.PayDTO;
+import com.ALED.entities.Course;
 import com.ALED.enums.confvpn;
 import com.ALED.repositories.UserRepository;
 import com.ALED.service.MycourseService;

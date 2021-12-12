@@ -72,6 +72,7 @@ public class CourseService implements ICourseService {
 			Course course = optional.get();
 			BeanUtils.copyProperties(author, course);
 			course.setCategory(categoryRepository.getById(author.getCategory_id()));
+			
 			courseRepository.save(course);
 		}
 		return author;
@@ -90,17 +91,21 @@ public class CourseService implements ICourseService {
 	}
 
 	@Override
-	public CourseDTO detail(Integer id) {
-		CourseDTO courseDTO = new CourseDTO();
-		Optional<Course> optional = courseRepository.findById(id);
-		if (optional.isPresent()) {
-			Course course = optional.get();
+	public List<CourseDTO> detail(Integer id) {
+		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
+		List<Course> optional = courseRepository.timcoursbyid(id);
+		
+		for (Course course : optional) {
+			CourseDTO courseDTO = new CourseDTO();
 			BeanUtils.copyProperties(course, courseDTO);
 			courseDTO.setCategory_id(course.getCategory().getId());
 			courseDTO.setAuthor_id(course.getAuthor().getId());
 			courseDTO.setUser_id(course.getUsers().getId());
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			lstCourseDTO.add(courseDTO);
 		}
-		return courseDTO;
+		return lstCourseDTO;
+		
 	}
 
 	

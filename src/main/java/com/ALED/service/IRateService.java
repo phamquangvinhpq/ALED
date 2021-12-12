@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ALED.DTO.RateDTO;
 import com.ALED.DTO.SectionDTO;
+import com.ALED.DTO.UserRateDTO;
 
 
 
@@ -16,8 +17,7 @@ public interface IRateService {
 	public RateDTO save(RateDTO rateDTO);
 	
 	
-	public List<RateDTO> detailcour(Integer id);
-	
+	public List<UserRateDTO> detailcour(Integer id);
 	
 	public String avgstar(Integer id);
 

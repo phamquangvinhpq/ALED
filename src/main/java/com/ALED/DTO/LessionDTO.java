@@ -17,6 +17,9 @@ public class LessionDTO implements Serializable {
 	private String type;
 	
 	private int section_id;
+	
+	private int status;
+	
 
 
 }

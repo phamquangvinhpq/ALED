@@ -20,6 +20,7 @@ export default function HeaderAdmin() {
                                 <img src="https://phpscriptpoint.com/cc/courseplus/public/uploads/user-1.jpg" className="user-image" alt="user photo" />
                                 <span className="hidden-xs" />
                             </a>
+                            
                             <ul className="dropdown-menu">
                                 <li className="user-footer">
                                     <div>

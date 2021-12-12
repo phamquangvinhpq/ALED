@@ -13,8 +13,7 @@ export default function Indexwath() {
              <BrowserRouter History={History}>
                
                 <Switch>
-                    <Route  path="/wath/video/:id"
-                     >   
+                    <Route  path="/wath/video/:id" >   
                         <Courvideo />
                     </Route>
                     <Route  path="/">   

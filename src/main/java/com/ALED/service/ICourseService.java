@@ -16,7 +16,7 @@ public interface ICourseService {
 
 	CourseDTO delete(Integer id);
 
-	CourseDTO detail(Integer id);
+	List<CourseDTO> detail(Integer id);
 
 	List<CourseDTO> findpage(Integer userId,int page, int size);
 

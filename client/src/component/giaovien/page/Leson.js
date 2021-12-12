@@ -42,20 +42,20 @@ export default function Leson() {
     jquer();
   }, [status]);
 
-
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
-  };
-  
 
-  const getLessionBySection = async() => {
-   
+  };
+
+
+  const getLessionBySection = async () => {
+
     var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
     fetch(
-      `${DEFAULT_API}` +"lession/find-all-by-section?sectionId=" + sectionId,requestOptions
+      `${DEFAULT_API}` + "lession/find-all-by-section?sectionId=" + sectionId, requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
@@ -64,10 +64,10 @@ export default function Leson() {
       .catch((error) => console.log("error", error));
   };
 
-  const tesst= (value) => { 
+  const tesst = (value) => {
     setSectionId(value.id)
-    getLessionBySection(); 
-    setStatus(status+1)
+    getLessionBySection();
+    setStatus(status + 1)
 
 
   }
@@ -77,7 +77,7 @@ export default function Leson() {
   const updateLession = () => {
     var formdata = new FormData();
     formdata.append("id", giatriID);
-    formdata.append("file" , selectedFile);
+    formdata.append("file", selectedFile);
     formdata.append("name", lession.name);
     formdata.append("linkVideo", lession.linkVideo);
     formdata.append("type", "video/mp4");
@@ -89,9 +89,9 @@ export default function Leson() {
       redirect: 'follow'
     };
 
-   
 
-    fetch(`${DEFAULT_API}` +"lession/" , requestOptions)
+
+    fetch(`${DEFAULT_API}` + "lession/", requestOptions)
       .then(response => response.text())
       .then((result) => {
         console.log("đã gọi api");
@@ -101,10 +101,10 @@ export default function Leson() {
       );
   }
 
-  
+
   const onChangeSection = (event) => {
     setSelectedSection(event.target.value);
-    console.log(event.target.value);
+
   };
 
 
@@ -129,7 +129,7 @@ export default function Leson() {
       }
     }
     );
-    
+
     $('#youtubeBox').hide();
     $('#vimeoBox').hide();
     $('#mp4Box').hide();
@@ -170,7 +170,7 @@ export default function Leson() {
       }
     });
 
-    
+
 
   }
 
@@ -195,7 +195,7 @@ export default function Leson() {
 
   const addLession = () => {
     var formdata = new FormData();
-    formdata.append("file" , selectedFile);
+    formdata.append("file", selectedFile);
     formdata.append("name", lession.name);
     formdata.append("linkVideo", lession.linkVideo);
     formdata.append("type", "video/mp4");
@@ -207,9 +207,9 @@ export default function Leson() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` +"lession", requestOptions)
+    fetch(`${DEFAULT_API}` + "lession", requestOptions)
       .then(response => response.text())
-      .then(result => { setStatus(status + 1)})
+      .then(result => { setStatus(status + 1) })
       .catch(error => console.log('error', error));
   };
 
@@ -252,7 +252,6 @@ export default function Leson() {
       [name]: value,
     });
   };
-
 
   return (
     <div>
@@ -325,7 +324,7 @@ export default function Leson() {
                       />
                     </div>
                   </div>
-                
+
 
                   <div>
                     <div className="form-group">
@@ -368,7 +367,7 @@ export default function Leson() {
                         File Upload
                       </label>
                       <div className="col-sm-6 pt_5">
-                      <input type="file" name="lesson_mp4" onChange={changeHandler} /><span className="c-red">(Only MP4
+                        <input type="file" name="lesson_mp4" accept="video/*" onChange={changeHandler} /><span className="c-red">(Only MP4
                           is allowed)</span>
                       </div>
                     </div>
@@ -407,7 +406,7 @@ export default function Leson() {
                             <table className="table table-bordered table-striped" >
                               <thead>
                                 <tr>
-                                <th className="w-10-p">Name</th>
+                                  <th className="w-10-p">Name</th>
                                   <th className="w-40-p">Lesson Link Video</th>
                                   <th className="w-10-p">Lesson Section ID</th>
                                   <th className="w-15-p">Lesson Content</th>
@@ -549,7 +548,7 @@ export default function Leson() {
                       id="lessonTypeSelect10"
                     >
                       <option value="" >
-                            Select Type
+                        Select Type
                       </option>
                       <option value="video_youtube10">
                         Video (YouTube)
@@ -560,29 +559,29 @@ export default function Leson() {
                 </div>
 
                 <div className="form-group" id="youtubeBox10">
-                      <label className="col-sm-4 control-label pt_5">
-                          Lesson YouTube
-                      </label>
-                      <div className="col-sm-8">
-                        <input
-                          type="text"
-                          autoComplete="off"
-                          className="form-control"
-                          name="linkVideo"
-                          onChange={onInputChange}
-                          placeholder="Example: https://www.youtube.com/watch?v=KXdUNp_9oHs"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group" id="mp4Box10">
-                      <label className="col-sm-4 control-label pt_5">
-                            Lesson File
-                      </label>
-                      <div className="col-sm-8">
-                      <input type="file" name="lesson_mp4" onChange={changeHandler} /><span className="c-red">(Only MP4
-                          is allowed)</span>
-                      </div>
-                    </div>
+                  <label className="col-sm-4 control-label pt_5">
+                    Lesson YouTube
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      className="form-control"
+                      name="linkVideo"
+                      onChange={onInputChange}
+                      placeholder="Example: https://www.youtube.com/watch?v=KXdUNp_9oHs"
+                    />
+                  </div>
+                </div>
+                <div className="form-group" id="mp4Box10">
+                  <label className="col-sm-4 control-label pt_5">
+                    Lesson File
+                  </label>
+                  <div className="col-sm-8">
+                    <input type="file" name="lesson_mp4" onChange={changeHandler} /><span className="c-red">(Only MP4
+                      is allowed)</span>
+                  </div>
+                </div>
 
 
 
@@ -646,18 +645,18 @@ export default function Leson() {
                   width="500px"
                   height="400px"
                   url={lession.linkVideo}
-                 
+
                 />
 
               </div>
             </form>
             <div className="modal-footer">
               <button
-                
+
                 type="button"
                 className="btn btn-default"
                 data-dismiss="modal"
-                
+
               >
                 Close
               </button>
@@ -665,6 +664,7 @@ export default function Leson() {
           </div>
         </div>
       </div>
+
 
     </div>
   );

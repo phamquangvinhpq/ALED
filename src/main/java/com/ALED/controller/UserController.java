@@ -2,12 +2,15 @@ package com.ALED.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,14 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ALED.entities.Users;
 import com.ALED.service.IUserServiceSystem;
 
+
 @RestController
 public class UserController {
 	
 	@Autowired
 	private IUserServiceSystem userService;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+
 	
 	/**
 	 * lấy toàn bộ thông tin user database.
@@ -33,7 +38,6 @@ public class UserController {
 		return userService.readAll();
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')  or  hasRole('ROLE_MANAGER')  ")
 	@PutMapping("/user")
 	public Users update(@RequestBody Users vo) {
 		return userService.update(vo);
@@ -65,10 +69,13 @@ public class UserController {
 	
 	
 	
-	
-	
-	
-	
+	@PostMapping("/forgot-password")
+	public String forgotPassword_2(@RequestBody Users user) throws MessagingException  {
+		
+		return userService.forgotpassword(user);
+		
+
+	}
 	
 	
 }

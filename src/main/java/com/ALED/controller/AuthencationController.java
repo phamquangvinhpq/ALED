@@ -93,13 +93,12 @@ public class AuthencationController {
         }
     }
     
+    
    
     @PostMapping("/register")
 	public Users register(@RequestBody Users user) {
 		
-		//Crypt Password
-    	user.setPassword(encoder.encode(user.getPassword()));
-		
+
 		userServiceSystem.create(user);
 		return user;
 	}
