@@ -1,6 +1,5 @@
 package com.ALED.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -25,9 +24,6 @@ public class UserController {
 	
 	@Autowired
 	private IUserServiceSystem userService;
-	
-	
-
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -42,7 +38,6 @@ public class UserController {
 		return userService.readAll();
 	}
 	
-//	@PreAuthorize("hasRole('ROLE_ADMIN')  or  hasRole('ROLE_MANAGER')  ")
 	@PutMapping("/user")
 	public Users update(@RequestBody Users vo) {
 		return userService.update(vo);

@@ -2,7 +2,6 @@ package com.ALED.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
@@ -56,14 +55,12 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users update(Users user) {
+//		Optional<Users> optional = userRepository.findById(user.getId());
 		Users entity = userRepository.getById(user.getId());
 		if (entity != null) {
 			user.setPassword(entity.getPassword());
 			user.setUsername(entity.getUsername());
 			user.setEmail(entity.getEmail());
-			user.setStatus(entity.getStatus());
-			user.setIsEnable(entity.getIsEnable());
-			user.setRoles(entity.getRoles());
 			userRepository.save(user);
 		}
 		return user;

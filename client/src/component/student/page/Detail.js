@@ -18,6 +18,12 @@ export default function Detail() {
   const [userrate, setuserrate] = useState([]);
   let history = useHistory();
   let id = useParams();
+
+  const [infoTeacher, setInfoTeacher] = useState([]);
+  const [rating, setRating] = useState();
+  const result = Object.values(infoTeacher);
+
+
   useEffect(() => {
     countKH();
     loaddanhmuc();
@@ -26,6 +32,21 @@ export default function Detail() {
     loaduserrate();
 
   }, [status])
+
+  const loadInfoTeacher = (authorId) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/teacheroverview?author_id=${authorId}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setInfoTeacher(result);
+        console.log(result)
+      })
+      .catch(error => console.log('error', error));
+  };
 
 
   const countKH = async () => {
@@ -104,6 +125,7 @@ export default function Detail() {
       .then(response => response.json())
       .then(result => {
         setcoursebyid(result)
+        loadInfoTeacher(result[0].author_id)
       })
       .catch(error => console.log('error', error));
   }
@@ -299,28 +321,41 @@ export default function Detail() {
           <h2 className="course_title mt_20">Instructor Detail</h2>
           <div className="row mt_20">
             <div className="col-md-3 instructor">
+              {infoTeacher.map((value, i) => 
               <div className="card">
                 <img src="uploads/user-9.jpg" className="card-img-top img-responsive image" alt="" />
                 <div className="profile_content">
                   <p className="card_text">
                   </p><div className="review">
-                    <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star-half-o" /> (<span>4.33</span>)
+                    <span>
+                      <ReactStars
+                        edit={false}
+                        value={value.instructorRating}
+                        size={24}
+                        isHalf={true}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                      />
+                    </span>
+                    </div>
+                  <div className="text-muted">
+                    <i className="fa fa-star" /> Instructor Rating {value.instructorRating}
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-star" /> Instructor Rating 4.33
+                    <i className="fa fa-play-circle" /> Total Courses: {value.totalCourse}
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-play-circle" /> Total Courses: 6
+                    <i className="fa fa-comment" /> Total Rating: {value.totalRating}
                   </div>
                   <div className="text-muted">
-                    <i className="fa fa-comment" /> Total Rating: 5
-                  </div>
-                  <div className="text-muted">
-                    <i className="fa fa-user" /> Total Students: 9
+                    <i className="fa fa-user" /> Total Students: {value.totalStudents}
                   </div>
                   <p />
                 </div>
               </div>
+              )}
             </div>
             <div className="col-md-9">
               <h3 className="profile_title">David Beckham</h3>
@@ -332,7 +367,7 @@ export default function Detail() {
                 <br />
                 Copiosae
               </div>
-              <div className="author-detail-button mt_30"><a href=""  className="btn btn-success btn-lg">View Detail</a>
+              <div className="author-detail-button mt_30"><a href="ViewDetail" className="btn btn-success btn-lg">View Detail</a>
               </div>
             </div>
           </div>
