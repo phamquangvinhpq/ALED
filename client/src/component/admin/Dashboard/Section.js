@@ -18,7 +18,6 @@ export default function Section() {
 
   // check xem thằng giảng viên này có id khóa học này không 
 
-  
 
 
   const [giatriID, setgiatriID] = useState([])
@@ -175,36 +174,30 @@ export default function Section() {
 
   return (
     <div>
-      <div className="col-md-9">
-        <div className="nav-tabs-custom instructor-content-tab">
+
+<div className="content-wrapper">
+            <section className="content-header">
+                <div className="content-header-left">
+                    <h1>View Chapter</h1>
+                </div>
+            </section>
+            <section className="content">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="box box-info">
+                            <div className="box-body table-responsive">
+                            <div className="nav-tabs-custom instructor-content-tab">
           <ul className="nav nav-tabs">
             <li className="active"><a href="#tab_chapter" data-toggle="tab">Chapter</a></li>
-            <li><NavLink to={`/giangvien/Lesson/${id.id}`} href="#tab_lesson" data-toggle="tab">Lesson</NavLink></li>
+            <li><NavLink to={`/admin/lession/${id.id}`} href="#tab_lesson" data-toggle="tab">Lesson</NavLink></li>
           </ul>
 
           <div className="tab-content">
             <div className="tab-pane active" id="tab_chapter">
               <div className="box box-info pt_0">
                 <div className="box-body">
-                  <h3 className="sec_title mt_0">Add Chapter</h3>
-                  <form className="form-horizontal" >
-
-                    <div className="form-group">
-                      <label className="col-sm-2 control-label">Chapter Title *</label>
-                      <div className="col-sm-6">
-                        <input type="text" autoComplete="off" className="form-control" name="namesection" onChange={onInputChange} />
-                      </div>
-                    </div>
-                    
-                    <div className="form-group">
-                      <label className="col-sm-2 control-label" />
-                      <div className="col-sm-6">
-
-                        <button type="button" name="button" onClick={addsection} className="btn btn-success pull-left">submit</button>
-                      </div>
-                    </div>
-
-                  </form>
+                 
+               
 
                   <h3 className="sec_title">All Chapters</h3>
                   <div className="table-responsive">
@@ -214,7 +207,7 @@ export default function Section() {
                           <th>Serial</th>
                           <th>Chapter Title</th>
                          
-                          <th>Action</th>
+                     
                         </tr>
                       </thead>
                       <tbody>
@@ -222,18 +215,6 @@ export default function Section() {
                           <tr key={index}>
                             <td>{index+1}</td>
                             <td>{value.name}</td>
-                            
-                            <td>
-                              <a
-                                href
-                                className="btn btn-primary btn-sm"
-                                data-target="#myModal4" data-toggle="modal"
-                                onClick={() => layid(value)}
-                              >
-                                Edit
-                              </a>
-                              <a className="btn btn-danger btn-sm" onClick={() => deletesection(value)}>Delete</a>
-                            </td>
                           </tr>
                         )}
                       </tbody>
@@ -244,71 +225,14 @@ export default function Section() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="modal" id="myModal4" tabIndex={-1} aria-labelledby="demo-default-modal" aria-hidden="true">
-        <div className="modal-dialog w-60-p">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-              >
-                ×
-              </button>
-              <h4 className="modal-title">Edit Lesson</h4>
-            </div>
-            <div className="modal-body">
-              <form className="form-horizontal"
-                encType="multipart/form-data"
-
-                acceptCharset="utf-8">
-                <div className="form-group mb_5 ovh">
-                  <label
-
-                    className="col-sm-4 control-label pt_5"
-                  >
-                    Lesson Name *
-                  </label>
-                  <div className="col-sm-8">
-                    <input
-                      type="text"
-                      autoComplete="off"
-                      className="form-control"
-                      name="namesection"
-                      onChange={onInputChange}
-                      value={Section.namesection}
-                    />
-                  </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </form>
-              <div className="form-group mb_5 ovh">
-                <label className="col-sm-4 control-label" />
-                <div className="col-sm-8">
-                  <button
-                    type="submit"
-                    className="btn btn-success pull-left"
-                    name="form1"
-                    onClick={updateSection}
-                  >
-                    Update
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-danger"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
-          </div>
+            </section>
         </div>
-      </div>
+
+
     </div>
 
   )

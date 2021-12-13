@@ -67,12 +67,17 @@ export default function MenuAdmin() {
                   <i className="fa fa-circle-o" /> <span className="fa-laptop1">Instructors</span>
                 </NavLink>
               </li>
+              <li>
+              <NavLink to="/admin/Pendinginstructer">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Instructors</span>
+                </NavLink>
+              </li>
             </ul>
           </li>
           <li className="treeview ">
-            <a href="/admin/Payment">
+          <NavLink to="/admin/Payment">
               <i className="fa fa-usd" /> <span className="fa-laptop1">Payment History</span>
-            </a>
+           </NavLink>
           </li>
 
         </ul>

@@ -150,14 +150,14 @@ fetch("http://localhost:8080/cart/add", requestOptions)
   }
   return (
     <div>
-      <div className="page-banner" style={{ backgroundImage: 'url(assets/uploads/banner_course.jpg)' }}>
+      <div className="page-banner" style={{ backgroundImage: 'url(/assets/uploads/banner_course.jpg)' }}>
         <div className="page-banner-bg" />
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>Shopping Cart</h1>
+              <h1>View Detail</h1>
               <h3>
-                <a href="../index.html">Home</a>
+                <a href="">Home</a>
                 <i className="fa fa-angle-right" />
                 detail  <i className="fa fa-angle-right" />
                 viewdetail            </h3>
@@ -210,11 +210,10 @@ fetch("http://localhost:8080/cart/add", requestOptions)
                 <div className="row product-item">
                 {BaiGiang.map((value,index) =>
             <div className="col-md-3 course-item">
-        
-             
+
               <div className="item" >
                 <div className="img-container" key={index}>
-                <img src={value.image} style={ {maxHeight: 250 , maxWidth: 250} } />
+                <img src={value.image} style={ {height: 250 , Width: 250} } />
                 </div>
                 <div className="text-part">
                   <h3>

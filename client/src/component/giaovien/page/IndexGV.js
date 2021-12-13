@@ -5,6 +5,7 @@ import HeaderStudent from '../../student/Common/HeaderStudent';
 
 import AddKH from './AddKH';
 import AllKH from './AllKH';
+import Dashboard from './Dashboard';
 import Leson from './Leson';
 import MenuGV from './MenuGV';
 import Section from './Section';
@@ -15,8 +16,20 @@ export default function IndexGV() {
         <div>
             <BrowserRouter History={History}>
             <HeaderStudent />
+            <div className="page-banner" style={{ backgroundImage: 'url(/assets/uploads/banner_course.jpg)' }}>
+                    <div className="page-banner-bg" />
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h1>Instructor Setting</h1>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <div className="page-content customer">
                     <div className="container">
+                   
   
                 <MenuGV />
                 <Switch>
@@ -39,6 +52,11 @@ export default function IndexGV() {
                         <Route  path="/giangvien/Section/:id">
                         <Section />
                         </Route>
+
+                        <Route  path="/giangvien/dashboard/">
+                        <Dashboard />
+                        </Route>
+
                         <Route  path="/giangvien/Lesson/:id">
                         <Leson />
                         </Route>

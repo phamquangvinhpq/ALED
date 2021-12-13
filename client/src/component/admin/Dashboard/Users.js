@@ -40,7 +40,6 @@ export default function Users() {
                                                 Active </td>
                                             <td>
                                                 <a href="https://phpscriptpoint.com/cc/courseplus/admin/user/change-status/2" className="btn btn-warning btn-xs btn-block" onclick="return confirm('Are you sure?');">Change Status</a>
-                                                <a href="https://phpscriptpoint.com/cc/courseplus/admin/user/delete/2" className="btn btn-danger btn-xs btn-block" onclick="return confirm('Are you sure?');">Delete</a>
                                             </td>
                                         </tr>
                                     </tbody>

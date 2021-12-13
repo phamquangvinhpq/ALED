@@ -2,27 +2,14 @@ import React from 'react'
 import { NavLink } from "react-router-dom";
 
 export default function MenuGV() {
-
-
     return (
         <div>
             <div>
-                <div className="page-banner bg-6c5ce7 pt_20 pb_20">
-                    <div className="page-banner-bg" />
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <h1>Add Course</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div className="col-md-3">
                     <div className="customer-sidebar">
                         <ul>
                             <li className="menuvalue">
-                                <NavLink to="/giangvien/Dashboard">
+                                <NavLink to="/giangvien/dashboard">
                                     Dashboard
                                 </NavLink>
                             </li>
@@ -43,11 +30,11 @@ export default function MenuGV() {
                             </li>
                             <li className="menuvalue">
                                 <a href="">
-                                    Withdraw Money	
+                                    Withdraw Money
                                 </a>
                             </li>
                         </ul>
-                    </div>			
+                    </div>
                 </div>
             </div>
         </div>

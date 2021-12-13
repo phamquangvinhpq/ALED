@@ -23,9 +23,7 @@ export default function Routers() {
                             return  role === "ROLE_ADMIN"  ?  <IndexGV /> : <Redirect to="/home" />
                         }}  >   
                         </Route>
-                   
-                  
-
+ 
                     <Route path='/student' render={() =>{
                             return  role == null  ? <Redirect to="/home" />   : <IndexDash /> 
                         }}  >   

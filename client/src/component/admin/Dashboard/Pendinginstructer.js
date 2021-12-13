@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from "react-router-dom";
 
 
-export default function PendingCourse() {
+export default function Pendinginstructer() {
     return (
         <div className="content-wrapper">
             <section className="content-header">
@@ -18,12 +18,12 @@ export default function PendingCourse() {
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>SL</th>
-                                        <th>Title</th>
-                                        <th>Price</th>
-                                        <th>Photo</th>
-                                        <th>Category</th>
-                                        <th>Instructor</th>
+                                        <th>STT</th>
+                                        <th>Name</th>
+                                        <th>Image</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -48,18 +48,13 @@ export default function PendingCourse() {
                                         </td>
                                         <td>
                                             <a href="#"
-                                               className="btn btn-success btn-block btn-xs" target="_blank">See Course
-                                                Details</a>
-
-                                                <NavLink to={`/admin/Section/1`}  className="btn btn-info btn-block btn-xs" >See Course
-                                                    Content Details</NavLink>
+                                               className="btn btn-success btn-block btn-xs" target="_blank">View Skill
+                                              </a>
 
                                             <a href="#"
                                                className="btn btn-danger btn-block btn-xs"
-                                               onClick="return confirm('Are you sure want to make this course pending?');">Accept</a>
-                                            <a href="#"
-                                               className="btn btn-success btn-block btn-xs"
-                                               onClick="return confirm('Are you sure want to make this course pending?');">Delete</a>
+                                               >Accept</a>
+            
                                         </td>
                                     </tr>
                                     </tbody>

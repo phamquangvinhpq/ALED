@@ -1,4 +1,6 @@
 import React from 'react'
+import { NavLink } from "react-router-dom";
+
 
 export default function ApprovedCourses() {
     return (
@@ -40,11 +42,12 @@ export default function ApprovedCourses() {
                                             <td>
                                                 David Beckham </td>
                                             <td>
-                                                <a href="#" className="btn btn-success btn-block btn-xs" target="_blank">See Course
+                                                <a href="#" className="btn btn-success btn-block btn-xs" >See Course
                                                     Details</a>
-                                                <a href="#" className="btn btn-info btn-block btn-xs" target="_blank">See Course
-                                                    Content Details</a>
-                                                <a href="#s" className="btn btn-danger btn-block btn-xs" onclick="return confirm('Are you sure want to make this course pending?');">Make
+                                                    
+                                                    <NavLink to={`/admin/Section/1`}  className="btn btn-info btn-block btn-xs" >See Course
+                                                    Content Details</NavLink>
+                                                <a  className="btn btn-danger btn-block btn-xs" onclick="return confirm('Are you sure want to make this course pending?');">Make
                                                     this pending</a>
                                             </td>
                                         </tr>

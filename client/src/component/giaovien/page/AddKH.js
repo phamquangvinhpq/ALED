@@ -110,7 +110,6 @@ export default function AddKH() {
 
   const addCourse = () => {
     var myHeaders = new Headers();
-
     var formdata = new FormData();
     formdata.append("courseName", BaiGiang.courseName);
     formdata.append("price", BaiGiang.price);
@@ -136,8 +135,8 @@ export default function AddKH() {
   };
 
   return (
+    
     <div className="chinhsua">
-
       <div className="col-md-9">
         <form action="" className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
           <div className="form-group">

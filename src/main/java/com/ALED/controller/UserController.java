@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.entities.Users;
 import com.ALED.service.IUserServiceSystem;
 
@@ -77,6 +78,14 @@ public class UserController {
 
 	}
 	
+	
+	@PostMapping("/createauthoer")
+	public UserAuthorDTO createauthoer(@RequestBody UserAuthorDTO ua)  {
+		
+		return userService.createAuthor(ua);
+		
+
+	}
 
 	
 }

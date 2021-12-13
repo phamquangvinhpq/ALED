@@ -122,7 +122,7 @@ export default function Homestd() {
     }
 
     const onClickCategory = (select) => {
-        history.push(`/Course/${select}`)
+        history.replace(`/Course/${select}`)
       };
     
     return (
@@ -338,6 +338,7 @@ export default function Homestd() {
                         </div>
                          <div className="row">
                             {listCategories.map((value, index) => 
+                            
                                 <div className="col-lg-3 col-md-6" onClick={() => onClickCategory(value.id)}>
                                     <a>
                                         <div className="single-category-item">

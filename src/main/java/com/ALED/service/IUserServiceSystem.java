@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.entities.Users;
 
 
@@ -11,6 +12,8 @@ import com.ALED.entities.Users;
 public interface IUserServiceSystem {
 	
 	public Users create(Users user);
+	
+	public UserAuthorDTO createAuthor(UserAuthorDTO UserAuthorDTO);
 
 	public List<Users> readAll();
 		

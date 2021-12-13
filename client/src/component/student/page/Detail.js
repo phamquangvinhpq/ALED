@@ -149,9 +149,11 @@ export default function Detail() {
 
   }
 
+
+
   return (
-    <div>
-      <div className="page-banner" style={{ backgroundImage: 'url(assets/uploads/banner_course.jpg)' }}>
+    <div >
+      <div className="page-banner" style={{ backgroundImage: 'url(/assets/uploads/banner_course.jpg)' }}>
         <div className="page-banner-bg" />
         <div className="container">
           <div className="row">

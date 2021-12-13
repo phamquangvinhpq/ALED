@@ -20,6 +20,16 @@ export default function IndexDash() {
         <div>
             <BrowserRouter History={History}>
             <HeaderStudent ></HeaderStudent>
+            <div className="page-banner" style={{ backgroundImage: 'url(/assets/uploads/banner_course.jpg)' }}>
+                    <div className="page-banner-bg" />
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h1>Student Setting</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
              <div className="page-content customer">
                     <div className="container">
                     <Menusv />
