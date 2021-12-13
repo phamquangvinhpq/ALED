@@ -26,5 +26,7 @@ public interface IUserServiceSystem {
 	
 	public String forgotpassword(Users user) throws MessagingException;
 	
+	public boolean changePassword(Users user, String newPassword);
+	
 
 }

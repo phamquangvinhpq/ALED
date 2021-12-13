@@ -8,5 +8,6 @@ import com.ALED.DTO.OrderDTO;
 public interface IOrderService {
 	public OrderDTO create(OrderDTO orderDTO);
 	public List<OrderDTO> readallbyid(Integer id);
+	public List<OrderDTO> getAll();
 
 }

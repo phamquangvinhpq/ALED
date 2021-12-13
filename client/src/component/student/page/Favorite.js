@@ -26,8 +26,9 @@ export default function Favorite() {
                 <th hidden>ID</th>
                 <th>STT</th>
                 <th>Course Title</th>
-                <th className="w-100">My Rating</th>
+                <th className="w-100">Image</th>
                 <th>Course Content</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -41,6 +42,9 @@ export default function Favorite() {
                 <a target="_blank" className="btn btn-info btn-sm">
                   Course Content
                 </a>
+              </td>
+              <td>
+              <button type="button" class="btn btn-danger">Unlike</button>
               </td>
             </tr>
             ))}
