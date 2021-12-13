@@ -25,6 +25,12 @@ public class CourseDTO {
 	private String type;
 	
 	private String rate;
+	
+	private String userName;
+	
+	private String categoryName;
+	
+	private String authorName;
 
 
 }

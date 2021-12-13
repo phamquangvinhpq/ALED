@@ -13,35 +13,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.entities.Users;
 import com.ALED.service.IUserServiceSystem;
 
-
 @RestController
 public class UserController {
-	
+
 	@Autowired
 	private IUserServiceSystem userService;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
-	
 	/**
 	 * lấy toàn bộ thông tin user database.
+	 * 
 	 * @return List<Users>
 	 */
 	@GetMapping("/user")
 	public List<Users> readAll() {
 		return userService.readAll();
 	}
-	
+
 	@PutMapping("/user")
 	public Users update(@RequestBody Users vo) {
 		return userService.update(vo);
 	}
+
 	/**
 	 * xóa 1 user từ database nếu id không tồn tại trả về null
 	 *
@@ -53,31 +54,30 @@ public class UserController {
 	public Users delete(@PathVariable Integer id) {
 		return userService.delete(id);
 	}
-	
-	
+
 	@GetMapping("/user/{id}")
 	public Users detail(@PathVariable Integer id) {
 		return userService.detail(id);
 	}
-	
+
 	@GetMapping("/viewuser/{pageno}/{pagesize}")
-	public List<Users> getpage( @PathVariable Integer pageno,@PathVariable Integer pagesize) {
-		
+	public List<Users> getpage(@PathVariable Integer pageno, @PathVariable Integer pagesize) {
+
 		return userService.findpage(pageno, pagesize);
-		
+
 	}
-	
-	
-	
+
 	@PostMapping("/forgot-password")
-	public String forgotPassword_2(@RequestBody Users user) throws MessagingException  {
-		
+	public String forgotPassword_2(@RequestBody Users user) throws MessagingException {
+
 		return userService.forgotpassword(user);
-		
 
 	}
-	
 
-	
+	@PostMapping("/user/updatepassword")
+	public boolean changePassword(@RequestParam(name = "newPassword", required = false) String newPassword,
+			@RequestBody Users vo) {
+		return userService.changePassword(vo, newPassword);
+	}
+
 }
-

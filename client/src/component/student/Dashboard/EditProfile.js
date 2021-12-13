@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from 'react'
-
+import swal from 'sweetalert';
 export default function ListCourse() {
   const [inputs, setInputs] = useState({});
-
+  const [infoUser, setInfoUser] =  useState({});
+  const userid = localStorage.getItem("userid")
   const load = () =>{
     setInputs(prevState => ({
       ...prevState,
       id: localStorage.getItem("userid")
    }));
   }
+  const loadinfoUser = () => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/user/${userid}`, requestOptions)
+      .then(response => response.json())
+      .then(result => setInfoUser(result))
+      .catch(error => console.log('error', error));
+  }
 
  useEffect(() => {
   load();
+  loadinfoUser();
  }, [])
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
+    setInfoUser(values => ({...values, [name]: value}))
   }
 
   const handleSubmit = (event) => {
@@ -25,7 +38,7 @@ export default function ListCourse() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify(inputs);
+    var raw = JSON.stringify(infoUser);
 
     var requestOptions = {
       method: 'PUT',
@@ -36,7 +49,10 @@ export default function ListCourse() {
 
     fetch("http://localhost:8080/user", requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then(result => {
+        console.log(result)
+        swal("Thành công", "Sửa thành công", "success")
+      })
       .catch(error => console.log('error', error));
   }
   
@@ -48,25 +64,19 @@ export default function ListCourse() {
                   <div className="form-group">
                     <label htmlFor className="col-sm-2 control-label">Name</label>
                     <div className="col-sm-10">
-                      <input onChange={handleChange} value={inputs.name} type="text" className="form-control" name="name" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor className="col-sm-2 control-label">Email</label>
-                    <div className="col-sm-10">
-                      <input type="email" className="form-control" name defaultValue="instructor@gmail.com" disabled /><span className="c-red">Email address can not be changed</span>
+                      <input onChange={handleChange} defaultValue={infoUser.name} type="text" className="form-control" name="name" />
                     </div>
                   </div>
                   <div className="form-group">
                     <label htmlFor className="col-sm-2 control-label">Address</label>
                     <div className="col-sm-10">
-                      <input onChange={handleChange} type="text" className="form-control" name="address" defaultValue />
+                      <input onChange={handleChange} defaultValue={infoUser.address} type="text" className="form-control" name="address"  />
                     </div>
                   </div>
                   <div className="form-group">
                     <label htmlFor className="col-sm-2 control-label">Phone</label>
                     <div className="col-sm-10">
-                      <input onChange={handleChange} type="text" className="form-control" name="phone" defaultValue="Expert Django Developer" />
+                      <input onChange={handleChange} defaultValue={infoUser.phone} type="text" className="form-control" name="phone"  />
                     </div>
                   </div>
                   
