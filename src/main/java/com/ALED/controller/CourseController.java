@@ -44,6 +44,7 @@ public class CourseController {
 	@PutMapping("/edit")
 	public CourseDTO edit(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
 			throws IOException {
+		
 		if (file.getContentType() != null) {
 			courseDTO.setImage(
 					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));

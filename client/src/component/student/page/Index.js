@@ -34,7 +34,6 @@ export default function Index() {
                         <ViewDetail />
                     </Route>
 
-                    
                     <Route path="/Checkout/:id">
                         <Checkout1 />
                     </Route>

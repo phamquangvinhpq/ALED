@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 export default function ViewDetail() {
   const dispatch  = useDispatch()
   const BaiGiang = useSelector(state =>state)
-  
+  let history = useHistory();
+
   const [khoahoc,setkhoahoc] = useState({
     courseName: "",
     price: "",
@@ -142,7 +143,11 @@ fetch("http://localhost:8080/cart/add", requestOptions)
       })
       .catch(error => console.log('error', error));
   }
+ function getcheckout(value) {
 
+    history.replace(`/checkout/${value.id}`)
+
+  }
   return (
     <div>
       <div className="page-banner" style={{ backgroundImage: 'url(assets/uploads/banner_course.jpg)' }}>
@@ -203,16 +208,17 @@ fetch("http://localhost:8080/cart/add", requestOptions)
           
 
                 <div className="row product-item">
+                {BaiGiang.map((value,index) =>
             <div className="col-md-3 course-item">
-            {BaiGiang.map((value,index)=>{
-              return(
+        
+             
               <div className="item" >
                 <div className="img-container" key={index}>
                 <img src={value.image} style={ {maxHeight: 250 , maxWidth: 250} } />
                 </div>
                 <div className="text-part">
                   <h3>
-                    <a href="../../course/magento-2-essential-video-training.html">
+                    <a href="">
                         {value.courseName}
                     </a>
                   </h3>
@@ -232,14 +238,14 @@ fetch("http://localhost:8080/cart/add", requestOptions)
                     {value.price}$
                   </div>
                   <div className="buy">
-                    <a  onClick={() => addCart(value)} className="btn btn-block btn-success">Add to Cart</a>
+                    <a  onClick={() => getcheckout(value)} className="btn btn-block btn-success">check out</a>
                   </div>
                 </div>
               </div>
-              )
 
-            })}
+            
             </div>
+          )}
           </div>
           <nav aria-label="Page navigation example">
                 <ul class="pagination">

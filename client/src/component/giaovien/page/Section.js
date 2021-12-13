@@ -191,12 +191,7 @@ export default function Section() {
                         <input type="text" autoComplete="off" className="form-control" name="namesection" onChange={onInputChange} />
                       </div>
                     </div>
-                    <div className="form-group">
-                      <label className="col-sm-2 control-label">Chapter Order *</label>
-                      <div className="col-sm-6">
-                        <input type="text" autoComplete="off" className="form-control" name="chapter_order" defaultValue />
-                      </div>
-                    </div>
+                    
                     <div className="form-group">
                       <label className="col-sm-2 control-label" />
                       <div className="col-sm-6">
@@ -214,16 +209,16 @@ export default function Section() {
                         <tr>
                           <th>Serial</th>
                           <th>Chapter Title</th>
-                          <th>Chapter Order</th>
+                         
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {DSsection.map((value, index) =>
                           <tr key={index}>
-                            <td>{value.id}</td>
+                            <td>{index+1}</td>
                             <td>{value.name}</td>
-                            <td>1</td>
+                            
                             <td>
                               <a
                                 href

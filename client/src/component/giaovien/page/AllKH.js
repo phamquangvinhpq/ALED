@@ -141,8 +141,7 @@ export default function AllKH() {
                         chuyentrangupdate(event, value, index)
                       }} className="btn btn-primary btn-sm btn-block">
                       Edit									</a>
-                    <a href="" className="btn btn-danger btn-sm btn-block" onClick={() => deletecourse(value)}>
-                      Delete										</a>
+                    
                   </td>
                 </tr>
               )}
