@@ -47,6 +47,9 @@ public class CourseService implements ICourseService {
 			courseDTO.setAuthor_id(course.getAuthor().getId());
 			courseDTO.setUser_id(course.getUsers().getId());
 			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			courseDTO.setUserName(course.getUsers().getName());
+			courseDTO.setCategoryName(course.getCategory().getName());
+			courseDTO.setAuthorName(course.getAuthor().getName());
 			lstCourseDTO.add(courseDTO);
 		}
 		return lstCourseDTO;
@@ -103,6 +106,9 @@ public class CourseService implements ICourseService {
 			courseDTO.setAuthor_id(course.getAuthor().getId());
 			courseDTO.setUser_id(course.getUsers().getId());
 			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			courseDTO.setUserName(course.getUsers().getName());
+			courseDTO.setCategoryName(course.getCategory().getName());
+			courseDTO.setAuthorName(course.getAuthor().getName());
 			lstCourseDTO.add(courseDTO);
 		}
 		return lstCourseDTO;

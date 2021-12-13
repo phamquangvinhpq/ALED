@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.UserAuthorDTO;
@@ -28,18 +29,18 @@ import com.ALED.repositories.RoleRepository;
 import com.ALED.repositories.UserRepository;
 import com.ALED.repositories.UserRoleRepository;
 
-
 @Service
 public class UserServiceSystem implements IUserServiceSystem {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+
 	
 	@Autowired
 	private AuthorRepository authorrepository;
@@ -50,14 +51,16 @@ public class UserServiceSystem implements IUserServiceSystem {
 	
 	
 
-	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
-	
 
 	@Autowired
-    public JavaMailSender emailSender;
+	BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	public JavaMailSender emailSender;
 	
-	
+	@Autowired
+	private PasswordEncoder check;
+
 	@Override
 	public List<Users> readAll() {
 
@@ -68,20 +71,18 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users update(Users user) {
-
-//		Optional<Users> optional = userRepository.findById(user.getId());
 		Users entity = userRepository.getById(user.getId());
 		if (entity != null) {
 			user.setPassword(entity.getPassword());
 			user.setUsername(entity.getUsername());
 			user.setEmail(entity.getEmail());
-
+			user.setIsEnable(entity.getIsEnable());
+			user.setStatus(entity.getStatus());
+			user.setImage(entity.getImage());
 			userRepository.save(user);
 		}
 		return user;
 	}
-	
-
 
 	@Override
 	public Users delete(Integer id) {
@@ -96,7 +97,6 @@ public class UserServiceSystem implements IUserServiceSystem {
 	@Override
 	public Users detail(Integer id) {
 		Optional<Users> optional = userRepository.findById(id);
-
 		return optional.get();
 	}
 
@@ -105,8 +105,8 @@ public class UserServiceSystem implements IUserServiceSystem {
 		Pageable paging = PageRequest.of(pageno, pagesize);
 
 		Page<Users> pagedResult = userRepository.findAll(paging);
-		
-	            return pagedResult.toList();
+
+		return pagedResult.toList();
 	}
 
 	@Override
@@ -117,80 +117,75 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users create(Users user) {
-		
+
 		double randomDouble = Math.random();
-        randomDouble = randomDouble * 1000000 + 1;
-        int randomInt = (int) randomDouble;
-       
-	String newPassword = String.valueOf(randomInt);
-	user.setPassword(passwordEncoder.encode(newPassword));
-	
-	    userRepository.save(user);
-	    
+		randomDouble = randomDouble * 1000000 + 1;
+		int randomInt = (int) randomDouble;
+
+		String newPassword = String.valueOf(randomInt);
+		user.setPassword(passwordEncoder.encode(newPassword));
+
+		userRepository.save(user);
+
 		// save user role
 		List<Role> inputRole = user.getRoles();
 		List<UserRole> userRoles = inputRole.stream().map(e -> {
 			UserRole userRole = new UserRole();
 			Optional<Role> optional = roleRepository.findById(e.getId());
-			if(optional.isPresent()) {
+			if (optional.isPresent()) {
 				userRole.setRole(optional.get());
 			}
 			userRole.setUser(user);
-			return userRole; 
+			return userRole;
 		}).collect(Collectors.toList());
-		
-		
-		userRoleRepository.saveAll(userRoles);
-		
-		SimpleMailMessage message = new SimpleMailMessage();
-		 
-        message.setTo(user.getEmail());
-        message.setSubject(" ĐĂNG KÝ TÀI KHOẢN ALED");
-        
-        message.setText("MẬT KHẨU  CỦA BẠN LÀ :"+ newPassword);
-       
 
-        // Send Message!
-       emailSender.send(message);
-       
-       
+		userRoleRepository.saveAll(userRoles);
+
+		SimpleMailMessage message = new SimpleMailMessage();
+
+		message.setTo(user.getEmail());
+		message.setSubject(" ĐĂNG KÝ TÀI KHOẢN ALED");
+
+		message.setText("MẬT KHẨU  CỦA BẠN LÀ :" + newPassword);
+
+		// Send Message!
+		emailSender.send(message);
+
 		return user;
 	}
 
-	
 	@Override
 	public String forgotpassword(Users users) throws MessagingException {
 		Users user = userRepository.findByEmail(users.getEmail());
 		if (user != null) {
-		      double randomDouble = Math.random();
-	            randomDouble = randomDouble * 1000000 + 1;
-	            int randomInt = (int) randomDouble;
-	           
+			double randomDouble = Math.random();
+			randomDouble = randomDouble * 1000000 + 1;
+			int randomInt = (int) randomDouble;
+
 			String newPassword = String.valueOf(randomInt);
 			user.setPassword(passwordEncoder.encode(newPassword));
 			userRepository.save(user);
-			
 
-			 SimpleMailMessage message = new SimpleMailMessage();
-			 
-		        message.setTo(user.getEmail());
-		        message.setSubject("MẬT KHẨU MỚI CỦA BẠN");
-		        
-		        message.setText("MẬT KHẨU MỚI CỦA BẠN LÀ :"+ newPassword);
+			SimpleMailMessage message = new SimpleMailMessage();
 
-		        // Send Message!
-		       emailSender.send(message);
+			message.setTo(user.getEmail());
+			message.setSubject("MẬT KHẨU MỚI CỦA BẠN");
 
-		
+			message.setText("MẬT KHẨU MỚI CỦA BẠN LÀ :" + newPassword);
+
+			// Send Message!
+			emailSender.send(message);
+
 			return "thành công";
 		} else {
 			return "email không tồn tại";
 
 		}
-		
+
 	}
 
 	@Override
+
 	public UserAuthorDTO createAuthor(UserAuthorDTO UserAuthorDTO) {
 		double randomDouble = Math.random();
         randomDouble = randomDouble * 1000000 + 1;
@@ -248,5 +243,21 @@ public class UserServiceSystem implements IUserServiceSystem {
 	
 	
 	
+
+	public boolean changePassword(Users user, String newPassword) {
+		Optional<Users> optional = userRepository.findById(user.getId());
+		Users entity = optional.get();
+		if (user.getPassword() == null || newPassword == null || user.getPassword().isEmpty() || newPassword.isEmpty()) {
+			return false;
+		}
+		boolean match = check.matches(user.getPassword(), entity.getPassword());
+		if (!match) {
+			return false;
+		}
+		entity.setPassword(passwordEncoder.encode(newPassword));
+		userRepository.save(entity);
+		return true;
+	}
+
 
 }
