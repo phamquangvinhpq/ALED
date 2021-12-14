@@ -15,7 +15,7 @@ import EnrolledCourses from "./EnrolledCourses";
 import ListCourse from "./EditProfile";
 
 import Not404 from "./Not404";
-import Favorite from "../page/Favorite";
+import Favorite from "./Favorite";
 import PaymentHistory from "./PaymentHistory";
 
 export default function IndexDash() {

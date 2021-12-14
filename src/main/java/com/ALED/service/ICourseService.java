@@ -3,8 +3,6 @@ package com.ALED.service;
 import java.util.List;
 
 import com.ALED.DTO.CourseDTO;
-import com.ALED.entities.Author;
-import com.ALED.entities.Course;
 
 public interface ICourseService {
 
@@ -29,6 +27,8 @@ public interface ICourseService {
 	List<CourseDTO> getAllByName(String courseName, int page, int size);
 	
 	List<CourseDTO> getAllByCategory(Integer categoryId, int page, int size);
+
+	List<CourseDTO> buythemost();
 
 
 }

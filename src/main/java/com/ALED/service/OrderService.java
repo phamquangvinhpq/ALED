@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.OrderDTO;
 import com.ALED.entities.Orders;
+import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.OrderRepository;
 import com.ALED.repositories.UserRepository;
 
@@ -18,6 +19,8 @@ public class OrderService implements IOrderService {
 	private OrderRepository orderRepository;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	CourseRepository courseRepository;
 
 	@Override
 	public OrderDTO create(OrderDTO OrderDTO) {

@@ -94,7 +94,7 @@ export default function Homestd() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}course`, requestOptions)
+        fetch(`${DEFAULT_API}course/buythemost`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result);
@@ -123,6 +123,7 @@ export default function Homestd() {
 
     const onClickCategory = (select) => {
         history.replace(`/Course/${select}`)
+        window.location.reload();
       };
     
     return (
@@ -147,7 +148,7 @@ export default function Homestd() {
                                     <h1 className="home-2"><span>learn new skills online find best courses</span> &amp; become master</h1>
                                     <div className="hero-description"><h6>hire proven pros with confidence using world largest remote talent platform.</h6></div>
                                     <div className="hero-button">
-                                        <a href="course.html" className="template-button">start course <i className="fa fa-play-circle" /></a>
+                                        <a href="/Course/0" className="template-button">start course <i className="fa fa-play-circle" /></a>
                                     </div>
                                 </div>
                             </div>
@@ -221,24 +222,17 @@ export default function Homestd() {
                                             </div>
                                             <div className="course-content margin-top-30">
                                                 <div className="course-title">
-                                                    <h4 className="home-2">{value.courseName}</h4>
+                                                    <h4 className="home-2">Course Name : {value.courseName}</h4>
                                                 </div>
                                                 <div className="course-instructor-rating margin-top-20">
                                                     <div className="course-instructor">
                                                         <img src="assets/images/course-instructor-1.png" alt="instructor" />
-                                                        <h6>john doe</h6>
+                                                        <h6>{value.authorName}</h6>
                                                     </div>
                                                     <div className="course-rating">
-                                                        {/* <ul>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                        </ul>
-                                                        <span>4.2(30)</span> */}
                                                         <span>
-                                                            <ReactStars
+                                                            {value.rate ? 
+                                                                <ReactStars
                                                                 edit={false}
                                                                 value={value.rate}
                                                                 size={24}
@@ -246,9 +240,8 @@ export default function Homestd() {
                                                                 emptyIcon={<i className="far fa-star"></i>}
                                                                 halfIcon={<i className="fa fa-star-half-alt"></i>}
                                                                 fullIcon={<i className="fa fa-star"></i>}
-                                                                activeColor="#ffd700"
-                                                            />
-                                                            </span>{value.rate}<span>
+                                                                activeColor="#ffd700"/> : 
+                                                                "Chưa có đánh giá"}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -269,7 +262,7 @@ export default function Homestd() {
                                                 <div className="course-price-cart margin-top-20">
                                                     <div className="course-price">
                                                         <span className="span-big">$ {value.price}</span>
-                                                        <span className="span-cross">$ 500.00</span>
+                                                        {/* <span className="span-cross">$ 500.00</span> */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -281,15 +274,14 @@ export default function Homestd() {
                                                {/* {ListFavorite.includes(value.id) ? <span onClick={() => deleteFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart" /></span> : <span onClick={() => addFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart-o" /></span>} */}
                                                {checkTym(value.id)}
                                                
-                                                <span className="title-tag">by instructor</span>
+                                                <span className="title-tag">by {value.authorName}</span>
 
                                                 <div className="course-title margin-top-10">
                                                     <h4 className="home-2"><a href="course-details.html">user experience design with adobe XD</a></h4>
                                                 </div>
                                                 <div className="course-price-info margin-top-20">
-                                                    <span className="best-seller">best seller</span>
-                                                    <span className="course-category"><a href="#">web design</a></span>
-                                                    <span className="course-price">$ 400.00</span>
+                                                    <span className="best-seller">{value.categoryName}</span>
+                                                    <span className="course-price">$ {value.price}</span>
                                                 </div>
                                                 <div className="course-info margin-top-30">
                                                     <div className="course-enroll">
@@ -360,7 +352,7 @@ export default function Homestd() {
                         <div className="row">
                             <div className="col-12">
                                 <div className="category-section-link">
-                                    <h6>Dont's see wht you're looking for? <a href="/Course">See all categories.</a></h6>
+                                    <h6>Dont's see wht you're looking for? <a href="/Course/0">See all categories.</a></h6>
                                 </div>
                             </div>
                         </div>
