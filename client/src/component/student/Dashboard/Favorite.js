@@ -65,7 +65,7 @@ export default function Favorite() {
                 <th hidden>ID</th>
                 <th>STT</th>
                 <th>Course Title</th>
-                <th className="w-100">Image</th>
+                <th className="w-100">Thumbnail</th>
                 <th>Course Content</th>
                 <th>Action</th>
               </tr>

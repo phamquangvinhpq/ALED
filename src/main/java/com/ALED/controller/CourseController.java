@@ -55,6 +55,11 @@ public class CourseController {
 	public List<CourseDTO> getAll() {
 		return courseService.readAll();
 	}
+	
+	@GetMapping("buythemost")
+	public List<CourseDTO> buythemost() {
+		return courseService.buythemost();
+	}
 
 	@GetMapping("/count")
 	public Integer count() {

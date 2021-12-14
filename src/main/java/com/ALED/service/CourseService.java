@@ -218,6 +218,27 @@ public class CourseService implements ICourseService {
 			dto.setCategory_id(entity.getCategory().getId());
 			dto.setAuthor_id(entity.getAuthor().getId());
 			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
+			listDto.add(dto);
+		}
+		return listDto;
+	}
+
+	@Override
+	public List<CourseDTO> buythemost() {
+		List<CourseDTO> listDto = new ArrayList<CourseDTO>();
+		List<Integer> list = courseRepository.buyTheMost();
+		for (Integer integer : list) {
+			CourseDTO dto = new CourseDTO();
+			Course entity = courseRepository.getById(integer);
+			BeanUtils.copyProperties(entity, dto);
+			dto.setCategory_id(entity.getCategory().getId());
+			dto.setAuthor_id(entity.getAuthor().getId());
+			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setUserName(entity.getUsers().getUsername());
+			dto.setCategoryName(entity.getCategory().getName());
+			dto.setAuthorName(entity.getAuthor().getName());
 			listDto.add(dto);
 		}
 		return listDto;

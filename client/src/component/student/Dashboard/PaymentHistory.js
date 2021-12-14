@@ -1,34 +1,50 @@
 import React, { useEffect, useState } from 'react'
 export default function PaymentHistory() {
-    return (
-        <div>
-          <div className="col-md-9">
-            <div className="table-responsive">
+  const user_id = localStorage.getItem("userid")
+  const [orderData, setOrderData] = useState([])
+  const loadData = (user_id) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
     
-              <table className="table table-bordered t3">
-                <thead>
-                  <tr>
+    fetch(`http://localhost:8080/orders/${user_id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => setOrderData(result))
+      .catch(error => console.log('error', error));
+  }
+
+  useEffect(() => {
+    loadData(user_id);
+  }, [])
+    return (
+      <div>
+        <div className="col-md-9">
+          <div className="table-responsive">
+            <table className="table table-bordered t3">
+              <thead>
+                <tr>
                   <th>STT</th>
-                    <th>Content</th>
-                    <th>money</th>
-                    <th>bank</th>
-                    <th>Create Date</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
+                  <th>Content</th>
+                  <th>Purchase Amount</th>
+                  <th>Bank</th>
+                  <th>Purchase Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderData.map((data , index) => (
                   <tr>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                  <td>{index+1}</td>
+                  <td>{data.mota}</td>
+                  <td>{data.bank}</td>
+                  <td>{data.bank}</td>
+                  <td>{data.createDate}</td>
+                </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-      )
+      </div>
+    );
 }
