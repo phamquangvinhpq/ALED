@@ -241,7 +241,29 @@ public class UserServiceSystem implements IUserServiceSystem {
 	}
 
 	
+	@Override
+	public List<Users> getAllGV(){
+		List<Users> list = userRepository.getAllGV();
+		return list;
+	}
 	
+	@Override
+	public List<Users> getAllSt(){
+		List<Users> list = userRepository.getAllHs();
+		return list;
+	}
+
+	@Override
+	public List<Users> getAllStAndGv() {
+		List<Users> list = userRepository.getAllHsAndGv();
+		return list;
+	}
+	
+	@Override
+	public List<Users> getAllInsNoIsNable(){
+		List<Users> list = userRepository.getAllInsNoIsNable();
+		return list;
+	}
 	
 
 	public boolean changePassword(Users user, String newPassword) {
@@ -259,5 +281,32 @@ public class UserServiceSystem implements IUserServiceSystem {
 		return true;
 	}
 
+	@Override
+	public Users updateStatus(Users user) {
+		Optional<Users> optional = userRepository.findById(user.getId());
+		if (optional.isPresent()) {
+			Users us = optional.get();
+			if(user.getStatus() == 1) {
+				us.setStatus(0);
+			}else {
+				us.setStatus(1);
+			}
+			userRepository.save(us);
+			
+		}
+		return user;
+	}
+	
+	@Override
+	public Users updateIsEnable(Users user) {
+		Optional<Users> optional = userRepository.findById(user.getId());
+		if (optional.isPresent()) {
+			Users us = optional.get();
+			us.setIsEnable(user.getIsEnable());
+			userRepository.save(us);
+			
+		}
+		return user;
+	}
 
 }

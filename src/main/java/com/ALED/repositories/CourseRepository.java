@@ -54,4 +54,12 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	List<Integer> buyTheMost();
 
 
+	@Query(value = "Select Count(*) from course", nativeQuery = true )
+	Integer countCour();
+	
+	@Query(value = "Select * from course where status = 1",nativeQuery = true)
+	List<Course> getAllCouAct();
+	
+	@Query(value = "Select * from course where status = 0",nativeQuery = true)
+	List<Course> getAllCouNoAct();
 }

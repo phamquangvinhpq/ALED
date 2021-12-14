@@ -46,7 +46,7 @@ export default function Course() {
         setTotalCount(result.length) 
       })
     }
-    else {
+    else if(param.id){
     fetch(`${DEFAULT_API}` + `course/get-all-by-category?categoryId=${param.id}&page=0&size=${pagesize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -59,14 +59,14 @@ export default function Course() {
   }}
 
   const nextPage = async () => {
-    const pg = page < Math.ceil(totalCount / pagesize) ? page + 1 : page
+    const pg = page + 1
     loadBaiGiang(pg)
     setPage(pg)
     console.log(page);
   }
 
   const backPage = async () => {
-    const pg = page === 0 ? 0 : page - 1
+    const pg =  page - 1
     loadBaiGiang(pg)
     setPage(pg)
     console.log(page);
@@ -237,18 +237,8 @@ export default function Course() {
             </div>
 
             <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" onClick={backPage}>
-                    Previous
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" onClick={nextPage}>
-                    Next
-                  </a>
-                </li>
-              </ul>
+            <button type="button" class="btn btn-outline-primary" disabled={page == 0}  onClick={backPage} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount/pagesize)}  onClick={nextPage} >Next</button>
             </nav>
           </div>
         </div>

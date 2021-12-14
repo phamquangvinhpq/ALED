@@ -243,5 +243,52 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
+	
+	@Override
+	public List<CourseDTO> getAllCouAct(){
+		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
+		List<Course> lstCourse = courseRepository.getAllCouAct();
+		for (Course course : lstCourse) {
+			CourseDTO courseDTO = new CourseDTO();
+			BeanUtils.copyProperties(course, courseDTO);
+			courseDTO.setCategory_id(course.getCategory().getId());
+			courseDTO.setAuthor_id(course.getAuthor().getId());
+			courseDTO.setUser_id(course.getUsers().getId());
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			courseDTO.setAuthorName(course.getAuthor().getName());
+			courseDTO.setCategoryName(course.getCategory().getName());
+			lstCourseDTO.add(courseDTO);
+		}
+		return lstCourseDTO;
+	}
+	
+	@Override
+	public List<CourseDTO> getAllCouNoAct(){
+		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
+		List<Course> lstCourse = courseRepository.getAllCouNoAct();
+		for (Course course : lstCourse) {
+			CourseDTO courseDTO = new CourseDTO();
+			BeanUtils.copyProperties(course, courseDTO);
+			courseDTO.setCategory_id(course.getCategory().getId());
+			courseDTO.setAuthor_id(course.getAuthor().getId());
+			courseDTO.setUser_id(course.getUsers().getId());
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			courseDTO.setAuthorName(course.getAuthor().getName());
+			courseDTO.setCategoryName(course.getCategory().getName());
+			lstCourseDTO.add(courseDTO);
+		}
+		return lstCourseDTO;
+	}
 
+	@Override
+	public Course AcceptCour(Course course) {
+		Optional<Course> optional = courseRepository.findById(course.getId());
+		if (optional.isPresent()) {
+			Course cour = optional.get();
+			cour.setStatus(course.getStatus());
+			courseRepository.save(cour);
+			
+		}
+		return course;
+	}
 }

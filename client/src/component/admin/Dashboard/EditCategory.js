@@ -1,6 +1,84 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { DEFAULT_API } from '../../../conf/env';
+import { useHistory } from "react-router-dom";
+
 
 export default function EditCategory() {
+  
+    const [DanhMuc,setDanhMuc] = useState({
+        name: ''
+    })
+
+    useEffect(() => {
+
+        loadcate();
+    
+      }, [
+        
+      ])
+
+    let id = useParams()
+  
+    let history = useHistory();
+  const chuyentrang = function (event) {
+    updateCate();
+    history.push("/admin/CourseCategory")
+    alert("cập nhật thành công");
+  } 
+
+  const loadcate = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + `category/${id.id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log("đã dến");
+        console.log(result);
+        setDanhMuc(result)
+        
+
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  const updateCate = () => {
+
+    var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "id": id.id,
+  "name": DanhMuc.name,
+});
+
+var requestOptions = {
+  method: 'PUT',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch(`${DEFAULT_API}` + "category/edit", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+  }
+
+  const onInputChange = (event) => {
+    setDanhMuc({
+      name: event.target.value,
+    });
+    console.log(event.target.value);
+  };
+
     return (
         <div className="content-wrapper">
             <section className="content-header">
@@ -14,58 +92,23 @@ export default function EditCategory() {
             <section className="content">
                 <div className="row">
                     <div className="col-md-12">
-                        <form action="https://phpscriptpoint.com/cc/courseplus/admin/category/edit/1" className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
+                        <form className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
                             <div className="box box-info">
                                 <div className="box-body">
                                     <div className="form-group">
                                         <label htmlFor className="col-sm-3 control-label">Category Name
                                             <span>*</span></label>
                                         <div className="col-sm-4">
-                                            <input type="text" className="form-control" name="category_name" defaultValue="Web Design" />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">Category Slug</label>
-                                        <div className="col-sm-4">
-                                            <input type="text" className="form-control" name="category_slug" defaultValue="web-design" />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">Select Parent</label>
-                                        <div className="col-sm-4">
-                                            <select name="category_parent" className="form-control select2" id="parentType1">
-                                                <option value={0}>None</option>
-                                                <option value={25}>API Testing</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">Existing Photo</label>
-                                        <div className="col-sm-9 pt_5">
-                                            <img src="https://phpscriptpoint.com/cc/courseplus/public/uploads/category-photo-1.jpg" alt="Category Photo" className="w-150" />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">Photo </label>
-                                        <div className="col-sm-6 pt_5">
-                                            <input type="file" name="category_photo" />(Only jpg, jpeg, gif and png are
-                                            allowed)
-                                        </div>
-                                    </div>
-                                    <div className="form-group" id="showOnHomeDiv1" style={{display: 'none'}}>
-                                        <label htmlFor className="col-sm-3 control-label">Show on home? </label>
-                                        <div className="col-sm-4">
-                                            <select name="category_on_home" className="form-control select2 w-100-p">
-                                                <option value="No" selected>No</option>
-                                                <option value="Yes">Yes</option>
-                                            </select>
+                                            <input type="text" className="form-control" name="name" onChange={onInputChange} defaultValue={DanhMuc.name} />
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor className="col-sm-3 control-label" />
                                         <div className="col-sm-6">
-                                            <button type="submit" className="btn btn-success pull-left" name="form1">Update</button>
+                                            <button onClick={
+                        (event) => {
+                          chuyentrang(event)
+                        }} type="submit" className="btn btn-success pull-left" name="form1">Update</button>
                                         </div>
                                     </div>
                                 </div>

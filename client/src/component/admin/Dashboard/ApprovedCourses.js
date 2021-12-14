@@ -1,8 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { DEFAULT_API } from '../../../conf/env';
 import { NavLink } from "react-router-dom";
 
 
 export default function ApprovedCourses() {
+
+    const [khoahoc, setKhoaHoc] = useState([])
+    useEffect(() => {
+        loadkhoahoc()
+    }, [
+
+    ])
+
+    const loadkhoahoc = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(`${DEFAULT_API}` + `course/cour-act`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                setKhoaHoc(result)
+                console.log(result)
+            })
+            .catch(error => console.log('error', error));
+
+    }
+
     return (
         <div className="content-wrapper">
             <section className="content-header">
@@ -28,29 +56,35 @@ export default function ApprovedCourses() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Build An eCommerce Website With WordPress</td>
-                                            <td>
-                                                $11.29 <br /><del className="c-red">$45.29</del>
-                                            </td>
-                                            <td>
-                                                <img src="https://phpscriptpoint.com/cc/courseplus/public/uploads/course-30.jpg" alt="Build An eCommerce Website With WordPress" className="w-100" />
-                                            </td>
-                                            <td>
-                                                WooCommerce </td>
-                                            <td>
-                                                David Beckham </td>
-                                            <td>
-                                                <a href="#" className="btn btn-success btn-block btn-xs" >See Course
-                                                    Details</a>
+                                        {khoahoc.map((value, index) =>
+                                            <tr key={index}>
+                                                <td>{value.id}</td>
+                                                <td>{value.courseName}</td>
+                                                <td>
+                                                    {value.price}
+                                                </td>
+                                                <td>
+                                                    <img
+                                                        src={value.image}
+                                                        className="w-100" />
+                                                </td>
+                                                <td>
+                                             {value.categoryName}
+                                         </td>
+                                         <td>
+                                             {value.authorName}
+                                         </td>
+                                                <td>
+                                                    <a href={`/Detail/${value.id}`} className="btn btn-success btn-block btn-xs" >See Course
+                                                        Details</a>
+
+                                                    <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >See Course
+                                                        Content Details</NavLink>
                                                     
-                                                    <NavLink to={`/admin/Section/1`}  className="btn btn-info btn-block btn-xs" >See Course
-                                                    Content Details</NavLink>
-                                                <a  className="btn btn-danger btn-block btn-xs" onclick="return confirm('Are you sure want to make this course pending?');">Make
-                                                    this pending</a>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        )}
+
                                     </tbody>
                                 </table>
                             </div>
