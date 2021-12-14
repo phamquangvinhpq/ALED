@@ -48,6 +48,7 @@ public class FavoriteService implements IFavoriteService {
 			FavoriteDTO dto = new FavoriteDTO();
 			BeanUtils.copyProperties(entity, dto);
 			dto.setCourse_name(courseRepository.getById(dto.getCourse_id()).getCourseName());
+			dto.setImage(courseRepository.getById(dto.getCourse_id()).getImage());
 			dtos.add(dto);
 		}
 		return dtos;

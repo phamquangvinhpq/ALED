@@ -32,6 +32,12 @@ export default function Homestd() {
         }
     }
 
+    function getcheckout(value) {
+
+        history.replace(`/checkout/${value.id}`)
+    
+      }
+
     const deleteFavorite = (value) => {
         var requestOptions = {
             method: 'DELETE',
@@ -314,7 +320,7 @@ export default function Homestd() {
                                                     <a onClick={() =>{
                                                          history.replace("detail/"+value.id)
                                                     }} className="template-button">course preview</a>
-                                                    <a href="cart.html" className="template-button margin-left-10">buy now</a>
+                                                    <a onClick={() => getcheckout(value)} href="cart.html" className="template-button margin-left-10">buy now</a>
                                                 </div>
                                             </div>
                                         </div>
