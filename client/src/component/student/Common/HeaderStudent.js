@@ -461,18 +461,30 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                       <div className="modal-body">
                         <form  acceptCharset="utf-8">
                           <div  id="dangky" aria-hidden="true">
-                          <div className="form-group">
-                            <label >Full Name</label>
-                            <input type="text" className="form-control"  name="name"  onChange={onInputChangedangki} placeholder="Full Name" required />
-                          </div>
-                          <div className="form-group">
-                            <label >Email Address</label>
-                            <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email Address" required />
-                          </div>
-                          <div className="form-group">
-                            <label >User Name</label>
-                            <input type="text" className="form-control"  name="username" onChange={onInputChangedangki} placeholder="Full Name" required />
-                          </div>
+                            <div className="form-group">
+                              <label >Full Name</label>
+                              <input type="text" className="form-control"  name="name"  onChange={onInputChangedangki} placeholder="Full Name" required />
+                            </div>
+                            <div className="form-group">
+                              <label >Email Address</label>
+                              <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email Address" required />
+                            </div>
+                            <div className="form-group">
+                              <label >User Name</label>
+                              <input type="text" className="form-control"  name="username" onChange={onInputChangedangki} placeholder="Full Name" required />
+                            </div>
+                            <div className="form-group">
+                              <label >Phone</label>
+                              <input type="text" className="form-control"  name="phone" onChange={onInputChangedangki} placeholder="Phone" required />
+                            </div>
+                            <div className="form-group">
+                              <label >Skill</label>
+                              <input type="textarea" className="form-control"  name="skill" onChange={onInputChangedangki} placeholder="Skill" required />
+                            </div>
+                            <div className="form-group">
+                              <label >Image</label>
+                              <input type="file" className="form-control"  name="image" onChange={onInputChangedangki}  required />
+                            </div>
                           </div>
                           
                           <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signup}>Sign Up</a>
