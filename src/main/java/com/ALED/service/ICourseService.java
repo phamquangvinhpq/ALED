@@ -30,5 +30,11 @@ public interface ICourseService {
 	
 	List<CourseDTO> getAllByCategory(Integer categoryId, int page, int size);
 
+	Course AcceptCour(Course course);
+
+	List<CourseDTO> getAllCouNoAct();
+
+	List<CourseDTO> getAllCouAct();
+
 
 }

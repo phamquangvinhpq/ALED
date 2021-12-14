@@ -1,13 +1,69 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { DEFAULT_API } from '../../../conf/env';
 import { NavLink } from "react-router-dom";
 
 
 export default function Pendinginstructer() {
+
+    const [isEnable, setIsEnable] = useState(0);
+    const [giangVien,setGiangVien] = useState([])
+
+    useEffect(() => {
+        loadGiangVien()
+    }, [
+        isEnable
+    ])
+
+    const loadGiangVien = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+    
+        fetch(`${DEFAULT_API}` + `get-ins-no-isnable`, requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            setGiangVien(result)
+            console.log(result)
+          })
+          .catch(error => console.log('error', error));
+      }
+
+    const huyActive = async (value) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({
+          "id": value.id,
+          "isEnable": 1
+        });
+    
+        var requestOptions = {
+          method: 'PUT',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+    
+        fetch(`${DEFAULT_API}` + "isenable", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            console.log(result)
+            console.log("hiha:" +value.id);
+            alert("đã kích hoạt")
+            setIsEnable(isEnable + 1)
+          })
+          .catch(error => console.log('error', error));
+      }
+
+
     return (
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Pending Courses</h1>
+                    <h1>View Pending Instructer</h1>
                 </div>
             </section>
             <section className="content">
@@ -28,35 +84,36 @@ export default function Pendinginstructer() {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Build An eCommerce Website With WordPress</td>
-                                        <td>
-                                            $11.29 <br/>
-                                            <del className="c-red">$45.29</del>
-                                        </td>
-                                        <td>
-                                            <img
-                                                src="https://phpscriptpoint.com/cc/courseplus/public/uploads/course-30.jpg"
-                                                alt="Build An eCommerce Website With WordPress" className="w-100"/>
-                                        </td>
-                                        <td>
-                                            WooCommerce
-                                        </td>
-                                        <td>
-                                            David Beckham
-                                        </td>
-                                        <td>
-                                            <a href="#"
-                                               className="btn btn-success btn-block btn-xs" target="_blank">View Skill
-                                              </a>
-
-                                            <a href="#"
-                                               className="btn btn-danger btn-block btn-xs"
-                                               >Accept</a>
-            
-                                        </td>
-                                    </tr>
+                                        {giangVien.map((value,index)=>
+                                         <tr key={index}>
+                                         <td>{value.id}</td>
+                                         <td>{value.name}</td>
+                                         <td>
+                                         <img
+                                                 src={value.image} className="w-100"/>             
+                                         </td>
+                                         <td>
+                                         {value.email}
+                                              </td>
+                                         <td>
+                                         {value.phone}
+                                         </td>
+                                         <td>
+                                         {value.address}
+                                         </td>
+                                         <td>
+                                             <a href="#"
+                                                className="btn btn-success btn-block btn-xs" target="_blank">View Skill
+                                               </a>
+ 
+                                             <a onClick={() => huyActive(value)}
+                                                className="btn btn-danger btn-block btn-xs"
+                                                >Accept</a>
+             
+                                         </td>
+                                     </tr>
+                                        )}
+                                   
                                     </tbody>
                                 </table>
                             </div>

@@ -13,7 +13,7 @@ export default function Course() {
   const [totalCount, setTotalCount] = useState(0)
   let param = useParams();
   let pagesize = 6
-
+console.log(BaiGiang);
   useEffect(() => {
 
     loadBaiGiang();
@@ -42,7 +42,7 @@ export default function Course() {
         setTotalCount(result.length) 
       })
     }
-    else {
+    else if(param.id) {
     fetch(`${DEFAULT_API}` + `course/get-all-by-category?categoryId=${param.id}&page=0&size=${pagesize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -55,7 +55,7 @@ export default function Course() {
   }}
 
   const nextPage = async () => {
-    const pg = page < Math.ceil(totalCount / pagesize) ? page + 1 : page
+    const pg = page + 1
     loadBaiGiang(pg)
     setPage(pg)
     console.log(page);
@@ -80,6 +80,7 @@ export default function Course() {
       <div className="row align-items-center">
         <div className="col-md-6">
           <div className="course-tab">
+            
             <ul>
               <li className="active" data-filter="*"><h3>All courses</h3></li>
             </ul>
@@ -90,6 +91,7 @@ export default function Course() {
     </div>
     <div className="row grid" >
       {BaiGiang.map((value,index) =>
+       
        <div className="col-lg-4 col-sm-6 grid-item collection" key={index}>
             <div className="course-single-item" >
             <div className="course-image">
@@ -140,12 +142,9 @@ export default function Course() {
             )}
              </div>
     
-    <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" onClick={backPage} >Previous</a></li>
-                  <li class="page-item"><a class="page-link" onClick={nextPage} >Next</a></li>
-                </ul>
-              </nav>
+             <button type="button" class="btn btn-outline-primary" disabled={page == 0}  onClick={backPage} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount/pagesize)}  onClick={nextPage} >Next</button>
+ 
   </div>
 </div>
 
