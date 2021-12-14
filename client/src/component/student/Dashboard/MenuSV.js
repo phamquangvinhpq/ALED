@@ -26,7 +26,7 @@ export default function Menusv(props) {
                 </NavLink>
               </li>
               <li onClick={() => change("Payment history")} className>
-                <NavLink to="/student/PaymentHistory">Payment history</NavLink>
+                <NavLink to="/student/PaymentHistory">Payment History</NavLink>
               </li>
               <li onClick={() => change("Favorite")} className>
                 <NavLink to="/student/favorite">Favorite</NavLink>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
+import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
 
@@ -84,7 +85,7 @@ export default function EnrolledCourses() {
 
     fetch("http://localhost:8080/addrate", requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result))
+      .then(result => swal("Thành công", "Thêm thành công", "success"))
       .catch(error => console.log('error', error));
   }
 
@@ -121,6 +122,7 @@ export default function EnrolledCourses() {
                   </td>
                   <td>
                     <a href className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalRating1" onClick={() => layidkh(value.course)}>Give Rating</a>
+                    &ensp;
                     <a href className="btn btn-success btn-sm" data-toggle="modal" onClick={()=> chuyentrangdetail(value)} >View Detail</a>
                   </td>
                 </tr>

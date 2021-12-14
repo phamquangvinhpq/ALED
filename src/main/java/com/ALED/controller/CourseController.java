@@ -40,6 +40,11 @@ public class CourseController {
 	public List<CourseDTO> getAll() {
 		return courseService.readAll();
 	}
+	
+	@GetMapping("buythemost")
+	public List<CourseDTO> buythemost() {
+		return courseService.buythemost();
+	}
 
 	@PutMapping("/edit")
 	public CourseDTO edit(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
