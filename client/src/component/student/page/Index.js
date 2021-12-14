@@ -13,6 +13,7 @@ import ViewDetail from './ViewDetail';
 import Signup from './Signup';
 import Course from './Course';
 import Checkout1 from './Checkout1';
+import Cart from './Cart';
 
 export default function Index() {
     let role =localStorage.getItem("role");
@@ -37,6 +38,8 @@ export default function Index() {
                     <Route path="/Checkout/:id">
                         <Checkout1 />
                     </Route>
+
+                   
                    
                     <Route path="/Course/:id">
                         <Course />

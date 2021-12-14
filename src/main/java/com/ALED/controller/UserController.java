@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.entities.Users;
 import com.ALED.service.IUserServiceSystem;
 
@@ -73,6 +74,17 @@ public class UserController {
 		return userService.forgotpassword(user);
 
 	}
+
+	
+	
+	@PostMapping("/createauthoer")
+	public UserAuthorDTO createauthoer(@RequestBody UserAuthorDTO ua)  {
+		
+		return userService.createAuthor(ua);
+		
+
+	}
+
 
 	@PostMapping("/user/updatepassword")
 	public boolean changePassword(@RequestParam(name = "newPassword", required = false) String newPassword,

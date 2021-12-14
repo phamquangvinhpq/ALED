@@ -13,6 +13,9 @@ import Students from './Students';
 import Users from './Users';
 import AddCategory from "./AddCategory";
 import AddUser from './AddUser';
+import Leson from './Leson';
+import Section from './Section';
+import Pendinginstructer from './Pendinginstructer';
 
 export default function IndexAdmin() {
     return (
@@ -67,6 +70,19 @@ export default function IndexAdmin() {
                             <Route path="/admin/ApprovedCourses">
                                 <ApprovedCourses />
                             </Route>
+
+                            <Route path="/admin/lession/:id">
+                                <Leson />
+                            </Route>
+
+                            <Route path="/admin/Section/:id">
+                                <Section />
+                            </Route>
+
+                            <Route path="/admin/Pendinginstructer">
+                                <Pendinginstructer />
+                            </Route>
+
                         </Switch>
                     </div>
                 </body>

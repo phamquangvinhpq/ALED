@@ -105,7 +105,6 @@ export default function EnrolledCourses() {
                 <th>Serial</th>
                 <th>Thumbnail</th>
                 <th>Course Title</th>
-                
                 <th>Course Content</th>
                 <th className="w-200">Action</th>
               </tr>

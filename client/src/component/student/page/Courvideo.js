@@ -215,18 +215,18 @@ export default function Courvideo() {
             <div className="row align-items-center">
               <div className="col-lg-8">
                 <div className="header-left">
-                  <div className="header-logo">
-                    <a ><img src="assets/images/logo-both-color.png" alt="logo" /></a>
+                  <div className="header-logo" >
+                    <a ><img src="/assets/uploads/logoaled.png" alt="logo"  /></a>
                   </div>
                   <div className="header-title">
-                    <h5>WordPress Development Beginner to Pro</h5>
+                    <h5 >WordPress Development Beginner to Pro</h5>
                   </div>
                 </div>
               </div>
               <div className="col-lg-4">
                 <div className="header-backend-buttons">
-                  <a className="template-button">leave a rating</a>
-                  <a className="template-button-2">share</a>
+                  <a className="template-button">Back To My Course</a>
+                  <a className="template-button-2">Home</a>
                 </div>
               </div>
             </div>
@@ -516,33 +516,6 @@ export default function Courvideo() {
           </div>
         </div>
       </div>
-
-
-
-
-      <section className="cta-section gradient-bg padding-top-60 padding-bottom-30">
-        <div className="cta-shape">
-          <img src="assets/images/plus-sign.png" alt="image" className="plus-sign item-rotate" />
-        </div>
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <div className="section-title margin-bottom-40">
-                <h2>enhance your skills with <span>best online course</span></h2>
-              </div>
-              <div className="cta-button">
-                <a className="template-button margin-right-20">start teaching</a>
-                <a className="template-button-2">start learning</a>
-              </div>
-            </div>
-            <div className="col-xl-4 offset-xl-2 col-lg-6">
-              <div className="cta-image">
-                <img src="assets/images/cta-image.png" alt="image" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
 
     </div>

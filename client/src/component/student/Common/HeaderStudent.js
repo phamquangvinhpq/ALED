@@ -37,7 +37,7 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "category/", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
+      
         setDScategory(result)
       })
       .catch(error => console.log('error', error));
@@ -47,7 +47,7 @@ export default function HeaderStudent() {
     history.push("/Course")
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
-    console.log(event.target.value);
+   
   };
 
   
@@ -67,8 +67,8 @@ export default function HeaderStudent() {
       .then(response => response.json())
       .then(result => {
         dispatch({type: "GET_DATA", payload: result}) 
-        console.log("Select" + select);       
-        console.log(result)
+       
+      
         setIsEnable(isEnable + 1)
       }
       )
@@ -88,7 +88,7 @@ export default function HeaderStudent() {
       .then(response => response.json())
       .then(result => {
         dispatch({type: "GET_DATA", payload: result})        
-        console.log(result)
+   
         setIsEnable(isEnable + 1)
         history.push("/Course")
       }
@@ -139,7 +139,7 @@ export default function HeaderStudent() {
       [name]: value,
     })
 
-    console.log(event.target.value)
+
 
   }
 
@@ -150,7 +150,7 @@ export default function HeaderStudent() {
       [name]: value,
 
     });
-    console.log(event.target.value)
+ 
 
   }
 
@@ -200,7 +200,7 @@ export default function HeaderStudent() {
           alert("tài khoản chưa được kích hoạt")
         }
         else {
-          console.log(result)
+     
           localStorage.setItem("accessToken", result.data.accessToken)
           localStorage.setItem("userid", result.data.id)
           result.data.roles.map((role) => {
@@ -213,7 +213,7 @@ export default function HeaderStudent() {
       })
       .catch(error => {
         alert("sai tk mk")
-        console.log('error', error)
+       
 
       });
   }
@@ -246,7 +246,7 @@ export default function HeaderStudent() {
 
     });
 
-    console.log(event.target.value)
+    
 
   }
 
@@ -283,7 +283,7 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "auth/register", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+    
         if(result.loicode == -1)
         {
           alert("email  đã tồn tại")
@@ -311,6 +311,12 @@ export default function HeaderStudent() {
   history.replace("/giangvien/Dashboard")
       window.location.reload();
     }
+
+    const qladmin = () =>{
+      history.replace("/admin")
+          window.location.reload();
+        }
+    
 
     const qlstudent = () =>{
   history.replace("/student/Dashboard")
@@ -401,6 +407,7 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                     Login</a></li> : <li><a href="#" onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
                     </a></li>}
                   {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
+                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > admin</a></li> : ""}
                   {role == null ? <li><a href="#" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="#" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
                 </ul>
 
@@ -516,10 +523,8 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                       </select>
                   </div>
                   
-                    <button className="btn btn-success"type="button" name="form_search_header" onClick={findByName}><i className="fa fa-search" /></button>
-                 
-                 
-                  
+                    <a className="btn btn-success"   type="button" name="form_search_header" onClick={findByName}><i className="fa fa-search" /></a>
+
                 </form>
               </div>
             </div>

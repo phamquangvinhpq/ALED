@@ -17,9 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ALED.DTO.UserAuthorDTO;
+import com.ALED.entities.Author;
 import com.ALED.entities.Role;
 import com.ALED.entities.UserRole;
 import com.ALED.entities.Users;
+import com.ALED.entities.author_skill;
+import com.ALED.repositories.AuthorRepository;
+import com.ALED.repositories.AuthorSkillRepository;
 import com.ALED.repositories.RoleRepository;
 import com.ALED.repositories.UserRepository;
 import com.ALED.repositories.UserRoleRepository;
@@ -35,6 +40,17 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+
+	
+	@Autowired
+	private AuthorRepository authorrepository;
+	
+	@Autowired
+	private AuthorSkillRepository authorskillRepository;
+	
+	
+	
+
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
@@ -169,6 +185,65 @@ public class UserServiceSystem implements IUserServiceSystem {
 	}
 
 	@Override
+
+	public UserAuthorDTO createAuthor(UserAuthorDTO UserAuthorDTO) {
+		double randomDouble = Math.random();
+        randomDouble = randomDouble * 1000000 + 1;
+        int randomInt = (int) randomDouble;
+       
+	String newPassword = String.valueOf(randomInt);
+	UserAuthorDTO.setPassword(passwordEncoder.encode(newPassword));
+	
+	Users us=new Users();
+	BeanUtils.copyProperties(UserAuthorDTO, us);
+	    userRepository.save(us);
+	    Author author=new Author();
+	    author.setId(us.getId());
+	    author.setDescription(UserAuthorDTO.getEmail());
+	    
+	    authorrepository.save(author);
+	    
+	    author_skill ausk=new author_skill();
+	    ausk.setId(author.getId());
+	    ausk.setAuthor_id(author.getId());
+	    ausk.setSkill(UserAuthorDTO.getSkill());
+	    
+	    authorskillRepository.save(ausk);
+	    
+		// save user role
+		List<Role> inputRole = UserAuthorDTO.getRoles();
+		List<UserRole> userRoles = inputRole.stream().map(e -> {
+			UserRole userRole = new UserRole();
+			Optional<Role> optional = roleRepository.findById(e.getId());
+			if(optional.isPresent()) {
+				userRole.setRole(optional.get());
+			}
+			userRole.setUser(us);
+			return userRole; 
+		}).collect(Collectors.toList());
+		
+		
+		userRoleRepository.saveAll(userRoles);
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		 
+        message.setTo(UserAuthorDTO.getEmail());
+        message.setSubject(" ĐĂNG KÝ TÀI KHOẢN ALED");
+        
+        message.setText("MẬT KHẨU  CỦA BẠN LÀ :"+ newPassword);
+       
+
+        // Send Message!
+       emailSender.send(message);
+       
+       
+		return UserAuthorDTO;
+	}
+
+	
+	
+	
+
 	public boolean changePassword(Users user, String newPassword) {
 		Optional<Users> optional = userRepository.findById(user.getId());
 		Users entity = optional.get();
@@ -183,5 +258,6 @@ public class UserServiceSystem implements IUserServiceSystem {
 		userRepository.save(entity);
 		return true;
 	}
+
 
 }

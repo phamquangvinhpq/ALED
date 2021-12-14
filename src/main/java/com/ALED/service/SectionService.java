@@ -135,6 +135,20 @@ public class SectionService implements ISectionService {
 
 
 
+	@Override
+	public String finbykhoahocuser(Integer user_id, Integer course_id) {
+		
+		String a = sectionRepository.finbykhoahocAuthor(user_id, course_id);
+		
+		if(a != null)
+		{
+			return "yes";
+		}
+	return "no";
+	}
+
+
+
 	
 
 	

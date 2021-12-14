@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
 import swal from "sweetalert";
 
+
 export default function Cart() {
 
     const [Author,setAuthor] = useState([])
@@ -89,20 +90,20 @@ export default function Cart() {
 
     return (
         <div>
-            <div className="page-banner" style={{ backgroundImage: 'url(assets/uploads/banner_course.jpg)' }}>
-                <div className="page-banner-bg" />
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h1>Shopping Cart</h1>
-                            <h3>
-                                <a href="../index.html">Home</a>
-                                <i className="fa fa-angle-right" />
-                                Cart              </h3>
-                        </div>
-                    </div>
-                </div>
+             <div className="page-banner" style={{ backgroundImage: 'url(/assets/uploads/banner_course.jpg)' }}>
+        <div className="page-banner-bg" />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <h1>Detail</h1>
+              <h3>
+                <a href="../index.html">Home</a>
+                <i className="fa fa-angle-right" />
+                detail              </h3>
             </div>
+          </div>
+        </div>
+      </div>
             <div className="page-content">
 
                 <div className="container">

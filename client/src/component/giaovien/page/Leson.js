@@ -35,7 +35,7 @@ export default function Leson() {
   }
 
   const [selectedFile, setSelectedFile] = useState();
-
+  const [selectedFile1, setSelectedFile1] = useState();
   useEffect(() => {
     loaddanhmuc();
     getLessionBySection();
@@ -44,7 +44,10 @@ export default function Leson() {
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
+  };
 
+  const changeHandler1 = (event) => {
+    setSelectedFile1(event.target.files[0]);
   };
 
 
@@ -68,8 +71,6 @@ export default function Leson() {
     setSectionId(value.id)
     getLessionBySection();
     setStatus(status + 1)
-
-
   }
 
 
@@ -77,7 +78,7 @@ export default function Leson() {
   const updateLession = () => {
     var formdata = new FormData();
     formdata.append("id", giatriID);
-    formdata.append("file", selectedFile);
+    formdata.append("file", selectedFile1);
     formdata.append("name", lession.name);
     formdata.append("linkVideo", lession.linkVideo);
     formdata.append("type", "video/mp4");
@@ -95,7 +96,7 @@ export default function Leson() {
       .then(response => response.text())
       .then((result) => {
         console.log("đã gọi api");
-        setStatus(status+1)
+        setStatus(status + 1)
         console.log(result)
       })
       .catch(error => console.log('error', error)
@@ -194,6 +195,7 @@ export default function Leson() {
       .catch((error) => console.log("error", error));
   };
 
+
   const addLession = () => {
     var formdata = new FormData();
     formdata.append("file", selectedFile);
@@ -213,6 +215,7 @@ export default function Leson() {
       .then(result => { setStatus(status + 1) })
       .catch(error => console.log('error', error));
   };
+
 
 
   const deleteLession = (value) => {
@@ -538,6 +541,7 @@ export default function Leson() {
                     />
                   </div>
                 </div>
+
                 <div className="form-group mb_5 ovh">
                   <label className="col-sm-4 control-label">
                     Lesson Type *
@@ -579,32 +583,11 @@ export default function Leson() {
                     Lesson File
                   </label>
                   <div className="col-sm-8">
-                    <input type="file" name="lesson_mp4" onChange={changeHandler} /><span className="c-red">(Only MP4
+                    <input type="file" name="lesson_mp4" accept="video/*" onChange={changeHandler1} /><span className="c-red">(Only MP4
                       is allowed)</span>
                   </div>
                 </div>
 
-
-
-
-                {/* <div
-                  className="form-group mb_5 ovh"
-                  style={{ display: "none" }}
-                  id="youtubeBox10"
-                >
-                  <label className="col-sm-4 control-label">
-                    YouTube Video URL
-                  </label>
-                  <div className="col-sm-8">
-                    <input
-                      type="text"
-                      autoComplete="off"
-                      className="form-control"
-                      name="lesson_youtube"
-
-                    />
-                  </div>
-                </div> */}
               </form>
               <div className="form-group mb_5 ovh">
                 <label className="col-sm-4 control-label" />
@@ -636,17 +619,16 @@ export default function Leson() {
 
       {/* model video */}
       <div
-        id="myModalAllWatch0" className="modal" tabIndex={-1} aria-labelledby="demo-default-modal" aria-hidden="true"  >
+        id="myModalAllWatch0" className="modal"  aria-hidden="true"  >
         <div id="myForm" className="modal-dialog w-50-p" >
           <div className="modal-content">
             <form>
               <div >
                 <ReactPlayer
                   controls
-                  width="500px"
+                  width="100%"
                   height="400px"
                   url={lession.linkVideo}
-
                 />
 
               </div>
