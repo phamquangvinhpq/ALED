@@ -422,18 +422,44 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
 
                       <div className="modal-body">
                         <form  acceptCharset="utf-8">
-                          <div className="login-tab">
-                            <div className="tab">
-                              <ul>
-                                <li class="tab-second">
-                                  <a data-toggle="modal" data-target="#dangky" onClick={quyenhuongdan} >instructor</a>
-                                </li>
-                                <li class="tab-three">
-                                  <a onClick={quyenstudent}>student</a>
-                                </li>
-                              </ul>
-                            </div>
+                          <div  id="dangky" aria-hidden="true">
+                          <div className="form-group">
+                            <label >Full Name</label>
+                            <input type="text" className="form-control"  name="name"  onChange={onInputChangedangki} placeholder="Full Name" required />
                           </div>
+                          <div className="form-group">
+                            <label >Email Address</label>
+                            <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email Address" required />
+                          </div>
+                          <div className="form-group">
+                            <label >User Name</label>
+                            <input type="text" className="form-control"  name="username" onChange={onInputChangedangki} placeholder="Full Name" required />
+                          </div>
+                          </div>
+                          
+                          <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signup}>Sign Up</a>
+                        </form>
+                        <a data-dismiss="modal" data-toggle="modal" data-target="#register_introduct">Register Introduct</a>
+                        <p className="mt_30">
+                          Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* đăng ký giảng viên */}
+                <div className="modal fade" id="register_introduct" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                  <div className="modal-dialog modal-vit" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <button type="button" className="close" data-dismiss="modal">×</button>
+                        <h4 className="modal-title">Sign Up</h4>
+                      </div>
+
+                      <div className="modal-body">
+                        <form  acceptCharset="utf-8">
                           <div  id="dangky" aria-hidden="true">
                           <div className="form-group">
                             <label >Full Name</label>

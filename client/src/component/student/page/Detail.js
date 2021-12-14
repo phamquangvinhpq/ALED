@@ -215,8 +215,6 @@ export default function Detail() {
                     $11.49
                   </div>
                   <div className="buy-now">
-                    <a href="" className="btn btn-block btn-primary">Add to Cart</a>
-                    <a href="" className="btn btn-block btn-success">View Cart</a>
                     <a href="" className="btn btn-block btn-warning" onClick={() => getcheckout(value)}>Proceed to Checkout</a>
 
                   </div>
