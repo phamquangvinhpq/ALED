@@ -100,7 +100,7 @@ export default function AddKH() {
       ...BaiGiang,
       [name]: value,
     });
-    console.log(event.target.value);
+   
   };
 
   const onChangeDanhMuc = (event) => {
@@ -118,7 +118,7 @@ export default function AddKH() {
     formdata.append("status", "1");
     formdata.append("category_id", selectedDanhMuc);
     formdata.append("user_id", id);
-    formdata.append("author_id", "1");
+    formdata.append("author_id", id);
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,

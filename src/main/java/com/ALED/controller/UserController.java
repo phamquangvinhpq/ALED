@@ -1,10 +1,12 @@
 package com.ALED.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.entities.Users;
+import com.ALED.service.FileService;
 import com.ALED.service.IUserServiceSystem;
 
 @RestController
@@ -28,6 +32,15 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+
+	@Value("${server.url}")
+	private String serverUrl;
+
+	@Value("${server.proto}")
+	private String serverProto;
+
+	@Autowired
+	private FileService fileService;
 
 	/**
 	 * lấy toàn bộ thông tin user database.
@@ -75,16 +88,17 @@ public class UserController {
 
 	}
 
-	
-	
 	@PostMapping("/createauthoer")
-	public UserAuthorDTO createauthoer(@RequestBody UserAuthorDTO ua)  {
-		
+	public UserAuthorDTO createauthoer(@RequestBody @RequestParam(name = "file", required = false) MultipartFile file, UserAuthorDTO ua
+			) throws IOException {
+		if (file.getContentType() != null) {
+
+			ua.setImage(serverProto + "://" + serverUrl + "/api/file/imageuser?videoName=" + fileService.uploadImage(file));
+			ua.setType(file.getContentType());
+		}
 		return userService.createAuthor(ua);
-		
 
 	}
-
 
 	@PostMapping("/user/updatepassword")
 	public boolean changePassword(@RequestParam(name = "newPassword", required = false) String newPassword,

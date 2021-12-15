@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.ALED.entities.Course;
 import com.ALED.entities.Users;
 
 @Repository
@@ -23,7 +24,8 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
     @Query(value = "SELECT us FROM users us WHERE (?1 IS NULL OR us.username LIKE CONCAT('%', ?1, '%')) AND us.isEnable = true AND us.status = 1")
     Page<Users> pageUsersActive(String userName, Pageable pageable);
 
-    
+	@Query(value = "SELECT * FROM users WHERE image LIKE CONCAT('%',:image,'%')", nativeQuery = true)
+	Users findByImage(@Param("image") String imageName);
     
     
     @Modifying

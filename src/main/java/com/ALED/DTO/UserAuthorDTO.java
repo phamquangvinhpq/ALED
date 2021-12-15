@@ -24,6 +24,8 @@ public class UserAuthorDTO {
 	private String password;
 
 	private String phone;
+	
+	private String Type;
 
     private Boolean isEnable;
    
