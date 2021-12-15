@@ -198,16 +198,8 @@ export default function Course() {
                       </p>
                       <div className="signle-progressbar margin-top-20">
                         <div className="row align-items-center">
-                          <div className="col-2">
-                            <div className="progressbar-text">
-                              <h6>80%</h6>
-                            </div>
-                          </div>
-                          <div className="col-10">
-                            <div id="bar1" className="barfiller">
-                              <span className="fill" data-percentage={80} />
-                            </div>
-                          </div>
+                          
+                         
                         </div>
                       </div>
                       <div className="cotent-bottom margin-top-20">

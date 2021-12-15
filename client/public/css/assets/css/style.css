@@ -4641,3 +4641,10 @@ img {
   width: 150px;
 }
 
+#testscop{
+            
+            width:380px;
+            height:470px;
+            overflow-x:hidden;
+            overflow-y:auto;
+        }
