@@ -9,13 +9,14 @@ export default function EditCategory() {
     const [DanhMuc,setDanhMuc] = useState({
         name: ''
     })
+    const [isEnable, setIsEnable] = useState(0);
 
     useEffect(() => {
 
         loadcate();
     
       }, [
-        
+        isEnable
       ])
 
     let id = useParams()
@@ -67,7 +68,8 @@ var requestOptions = {
 };
 
 fetch(`${DEFAULT_API}` + "category/edit", requestOptions)
-  .then(response => {
+  .then(response => response.json())
+  .then(result => {
     if(result.loicode==-1){
       swal("nhập đầy đủ thông tin", {
         text: `yêu cầu name ` + " " + result.details ,
@@ -79,7 +81,6 @@ fetch(`${DEFAULT_API}` + "category/edit", requestOptions)
       alert("thêm thành công")
     }
   })
-  .then(result => console.log(result))
   .catch(error => console.log('error', error));
   }
 
