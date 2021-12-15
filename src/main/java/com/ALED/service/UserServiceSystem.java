@@ -185,6 +185,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 	}
 
 	@Override
+
 	public UserAuthorDTO createAuthor(UserAuthorDTO UserAuthorDTO) {
 		double randomDouble = Math.random();
         randomDouble = randomDouble * 1000000 + 1;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env';
 import { useHistory } from "react-router-dom";
-
+import swal from "sweetalert";
 
 export default function EditCategory() {
   
@@ -67,7 +67,18 @@ var requestOptions = {
 };
 
 fetch(`${DEFAULT_API}` + "category/edit", requestOptions)
-  .then(response => response.text())
+  .then(response => {
+    if(result.loicode==-1){
+      swal("nhập đầy đủ thông tin", {
+        text: `yêu cầu name ` + " " + result.details ,
+         icon: "warning",
+      });
+     
+    }else{
+      setIsEnable(isEnable +1)
+      alert("thêm thành công")
+    }
+  })
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
   }
