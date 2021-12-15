@@ -142,7 +142,7 @@ export default function Homestd() {
                     <div className="hero-image">
                         <img src="assets/images/hero-home-2.jpg" alt="image" />
                         <div className="video-play-button">
-                            <a href="https://www.youtube.com/watch?v=8AGgbIQyqR8" className="button-video">
+                            <a href="/Course/0" className="button-video">
                                 <i className="fa fa-play item-ripple" />
                             </a>
                         </div>
@@ -224,7 +224,7 @@ export default function Homestd() {
                                     <div className="col-lg-4 col-md-6 grid-item marketing">
                                         <div className="single-course-item">
                                             <div className="course-image">
-                                                <img src="assets/images/course-image-1.png" alt="image" />
+                                                <img src={value.image} alt="image" />
                                             </div>
                                             <div className="course-content margin-top-30">
                                                 <div className="course-title">
@@ -232,7 +232,7 @@ export default function Homestd() {
                                                 </div>
                                                 <div className="course-instructor-rating margin-top-20">
                                                     <div className="course-instructor">
-                                                        <img src="assets/images/course-instructor-1.png" alt="instructor" />
+                                                        <img src={value.imageAuthor} alt="instructor" />
                                                         <h6>{value.authorName}</h6>
                                                     </div>
                                                     <div className="course-rating">
@@ -252,13 +252,9 @@ export default function Homestd() {
                                                     </div>
                                                 </div>
                                                 <div className="course-info margin-top-20">
-                                                    <div className="course-view">
-                                                        <i className="fa fa-eye" />
-                                                        <span>25,000 views</span>
-                                                    </div>
                                                     <div className="course-video">
                                                         <i className="fa fa-play-circle-o" />
-                                                        <span>36 lectures</span>
+                                                        <span> Chapter: {value.countChapter}</span>
                                                     </div>
                                                     <div className="course-time">
                                                         <i className="fa fa-clock-o" />
@@ -290,17 +286,6 @@ export default function Homestd() {
                                                     <span className="course-price">$ {value.price}</span>
                                                 </div>
                                                 <div className="course-info margin-top-30">
-                                                    <div className="course-enroll">
-                                                        <span>enrolled 0</span>
-                                                    </div>
-                                                    <div className="course-video">
-                                                        <i className="fa fa-play-circle-o" />
-                                                        <span>36 lectures</span>
-                                                    </div>
-                                                    <div className="course-time">
-                                                        <i className="fa fa-clock-o" />
-                                                        <span>2h 40mins</span>
-                                                    </div>
                                                 </div>
                                                 <p className="margin-top-20">Learn WordPress like a Professional! Start from the basics and go all the way to creating your own applications and website!</p>
                                                 <ul className="margin-top-20">

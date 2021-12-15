@@ -44,10 +44,9 @@ export default function HeaderStudent() {
   }
 
   const onChangeDanhMuc = (event) => {
-    history.push("/Course")
+    history.push(`/Course/${event.target.value}`)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
-   
   };
 
   
@@ -90,7 +89,7 @@ export default function HeaderStudent() {
         dispatch({type: "GET_DATA", payload: result})        
    
         setIsEnable(isEnable + 1)
-        history.push("/Course")
+        history.push(`/Course`)
       }
       )
       .catch(error => console.log('error', error));
@@ -254,6 +253,11 @@ export default function HeaderStudent() {
 
   function chuyentranglogin() {
     history.push("/home");
+  }
+
+  function chuyentrangAllCourse() {
+    history.push("/Course/0");
+    window.location.reload()
   }
   const signup = () => {
     var myHeaders = new Headers();
@@ -645,16 +649,12 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
             <ul id="menu">
               <li><a  onClick={chuyentranglogin} href="">Home</a></li>
               <li><a>About</a></li>
-              <li className="static"><a href="javascript:void;">All Courses <i className="fa fa-angle-down" /></a>
+              <li className="static"><a onClick={chuyentrangAllCourse}>All Courses <i className="fa fa-angle-down" /></a>
                 <div className="mega-menu mega-full">
                   <ul>
-                    <li className="mega-title"><a href="javascript:void;">Ecommerce</a></li>
-                    <li><a>Magento</a>
-                    </li>
-                    <li><a >Shopify</a>
-                    </li>
-                    <li><a>WooCommerce</a>
-                    </li>
+                    {DScategory.map((category, index) => 
+                      <li><a class="dropdown-item" href={category.id}>{category.name}</a></li>
+                    )}
                   </ul>
                 </div>
               </li>

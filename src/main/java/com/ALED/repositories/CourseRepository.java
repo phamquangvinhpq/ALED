@@ -62,4 +62,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	
 	@Query(value = "Select * from course where status = 0",nativeQuery = true)
 	List<Course> getAllCouNoAct();
+	
+	@Query(value = "SELECT COUNT(*) FROM `section` where course_id = ?1", nativeQuery = true)
+	Integer countChapter(Integer course_id);
+
+	@Query(value = "SELECT * FROM course c WHERE c.author_id = ?1", nativeQuery = true)
+	Page<Course> getCourseByAuthor(Integer author_id, Pageable paging);
 }

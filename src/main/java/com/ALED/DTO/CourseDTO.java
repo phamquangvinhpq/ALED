@@ -31,6 +31,10 @@ public class CourseDTO {
 	private String categoryName;
 	
 	private String authorName;
+	
+	private String imageAuthor;
+	
+	private Integer countChapter;
 
 
 }

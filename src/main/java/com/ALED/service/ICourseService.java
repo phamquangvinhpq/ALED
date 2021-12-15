@@ -37,6 +37,8 @@ public interface ICourseService {
 	List<CourseDTO> getAllCouAct();
 
 	List<CourseDTO> buythemost();
+	
+	List<CourseDTO> getCourseByAuthor(Integer author_id, int page, int size);
 
 
 
