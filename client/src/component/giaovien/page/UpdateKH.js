@@ -12,13 +12,16 @@ export default function UpdateKH() {
     alert("cập nhật thành công");
   }
 
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
+    
     BaiGiang.image=URL.createObjectURL(event.target.files[0])
 
   };
+
+
 
   const [danhmuc, setdanhmuc] = useState([]);
 
@@ -50,7 +53,7 @@ export default function UpdateKH() {
 
     loadCategory();
     dulieusua();
-   
+    
   }, [
 
   ])
@@ -77,10 +80,7 @@ export default function UpdateKH() {
     formdata.append("id", id.id);
     formdata.append("courseName", BaiGiang.courseName);
     formdata.append("price", BaiGiang.price);
-   
       formdata.append("file",selectedFile);
-    
-    
     formdata.append("description", BaiGiang.description);
     formdata.append("status", "1");
     formdata.append("category_id", selectedDanhMuc);

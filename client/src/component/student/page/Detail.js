@@ -228,12 +228,7 @@ export default function Detail() {
                 <div className="download-buy-section">
                   <div className="price">$ {value.price}</div>
                   <div className="buy-now">
-                    <a href="" className="btn btn-block btn-primary">
-                      Add to Cart
-                    </a>
-                    <a href="" className="btn btn-block btn-success">
-                      View Cart
-                    </a>
+                  
                     <a
                       href=""
                       className="btn btn-block btn-warning"

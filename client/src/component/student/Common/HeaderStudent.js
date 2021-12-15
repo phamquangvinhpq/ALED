@@ -229,6 +229,9 @@ export default function HeaderStudent() {
     email: '',
     name: '',
     roles: '',
+    phone:'',
+    address:'',
+    skill:''
 
   });
   const maquyen = 0;
@@ -245,7 +248,6 @@ export default function HeaderStudent() {
 
     });
 
-    
 
   }
 
@@ -268,11 +270,11 @@ export default function HeaderStudent() {
       "image": " ",
       "name": users.name,
       "phone": " ",
-      "isEnable": trangthai,
+      "isEnable": 1,
       "status": 1,
       "roles": [
         {
-          "id": quyen
+          "id": 2
         }
       ]
     });
@@ -300,16 +302,50 @@ export default function HeaderStudent() {
       })
       .catch(error => console.log('error', error));
   }
+  const [selectedFile, setSelectedFile] = useState();
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+    console.log(event.target.files[0]);
+  };
+  const signupintructer = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-  const quyenstudent = () => {
-    setquyen(3)
-    settrangthai(1)
+    var formdata = new FormData();
+    formdata.append("username", users.username);
+    formdata.append("address", users.address);
+    formdata.append("email",  users.email);
+    formdata.append("name", users.name);
+    formdata.append("phone", users.phone);
+    formdata.append("isEnable", "0");
+    formdata.append("status", "1");
+    formdata.append("roles", "3");
+    formdata.append("skill", users.skill);
+    formdata.append("file", selectedFile);
+    
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+    
+        if(result.loicode == -1)
+        {
+          alert("có lỗi xẩy ra kiểm tra lại thông tin")
+        }
+        else{
+          alert("kiểm tra email để lấy mật khẩu")
+          chuyentrang();
+        }
+       
+      })
+      .catch(error => console.log('error', error));
   }
 
-  const quyenhuongdan = () => {
-    setquyen(2)
-    settrangthai()
-  }
 
     const qlgiangvien = () =>{
   history.replace("/giangvien/Dashboard")
@@ -483,15 +519,15 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                             </div>
                             <div className="form-group">
                               <label >Skill</label>
-                              <input type="textarea" className="form-control"  name="skill" onChange={onInputChangedangki} placeholder="Skill" required />
+                              <textarea className="form-control"  name="skill" onChange={onInputChangedangki} placeholder="Skill" required rows="4" cols="50" />
                             </div>
                             <div className="form-group">
                               <label >Image</label>
-                              <input type="file" className="form-control"  name="image" onChange={onInputChangedangki}  required />
+                              <input type="file" className="form-control"  onChange={changeHandler} required />
                             </div>
                           </div>
                           
-                          <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signup}>Sign Up</a>
+                          <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer}>Sign Up</a>
                         </form>
                         <p className="mt_30">
                           Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>

@@ -41,6 +41,8 @@ public class Users  {
 
 	private String phone;
 
+	private String Type;
+	
 	@OneToMany(mappedBy="users")
 	private List<Cart> carts;
 

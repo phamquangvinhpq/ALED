@@ -22,6 +22,8 @@ import com.ALED.repositories.CourseRepository;
 import com.ALED.service.FileService;
 import com.ALED.service.ICourseService;
 
+import reactor.util.annotation.Nullable;
+
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -71,6 +73,7 @@ public class CourseController {
 			throws IOException {
 		
 		if (file.getContentType() != null) {
+			
 			courseDTO.setImage(
 					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
 
