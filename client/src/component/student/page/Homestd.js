@@ -141,11 +141,9 @@ export default function Homestd() {
                     </div>
                     <div className="hero-image">
                         <img src="assets/images/hero-home-2.jpg" alt="image" />
-                        <div className="video-play-button">
-                            <a href="https://www.youtube.com/watch?v=8AGgbIQyqR8" className="button-video">
-                                <i className="fa fa-play item-ripple" />
-                            </a>
-                        </div>
+                       
+
+                       
                     </div>
                     <div className="container">
                         <div className="row">
