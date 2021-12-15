@@ -1,156 +1,79 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useParams } from 'react-router-dom'
-import { DEFAULT_API } from '../../../conf/env';
-import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 
 export default function ViewDetail() {
-  const dispatch  = useDispatch()
-  const BaiGiang = useSelector(state =>state)
   let history = useHistory();
+  let author_id = useParams().id;
 
-  const [khoahoc,setkhoahoc] = useState({
-    courseName: "",
-    price: "",
-    image: "",
-    description: "",
-    status: "",
-    category_id: "",
-    author_id: "",
-    users_id: "",
-    type: ""
-  })
+  const [page, setPage] = useState(0);
+  const [infoTeacher, setInfoTeacher] = useState([]);
+  const [infoAuthor, setInfoAuthor] = useState({});
+  const [listCourse, setListCourse] = useState([]);
 
-  const [giatriID, setgiatriID] = useState([])
-  let id = useParams();
-  const [danhmuc,setdanhmuc] = useState({
-    cateName: ""
-  })
+  const loadCourse = (page) => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-  const [isEnable, setIsEnable] = useState(0);
+    fetch(
+      `http://localhost:8080/course/get_course_author?author_id=${author_id}&page=${page}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => setListCourse(result))
+      .catch((error) => console.log("error", error));
+  };
+
+  const loadInfoTeacher = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      `http://localhost:8080/teacheroverview?author_id=${author_id}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => setInfoTeacher(result))
+      .catch((error) => console.log("error", error));
+  };
+
+  const loadInfoAuthor = () => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/teacheroverview/getinfoauthor?author_id=${author_id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => setInfoAuthor(result))
+      .catch(error => console.log('error', error));
+  }
 
   useEffect(() => {
-    GetByCategory()
-    loadCategory();
-    
-  }, [
-    isEnable,dispatch, useSelector
-  ])
+    loadCourse(page);
+    loadInfoAuthor();
+    loadInfoTeacher();
+  }, []);
 
-  const [page,setPage] = useState(0);
-  const [totalCount,setTotalCount] = useState(0)
-  let pagesize = 2
+  const chuyenTrang = (page) => {
+    setPage(page);
+    loadCourse(page);
+  };
 
-  const nextPage = async() => {
-    const pg = page < Math.ceil(totalCount/pagesize) ? page + 1 : page
-    GetByCategory(pg)
-    setPage(pg)
-    console.log(page);
-  }
-
-  const backPage = async () => {
-    const pg = page === 0 ? 0 : page - 1
-    GetByCategory(pg)
-    setPage(pg)
-    console.log(page);
-  }
-
-
-
-  const GetByCategory = async (pg = page, pgsize = pagesize) => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    
-    fetch(`${DEFAULT_API}`  + `course/get-all-by-category?categoryId=${id.id}&page=${page}&size=${pgsize}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {  dispatch({type: "GET_DATA", payload: result})
-           setTotalCount(result.length)
-        })
-      .catch(error => console.log('error', error));
-    
-  }
-
-
-  let userid = localStorage.getItem("userid")
-
-  const addCart =  (value) => {
-    var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-
-  "image": value.image,
-  "price": value.price,
-  "user_id": userid,
-  "course_id": value.id
-});
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("http://localhost:8080/cart/add", requestOptions)
-  .then(response => response.json())
-  .then(result => setIsEnable(isEnable + 1))
-  .catch(error => console.log('error', error));
-  }
-
-  const loadCour = async () => {
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-
-    fetch(`${DEFAULT_API}` +`course`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-       setkhoahoc(result)
-        console.log(result);
-      })
-      .catch(error => console.log('error', error));
-  }
-
- 
-  
-
-  const loadCategory = async () => {
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-
-    fetch(`${DEFAULT_API}` +`category/${id.id}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        danhmuc.cateName = result.name;
-        console.log("name:" + result.name);
-      })
-      .catch(error => console.log('error', error));
-  }
- function getcheckout(value) {
-
-    history.replace(`/checkout/${value.id}`)
-
+  function getcheckout(value) {
+    history.replace(`/checkout/${value.id}`);
   }
   return (
     <div>
-      <div className="page-banner" style={{ backgroundImage: 'url(/assets/uploads/banner_course.jpg)' }}>
+      <div
+        className="page-banner"
+        style={{ backgroundImage: "url(/assets/uploads/banner_course.jpg)" }}
+      >
         <div className="page-banner-bg" />
         <div className="container">
           <div className="row">
@@ -159,8 +82,9 @@ fetch("http://localhost:8080/cart/add", requestOptions)
               <h3>
                 <a href="">Home</a>
                 <i className="fa fa-angle-right" />
-                detail  <i className="fa fa-angle-right" />
-                viewdetail            </h3>
+                detail <i className="fa fa-angle-right" />
+                viewdetail{" "}
+              </h3>
             </div>
           </div>
         </div>
@@ -168,94 +92,136 @@ fetch("http://localhost:8080/cart/add", requestOptions)
       <div className="page-content">
         <div className="container">
           <div className="row">
-            <div className="col-md-3 instructor">
-              <div className="card">
-                <img src="uploads/user-9.jpg" className="card-img-top img-responsive image" alt="" />
-                <div className="profile_content">
-                  <p className="card_text">
-                  </p><div className="review">
-                    <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star-half-o" /> (<span>4.33</span>)
+            {infoTeacher.map((teacher, value) => (
+              <div className="col-md-3 instructor">
+                <div className="card">
+                  <img
+                    src={infoAuthor.image}
+                    className="card-img-top img-responsive image"
+                    alt=""
+                  />
+                  <div className="profile_content">
+                    <p className="card_text"></p>
+                    <div className="review">
+                    <span>
+                        <ReactStars
+                          edit={false}
+                          value={teacher.instructorRating}
+                          size={24}
+                          isHalf={true}
+                          emptyIcon={<i className="far fa-star"></i>}
+                          halfIcon={<i className="fa fa-star-half-alt"></i>}
+                          fullIcon={<i className="fa fa-star"></i>}
+                          activeColor="#ffd700"
+                        />
+                      </span> 
+                    </div>
+                    <div className="text-muted">
+                      <i className="fa fa-star" /> Instructor Rating:{" "}
+                      {teacher.instructorRating}
+                    </div>
+                    <div className="text-muted">
+                      <i className="fa fa-play-circle" /> Total Courses:{" "}
+                      {teacher.totalCourse}
+                    </div>
+                    <div className="text-muted">
+                      <i className="fa fa-comment" /> Total Rating:{" "}
+                      {teacher.totalRating}
+                    </div>
+                    <div className="text-muted">
+                      <i className="fa fa-user" /> Total Students:{" "}
+                      {teacher.totalStudents}
+                    </div>
+                    <p />
                   </div>
-                  <div className="text-muted">
-                    <i className="fa fa-star" /> Instructor Rating 4.33
-                  </div>
-                  <div className="text-muted">
-                    <i className="fa fa-play-circle" /> Total Courses: 6
-                  </div>
-                  <div className="text-muted">
-                    <i className="fa fa-comment" /> Total Rating: 5
-                  </div>
-                  <div className="text-muted">
-                    <i className="fa fa-user" /> Total Students: 9
-                  </div>
-                  <p />
                 </div>
               </div>
-            </div>
+            ))}
+
             <div className="col-md-9">
-              <h3 className="profile_title">David Beckham</h3>
-              <p className="profile_sub_title">High End Programmer and Developer</p>
+              <h3 className="profile_title">{infoAuthor.name}</h3>
+              <p className="profile_sub_title">
+              Education: {infoAuthor.education}
+              </p>
               <div className="tab-pane active">
-                Lorem<br />
+              Description: {infoAuthor.description}
                 <br />
-                Sit <br />
-                <br />
-                Copiosae
               </div>
             </div>
           </div>
           <h2 className="course_title mt_40">All Courses of this Instructor</h2>
-          
 
-                <div className="row product-item">
-                {BaiGiang.map((value,index) =>
-            <div className="col-md-3 course-item">
+          <div className="row product-item">
+            {listCourse.map((value, index) => (
+              <div className="col-md-3 course-item">
+                <div className="item">
+                  <div className="img-container">
+                    <img
+                      src={value.image}
+                      style={{ height: 250, Width: 250 }}
+                    />
+                  </div>
+                  <div className="text-part">
+                    <h3>
+                      <a href="">{value.courseName}</a>
+                    </h3>
+                    <ul>
+                      <li>Author: {value.authorName}</li>
 
-              <div className="item" >
-                <div className="img-container" key={index}>
-                <img src={value.image} style={ {height: 250 , Width: 250} } />
-                </div>
-                <div className="text-part">
-                  <h3>
-                    <a href="">
-                        {value.courseName}
-                    </a>
-                  </h3>
-                  <ul>
-                    <li>Instructor: David Beckham</li>
-                   
-                        <li >Category: {danhmuc.cateName}</li>
-                     
-                    
-                  </ul>
-                  <div className="review">
-                    <i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /><i className="fa fa-star" /> 5.0 <span className="review-text">
-                      (Total Reviews: 1)
-                    </span>
-                  </div>
-                  <div className="price">
-                    {value.price}$
-                  </div>
-                  <div className="buy">
-                    <a  onClick={() => getcheckout(value)} className="btn btn-block btn-success">check out</a>
+                      <li>Category: {value.categoryName}</li>
+                    </ul>
+                    <div className="review">
+                    <span>
+                        <ReactStars
+                          edit={false}
+                          value={value.rate}
+                          size={24}
+                          isHalf={true}
+                          emptyIcon={<i className="far fa-star"></i>}
+                          halfIcon={<i className="fa fa-star-half-alt"></i>}
+                          fullIcon={<i className="fa fa-star"></i>}
+                          activeColor="#ffd700"
+                        />
+                      </span>
+                      <span className="review-text">(Total Reviews: 1)</span>
+                    </div>
+                    <div className="price">{value.price}$</div>
+                    <div className="buy">
+                      <a
+                        onClick={() => getcheckout(value)}
+                        className="btn btn-block btn-success"
+                      >
+                        Check Out
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-
-            
-            </div>
-          )}
+            ))}
           </div>
           <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" onClick={backPage}>Previous</a></li>
-                  <li class="page-item"><a class="page-link" onClick={nextPage}>Next</a></li>
-                </ul>
-              </nav>
-          
+            <ul class="pagination">
+              <li class="page-item">
+                <button
+                  disabled={page == 0 ? true : false}
+                  class="btn btn-primary"
+                  onClick={() => chuyenTrang(page - 1)}
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item">
+                <button
+                  class="btn btn-primary"
+                  onClick={() => chuyenTrang(page + 1)}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
-
-  )
+  );
 }

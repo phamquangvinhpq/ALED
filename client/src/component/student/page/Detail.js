@@ -21,11 +21,7 @@ export default function Detail() {
 
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
-  const [image, setImage] = useState();
-  const [rating, setRating] = useState();
   
-
-
   useEffect(() => {
     countKH();
     loaddanhmuc();

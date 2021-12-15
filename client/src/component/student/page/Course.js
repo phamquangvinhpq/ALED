@@ -153,7 +153,7 @@ export default function Course() {
                   <div className="course-tab">
                     <ul>
                       <li className="active" data-filter="*">
-                        <h3>All courses</h3>
+                        <h3>{}</h3>
                       </li>
                     </ul>
                   </div>
