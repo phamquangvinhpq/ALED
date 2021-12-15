@@ -156,6 +156,7 @@ public class CourseService implements ICourseService {
 			courseDTO.setCategory_id(course.getCategory().getId());
 			courseDTO.setAuthor_id(course.getAuthor().getId());
 			courseDTO.setUser_id(course.getUsers().getId());
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
 			lstCourseDTO.add(courseDTO);
 		}
 		return lstCourseDTO;
@@ -178,6 +179,8 @@ public class CourseService implements ICourseService {
 			dto.setCategory_id(entity.getCategory().getId());
 			dto.setAuthor_id(entity.getAuthor().getId());
 			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setImageAuthor(entity.getAuthor().getImage());
 			listDto.add(dto);
 		}
 		return listDto;
@@ -200,6 +203,8 @@ public class CourseService implements ICourseService {
 			dto.setCategory_id(entity.getCategory().getId());
 			dto.setAuthor_id(entity.getAuthor().getId());
 			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setImageAuthor(entity.getAuthor().getImage());
 			listDto.add(dto);
 		}
 		return listDto;
@@ -219,6 +224,7 @@ public class CourseService implements ICourseService {
 			dto.setAuthor_id(entity.getAuthor().getId());
 			dto.setUser_id(entity.getUsers().getId());
 			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setImageAuthor(entity.getAuthor().getImage());
 			listDto.add(dto);
 		}
 		return listDto;
@@ -236,9 +242,12 @@ public class CourseService implements ICourseService {
 			dto.setAuthor_id(entity.getAuthor().getId());
 			dto.setUser_id(entity.getUsers().getId());
 			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setImage(entity.getImage());
 			dto.setUserName(entity.getUsers().getUsername());
 			dto.setCategoryName(entity.getCategory().getName());
 			dto.setAuthorName(entity.getAuthor().getName());
+			dto.setImageAuthor(entity.getAuthor().getImage());
+			dto.setCountChapter(courseRepository.countChapter(entity.getId()));
 			listDto.add(dto);
 		}
 		return listDto;
@@ -290,5 +299,44 @@ public class CourseService implements ICourseService {
 			
 		}
 		return course;
+	}
+
+//	@Override
+//	public List<CourseDTO> getCourseByAuthor(Integer author_id) {
+//		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
+//		List<Course> lstCourse = courseRepository.findAll();
+//		for (Course course : lstCourse) {
+//			if(course.getAuthor().getId() == author_id) {
+//				CourseDTO courseDTO = new CourseDTO();
+//				BeanUtils.copyProperties(course, courseDTO);
+//				courseDTO.setRate(IrateService.avgstar(course.getId()));
+//				courseDTO.setAuthorName(course.getAuthor().getName());
+//				courseDTO.setCategoryName(course.getCategory().getName());
+//				lstCourseDTO.add(courseDTO);
+//			}
+//		}
+//		return lstCourseDTO;
+//	}
+	
+	@Override
+	public List<CourseDTO> getCourseByAuthor(Integer author_id, int page, int size) {
+		List<Course> listEnity = new ArrayList<Course>();
+		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
+		Pageable paging = PageRequest.of(page, size);
+		Page<Course> pageCourses;
+		if (author_id == 0) {
+			pageCourses = courseRepository.findAll(paging);
+		} else
+			pageCourses = courseRepository.getCourseByAuthor(author_id, paging);
+		listEnity = pageCourses.getContent();
+		for (Course course : listEnity) {
+			CourseDTO courseDTO = new CourseDTO();
+			BeanUtils.copyProperties(course, courseDTO);
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			courseDTO.setAuthorName(course.getAuthor().getName());
+			courseDTO.setCategoryName(course.getCategory().getName());
+			lstCourseDTO.add(courseDTO);
+		}
+		return lstCourseDTO;
 	}
 }

@@ -142,4 +142,10 @@ public class CourseController {
 	public Course setNEnable(@RequestBody Course vo) {
 		return courseService.AcceptCour(vo);
 	}
+	
+	@GetMapping("/get_course_author")
+	public List<CourseDTO> getCourseByAuthor(@RequestParam(required = true) Integer author_id,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
+		return courseService.getCourseByAuthor(author_id, page, size);
+	}
 }
