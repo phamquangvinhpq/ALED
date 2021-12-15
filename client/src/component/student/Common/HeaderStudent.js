@@ -301,6 +301,7 @@ export default function HeaderStudent() {
   const [selectedFile, setSelectedFile] = useState();
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
+    console.log(event.target.files[0]);
   };
   const signupintructer = () => {
     var myHeaders = new Headers();
@@ -324,13 +325,13 @@ export default function HeaderStudent() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + "auth/createauthoer", requestOptions)
+    fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
       .then(response => response.json())
       .then(result => {
     
         if(result.loicode == -1)
         {
-          alert("email  đã tồn tại")
+          alert("có lỗi xẩy ra kiểm tra lại thông tin")
         }
         else{
           alert("kiểm tra email để lấy mật khẩu")
