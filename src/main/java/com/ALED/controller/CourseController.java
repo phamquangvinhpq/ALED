@@ -81,6 +81,10 @@ public class CourseController {
 		return courseService.update(courseDTO);
 	}
 
+	@GetMapping("buythemost")
+	public List<CourseDTO> buythemost() {
+		return courseService.buythemost();
+	}
 	
 	@PostMapping("/save")
 	public CourseDTO save(@Valid @RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
@@ -136,5 +140,11 @@ public class CourseController {
 	@PutMapping("/accept")
 	public Course setNEnable(@RequestBody Course vo) {
 		return courseService.AcceptCour(vo);
+	}
+
+	@GetMapping("/get_course_author")
+	public List<CourseDTO> getCourseByAuthor(@RequestParam(required = true) Integer author_id,
+											 @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
+		return courseService.getCourseByAuthor(author_id, page, size);
 	}
 }

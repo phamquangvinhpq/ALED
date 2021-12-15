@@ -47,5 +47,8 @@ public class CourseDTO {
 	
 	private String authorName;
 
+	private String imageAuthor;
+
+	private Integer countChapter;
 
 }
