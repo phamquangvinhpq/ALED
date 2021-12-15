@@ -479,8 +479,10 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                           
                           <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signup}>Sign Up</a>
                         </form>
-                        <a data-dismiss="modal" data-toggle="modal" data-target="#register_introduct">Register Introduct</a>
-                        <p className="mt_30">
+        
+                        <p className="mt_10">
+                        <a data-dismiss="modal" data-toggle="modal" data-target="#register_introduct">Register Instructors</a>
+                        <br />
                           Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
                         </p>
                       </div>
@@ -489,21 +491,23 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                 </div>
 
                 {/* đăng ký giảng viên */}
-                <div className="modal fade" id="register_introduct" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
+               
+               
+                <div className="modal fade" id="register_introduct" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                   <div className="modal-dialog modal-vit" role="document">
                     <div className="modal-content">
                       <div className="modal-header">
                         <button type="button" className="close" data-dismiss="modal">×</button>
                         <h4 className="modal-title">Sign Up</h4>
                       </div>
-
                       <div className="modal-body">
-                        <form  acceptCharset="utf-8">
+                  
+                        <form  acceptCharset="utf-8" >
+                        <div id='testscop'>
                           <div  id="dangky" aria-hidden="true">
                             <div className="form-group">
                               <label >Full Name</label>
-                              <input type="text" className="form-control"  name="name"  onChange={onInputChangedangki} placeholder="Full Name" required />
+                              <input  width="250px" type="text" className="form-control"  name="name"  onChange={onInputChangedangki} placeholder="Full Name" required />
                             </div>
                             <div className="form-group">
                               <label >Email Address</label>
@@ -526,16 +530,19 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                               <input type="file" className="form-control"  onChange={changeHandler} required />
                             </div>
                           </div>
-                          
+                          </div>
                           <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer}>Sign Up</a>
                         </form>
-                        <p className="mt_30">
+                     
+                       
                           Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
-                        </p>
+                      
                       </div>
                     </div>
                   </div>
                 </div>
+            
+               
 
                 {/* đổi mật khẩu---------------------------------------------- */}
                 <div className="modal fade" id="forget_password_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

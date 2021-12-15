@@ -15,7 +15,7 @@ export default function Courvideo() {
   const [sectionId, setSectionId] = useState(-1);
   const [checked, setChecked] = useState(false);
 
-
+  
   const [lession, setLession] = useState({
 
     linkVideo: "https://www.youtube.com/watch?v=CS2A8shF6To",
@@ -206,6 +206,12 @@ export default function Courvideo() {
       .catch((error) => console.log("error", error));
   };
 
+
+
+  function chuyentranghome() {
+    history.push("/home");
+  }
+  
   return (
     <div>
       <header className="header-section-backend">
@@ -225,8 +231,8 @@ export default function Courvideo() {
               </div>
               <div className="col-lg-4">
                 <div className="header-backend-buttons">
-                  <a className="template-button">Back To My Course</a>
-                  <a className="template-button-2">Home</a>
+                  <a href="/student/EnrolledCourses" className="template-button" >Back To My Course</a>
+                  <a href="/home"  className="template-button-2"   > Home</a>
                 </div>
               </div>
             </div>

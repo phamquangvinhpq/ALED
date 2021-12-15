@@ -15,7 +15,7 @@ export default function MenuAdmin() {
 
         
           <li className="treeview">
-            <a href="#">
+            <a href="#" >
               <i className="fa fa-newspaper-o" />
               <span className="fa-newspaper-o1">Course</span>
               <span className="pull-right-container">

@@ -127,7 +127,7 @@ export default function AllKH() {
                     {value.price}
                   </td>
                   <td>
-                    <img src={value.image} className="w-100" />
+                    <img src={value.image} style={{ height: 80 }} className="w-100" />
                   </td>
                   <td>{value.description}</td>
                   <td>
