@@ -5,9 +5,9 @@ export default function Students() {
 
   const [giangVien, setGiangVien] = useState([])
   const [KhoaHoc,setKhoaHoc] = useState([])
+  const [payment,setPayment] = useState([])
   useEffect(() => {
     loadGiangVien()
-    // loadBaiGiang()
   }, [
   ])
 
@@ -26,6 +26,20 @@ export default function Students() {
       .catch(error => console.log('error', error));
   }
 
+  const loadpayment = (value) => {
+
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + `orders/${value.id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => { 
+        setPayment(result) 
+      console.log(result);})
+      .catch(error => console.log('error', error));
+  }
 
 
   const loadGiangVien = () => {
@@ -120,14 +134,17 @@ export default function Students() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>1</td>
-                  </tr>
+                  {payment.map((value,index)=>
+                    <tr key={index}>
+                    <td>{value.id}</td>
+                    <td>{value.mota}</td>
+                    <td>{value.monny}</td>
+                    <td>{value.bank}</td>
+                    <td>{value.createDate}</td>
+                    <td> {value.status == 0 ? "Completed" : "Uncompleted" }</td>
+                </tr>
+                  )}
+                  
                 </tbody>
               </table>
                   </div>
@@ -154,14 +171,14 @@ export default function Students() {
               {giangVien.map((value, index) =>
                       <tr key={index}>
                         <td>{value.id}</td>
-                        <td>{value.image}</td>
+                        <td><img src={value.image} alt="" className="w-150" /></td>
                         <td>{value.name}</td>
                         <td>{value.email}</td>
                         <td>
                         {value.status == 1 ? "Active" : "No-Active" }  </td>
                         <td>
                         <a href className="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#enrolledCourses1" onClick={() => loadBaiGiang(value)}>Enrolled Courses</a>
-                    <a data-toggle="modal" data-target="#enrolledCourses2" className="btn btn-success btn-xs btn-block" target="_blank">Payment
+                    <a data-toggle="modal" data-target="#enrolledCourses2" className="btn btn-success btn-xs btn-block" onClick={() => loadpayment(value)} target="_blank">Payment
                       History</a>
                         </td>
                       </tr>

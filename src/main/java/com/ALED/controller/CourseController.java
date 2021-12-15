@@ -3,8 +3,11 @@ package com.ALED.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +24,6 @@ import com.ALED.entities.Course;
 import com.ALED.repositories.CourseRepository;
 import com.ALED.service.FileService;
 import com.ALED.service.ICourseService;
-
-import reactor.util.annotation.Nullable;
 
 @RestController
 @RequestMapping("/course")
@@ -57,11 +58,6 @@ public class CourseController {
 	public List<CourseDTO> getAll() {
 		return courseService.readAll();
 	}
-	
-	@GetMapping("buythemost")
-	public List<CourseDTO> buythemost() {
-		return courseService.buythemost();
-	}
 
 	@GetMapping("/count")
 	public Integer count() {
@@ -73,7 +69,6 @@ public class CourseController {
 			throws IOException {
 		
 		if (file.getContentType() != null) {
-			
 			courseDTO.setImage(
 					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
 
@@ -88,7 +83,7 @@ public class CourseController {
 
 	
 	@PostMapping("/save")
-	public CourseDTO save(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
+	public CourseDTO save(@Valid @RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
 			throws IOException {
 		if (file.getContentType() != null) {
 			courseDTO.setImage(
@@ -141,11 +136,5 @@ public class CourseController {
 	@PutMapping("/accept")
 	public Course setNEnable(@RequestBody Course vo) {
 		return courseService.AcceptCour(vo);
-	}
-	
-	@GetMapping("/get_course_author")
-	public List<CourseDTO> getCourseByAuthor(@RequestParam(required = true) Integer author_id,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
-		return courseService.getCourseByAuthor(author_id, page, size);
 	}
 }
