@@ -21,7 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.entities.Users;
+
 import com.ALED.service.FileService;
+
+import com.ALED.repositories.UserRepository;
+
 import com.ALED.service.IUserServiceSystem;
 
 @RestController
@@ -30,6 +34,9 @@ public class UserController {
 	@Autowired
 	private IUserServiceSystem userService;
 
+	@Autowired
+	private UserRepository repository;
+	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
@@ -87,6 +94,44 @@ public class UserController {
 		return userService.forgotpassword(user);
 
 	}
+
+
+	@GetMapping("/count")
+	public Integer count() {
+		return repository.countUser();
+	}
+	
+	
+	@GetMapping("/get-gv")
+	public List<Users> getAllGv(){
+		return userService.getAllGV();
+	}
+	
+	@GetMapping("/get-hs")
+	public List<Users> getAllSt(){
+		return userService.getAllSt();
+	}
+	
+	@GetMapping("/get-hs-and-gv")
+	public List<Users> getAllStAndGv(){
+		return userService.getAllStAndGv();
+	}
+	
+	@GetMapping("/get-ins-no-isnable")
+	public List<Users> getAllInsNoIsNable(){
+		return userService.getAllInsNoIsNable();
+	}
+	
+	@PutMapping("/isenable")
+	public Users setNEnable(@RequestBody Users vo) {
+		return userService.updateIsEnable(vo);
+	}
+	
+	@PutMapping("/status")
+	public Users setStatus(@RequestBody Users vo) {
+		return userService.updateStatus(vo);
+	}
+	
 
 	@PostMapping("/createauthoer")
 	public UserAuthorDTO createauthoer(@RequestBody @RequestParam(name = "file", required = false) MultipartFile file, UserAuthorDTO ua

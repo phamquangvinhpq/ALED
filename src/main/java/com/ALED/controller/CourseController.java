@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.CourseDTO;
+import com.ALED.entities.Course;
+import com.ALED.repositories.CourseRepository;
 import com.ALED.service.FileService;
 import com.ALED.service.ICourseService;
 
@@ -28,6 +30,9 @@ public class CourseController {
 
 	@Autowired
 	ICourseService courseService;
+	
+	@Autowired
+	CourseRepository courseRepository;
 
 	@Value("${server.url}")
 	private String serverUrl;
@@ -38,9 +43,29 @@ public class CourseController {
 	@Autowired
 	private FileService fileService;
 
+	@GetMapping("/cour-act")
+	public List<CourseDTO> getAllCouAct() {
+		return courseService.getAllCouAct();
+	}
+	
+	@GetMapping("/cour-no-act")
+	public List<CourseDTO> getAllCouNoAct() {
+		return courseService.getAllCouNoAct();
+	}
+	
 	@GetMapping("")
 	public List<CourseDTO> getAll() {
 		return courseService.readAll();
+	}
+	
+	@GetMapping("buythemost")
+	public List<CourseDTO> buythemost() {
+		return courseService.buythemost();
+	}
+
+	@GetMapping("/count")
+	public Integer count() {
+		return courseRepository.countCour();
 	}
 
 	@PutMapping("/edit")
@@ -111,5 +136,10 @@ public class CourseController {
 	public List<CourseDTO> getAllByPage(@RequestParam(required = false) Integer usersId,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 		return courseService.findpage(usersId, page, size);
+	}
+	
+	@PutMapping("/accept")
+	public Course setNEnable(@RequestBody Course vo) {
+		return courseService.AcceptCour(vo);
 	}
 }

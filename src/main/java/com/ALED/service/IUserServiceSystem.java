@@ -30,6 +30,18 @@ public interface IUserServiceSystem {
 	public String forgotpassword(Users user) throws MessagingException;
 	
 	public boolean changePassword(Users user, String newPassword);
+
+	List<Users> getAllStAndGv();
+
+	List<Users> getAllSt();
+
+	List<Users> getAllGV();
+
+	Users updateStatus(Users user);
+
+	Users updateIsEnable(Users user);
+
+	List<Users> getAllInsNoIsNable();
 	
 
 }

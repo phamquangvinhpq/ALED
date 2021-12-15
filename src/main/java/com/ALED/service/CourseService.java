@@ -218,9 +218,77 @@ public class CourseService implements ICourseService {
 			dto.setCategory_id(entity.getCategory().getId());
 			dto.setAuthor_id(entity.getAuthor().getId());
 			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
 			listDto.add(dto);
 		}
 		return listDto;
 	}
 
+	@Override
+	public List<CourseDTO> buythemost() {
+		List<CourseDTO> listDto = new ArrayList<CourseDTO>();
+		List<Integer> list = courseRepository.buyTheMost();
+		for (Integer integer : list) {
+			CourseDTO dto = new CourseDTO();
+			Course entity = courseRepository.getById(integer);
+			BeanUtils.copyProperties(entity, dto);
+			dto.setCategory_id(entity.getCategory().getId());
+			dto.setAuthor_id(entity.getAuthor().getId());
+			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setUserName(entity.getUsers().getUsername());
+			dto.setCategoryName(entity.getCategory().getName());
+			dto.setAuthorName(entity.getAuthor().getName());
+			listDto.add(dto);
+		}
+		return listDto;
+	}
+	
+	@Override
+	public List<CourseDTO> getAllCouAct(){
+		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
+		List<Course> lstCourse = courseRepository.getAllCouAct();
+		for (Course course : lstCourse) {
+			CourseDTO courseDTO = new CourseDTO();
+			BeanUtils.copyProperties(course, courseDTO);
+			courseDTO.setCategory_id(course.getCategory().getId());
+			courseDTO.setAuthor_id(course.getAuthor().getId());
+			courseDTO.setUser_id(course.getUsers().getId());
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			courseDTO.setAuthorName(course.getAuthor().getName());
+			courseDTO.setCategoryName(course.getCategory().getName());
+			lstCourseDTO.add(courseDTO);
+		}
+		return lstCourseDTO;
+	}
+	
+	@Override
+	public List<CourseDTO> getAllCouNoAct(){
+		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
+		List<Course> lstCourse = courseRepository.getAllCouNoAct();
+		for (Course course : lstCourse) {
+			CourseDTO courseDTO = new CourseDTO();
+			BeanUtils.copyProperties(course, courseDTO);
+			courseDTO.setCategory_id(course.getCategory().getId());
+			courseDTO.setAuthor_id(course.getAuthor().getId());
+			courseDTO.setUser_id(course.getUsers().getId());
+			courseDTO.setRate(IrateService.avgstar(course.getId()));
+			courseDTO.setAuthorName(course.getAuthor().getName());
+			courseDTO.setCategoryName(course.getCategory().getName());
+			lstCourseDTO.add(courseDTO);
+		}
+		return lstCourseDTO;
+	}
+
+	@Override
+	public Course AcceptCour(Course course) {
+		Optional<Course> optional = courseRepository.findById(course.getId());
+		if (optional.isPresent()) {
+			Course cour = optional.get();
+			cour.setStatus(course.getStatus());
+			courseRepository.save(cour);
+			
+		}
+		return course;
+	}
 }

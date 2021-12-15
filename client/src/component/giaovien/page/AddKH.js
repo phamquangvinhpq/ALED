@@ -16,11 +16,16 @@ export default function AddKH() {
   })
 
   let history = useHistory();
+
+
   const chuyentrang = function (event) {
     addCourse();
     history.push(`/giangvien/AllCourses/`);
     alert("thêm thành công")
   }
+
+
+
 
   const [selectedFile, setSelectedFile] = useState();
 
