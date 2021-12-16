@@ -16,6 +16,10 @@ export default function Detail() {
   const [thongtin, setthongtin] = useState([]);
   const [coursebyid, setcoursebyid] = useState([]);
   const [userrate, setuserrate] = useState([]);
+  const [trangthai, settrangthai] = useState(false);
+
+
+  const [damua, setdamua] = useState(false);
   let history = useHistory();
   let id = useParams();
 
@@ -28,6 +32,7 @@ export default function Detail() {
     getCoursebyid();
     getLessionBySection();
     loaduserrate();
+    damuakhoahoc();   
     
 
   }, [status])
@@ -57,6 +62,28 @@ export default function Detail() {
       })
       .catch(error => console.log('error', error));
   };
+
+  let user_id = localStorage.getItem("userid")
+
+  const damuakhoahoc = async () => {
+
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${id.id}`, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        console.log(result);
+        if (result === "bought") {
+          setdamua(true)
+        }
+        
+      })
+      .catch(error => console.log('error', error));
+  }
+
 
 
   const countKH = async () => {
@@ -91,6 +118,10 @@ export default function Detail() {
       .catch((error) => console.log("error", error));
   };
 
+  function chuyentrang(value) {
+    history.replace(`/wath/video/${value.id}`)
+    window.location.reload()
+  }
 
 
   const loaduserrate = async () => {
@@ -134,6 +165,10 @@ export default function Detail() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+       if(result[0].status ==0)
+       {
+         settrangthai(true)
+       }
         setcoursebyid(result)
         loadInfoTeacher(result[0].author_id)
         loadInfoAuthor(result[0].author_id)
@@ -228,15 +263,23 @@ export default function Detail() {
                 <div className="download-buy-section">
                   <div className="price">$ {value.price}</div>
                   <div className="buy-now">
+                    {trangthai == true ? "đang chờ duyệt" : 
+                    <div>
+                  {damua==false ? <a
                   
-                    <a
-                      href=""
-                      className="btn btn-block btn-warning"
-                      onClick={() => getcheckout(value)}
-                    >
-                      Proceed to Checkout
-                    </a>
-                  </div>
+                    className="btn btn-block btn-warning"
+                    onClick={() => getcheckout(value.id)}
+                  >
+                    Proceed to Checkout
+                  </a>: <a
+                 
+                    className="btn btn-info btn-sm"
+                    onClick={()=> chuyentrang(value)}
+                  >
+                   xem
+                  </a> }</div>
+}
+                </div>
                 </div>
               </div>
             </div>

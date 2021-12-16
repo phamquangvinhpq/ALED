@@ -40,5 +40,10 @@ public class RateController {
 	}
 	
 	
+	@GetMapping("/findrate/{userid}/{course}")
+	public String findrate( @PathVariable("userid") Integer userid,@PathVariable("course") Integer course) {
+		return rateService.findbyrate(userid, course);
+	}
+	
 
 }

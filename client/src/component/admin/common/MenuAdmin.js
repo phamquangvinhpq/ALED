@@ -13,7 +13,6 @@ export default function MenuAdmin() {
             </a>
           </li>
 
-        
           <li className="treeview">
             <a href="#" >
               <i className="fa fa-newspaper-o" />
@@ -38,8 +37,7 @@ export default function MenuAdmin() {
                   <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Courses</span>
                 </NavLink>
               </li>
-             
-              
+
             </ul>
           </li>
           

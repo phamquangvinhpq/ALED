@@ -53,7 +53,7 @@ export default function AddCategory() {
                
               }else{
                 setIsEnable(isEnable +1)
-                alert("thêm thành công")
+               
               }
              
            

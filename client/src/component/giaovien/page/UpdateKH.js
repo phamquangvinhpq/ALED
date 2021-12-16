@@ -80,13 +80,13 @@ export default function UpdateKH() {
     formdata.append("id", id.id);
     formdata.append("courseName", BaiGiang.courseName);
     formdata.append("price", BaiGiang.price);
-      formdata.append("file",selectedFile);
+    formdata.append("file",selectedFile);
     formdata.append("description", BaiGiang.description);
     formdata.append("status", "1");
     formdata.append("category_id", selectedDanhMuc);
     formdata.append("user_id", user_id);
-    formdata.append("author_id", "1");
-    formdata.append("image", "hello");
+    formdata.append("author_id", user_id );
+    formdata.append("image", BaiGiang.image);
     var requestOptions = {
       method: 'PUT',
       headers: myHeaders,

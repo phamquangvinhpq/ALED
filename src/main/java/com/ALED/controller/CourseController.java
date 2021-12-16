@@ -31,7 +31,7 @@ public class CourseController {
 
 	@Autowired
 	ICourseService courseService;
-	
+
 	@Autowired
 	CourseRepository courseRepository;
 
@@ -48,12 +48,12 @@ public class CourseController {
 	public List<CourseDTO> getAllCouAct() {
 		return courseService.getAllCouAct();
 	}
-	
+
 	@GetMapping("/cour-no-act")
 	public List<CourseDTO> getAllCouNoAct() {
 		return courseService.getAllCouNoAct();
 	}
-	
+
 	@GetMapping("")
 	public List<CourseDTO> getAll() {
 		return courseService.readAll();
@@ -65,30 +65,31 @@ public class CourseController {
 	}
 
 	@PutMapping("/edit")
-	public CourseDTO edit(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
+	public CourseDTO edit(@RequestParam(name = "file", required = false) MultipartFile file, CourseDTO couDto)
 			throws IOException {
-		
-		if (file.getContentType() != null) {
-			courseDTO.setImage(
-					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
 
-			courseDTO.setType(file.getContentType());
-		}else {
-			courseDTO.setImage(courseDTO.getImage());
-			courseDTO.setType("image/jpeg");
+		if (file != null) {
+			couDto.setImage(
+					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
+			
+			couDto.setType(file.getContentType());
+		} else {
+
+			couDto.setImage(couDto.getImage());
+			couDto.setType("image/jpeg");
 		}
 
-		return courseService.update(courseDTO);
+		return courseService.update(couDto);
 	}
 
 	@GetMapping("buythemost")
 	public List<CourseDTO> buythemost() {
 		return courseService.buythemost();
 	}
-	
+
 	@PostMapping("/save")
-	public CourseDTO save(@Valid @RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
-			throws IOException {
+	public CourseDTO save(@Valid @RequestBody @RequestParam(name = "file", required = false) MultipartFile file,
+			CourseDTO courseDTO) throws IOException {
 		if (file.getContentType() != null) {
 			courseDTO.setImage(
 					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
@@ -136,7 +137,7 @@ public class CourseController {
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 		return courseService.findpage(usersId, page, size);
 	}
-	
+
 	@PutMapping("/accept")
 	public Course setNEnable(@RequestBody Course vo) {
 		return courseService.AcceptCour(vo);
@@ -144,7 +145,7 @@ public class CourseController {
 
 	@GetMapping("/get_course_author")
 	public List<CourseDTO> getCourseByAuthor(@RequestParam(required = true) Integer author_id,
-											 @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
 		return courseService.getCourseByAuthor(author_id, page, size);
 	}
 }

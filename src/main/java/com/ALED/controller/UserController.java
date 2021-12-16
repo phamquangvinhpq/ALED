@@ -21,11 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.entities.Users;
-
-import com.ALED.service.FileService;
-
+import com.ALED.entities.author_skill;
 import com.ALED.repositories.UserRepository;
-
+import com.ALED.service.FileService;
 import com.ALED.service.IUserServiceSystem;
 
 @RestController
@@ -149,6 +147,12 @@ public class UserController {
 	public boolean changePassword(@RequestParam(name = "newPassword", required = false) String newPassword,
 			@RequestBody Users vo) {
 		return userService.changePassword(vo, newPassword);
+	}
+	
+	
+	@GetMapping("/getskill/{id}")
+	public List<author_skill> getskill(@PathVariable Integer id){
+		return userService.getkill(id);
 	}
 
 }
