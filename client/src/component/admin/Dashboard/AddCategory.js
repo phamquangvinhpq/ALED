@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
+import swal from "sweetalert";
 export default function AddCategory() {
     const [DanhMuc,setDanhMuc] = useState({
         name: ''
     })
     const history = useHistory()
+    const [isEnable, setIsEnable] = useState(0);
 
+    useEffect(() => {
+    
+      }, [
+        isEnable
+      ])
 
     const chuyentrangView = function (event) {
         addCategory()
         history.push("/admin/CourseCategory")
-        alert("Thêm thành công")
     }
 
     const onInputChange = (event) => {
@@ -39,7 +45,17 @@ export default function AddCategory() {
         fetch(`${DEFAULT_API}` + "category/add", requestOptions)
           .then(response => response.json())
           .then(result => {
-            console.log(result)
+            if(result.loicode==-1){
+                swal("nhập đầy đủ thông tin", {
+                  text: `yêu cầu name ` + " " + result.details ,
+                   icon: "warning",
+                });
+               
+              }else{
+                setIsEnable(isEnable +1)
+                alert("thêm thành công")
+              }
+             
            
           })
           .catch(error => console.log('error', error));

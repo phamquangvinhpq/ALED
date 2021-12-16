@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env';
 import { useHistory } from "react-router-dom";
-
+import swal from "sweetalert";
 
 export default function EditCategory() {
   
     const [DanhMuc,setDanhMuc] = useState({
         name: ''
     })
+    const [isEnable, setIsEnable] = useState(0);
 
     useEffect(() => {
 
         loadcate();
     
       }, [
-        
+        isEnable
       ])
 
     let id = useParams()
@@ -67,8 +68,19 @@ var requestOptions = {
 };
 
 fetch(`${DEFAULT_API}` + "category/edit", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
+  .then(response => response.json())
+  .then(result => {
+    if(result.loicode==-1){
+      swal("nhập đầy đủ thông tin", {
+        text: `yêu cầu name ` + " " + result.details ,
+         icon: "warning",
+      });
+     
+    }else{
+      setIsEnable(isEnable +1)
+      alert("thêm thành công")
+    }
+  })
   .catch(error => console.log('error', error));
   }
 

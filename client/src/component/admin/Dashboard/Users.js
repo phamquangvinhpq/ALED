@@ -33,10 +33,14 @@ export default function Users() {
     fetch(`${DEFAULT_API}` + "status", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
-        console.log("hiha:" +value.id);
-        alert("đã tạm khóa")
+        if(value.status == 0){
+          
+          alert("đã kích hoạt lại")
         setIsEnable(isEnable + 1)
+        }else{
+          alert("đã tạm khóa")
+          setIsEnable(isEnable + 1)
+        }
       })
       .catch(error => console.log('error', error));
   }
@@ -90,7 +94,7 @@ export default function Users() {
                                     {giangVien.map((value,index) =>
                                              <tr key={index}>
                                              <td>{value.id}</td>
-                                             <td>{value.image}</td>
+                                             <td><img src={value.image} alt="" className="w-150" /></td>
                                              <td>{value.name}</td>
                                              <td>{value.email}</td>
                                              <td>

@@ -224,7 +224,7 @@ export default function Homestd() {
                                     <div className="col-lg-4 col-md-6 grid-item marketing">
                                         <div className="single-course-item">
                                             <div className="course-image">
-                                                <img src={value.image} alt="image" />
+                                                <img src={value.image}   style={{ height: 250, maxWidth: 350 }}alt="image" />
                                             </div>
                                             <div className="course-content margin-top-30">
                                                 <div className="course-title">

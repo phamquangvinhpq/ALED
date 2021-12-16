@@ -2,6 +2,8 @@ package com.ALED.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,12 +48,12 @@ public class CategoryController {
 	}
 	
 	@PostMapping("/add")
-	public CategoryDTO add(@RequestBody CategoryDTO categoryDTO){
+	public CategoryDTO add(@Valid @RequestBody CategoryDTO categoryDTO){
 		return iCategoryService.create(categoryDTO);
 	}
 	
 	@PutMapping("/edit")
-	public CategoryDTO edit(@RequestBody CategoryDTO categoryDTO){
+	public CategoryDTO edit(@Valid @RequestBody CategoryDTO categoryDTO){
 		return iCategoryService.update(categoryDTO);
 	}
 

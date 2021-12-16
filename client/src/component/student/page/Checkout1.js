@@ -75,16 +75,16 @@ export default function Checkout1() {
 
     return (
         <div>
-            <div className="page-banner" style={{ backgroundImage: 'url(assets/uploads/banner_course.jpg)' }}>
+            <div className="page-banner" style={{ backgroundImage: 'url(/assets/uploads/banner_course.jpg)' }}>
                 <div className="page-banner-bg" />
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <h1>Shopping Cart</h1>
+                            <h1>Check Out</h1>
                             <h3>
-                                <a href="../index.html">Home</a>
+                                <a >Home</a>
                                 <i className="fa fa-angle-right" />
-                                cart  <i className="fa fa-angle-right" />
+                                 
                                 checkout            </h3>
                         </div>
                     </div>
@@ -127,9 +127,7 @@ export default function Checkout1() {
                                      )}
                                 </table>
                             </div>
-                            <div className="text-right">
-                                <a  className="btn btn-success">Back to Cart Page</a>
-                            </div>
+                            
                             <div className="text-right">
                                 <a className="btn btn-success" onClick={pay}>thanh toán ngay </a>
                             </div>
