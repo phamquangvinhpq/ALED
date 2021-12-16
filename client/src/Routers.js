@@ -20,7 +20,7 @@ export default function Routers() {
             <Router>
                 <Switch>       
                         <Route path='/giangvien' render={() =>{
-                            return  role === "ROLE_ADMIN"  ?  <IndexGV /> : <Redirect to="/home" />
+                            return  role === "ROLE_GIANGVIEN"  ?  <IndexGV /> : <Redirect to="/home" />
                         }}  >   
                         </Route>
  
