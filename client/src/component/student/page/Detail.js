@@ -45,7 +45,11 @@ export default function Detail() {
     
     fetch(`http://localhost:8080/teacheroverview/getinfoauthor?author_id=${author_id}` , requestOptions)
       .then(response => response.json())
-      .then(result => setInfoAuthor(result))
+      .then(result => {
+        console.log(result);
+        setInfoAuthor(result)
+      
+      } )
       .catch(error => console.log('error', error));
   }
 
@@ -165,6 +169,7 @@ export default function Detail() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+        console.log(result);
        if(result[0].status ==0)
        {
          settrangthai(true)
@@ -184,13 +189,13 @@ export default function Detail() {
 
   function getcheckout(value) {
 
-    history.replace(`/checkout/${value.id}`)
+    history.replace(`/checkout/${value}`)
 
   }
 
     function viewDetail(value) {
 
-    history.replace(`/Viewdetail/1`)
+    history.replace(`/Viewdetail/${value.id}`)
 
   }
 
@@ -479,7 +484,7 @@ export default function Detail() {
               <div className="author-detail-button mt_30">
                 <a
                   href=""
-                  onClick={viewDetail}
+                  onClick={()=> viewDetail(infoAuthor)}
                   className="btn btn-success btn-lg"
                 >
                   View Detail

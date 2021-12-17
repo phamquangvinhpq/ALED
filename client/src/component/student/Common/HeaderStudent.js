@@ -434,9 +434,9 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
             <div className="col-md-5 col-sm-5">
               <div className="top-left">
                 <ul>
-                  <li><a href="mailto:aled@yourwebsite.com"><i className="fa fa-envelope-o" />
-                     aled@yourwebsite.com</a></li>
-                  <li><a href="tel:contact@yourwebsite.com"><i className="fa fa-phone" />  0869324951</a></li>
+                  <li><a ><i className="fa fa-envelope-o" />
+                  websitealed@gmail.com</a></li>
+                  <li><a ><i className="fa fa-phone" />  0869324951</a></li>
                 </ul>
               </div>
             </div>
@@ -581,7 +581,7 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
           <div className="row">
             <div className="col-md-4 col-sm-3">
               <div className="logo">
-                <a href="index.html"><img src="http://localhost:3000/logo1.jpg" alt="logo" /></a>
+                <a ><img src="http://localhost:3000/logo1.jpg" alt="logo" /></a>
               </div>
             </div>
             <div className="col-md-8 col-sm-9">

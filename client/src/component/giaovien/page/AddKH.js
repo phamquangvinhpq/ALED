@@ -125,7 +125,7 @@ export default function AddKH() {
       .then((result) => {
         if(result.loicode==-1){
           swal("nhập đầy đủ thông tin", {
-            text: `yêu cầu ` + " " + result.details ,
+            text: `yêu cầu ` + " " + result.message ,
              icon: "warning",
           });
         }else{

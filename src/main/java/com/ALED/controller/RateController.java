@@ -45,5 +45,4 @@ public class RateController {
 		return rateService.findbyrate(userid, course);
 	}
 	
-
 }

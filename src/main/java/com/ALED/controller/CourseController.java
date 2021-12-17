@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,7 +64,7 @@ public class CourseController {
 	}
 
 	@PutMapping("/edit")
-	public CourseDTO edit(@RequestParam(name = "file", required = false) MultipartFile file, CourseDTO couDto)
+	public CourseDTO edit( @Valid @RequestParam(name = "file", required = false) MultipartFile file, CourseDTO couDto)
 			throws IOException {
 
 		if (file != null) {
@@ -88,9 +87,9 @@ public class CourseController {
 	}
 
 	@PostMapping("/save")
-	public CourseDTO save(@Valid @RequestBody @RequestParam(name = "file", required = false) MultipartFile file,
+	public CourseDTO save(@Valid @RequestParam(name = "file", required = false) MultipartFile file,
 			CourseDTO courseDTO) throws IOException {
-		if (file.getContentType() != null) {
+		if (file != null) {
 			courseDTO.setImage(
 					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
 			courseDTO.setType(file.getContentType());

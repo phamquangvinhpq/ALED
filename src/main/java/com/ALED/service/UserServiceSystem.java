@@ -199,7 +199,9 @@ public class UserServiceSystem implements IUserServiceSystem {
 	BeanUtils.copyProperties(UserAuthorDTO, us);
 	    userRepository.save(us);
 	    Author author=new Author();
+	    
 	    author.setId(us.getId());
+	    author.setName(UserAuthorDTO.getName());
 	    author.setDescription(UserAuthorDTO.getEmail());
 	    
 	    authorrepository.save(author);

@@ -17,19 +17,24 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.ALED.DTO.CourseDTO;
 import com.ALED.DTO.MycourseDTO;
 import com.ALED.DTO.OrderDTO;
 import com.ALED.DTO.PayDTO;
+import com.ALED.DTO.ketquaDTO;
 import com.ALED.entities.Course;
 import com.ALED.enums.confvpn;
 import com.ALED.repositories.UserRepository;
@@ -111,7 +116,7 @@ public class VnpayController {
 	}
 
 	@GetMapping("/ketquathanhtoan")
-	public String ketquathanhtoan(@RequestParam(value = "vnp_Amount", required = false) int gia,
+	public RedirectView  ketquathanhtoan(@RequestParam(value = "vnp_Amount", required = false) int gia,
 			@RequestParam(value = "vnp_BankCode", required = false) String nganhang,
 			@RequestParam(value = "vnp_OrderInfo", required = false) String mota,
 			@RequestParam(value = "vnp_PayDate", required = false) String ngaytao,
@@ -126,16 +131,26 @@ public class VnpayController {
 		order.setStatus(trangthai);
 		order.setUser((int) context.getAttribute("user_id"));
 		orderService.create(order);
-
+		
+		RedirectView redirectView = new RedirectView();
+	   
+	   
+		
 		if (trangthai == 00) {
 			MycourseDTO mycourseDTO = new MycourseDTO();
 			mycourseDTO.setCourse((int) context.getAttribute("course"));
 			mycourseDTO.setUsers((int) context.getAttribute("user_id"));
 			mycourseService.create(mycourseDTO);
-			return "thành công";
+			 redirectView.setUrl("http://localhost:3000/thanhcong");
+			 return redirectView;
 		}
+		else {
+			 redirectView.setUrl("http://localhost:3000/thatbai");
+			return redirectView;
+		}
+		
 
-		return "chưa thanh toán";
+		
 	}
 
 }
