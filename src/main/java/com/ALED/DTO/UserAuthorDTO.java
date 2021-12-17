@@ -2,6 +2,7 @@ package com.ALED.DTO;
 
 import java.util.List;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import com.ALED.entities.Role;
@@ -18,6 +19,7 @@ public class UserAuthorDTO {
 	@NotNull
     private String address;
 	@NotNull
+	@Email(message = "Email không hợp lệ")
 	private String email;
 	@NotNull
 	private String image;
