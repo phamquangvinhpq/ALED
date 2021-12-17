@@ -8,12 +8,15 @@ import { useHistory } from "react-router-dom";
 
 export default function EnrolledCourses() {
   const [DSkhoahocdamua, setDSkhoahocdamua] = useState([])
+    const [danhgia, setdanhgia] = useState(false)
+
   const [rate, setrate] = useState({
 
     star: "",
     course_id: "",
     comment: ""
   })
+
   let history = useHistory();
   let id = localStorage.getItem("userid")
 
@@ -91,8 +94,30 @@ export default function EnrolledCourses() {
 
   function layidkh(value) {
     rate.course_id = value
+    checkdanhgia();
   }
 
+  const checkdanhgia = async () =>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/findrate/${id}/${rate.course_id}`, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+       
+        if(result === "yes")
+        {
+          setdanhgia(true)
+        
+        } else{
+          setdanhgia(false)
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
+ 
   return (
     <div>
       <div className="col-md-9">
@@ -140,6 +165,7 @@ export default function EnrolledCourses() {
                   <button type="button" className="close" data-dismiss="modal">×</button>
                   <h4 className="modal-title">Rating</h4>
                 </div>
+                {danhgia == true ? 
                 <div className="modal-body">
                   <form acceptCharset="utf-8" />
                   <input type="hidden" name="course_id" defaultValue={30} />
@@ -163,7 +189,8 @@ export default function EnrolledCourses() {
                     <textarea name="comment" className="form-control h-100" cols={30} rows={10} required defaultValue={""} onChange={onInputChange} />
                   </div>
                   <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={addRate}>Submit</button>
-                </div>
+                </div> : "bạn đã dánh giá khóa  học này" }
+               
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Close</b></button>
                 </div>

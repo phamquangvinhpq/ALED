@@ -28,6 +28,11 @@ public interface RateRepository extends JpaRepository<Rate, Integer> {
 	@Query(value = "SELECT COUNT(rate) FROM rate WHERE course_id=:id", nativeQuery = true)
 	String findcount(@Param("id") Integer id);
 	
+	@Query(value = "SELECT * FROM `rate` WHERE user_id=:userid AND course_id=:course ", nativeQuery = true)
+	String findbyrate(@Param("userid") Integer userid,@Param("course") Integer course);
+	
+	
+	
 
 	
 	

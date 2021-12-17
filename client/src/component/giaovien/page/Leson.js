@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env';
 import { Player } from 'video-react';
 import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
+
 
 export default function Leson() {
   const [listSection, setListSection] = useState([]);
@@ -22,6 +24,7 @@ export default function Leson() {
     section_id: selectedSection,
   });
 
+  let history = useHistory();
 
   let id = useParams();
   const [giatriID, setgiatriID] = useState(-1)
@@ -37,7 +40,7 @@ export default function Leson() {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile1, setSelectedFile1] = useState();
   useEffect(() => {
-    loaddanhmuc();
+    checkkhoahocuser();
     getLessionBySection();
     jquer();
   }, [status]);
@@ -71,6 +74,29 @@ export default function Leson() {
     setSectionId(value.id)
     getLessionBySection();
     setStatus(status + 1)
+  }
+
+  let user_id=localStorage.getItem("userid")
+
+  const checkkhoahocuser = async () =>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/giangvien/Coursebyid/${user_id}/${id.id}`, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if(result==="no"){
+          alert("bạn không có quyền truy cập khóa học này")
+          history.push("/giangvien/AllCourses")
+         
+        }
+        else{
+          loaddanhmuc();
+        }
+      })
+      .catch(error => console.log('error', error));
   }
 
 
@@ -410,9 +436,9 @@ export default function Leson() {
                             <table className="table table-bordered table-striped" >
                               <thead>
                                 <tr>
-                                  <th className="w-10-p">Name</th>
-                                  <th className="w-40-p">Lesson Link Video</th>
-                                  <th className="w-10-p">Lesson Section ID</th>
+                                <th className="w-10-p">ID</th>
+                                  <th className="w-40-p">Name</th>
+                                  <th className="w-30-p">Lesson Section ID</th>
                                   <th className="w-15-p">Lesson Content</th>
                                   <th >Action </th>
                                 </tr>
@@ -420,8 +446,8 @@ export default function Leson() {
                               <tbody>
                                 {video.map((value, index) => (
                                   <tr key={index}>
+                                    <td>{index+1}</td>
                                     <td>{value.name}</td>
-                                    <td>{value.linkVideo}</td>
                                     <td>{value.section_id}</td>
                                     <td>
                                       <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
@@ -523,24 +549,7 @@ export default function Leson() {
                     />
                   </div>
                 </div>
-                <div className="form-group ovh mb_5">
-                  <label
-
-                    className="col-sm-4 control-label pt_5"
-                  >
-                    Lesson Link_Video *
-                  </label>
-                  <div className="col-sm-8">
-                    <input
-                      type="text"
-                      autoComplete="off"
-                      className="form-control"
-                      name="linkVideo"
-                      onChange={onInputChange}
-                      value={lession.linkVideo}
-                    />
-                  </div>
-                </div>
+                
 
                 <div className="form-group mb_5 ovh">
                   <label className="col-sm-4 control-label">

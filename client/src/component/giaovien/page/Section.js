@@ -29,7 +29,8 @@ export default function Section() {
 
   useEffect(() => {
 
-    loadsection();
+
+    checkkhoahocuser();
 
   }, [
     isEnable
@@ -67,6 +68,7 @@ export default function Section() {
     });
     
   }
+  let user_id=localStorage.getItem("userid")
 
   const addsection = () => {
     var myHeaders = new Headers();
@@ -102,6 +104,28 @@ export default function Section() {
       })
       .catch(error => console.log('error', error));
   }
+
+  const checkkhoahocuser = async () =>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/giangvien/Coursebyid/${user_id}/${id.id}`, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if(result==="no"){
+          alert("bạn không có quyền truy cập khóa học này")
+          history.push("/giangvien/AllCourses")
+         
+        }
+        else{
+          loadsection();
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
+
 
 
   const deletesection = (value) => {

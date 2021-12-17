@@ -15,7 +15,7 @@ export default function Courvideo() {
   const [sectionId, setSectionId] = useState(-1);
   const [checked, setChecked] = useState(false);
 
-  
+
   const [lession, setLession] = useState({
 
     linkVideo: "https://www.youtube.com/watch?v=CS2A8shF6To",
@@ -211,7 +211,7 @@ export default function Courvideo() {
   function chuyentranghome() {
     history.push("/home");
   }
-  
+
   return (
     <div>
       <header className="header-section-backend">
@@ -222,7 +222,7 @@ export default function Courvideo() {
               <div className="col-lg-8">
                 <div className="header-left">
                   <div className="header-logo" >
-                    <a ><img src="/assets/uploads/logoaled.png" alt="logo"  /></a>
+                    <a ><img src="/assets/uploads/logoaled.png" alt="logo" /></a>
                   </div>
                   <div className="header-title">
                     <h5 >WordPress Development Beginner to Pro</h5>
@@ -232,7 +232,7 @@ export default function Courvideo() {
               <div className="col-lg-4">
                 <div className="header-backend-buttons">
                   <a href="/student/EnrolledCourses" className="template-button" >Back To My Course</a>
-                  <a href="/home"  className="template-button-2"   > Home</a>
+                  <a href="/home" className="template-button-2"   > Home</a>
                 </div>
               </div>
             </div>
@@ -258,9 +258,10 @@ export default function Courvideo() {
                     <li className="tab-one active">
                       <span>overview</span>
                     </li>
-                    <li className="tab-two">
+                    <li className="tab-two" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter1">
                       <span>Q&amp;A</span>
                     </li>
+
                     <li className="tab-three" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                       <span>note</span>
                     </li>
@@ -466,9 +467,9 @@ export default function Courvideo() {
                                 <form>
                                   <a onClick={() => getData(value)} className="btn btn-light">
                                     <input type="checkbox"
-                                    
+
                                       defaultChecked={checked}
-                                      
+
                                     />   &nbsp;&nbsp;
                                     <i className="fa fa-play-circle" /> {value.name}
                                   </a>
@@ -523,6 +524,78 @@ export default function Courvideo() {
         </div>
       </div>
 
+
+
+      <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">NOTE</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="tab-three-content tab-content-bg note-content lost">
+            <div className="container">
+  <div className="row clearfix">
+    <div className="col-lg-6">
+    
+        <div className="chat">
+          <div className="chat-header clearfix">
+            <div className="row">
+              <div className="col-lg-6">
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" />
+                </a>
+                <div className="chat-about">
+                  <h6 className="m-b-0">Aiden Chavez</h6>
+                  
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <div className="chat-history">
+            <ul className="m-b-0">
+              <li className="clearfix">
+                <div className="message-data text-right">
+                <span className="message-data-time">quang vinh:</span>
+                  <span className="message-data-time">10:10 AM, Today</span>
+                </div>
+                <div className="message other-message float-right"> Hi Aiden, how are you? How is the project coming along? </div>
+              </li>
+              <li className="clearfix">
+                <div className="message-data">
+                <span className="message-data-time">Giảng viên</span>
+                  <span className="message-data-time">10:12 AM, Today</span>
+                </div>
+                <div className="message my-message">Are we meeting today?</div>                                    
+              </li>                               
+              
+            </ul>
+          </div>
+          <div className="chat-message clearfix">
+            <div className="input-group mb-0">
+              <div className="input-group-prepend">
+                <span className="input-group-text"><i className="fa fa-send" /></span>
+              </div>
+              <input type="text" className="form-control" placeholder="Enter text here..." />                                    
+            </div>
+          </div>
+        </div>
+    
+    </div>
+  </div>
+</div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   )

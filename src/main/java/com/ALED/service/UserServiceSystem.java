@@ -1,5 +1,6 @@
 package com.ALED.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -307,6 +308,19 @@ public class UserServiceSystem implements IUserServiceSystem {
 			
 		}
 		return user;
+	}
+
+	@Override
+	public List<author_skill> getkill(Integer id) {
+	List<author_skill> ds=new ArrayList<author_skill>();
+		Optional<author_skill> list = authorskillRepository.findById(id);
+		if(list.isPresent())
+		{
+			author_skill ask=list.get();
+			ds.add(ask);
+		}
+		
+		return ds;
 	}
 
 }
