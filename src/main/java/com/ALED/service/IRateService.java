@@ -17,7 +17,7 @@ public interface IRateService {
 	public RateDTO save(RateDTO rateDTO);
 	
 	
-	public List<UserRateDTO> detailcour(Integer id, int page, int size);
+	public List<UserRateDTO> detailcour(Integer id);
 	
 	public String avgstar(Integer id);
 

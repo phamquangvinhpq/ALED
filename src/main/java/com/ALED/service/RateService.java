@@ -7,9 +7,6 @@ import java.util.Optional;
 import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.RateDTO;
@@ -45,28 +42,19 @@ public class RateService implements IRateService {
 	}
 
 	@Override
-	public List<UserRateDTO> detailcour(Integer id, int page, int size) {
-		List<Rate> rates = new ArrayList<Rate>();
-		List<UserRateDTO> dtos = new ArrayList<UserRateDTO>();
-		Pageable pageable = PageRequest.of(page, size);
-		Page<Rate> page2;
-		if(id == null) {
-			page2 = rateRepository.findAll(pageable);
-		}else {
-			page2 = rateRepository.findbymycourse(id,pageable);
-			rates = page2.getContent();
-			for (Rate rate : page2) {
-				UserRateDTO DTO = new UserRateDTO();
-				BeanUtils.copyProperties(rate, DTO);
-				DTO.setCourse(rate.getCourse().getId());
-				int iduser = rate.getUser().getId();
-				Optional<Users> name =userRepository.findById(iduser);
-				DTO.setUser(name.get().getName());
-				dtos.add(DTO);
-			}
+	public List<UserRateDTO> detailcour(Integer id) {
+		List<UserRateDTO> RateDTO = new ArrayList<UserRateDTO>();
+		List<Rate> Rate = rateRepository.findbymycourse(id);
+		for (Rate Rates : Rate) {
+			UserRateDTO DTO = new UserRateDTO();
+			BeanUtils.copyProperties(Rates, DTO);
+			DTO.setCourse(Rates.getCourse().getId());
+			int iduser = Rates.getUser().getId();
+			Optional<Users> name =userRepository.findById(iduser);
+			DTO.setUser(name.get().getName());
+			RateDTO.add(DTO);
 		}
-		return dtos;
-
+		return RateDTO;
 	}
 
 	@Override

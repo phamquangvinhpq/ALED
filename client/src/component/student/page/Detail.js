@@ -18,12 +18,10 @@ export default function Detail() {
   const [userrate, setuserrate] = useState([]);
   let history = useHistory();
   let id = useParams();
-  const [page, setPage] = useState(0);
-  let pagesize = 3
+
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
-  const [totalCount, setTotalCount] = useState(0)
-
+  
   useEffect(() => {
     countKH();
     loaddanhmuc();
@@ -95,30 +93,15 @@ export default function Detail() {
 
 
 
-  const loaduserrate = async (pg = page, pgsize = pagesize) => {
+  const loaduserrate = async () => {
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
-    fetch(`${DEFAULT_API}` + `rate?userId=${id.id}&page=${pg}&size=${pgsize}`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          setTotalCount(result.length)
-          setuserrate(result) })
-        .catch(error => console.log('error', error));
-  }
-
-  const nextPage = async () => {
-    const pg =  page + 1
-    loaduserrate(pg)
-    setPage(pg)
-  }
-
-  const backPage = async () => {
-    const pg =  page - 1
-    loaduserrate(pg)
-    setPage(pg)
-    console.log(page);
+    fetch(`${DEFAULT_API}` + `rate/${id.id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => { setuserrate(result) })
+      .catch(error => console.log('error', error));
   }
 
 
@@ -300,13 +283,6 @@ export default function Detail() {
                   </div>
                 </div>
               ))}
-              <button type="button" className="btn btn-outline-primary" disabled={page == 0}
-                      onClick={backPage}>Previous
-              </button>
-              <button type="button" className="btn btn-outline-primary"
-                      disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
-              </button>
-
             </div>
           </div>
           <div className="row">
