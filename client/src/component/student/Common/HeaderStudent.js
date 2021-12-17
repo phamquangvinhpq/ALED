@@ -436,7 +436,7 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                 <ul>
                   <li><a href="mailto:aled@yourwebsite.com"><i className="fa fa-envelope-o" />
                      aled@yourwebsite.com</a></li>
-                  <li><a href="tel:contact@yourwebsite.com"><i className="fa fa-phone" />  0869324951</a></li>
+                  <li><a href="tel:contact@yourwebsite.com"><i className="fa fa-phone" />  0989999999</a></li>
                 </ul>
               </div>
             </div>
@@ -446,7 +446,7 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                   <li><a href="#" data-toggle="modal" data-target="#login_modal"><i className="fa fa-sign-in" />
                     Login</a></li> : <li><a href="#" onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
                     </a></li>}
-                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
+                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
                   {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > admin</a></li> : ""}
                   {role == null ? <li><a href="#" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="#" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
                 </ul>
@@ -655,7 +655,9 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
           <nav>
             <ul id="menu">
               <li><a  onClick={chuyentranglogin} href="">Home</a></li>
-              <li><a>About</a></li>
+              <li><a href='/about'>About</a></li>
+              <li><a href='/faq'>FAQ</a></li>
+              <li><a href='/contact'>Contact</a></li>
               <li className="static"><a onClick={chuyentrangAllCourse}>All Courses <i className="fa fa-angle-down" /></a>
                 <div className="mega-menu mega-full">
                   <ul>
@@ -665,8 +667,6 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                   </ul>
                 </div>
               </li>
-              <li><a>FAQ</a></li>
-              <li><a>Contact</a></li>
             </ul>
           </nav>
         </div>

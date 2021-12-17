@@ -10,6 +10,8 @@ export default function Homestd() {
     const [listCourse, setListCourse] = useState([])
     const [listFavorite, setListFavorite] = useState([]);
     const [listCategories, setListCategories] = useState([]);
+    const [damua, setdamua] = useState(false);
+
     const user_id = localStorage.getItem("userid")
     const dispatch = useDispatch()
     let history = useHistory();
@@ -33,8 +35,8 @@ export default function Homestd() {
     }
 
     function getcheckout(value) {
-
-        history.replace(`/checkout/${value.id}`)
+        
+       damuakhoahoc(value)
     
       }
 
@@ -131,6 +133,26 @@ export default function Homestd() {
         history.replace(`/Course/${select}`)
         window.location.reload();
       };
+    
+      const damuakhoahoc = async (value) => {
+
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${value.id}`, requestOptions)
+          .then(response => response.text())
+          .then(result => {
+            console.log(result);
+            if (result === "bought") {
+              alert("bạn đã mua khóa học này ")
+            } else{
+                history.replace(`/checkout/${value.id}`)
+            }
+            
+          })
+          .catch(error => console.log('error', error));
+      }
     
     return (
         <div>
@@ -297,7 +319,8 @@ export default function Homestd() {
                                                     <a onClick={() =>{
                                                          history.replace("detail/"+value.id)
                                                     }} className="template-button">course preview</a>
-                                                    <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a>
+                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a> }
+                                                    
                                                 </div>
                                             </div>
                                         </div>

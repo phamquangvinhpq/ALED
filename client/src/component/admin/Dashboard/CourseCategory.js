@@ -13,14 +13,12 @@ export default function CourseCategory() {
         history.push("/admin/addCategory")
     }
 
-    
-
     const chuyentrangupdate = function (event, value, index) {
         history.push(`/admin/editCategory/${value.id}`)
     }
 
     useEffect(() => {
-        countCate()
+        countCate();
     }, [
         isEnable
     ])
@@ -43,17 +41,25 @@ export default function CourseCategory() {
                 headers: myHeaders,
                 redirect: 'follow'
               };
-    
+              
               fetch(`${DEFAULT_API}` + `category/${value.id}`, requestOptions)
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
-                  console.log(result)
-                  setIsEnable(isEnable + 1)
+                    if(result.loicode==-1)
+                    {
+                        swal("không thể xóa danh mục đã có khóa học", {
+                            icon: "warning",
+                          });
+                    }
+                    else{
+
+                        setIsEnable(isEnable + 1)
+                    }
+                
+                
                 })
                 .catch(error => console.log('error', error));
-              swal("đã xóa", {
-                icon: "success",
-              });
+              
             }
           });
         };
@@ -110,7 +116,7 @@ export default function CourseCategory() {
                                     <tbody>
                                         {Categories.map((value, index) =>
                                             <tr key={index}>
-                                                <td>{value.id}</td>
+                                                <td>{index+1}</td>
                                                 <td>{value.name}</td>
                                                 {/* <td>web-design</td>
                                                   <td>No</td> */}

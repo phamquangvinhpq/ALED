@@ -23,6 +23,9 @@ public interface IRateService {
 
 	public String count(Integer id);
 	
+
+	public String findbyrate(Integer userid,Integer courseid);
+
 	
 	
 

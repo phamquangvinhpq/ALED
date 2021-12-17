@@ -97,4 +97,14 @@ public class RateService implements IRateService {
 		return rateDTO;
 	}
 
+	@Override
+	public String findbyrate(Integer userid, Integer courseid) {
+		String Rate = rateRepository.findbyrate(userid,courseid);
+		if(Rate == null)
+		{
+			return "no";
+		}
+		return "yes";
+	}
+
 }
