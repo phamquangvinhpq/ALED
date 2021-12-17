@@ -17,10 +17,10 @@ import com.ALED.service.RateService;
 public class RateController {
 	@Autowired
 	private RateService rateService;
-	
-	@GetMapping("/rate/{id}")
-	public List<UserRateDTO> rate(@PathVariable Integer id) {
-		return rateService.detailcour(id);
+
+	@GetMapping("/rate")
+	public List<UserRateDTO> rate(@RequestParam(required = false) Integer userId,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "2") int size) {
+		return rateService.detailcour(userId,page,size);
 	}
 	
 	
