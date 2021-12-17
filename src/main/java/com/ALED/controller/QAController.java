@@ -24,7 +24,7 @@ public class QAController {
 		return iqaService.save(dto);
 	}
 	
-	@GetMapping
+	@PostMapping("/get")
 	List<QADTO> getAll(@RequestBody QADTO dto) {
 		return iqaService.getAll(dto);
 	}
