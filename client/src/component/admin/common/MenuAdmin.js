@@ -40,8 +40,7 @@ export default function MenuAdmin() {
               <li > <NavLink to="/admin/CourseCategory">
                 <i className="fa fa-circle-o"  /> <span className="fa-laptop1">Course Category</span> 
               </NavLink></li>
-              <li><a href="/admin/ApprovedCourses"><i className="fa fa-circle-o" /> <span className="fa-laptop1">Approved Courses</span></a></li>
-              <li><a href="/admin/PendingCourse"><i className="fa fa-circle-o" />Pending Courses</a></li>
+            
             </ul>
           </li>
           

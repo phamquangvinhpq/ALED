@@ -5,7 +5,7 @@ export default function AddUser() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>Add Category</h1>
+                    <h1>Add User</h1>
                 </div>
                 <div className="content-header-right">
                     <a href="/admin/users" className="btn btn-primary btn-sm">View All</a>
