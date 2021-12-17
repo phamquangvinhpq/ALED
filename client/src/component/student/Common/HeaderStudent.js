@@ -390,7 +390,7 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                 <ul>
                   <li><a href="mailto:aled@yourwebsite.com"><i className="fa fa-envelope-o" />
                      aled@yourwebsite.com</a></li>
-                  <li><a href="tel:contact@yourwebsite.com"><i className="fa fa-phone" />  0869324951</a></li>
+                  <li><a href="tel:contact@yourwebsite.com"><i className="fa fa-phone" />  0989999999</a></li>
                 </ul>
               </div>
             </div>
@@ -565,22 +565,9 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
           <nav>
             <ul id="menu">
               <li><a  onClick={chuyentranglogin} href="">Home</a></li>
-              <li><a>About</a></li>
-              <li className="static"><a href="javascript:void;">All Courses <i className="fa fa-angle-down" /></a>
-                <div className="mega-menu mega-full">
-                  <ul>
-                    <li className="mega-title"><a href="javascript:void;">Ecommerce</a></li>
-                    <li><a>Magento</a>
-                    </li>
-                    <li><a >Shopify</a>
-                    </li>
-                    <li><a>WooCommerce</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li><a>FAQ</a></li>
-              <li><a>Contact</a></li>
+              <li><a href='/about'>About</a></li>
+              <li><a href='/faq'>FAQ</a></li>
+              <li><a href='/contact'>Contact</a></li>
             </ul>
           </nav>
         </div>

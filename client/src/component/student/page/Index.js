@@ -13,6 +13,9 @@ import ViewDetail from './ViewDetail';
 import Signup from './Signup';
 import Course from './Course';
 import Checkout1 from './Checkout1';
+import About from './About';
+import Faq from './Faq';
+import Contact from './Contact';
 
 export default function Index() {
     let role =localStorage.getItem("role");
@@ -26,6 +29,17 @@ export default function Index() {
                         <Homestd />
                     </Route>
 
+                    <Route  path="/about">
+                        <About />
+                    </Route>
+
+                    <Route  path="/faq">
+                        <Faq />
+                    </Route>
+
+                    <Route  path="/contact">
+                        <Contact />
+                    </Route>
 
                     <Route path="/Detail/:id">
                         <Detail />
@@ -37,9 +51,6 @@ export default function Index() {
                     
                     <Route path="/Checkout/:id">
                         <Checkout1 />
-                    </Route>
-                    <Route path="/Cart">
-                        <Cart />
                     </Route>
                
 

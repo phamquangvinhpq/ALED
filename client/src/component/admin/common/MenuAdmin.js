@@ -13,7 +13,6 @@ export default function MenuAdmin() {
             </a>
           </li>
 
-          <li className="treeview ">
           <li className="treeview">
             <a href="#">
               <i className="fa fa-newspaper-o" />
