@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
-
+import swal from "sweetalert";
 export default function AddKH() {
 
   const [BaiGiang, setBaiGiang] = useState({
@@ -16,11 +16,6 @@ export default function AddKH() {
   })
 
   let history = useHistory();
-  const chuyentrang = function (event) {
-    addCourse();
-    history.push(`/giangvien/AllCourses/`);
-    alert("thêm thành công")
-  }
 
   const [selectedFile, setSelectedFile] = useState();
 
@@ -110,16 +105,15 @@ export default function AddKH() {
 
   const addCourse = () => {
     var myHeaders = new Headers();
-
     var formdata = new FormData();
     formdata.append("courseName", BaiGiang.courseName);
     formdata.append("price", BaiGiang.price);
     formdata.append("file", selectedFile);
     formdata.append("description", BaiGiang.description);
-    formdata.append("status", "1");
+    formdata.append("status", "0");
     formdata.append("category_id", selectedDanhMuc);
     formdata.append("user_id", id);
-    formdata.append("author_id", "1");
+    formdata.append("author_id", id);
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -127,17 +121,24 @@ export default function AddKH() {
       redirect: 'follow'
     };
     fetch(`${DEFAULT_API}` + "course/save", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        setIsEnable(isEnable + 1);
+        if(result.loicode==-1){
+          swal("nhập đầy đủ thông tin", {
+            text: `yêu cầu ` + " " + result.details ,
+             icon: "warning",
+          });
+        }else{
+          setIsEnable(isEnable +1)
+          history.push(`/giangvien/AllCourses/`);
+        }
       })
       .catch((error) => console.log("error", error));
   };
 
   return (
+    
     <div className="chinhsua">
-
       <div className="col-md-9">
         <form action="" className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
           <div className="form-group">
@@ -186,9 +187,7 @@ export default function AddKH() {
           <div className="form-group">
             <div className="col-sm-offset-3 col-sm-9">
               <button type="button" className="btn btn-success pull-left c-button" onClick={
-                (event) => {
-                  chuyentrang(event)
-                }} name="form1">Add Course</button>
+                addCourse} name="form1">Add Course</button>
             </div>
           </div>
 

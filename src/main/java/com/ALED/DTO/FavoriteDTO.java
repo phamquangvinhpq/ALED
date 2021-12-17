@@ -18,5 +18,7 @@ public class FavoriteDTO implements Serializable {
 	private int course_id;
 	
 	private String course_name;
+	
+	private String image;
 
 }

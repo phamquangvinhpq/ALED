@@ -37,17 +37,16 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "category/", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
+      
         setDScategory(result)
       })
       .catch(error => console.log('error', error));
   }
 
   const onChangeDanhMuc = (event) => {
-    history.push("/Course")
+    history.push(`/Course/${event.target.value}`)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
-    console.log(event.target.value);
   };
 
   
@@ -67,8 +66,8 @@ export default function HeaderStudent() {
       .then(response => response.json())
       .then(result => {
         dispatch({type: "GET_DATA", payload: result}) 
-        console.log("Select" + select);       
-        console.log(result)
+       
+      
         setIsEnable(isEnable + 1)
       }
       )
@@ -88,9 +87,9 @@ export default function HeaderStudent() {
       .then(response => response.json())
       .then(result => {
         dispatch({type: "GET_DATA", payload: result})        
-        console.log(result)
+   
         setIsEnable(isEnable + 1)
-        history.push("/Course")
+        history.push(`/Course`)
       }
       )
       .catch(error => console.log('error', error));
@@ -139,7 +138,7 @@ export default function HeaderStudent() {
       [name]: value,
     })
 
-    console.log(event.target.value)
+
 
   }
 
@@ -150,7 +149,7 @@ export default function HeaderStudent() {
       [name]: value,
 
     });
-    console.log(event.target.value)
+ 
 
   }
 
@@ -200,7 +199,7 @@ export default function HeaderStudent() {
           alert("tài khoản chưa được kích hoạt")
         }
         else {
-          console.log(result)
+     
           localStorage.setItem("accessToken", result.data.accessToken)
           localStorage.setItem("userid", result.data.id)
           result.data.roles.map((role) => {
@@ -213,7 +212,7 @@ export default function HeaderStudent() {
       })
       .catch(error => {
         alert("sai tk mk")
-        console.log('error', error)
+       
 
       });
   }
@@ -230,6 +229,9 @@ export default function HeaderStudent() {
     email: '',
     name: '',
     roles: '',
+    phone:'',
+    address:'',
+    skill:''
 
   });
   const maquyen = 0;
@@ -246,12 +248,16 @@ export default function HeaderStudent() {
 
     });
 
-    console.log(event.target.value)
 
   }
 
   function chuyentranglogin() {
     history.push("/home");
+  }
+
+  function chuyentrangAllCourse() {
+    history.push("/Course/0");
+    window.location.reload()
   }
   const signup = () => {
     var myHeaders = new Headers();
@@ -264,11 +270,11 @@ export default function HeaderStudent() {
       "image": " ",
       "name": users.name,
       "phone": " ",
-      "isEnable": trangthai,
+      "isEnable": 1,
       "status": 1,
       "roles": [
         {
-          "id": quyen
+          "id": 2
         }
       ]
     });
@@ -283,7 +289,7 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "auth/register", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+    
         if(result.loicode == -1)
         {
           alert("email  đã tồn tại")
@@ -296,21 +302,61 @@ export default function HeaderStudent() {
       })
       .catch(error => console.log('error', error));
   }
+  const [selectedFile, setSelectedFile] = useState();
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+    console.log(event.target.files[0]);
+  };
+  const signupintructer = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-  const quyenstudent = () => {
-    setquyen(3)
-    settrangthai(1)
+    var formdata = new FormData();
+    formdata.append("username", users.username);
+    formdata.append("address", users.address);
+    formdata.append("email",  users.email);
+    formdata.append("name", users.name);
+    formdata.append("phone", users.phone);
+    formdata.append("isEnable", "0");
+    formdata.append("status", "1");
+    formdata.append("roles", "3");
+    formdata.append("skill", users.skill);
+    formdata.append("file", selectedFile);
+    
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+    
+        if(result.loicode == -1)
+        {
+          alert("có lỗi xẩy ra kiểm tra lại thông tin")
+        }
+        else{
+          alert("kiểm tra email để lấy mật khẩu")
+          chuyentrang();
+        }
+       
+      })
+      .catch(error => console.log('error', error));
   }
 
-  const quyenhuongdan = () => {
-    setquyen(2)
-    settrangthai()
-  }
 
     const qlgiangvien = () =>{
   history.replace("/giangvien/Dashboard")
       window.location.reload();
     }
+
+    const qladmin = () =>{
+      history.replace("/admin")
+          window.location.reload();
+        }
+    
 
     const qlstudent = () =>{
   history.replace("/student/Dashboard")
@@ -400,7 +446,8 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                   <li><a href="#" data-toggle="modal" data-target="#login_modal"><i className="fa fa-sign-in" />
                     Login</a></li> : <li><a href="#" onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
                     </a></li>}
-                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
+                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
+                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > admin</a></li> : ""}
                   {role == null ? <li><a href="#" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="#" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
                 </ul>
 
@@ -415,18 +462,6 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
 
                       <div className="modal-body">
                         <form  acceptCharset="utf-8">
-                          <div className="login-tab">
-                            <div className="tab">
-                              <ul>
-                                <li class="tab-second">
-                                  <a data-toggle="modal" data-target="#dangky" onClick={quyenhuongdan} >instructor</a>
-                                </li>
-                                <li class="tab-three">
-                                  <a onClick={quyenstudent}>student</a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
                           <div  id="dangky" aria-hidden="true">
                           <div className="form-group">
                             <label >Full Name</label>
@@ -444,13 +479,70 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                           
                           <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signup}>Sign Up</a>
                         </form>
-                        <p className="mt_30">
+        
+                        <p className="mt_10">
+                        <a data-dismiss="modal" data-toggle="modal" data-target="#register_introduct">Register Instructors</a>
+                        <br />
                           Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {/* đăng ký giảng viên */}
+               
+               
+                <div className="modal fade" id="register_introduct" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                  <div className="modal-dialog modal-vit" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <button type="button" className="close" data-dismiss="modal">×</button>
+                        <h4 className="modal-title">Sign Up</h4>
+                      </div>
+                      <div className="modal-body">
+                  
+                        <form  acceptCharset="utf-8" >
+                        <div id='testscop'>
+                          <div  id="dangky" aria-hidden="true">
+                            <div className="form-group">
+                              <label >Full Name</label>
+                              <input  width="250px" type="text" className="form-control"  name="name"  onChange={onInputChangedangki} placeholder="Full Name" required />
+                            </div>
+                            <div className="form-group">
+                              <label >Email Address</label>
+                              <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email Address" required />
+                            </div>
+                            <div className="form-group">
+                              <label >User Name</label>
+                              <input type="text" className="form-control"  name="username" onChange={onInputChangedangki} placeholder="Full Name" required />
+                            </div>
+                            <div className="form-group">
+                              <label >Phone</label>
+                              <input type="text" className="form-control"  name="phone" onChange={onInputChangedangki} placeholder="Phone" required />
+                            </div>
+                            <div className="form-group">
+                              <label >Skill</label>
+                              <textarea className="form-control"  name="skill" onChange={onInputChangedangki} placeholder="Skill" required rows="4" cols="50" />
+                            </div>
+                            <div className="form-group">
+                              <label >Image</label>
+                              <input type="file" className="form-control"  onChange={changeHandler} required />
+                            </div>
+                          </div>
+                          </div>
+                          <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer}>Sign Up</a>
+                        </form>
+                     
+                       
+                          Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+               
 
                 {/* đổi mật khẩu---------------------------------------------- */}
                 <div className="modal fade" id="forget_password_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -516,10 +608,8 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
                       </select>
                   </div>
                   
-                    <button className="btn btn-success"type="button" name="form_search_header" onClick={findByName}><i className="fa fa-search" /></button>
-                 
-                 
-                  
+                    <a className="btn btn-success"   type="button" name="form_search_header" onClick={findByName}><i className="fa fa-search" /></a>
+
                 </form>
               </div>
             </div>
@@ -568,6 +658,15 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
               <li><a href='/about'>About</a></li>
               <li><a href='/faq'>FAQ</a></li>
               <li><a href='/contact'>Contact</a></li>
+              <li className="static"><a onClick={chuyentrangAllCourse}>All Courses <i className="fa fa-angle-down" /></a>
+                <div className="mega-menu mega-full">
+                  <ul>
+                    {DScategory.map((category, index) => 
+                      <li><a class="dropdown-item" href={category.id}>{category.name}</a></li>
+                    )}
+                  </ul>
+                </div>
+              </li>
             </ul>
           </nav>
         </div>

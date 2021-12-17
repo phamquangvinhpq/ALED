@@ -12,13 +12,16 @@ export default function UpdateKH() {
     alert("cập nhật thành công");
   }
 
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
+    
     BaiGiang.image=URL.createObjectURL(event.target.files[0])
 
   };
+
+
 
   const [danhmuc, setdanhmuc] = useState([]);
 
@@ -50,7 +53,7 @@ export default function UpdateKH() {
 
     loadCategory();
     dulieusua();
-   
+    
   }, [
 
   ])
@@ -70,20 +73,20 @@ export default function UpdateKH() {
   let user_id = localStorage.getItem("userid")
 
 
-  const updateCourse = (event) => {
+  const updateCourse = (e) => {
 
     var myHeaders = new Headers();
     var formdata = new FormData();
     formdata.append("id", id.id);
     formdata.append("courseName", BaiGiang.courseName);
     formdata.append("price", BaiGiang.price);
-    formdata.append("file", event.files[0]);
+    formdata.append("file",selectedFile);
     formdata.append("description", BaiGiang.description);
     formdata.append("status", "1");
     formdata.append("category_id", selectedDanhMuc);
     formdata.append("user_id", user_id);
-    formdata.append("author_id", "1");
-    formdata.append("image", "hello");
+    formdata.append("author_id", user_id );
+    formdata.append("image", BaiGiang.image);
     var requestOptions = {
       method: 'PUT',
       headers: myHeaders,

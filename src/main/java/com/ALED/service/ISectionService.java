@@ -24,6 +24,8 @@ public interface ISectionService {
 	
 	public String muakhoahoc(Integer user_id,Integer course_id);
 	
+	public String finbykhoahocuser(Integer user_id,Integer course_id);
+	
 	
 
 }

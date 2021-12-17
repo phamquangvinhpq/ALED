@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.OrderDTO;
 import com.ALED.entities.Orders;
+import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.OrderRepository;
 import com.ALED.repositories.UserRepository;
 
@@ -18,6 +19,8 @@ public class OrderService implements IOrderService {
 	private OrderRepository orderRepository;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	CourseRepository courseRepository;
 
 	@Override
 	public OrderDTO create(OrderDTO OrderDTO) {
@@ -30,21 +33,29 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public List<OrderDTO> readallbyid(Integer id) {
-		List<OrderDTO> OrderDTO = new ArrayList<OrderDTO>();
-		List<Orders> Orders = orderRepository.findbyorder(id);
-		for (Orders Order : Orders) {
-			OrderDTO DTO = new OrderDTO();
-			BeanUtils.copyProperties(Order, DTO);
-			DTO.setBank(Order.getBank());
-			DTO.setMonny(Order.getMonny());
-			DTO.setMota(Order.getMota());
-			DTO.setStatus(Order.getStatus());
-			DTO.setCreateDate(Order.getCreateDate());
-			DTO.setUser(Order.getUser().getId());
-			OrderDTO.add(DTO);
+	public List<OrderDTO> readallbyid(Integer user_id) {
+		List<OrderDTO> dtoList = new ArrayList<OrderDTO>();
+		List<Orders> entityList = orderRepository.findByOrder(user_id);
+		for (Orders entity : entityList) {
+			OrderDTO dto = new OrderDTO();
+			BeanUtils.copyProperties(entity, dto);
+			dto.setUser(entity.getUser().getId());
+			dtoList.add(dto);
 		}
-		return OrderDTO;
+		return dtoList;
+	}
+
+	@Override
+	public List<OrderDTO> getAll() {
+		List<OrderDTO> dtoList = new ArrayList<OrderDTO>();
+		List<Orders> entityList = orderRepository.findAll();
+		for (Orders entity : entityList) {
+			OrderDTO dto = new OrderDTO();
+			BeanUtils.copyProperties(entity, dto);
+			dto.setUser(entity.getUser().getId());
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 
 }

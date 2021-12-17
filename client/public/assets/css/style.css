@@ -4630,3 +4630,10 @@ img {
   }
   
 
+  #testscop{
+            border:3px solid #00ff00;
+            width:200px;
+            height:200px;
+            overflow-x:hidden;
+            overflow-y:auto;
+        }

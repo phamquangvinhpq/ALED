@@ -7,12 +7,15 @@ import ApprovedCourses from './ApprovedCourses';
 import CourseCategory from './CourseCategory';
 import Dashboard from './Dashboard';
 import Instructors from './Instructors';
+import EditCategory from './EditCategory'
 import PaymentHistory from './PaymentHistory';
 import PendingCourse from './PendingCourses';
 import Students from './Students';
 import Users from './Users';
 import AddCategory from "./AddCategory";
-import AddUser from './AddUser';
+import Leson from './Leson';
+import Section from './Section';
+import Pendinginstructer from './Pendinginstructer';
 
 export default function IndexAdmin() {
     return (
@@ -30,10 +33,6 @@ export default function IndexAdmin() {
 
                             <Route path="/admin/users">
                                 <Users />
-                            </Route>
-
-                            <Route path="/admin/adduser">
-                                <AddUser />
                             </Route>
 
                             <Route path="/admin/Students">
@@ -60,12 +59,24 @@ export default function IndexAdmin() {
                                 <AddCategory />
                             </Route>
 
-                            <Route path="/admin/editCategory">
-                                <AddCategory />
+                            <Route path="/admin/editCategory/:id">
+                                <EditCategory />
                             </Route>
 
                             <Route path="/admin/ApprovedCourses">
                                 <ApprovedCourses />
+                            </Route>
+
+                            <Route path="/admin/lession/:id">
+                                <Leson />
+                            </Route>
+
+                            <Route path="/admin/Section/:id">
+                                <Section />
+                            </Route>
+
+                            <Route path="/admin/Pendinginstructer">
+                                <Pendinginstructer />
                             </Route>
                         </Switch>
                     </div>

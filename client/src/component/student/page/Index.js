@@ -11,6 +11,7 @@ import Home from './Homestd';
 import Detail from './Detail';
 import ViewDetail from './ViewDetail';
 import Signup from './Signup';
+import Cart from './Cart';
 import Course from './Course';
 import Checkout1 from './Checkout1';
 import About from './About';
@@ -19,7 +20,6 @@ import Contact from './Contact';
 
 export default function Index() {
     let role =localStorage.getItem("role");
-
     return (
         <div>
              <BrowserRouter History={History}>
@@ -41,26 +41,38 @@ export default function Index() {
                         <Contact />
                     </Route>
 
+                    <Route path="/ListCourse">
+                        <ListCourse />
+                    </Route>
+
                     <Route path="/Detail/:id">
                         <Detail />
                     </Route>
                     <Route path="/Viewdetail/:id">
                         <ViewDetail />
                     </Route>
-
-                    
-                    <Route path="/Checkout/:id">
-                        <Checkout1 />
+                    <Route path="/MyCourse">
+                        <MyCourse />
                     </Route>
-               
+                    <Route path="/Signup">
+                        <Signup />
+                    </Route>
 
-                    <Route path="/Course/:id">
-                        <Course />
+                    <Route path="/courvideo">
+                        <Courvideo />
                     </Route>
 
                     <Route path='/Checkout/:id' render={() => {
                         return role == null ? alert("vui lòng đăng nhập")  :  <Checkout1 /> 
                     }}  >
+                    </Route>
+
+                    <Route path="/Course/:id">
+                        <Course />
+                    </Route>
+
+                    <Route path="/Course">
+                        <Course />
                     </Route>
                     
                 </Switch>

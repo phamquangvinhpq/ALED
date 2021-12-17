@@ -7,5 +7,5 @@ public class TeacherOverviewDTO {
 	private Integer totalStudents;
 	private Integer totalCourse;
 	private Integer totalRating;
-	private float instructorRating;
+	private String instructorRating;
 }
