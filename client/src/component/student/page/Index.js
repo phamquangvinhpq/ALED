@@ -14,8 +14,14 @@ import Signup from './Signup';
 import Cart from './Cart';
 import Course from './Course';
 import Checkout1 from './Checkout1';
+<<<<<<< HEAD
 import { useHistory } from "react-router-dom";
 
+=======
+import About from './About';
+import Faq from './Faq';
+import Contact from './Contact';
+>>>>>>> 3e3934ba316e58f25262a1b9c61c276a8e6d6394
 
 export default function Index() {
     let role =localStorage.getItem("role");
@@ -36,9 +42,22 @@ export default function Index() {
                         <Homestd />
                     </Route>
 
+                    <Route  path="/about">
+                        <About />
+                    </Route>
+
+                    <Route  path="/faq">
+                        <Faq />
+                    </Route>
+
+                    <Route  path="/contact">
+                        <Contact />
+                    </Route>
+
                     <Route path="/ListCourse">
                         <ListCourse />
                     </Route>
+
                     <Route path="/Detail/:id">
                         <Detail />
                     </Route>
@@ -54,10 +73,6 @@ export default function Index() {
 
                     <Route path="/courvideo">
                         <Courvideo />
-                    </Route>
-                    
-                    <Route path="/Cart">
-                        <Cart />
                     </Route>
 
                     <Route path='/Checkout/:id' render={() => {

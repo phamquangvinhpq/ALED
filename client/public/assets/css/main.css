@@ -1366,7 +1366,7 @@ article.tt {
     padding: 0;
     background: #6c5ce7;
     color: #fff;
-    background-image: linear-gradient(-90deg, #0DA692, #6c5ce7);
+    background-image: linear-gradient(-90deg, #28a745, #28a745);
 }
 
 .accordion-section .panel-default .panel-title {

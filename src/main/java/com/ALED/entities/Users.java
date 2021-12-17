@@ -12,9 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.Data;
 
 @Data
@@ -66,8 +63,8 @@ public class Users  {
 //	private List<Mycourse> mycourses;
 //    
 //
-//    @OneToMany(mappedBy = "users")
-//    private List<Course> usCourses;
+    @OneToMany(mappedBy = "users")
+    private List<QA> qas;
    
 
     public static enum Status {

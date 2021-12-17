@@ -104,36 +104,42 @@ export default function AddKH() {
   };
 
   const addCourse = () => {
-    var myHeaders = new Headers();
-    var formdata = new FormData();
-    formdata.append("courseName", BaiGiang.courseName);
-    formdata.append("price", BaiGiang.price);
-    formdata.append("file", selectedFile);
-    formdata.append("description", BaiGiang.description);
-    formdata.append("status", "0");
-    formdata.append("category_id", selectedDanhMuc);
-    formdata.append("user_id", id);
-    formdata.append("author_id", id);
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: formdata,
-      redirect: 'follow'
-    };
-    fetch(`${DEFAULT_API}` + "course/save", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if(result.loicode==-1){
-          swal("nhập đầy đủ thông tin", {
-            text: `yêu cầu ` + " " + result.message ,
-             icon: "warning",
-          });
-        }else{
-          setIsEnable(isEnable +1)
-          history.push(`/giangvien/AllCourses/`);
-        }
-      })
-      .catch((error) => console.log("error", error));
+    const price = Number(BaiGiang.price)
+    if(Number.isNaN(price)){
+      swal("Thất bại", "Price chỉ được nhập số", "warning")
+    }
+    else{
+      var myHeaders = new Headers();
+      var formdata = new FormData();
+      formdata.append("courseName", BaiGiang.courseName);
+      formdata.append("price", price);
+      formdata.append("file", selectedFile);
+      formdata.append("description", BaiGiang.description);
+      formdata.append("status", "0");
+      formdata.append("category_id", selectedDanhMuc);
+      formdata.append("user_id", id);
+      formdata.append("author_id", id);
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+      };
+      fetch(`${DEFAULT_API}` + "course/save", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if(result.loicode==-1){
+            swal("nhập đầy đủ thông tin", {
+              text: `yêu cầu ` + " " + result.details ,
+              icon: "warning",
+            });
+          }else{
+            setIsEnable(isEnable +1)
+            history.push(`/giangvien/AllCourses/`);
+          }
+        })
+        .catch((error) => console.log("error", error));
+      }
   };
 
   return (

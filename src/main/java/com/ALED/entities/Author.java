@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -47,6 +45,9 @@ public class Author implements Serializable {
 	//bi-directional many-to-one association to AuthorSkill
 //	@OneToMany(mappedBy="author")
 //	private List<AuthorSkill> authorSkills;
+	
+	@OneToMany(mappedBy="author")
+	private List<QA> qas;
 
 
 	
