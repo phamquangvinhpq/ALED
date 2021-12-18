@@ -77,9 +77,13 @@ export default function UpdateKH() {
 
   const updateCourse = (e) => {
     const price = Number(BaiGiang.price)
+    var regexKhoangTrang = /\S/;
     if(Number.isNaN(price)){
       swal("Thất bại", "Price chỉ được nhập số", "warning")
-      return false;
+    }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
+      swal("Thất bại", "courseName không được bỏ trống", "warning")
+    }else if(!regexKhoangTrang.test(BaiGiang.description)){
+      swal("Thất bại", "courseName không được bỏ trống", "warning")
     }
     else{
       var myHeaders = new Headers();

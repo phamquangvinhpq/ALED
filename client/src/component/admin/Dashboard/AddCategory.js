@@ -28,6 +28,19 @@ export default function AddCategory() {
       };
 
       const addCategory = () => {
+        var regexKhoangTrang = /\S/;
+        var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+        var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+        if(!regexName.test(DanhMuc.name)){
+          swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
+        }else if(!regexKhoangTrang.test(DanhMuc.name)){
+          swal("Thất bại", "Name không được bỏ trống", "warning")
+        
+        }else if(regexKitu.test(DanhMuc.name)){
+          swal("Thất bại", "Name không được chứa kí tự", "warning")
+        
+        }else{
+
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
     
@@ -59,6 +72,7 @@ export default function AddCategory() {
            
           })
           .catch(error => console.log('error', error));
+        }
       }
 
     return (
