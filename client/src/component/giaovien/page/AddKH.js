@@ -105,10 +105,14 @@ export default function AddKH() {
 
   const addCourse = () => {
     const price = Number(BaiGiang.price)
+    var regexKhoangTrang = /\S/;
     if(Number.isNaN(price)){
       swal("Thất bại", "Price chỉ được nhập số", "warning")
-    }
-    else{
+    }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
+      swal("Thất bại", "courseName không được bỏ trống", "warning")
+    }else if(!regexKhoangTrang.test(BaiGiang.description)){
+      swal("Thất bại", "courseName không được bỏ trống", "warning")
+    }else{
       var myHeaders = new Headers();
       var formdata = new FormData();
       formdata.append("courseName", BaiGiang.courseName);
