@@ -19,17 +19,17 @@ public class CourseDTO {
 	@NotNull(message = "nhập mô tả")
 	private String description;
 
-	@NotNull
+	@NotNull(message = "nhập giá")
 	@Size(min = 2, message = "lớn hơn 2 ký tự")
 	private Double price;
 
-	@NotNull(message = "nhập mô tả")
+	@NotNull(message = "chọn ảnh")
 	private String image;
 
 	@NotNull(message = "nhập mô tả")
 	private Integer status;
 	
-	@NotNull(message = "nhập mô tả")
+	@NotNull(message = "chọn danh mục")
 	private Integer category_id;
 
 	private Integer author_id;
