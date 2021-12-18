@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
+import { DEFAULT_API } from '../../../conf/env';
 
 export default function ViewDetail() {
   let history = useHistory();
@@ -19,7 +20,7 @@ export default function ViewDetail() {
     };
 
     fetch(
-      `http://localhost:8080/course/get_course_author?author_id=${author_id}&page=${page}`,
+      `${DEFAULT_API}` +`course/get_course_author?author_id=${author_id}&page=${page}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -34,7 +35,7 @@ export default function ViewDetail() {
     };
 
     fetch(
-      `http://localhost:8080/teacheroverview?author_id=${author_id}`,
+      `${DEFAULT_API}` +`teacheroverview?author_id=${author_id}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -48,7 +49,7 @@ export default function ViewDetail() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/teacheroverview/getinfoauthor?author_id=${author_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`teacheroverview/getinfoauthor?author_id=${author_id}`, requestOptions)
       .then(response => response.json())
       .then(result => setInfoAuthor(result))
       .catch(error => console.log('error', error));

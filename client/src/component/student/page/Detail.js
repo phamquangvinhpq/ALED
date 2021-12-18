@@ -45,7 +45,7 @@ export default function Detail() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/teacheroverview/getinfoauthor?author_id=${author_id}` , requestOptions)
+    fetch(`${DEFAULT_API}` +`teacheroverview/getinfoauthor?author_id=${author_id}` , requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);
@@ -61,7 +61,7 @@ export default function Detail() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/teacheroverview?author_id=${authorId}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`teacheroverview?author_id=${authorId}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setInfoTeacher(result);

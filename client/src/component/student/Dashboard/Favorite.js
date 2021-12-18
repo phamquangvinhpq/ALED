@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import swal from 'sweetalert';
 import { useHistory } from "react-router-dom";
+import { DEFAULT_API } from '../../../conf/env';
+
 export default function Favorite() {
   const [listFavorite, setListFavorite] = useState([]);
   const [status, setStatus] = useState(0);
@@ -8,7 +10,7 @@ export default function Favorite() {
   let history = useHistory();
 
   const loadFavorite = () => {
-    fetch("http://localhost:8080/favorite?user_id=" + user_id)
+    fetch(`${DEFAULT_API}` +`favorite?user_id=` + user_id)
       .then((response) => response.json())
       .then((data) => 
        setListFavorite(data),
@@ -37,7 +39,7 @@ export default function Favorite() {
           redirect: 'follow'
         };
         
-        fetch(`http://localhost:8080/favorite?user_id=${user_id}&course_id=${course_id}` , requestOptions)
+        fetch(`${DEFAULT_API}` +`favorite?user_id=${user_id}&course_id=${course_id}` , requestOptions)
           .then(response => response.text())
           .then(result => {
             console.log(result)

@@ -22,7 +22,7 @@ export default function Pendinginstructer() {
             redirect: 'follow'
           };
           
-          fetch(`http://localhost:8080/getskill/${value.id}`, requestOptions)
+          fetch(`${DEFAULT_API}` +`getskill/${value.id}`, requestOptions)
          
             .then(response => response.json())
             .then(result => {setskill(result)

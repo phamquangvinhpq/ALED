@@ -48,17 +48,10 @@ export default function Footer() {
       <div className="col-md-3">
         <h3>Contact Us</h3>
         <ul className="contact">
-<<<<<<< HEAD
-          <li>3153 Foley Street<br />
-            Miami, FL 33176</li>
-          <li>954-648-1802</li>
-          <li>websitealed@gmail.com</li>
-=======
           <li>Trịnh văn Bô, Xuân Phương<br />
                     Hà Nội</li>
           <li>0989999999</li>
           <li>aled@gmail.com</li>
->>>>>>> 3e3934ba316e58f25262a1b9c61c276a8e6d6394
         </ul>
       </div>
     </div>

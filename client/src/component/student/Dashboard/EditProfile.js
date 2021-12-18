@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
+import { DEFAULT_API } from "../../../conf/env";
 export default function ListCourse() {
   const [infoUser, setInfoUser] = useState({});
   const userid = localStorage.getItem("userid");
@@ -10,7 +11,7 @@ export default function ListCourse() {
       redirect: "follow",
     };
 
-    fetch(`http://localhost:8080/user/${userid}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`user/${userid}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setInfoUser(result))
       .catch((error) => console.log("error", error));
@@ -48,7 +49,7 @@ export default function ListCourse() {
         redirect: "follow",
       };
 
-      fetch("http://localhost:8080/user", requestOptions)
+      fetch(`${DEFAULT_API}` +`user`, requestOptions)
         .then((response) => response.text())
         .then((result) => swal("Thành công", "Sửa thành công", "success"))
         .catch((error) => console.log("error", error));

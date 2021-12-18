@@ -65,7 +65,7 @@ export default function Courvideo() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/qa/get", requestOptions)
+    fetch(`${DEFAULT_API}` +`qa/get`, requestOptions)
       .then((response) => response.json())
       .then((result) => setListQA(result))
       .catch((error) => console.log("error", error));
@@ -91,7 +91,7 @@ export default function Courvideo() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/note/" + value, requestOptions)
+    fetch(`${DEFAULT_API}` +`note/` + value, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .then(setStatus(status + 1))
@@ -115,7 +115,7 @@ export default function Courvideo() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/note", requestOptions)
+    fetch(`${DEFAULT_API}` +`note`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .then(setStatus(status + 1))
@@ -129,9 +129,9 @@ export default function Courvideo() {
     };
 
     fetch(
-      "http://localhost:8080/note?users_id=" +
+      `${DEFAULT_API}` +`note?users_id=` +
         user_id +
-        "&lession_id=" +
+        `&lession_id=` +
         lessionId,
       requestOptions
     )

@@ -111,7 +111,7 @@ export default function Section() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/giangvien/Coursebyid/${user_id}/${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`giangvien/Coursebyid/${user_id}/${id.id}`, requestOptions)
       .then(response => response.text())
       .then(result => {
         if(result==="no"){

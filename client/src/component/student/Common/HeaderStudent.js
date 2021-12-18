@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
   Switch,
+  Route,
   NavLink,
-  Link
+  Redirect,
+  Link,
 } from "react-router-dom";
 import { event } from 'jquery';
 import { useDispatch } from 'react-redux'
@@ -359,8 +361,9 @@ export default function HeaderStudent() {
     
 
     const qlstudent = () =>{
-  history.replace("/student/Dashboard")
+      history.replace("/student")
       window.location.reload();
+
     }
 
 let user_id = localStorage.getItem("userid")
@@ -386,13 +389,7 @@ const loadCart = async () => {
       .catch(error => console.log('error', error));
 }
 
-function chuyentrangcart() {
-  history.push("/cart")
-}
 
-function chuyentrangcourse() {
-  history.push("/Course")
-}
 
 
 const doipassword = async () =>{
@@ -410,7 +407,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/forgot-password", requestOptions)
+fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
   .then(response => response.text())
   .then(result => {
     if(result=="thành công")
@@ -444,11 +441,11 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
               <div className="top-right">
                 <ul>{accessToken == null ?
                   <li><a href="#" data-toggle="modal" data-target="#login_modal"><i className="fa fa-sign-in" />
-                    Login</a></li> : <li><a href="#" onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
+                    Login</a></li> : <li><a href=""  onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
                     </a></li>}
                   {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
                   {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > admin</a></li> : ""}
-                  {role == null ? <li><a href="#" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="#" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
+                  {role == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
                 </ul>
 
                 <div className="modal fade" id="join_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

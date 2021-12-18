@@ -44,9 +44,7 @@ export default function IndexDash() {
           <div className="container">
             <Menusv changleTitle={changleTitle} />
             <Switch>
-              <Route path="/student/Dashboard">
-                <Dashboard />
-              </Route>
+              
               <Route path="/student/EditPassword">
                 <EditPassword />
               </Route>
@@ -62,6 +60,11 @@ export default function IndexDash() {
               <Route path="/student/favorite">
                 <Favorite />
               </Route>
+              
+              <Route path="/student">
+                <Dashboard />
+              </Route>
+
               <Route path="/">
                 <Not404 />
               </Route>
