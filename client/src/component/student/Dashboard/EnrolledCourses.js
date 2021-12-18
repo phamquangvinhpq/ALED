@@ -40,13 +40,13 @@ export default function EnrolledCourses() {
   ]))
 
   function chuyentrang(value) {
-    history.replace(`/wath/video/${value.course}`)
+    history.push(`/wath/video/${value.course}`)
     window.location.reload()
   }
 
   function chuyentrangdetail(value) {
-    history.replace(`/Detail/${value.course}`)
-    window.location.reload();
+    history.push(`/Detail/${value.course}`)
+    
   }
 
   

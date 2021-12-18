@@ -67,7 +67,7 @@ export default function ViewDetail() {
   };
 
   function getcheckout(value) {
-    history.replace(`/checkout/${value.id}`);
+    history.push(`/checkout/${value.id}`);
   }
   return (
     <div>

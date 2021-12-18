@@ -125,7 +125,7 @@ export default function Detail() {
   };
 
   function chuyentrang(value) {
-    history.replace(`/wath/video/${value.id}`)
+    history.push(`/wath/video/${value.id}`)
     window.location.reload()
   }
 
@@ -206,13 +206,13 @@ export default function Detail() {
 
   function getcheckout(value) {
 
-    history.replace(`/checkout/${value}`)
+    history.push(`/checkout/${value}`)
 
   }
 
     function viewDetail(value) {
 
-    history.replace(`/Viewdetail/${value.id}`)
+    history.push(`/Viewdetail/${value.id}`)
 
   }
 

@@ -26,8 +26,8 @@ export default function Index() {
     function chuyentrang()
     {
         alert("vui lòng đăng nhập");
-        history.replace("/home");
-        window.location.reload();
+        history.push("/home");
+        
     }
     return (
         <div>

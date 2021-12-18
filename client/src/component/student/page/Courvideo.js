@@ -183,7 +183,7 @@ export default function Courvideo() {
       .then((result) => {
         if (result === "nobought") {
           history.push("/home");
-          window.location.reload();
+          
         }
       })
       .catch((error) => console.log("error", error));

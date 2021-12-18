@@ -73,8 +73,8 @@ export default function Course() {
   }
 
   function chuyentrang(value) {
-    history.replace(`/Detail/${value.id}`)
-    window.location.reload();
+    history.push(`/Detail/${value.id}`)
+    
   }
 
   const user_id = localStorage.getItem("userid")
@@ -178,12 +178,7 @@ export default function Course() {
                       <div className="course-video-part">
                         <div className="video-play-button">
                           {checkTym(value.id)} &ensp;
-                          <a
-                            href="https://www.youtube.com/watch?v=8AGgbIQyqR8"
-                            className="button-video"
-                          >
-                            <i className="fa fa-play" />
-                          </a>
+                          
                         </div>
                       </div>
                     </div>

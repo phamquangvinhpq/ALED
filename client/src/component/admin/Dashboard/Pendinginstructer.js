@@ -149,7 +149,7 @@ export default function Pendinginstructer() {
                         </div>
                         <div className="modal-body">
                         {skill.map((value,index) =>
-                            <textarea rows="9" cols="70">
+                            <textarea rows="9" cols="70" disabled>
                                {value.skill}
                             </textarea>
 )}

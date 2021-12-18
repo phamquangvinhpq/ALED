@@ -28,7 +28,7 @@ export default function IndexAdmin() {
                         <MenuAdmin></MenuAdmin>
                         <br/><br/>
                         <Switch>
-                            <Route path="/admin">
+                            <Route path="/admin/Dashboard">
                                 <Dashboard />
                             </Route>
 

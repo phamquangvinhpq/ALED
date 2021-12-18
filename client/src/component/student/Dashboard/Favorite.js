@@ -19,7 +19,7 @@ export default function Favorite() {
 
   const redirect = (id) => {
     history.push(`/detail/${id}`)
-    window.location.reload();
+    
   };
 
 

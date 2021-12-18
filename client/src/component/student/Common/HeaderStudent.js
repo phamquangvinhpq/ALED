@@ -49,6 +49,7 @@ export default function HeaderStudent() {
     history.push(`/Course/${event.target.value}`)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
+    window.location.reload();
   };
 
   
@@ -160,13 +161,16 @@ export default function HeaderStudent() {
 
   function chuyentrang() {
     let role = localStorage.getItem("role");
-    if (role == "ROLE_ADMIN") {
-      history.replace("/giangvien/Section")
-      window.location.reload();
+    if (role == "ROLE_GIANGVIEN") {
+      history.push("/giangvien")
+    
+    }else if(role == "ROLE_ADMIN")
+    {
+      history.push("/admin")
     }
     else {
-      history.replace("/home")
-      window.location.reload();
+      history.push("/home")
+      
     }
 
   }
@@ -220,7 +224,7 @@ export default function HeaderStudent() {
   }
   const logout = () =>{
       localStorage.clear()
-      window.location.reload();
+      
 
   }
 
@@ -350,19 +354,19 @@ export default function HeaderStudent() {
 
 
     const qlgiangvien = () =>{
-  history.replace("/giangvien/Dashboard")
-      window.location.reload();
+  history.push("/giangvien")
+      
     }
 
     const qladmin = () =>{
-      history.replace("/admin")
-          window.location.reload();
+      history.push("/admin")
+          
         }
     
 
     const qlstudent = () =>{
-      history.replace("/student")
-      window.location.reload();
+      history.push("/student")
+      
 
     }
 
@@ -413,8 +417,8 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
     if(result=="thành công")
     {
       alert(result)
-      history.replace("/home")
-      window.location.reload();
+      history.push("/home")
+      
     }
     else{
       alert(result)
@@ -578,7 +582,7 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
           <div className="row">
             <div className="col-md-4 col-sm-3">
               <div className="logo">
-                <a ><img src="http://localhost:3000/logo1.jpg" alt="logo" /></a>
+                <a ><img src="/assets/uploads/logoaled.png" alt="logo" /></a>
               </div>
             </div>
             <div className="col-md-8 col-sm-9">
