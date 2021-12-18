@@ -3,8 +3,11 @@ package com.ALED.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.CourseDTO;
+import com.ALED.entities.Course;
+import com.ALED.repositories.CourseRepository;
 import com.ALED.service.FileService;
 import com.ALED.service.ICourseService;
 
@@ -27,6 +32,9 @@ public class CourseController {
 	@Autowired
 	ICourseService courseService;
 
+	@Autowired
+	CourseRepository courseRepository;
+
 	@Value("${server.url}")
 	private String serverUrl;
 
@@ -36,30 +44,52 @@ public class CourseController {
 	@Autowired
 	private FileService fileService;
 
+	@GetMapping("/cour-act")
+	public List<CourseDTO> getAllCouAct() {
+		return courseService.getAllCouAct();
+	}
+
+	@GetMapping("/cour-no-act")
+	public List<CourseDTO> getAllCouNoAct() {
+		return courseService.getAllCouNoAct();
+	}
+
 	@GetMapping("")
 	public List<CourseDTO> getAll() {
 		return courseService.readAll();
 	}
 
-	@PutMapping("/edit")
-	public CourseDTO edit(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
-			throws IOException {
-		if (file.getContentType() != null) {
-			courseDTO.setImage(
-					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
+	@GetMapping("/count")
+	public Integer count() {
+		return courseRepository.countCour();
+	}
 
-			courseDTO.setType(file.getContentType());
-		}else {
-			courseDTO.setImage(courseDTO.getImage());
-			courseDTO.setType("image/jpeg");
+	@PutMapping("/edit")
+	public CourseDTO edit(@RequestParam(name = "file", required = false) MultipartFile file, CourseDTO couDto)
+			throws IOException {
+
+		if (file != null) {
+			couDto.setImage(
+					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
+			
+			couDto.setType(file.getContentType());
+		} else {
+
+			couDto.setImage(couDto.getImage());
+			couDto.setType("image/jpeg");
 		}
 
-		return courseService.update(courseDTO);
+		return courseService.update(couDto);
+	}
+
+	@GetMapping("buythemost")
+	public List<CourseDTO> buythemost() {
+		return courseService.buythemost();
 	}
 
 	@PostMapping("/save")
-	public CourseDTO save(@RequestBody @RequestParam(name="file", required = false) MultipartFile file, CourseDTO courseDTO)
-			throws IOException {
+	public CourseDTO save(@Valid @RequestBody @RequestParam(name = "file", required = false) MultipartFile file,
+			CourseDTO courseDTO) throws IOException {
 		if (file.getContentType() != null) {
 			courseDTO.setImage(
 					serverProto + "://" + serverUrl + "/api/file/image?videoName=" + fileService.uploadImage(file));
@@ -106,5 +136,16 @@ public class CourseController {
 	public List<CourseDTO> getAllByPage(@RequestParam(required = false) Integer usersId,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 		return courseService.findpage(usersId, page, size);
+	}
+
+	@PutMapping("/accept")
+	public Course setNEnable(@RequestBody Course vo) {
+		return courseService.AcceptCour(vo);
+	}
+
+	@GetMapping("/get_course_author")
+	public List<CourseDTO> getCourseByAuthor(@RequestParam(required = true) Integer author_id,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
+		return courseService.getCourseByAuthor(author_id, page, size);
 	}
 }

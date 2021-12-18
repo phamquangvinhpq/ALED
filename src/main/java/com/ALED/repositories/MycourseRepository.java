@@ -14,5 +14,8 @@ public interface MycourseRepository extends JpaRepository<Mycourse, Integer> {
 
 	@Query(value = "SELECT * FROM mycourse WHERE user_id=:id", nativeQuery = true)
 	List<Mycourse> findbymycourse(@Param("id") Integer id);
+	
+	
+
 
 }

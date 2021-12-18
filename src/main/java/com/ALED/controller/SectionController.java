@@ -63,12 +63,20 @@ public class SectionController {
 //		
 //	}
 
-
 	
 	@GetMapping("/test/{id}/{course_id}")
 	public String test(@PathVariable Integer id,
 			@PathVariable Integer course_id) {
 		return sectionService.muakhoahoc(id, course_id);
 	}
+	
+	
+	@GetMapping("/Coursebyid/{id}/{course_id}")
+	public String Coursebyid(@PathVariable Integer id,
+			@PathVariable Integer course_id) {
+		return sectionService.finbykhoahocuser(id, course_id);
+	}
+	
+	
 
 }

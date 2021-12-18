@@ -16,6 +16,11 @@ export default function Section() {
   })
 
 
+  // check xem thằng giảng viên này có id khóa học này không 
+
+  
+
+
   const [giatriID, setgiatriID] = useState([])
 
   const [DSsection, setDSsection] = useState([])
@@ -24,7 +29,8 @@ export default function Section() {
 
   useEffect(() => {
 
-    loadsection();
+
+    checkkhoahocuser();
 
   }, [
     isEnable
@@ -62,7 +68,7 @@ export default function Section() {
     });
     
   }
-
+  let user_id=localStorage.getItem("userid")
 
   const addsection = () => {
     var myHeaders = new Headers();
@@ -98,6 +104,28 @@ export default function Section() {
       })
       .catch(error => console.log('error', error));
   }
+
+  const checkkhoahocuser = async () =>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:8080/giangvien/Coursebyid/${user_id}/${id.id}`, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if(result==="no"){
+          alert("bạn không có quyền truy cập khóa học này")
+          history.push("/giangvien/AllCourses")
+         
+        }
+        else{
+          loadsection();
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
+
 
 
   const deletesection = (value) => {
@@ -191,12 +219,7 @@ export default function Section() {
                         <input type="text" autoComplete="off" className="form-control" name="namesection" onChange={onInputChange} />
                       </div>
                     </div>
-                    <div className="form-group">
-                      <label className="col-sm-2 control-label">Chapter Order *</label>
-                      <div className="col-sm-6">
-                        <input type="text" autoComplete="off" className="form-control" name="chapter_order" defaultValue />
-                      </div>
-                    </div>
+                    
                     <div className="form-group">
                       <label className="col-sm-2 control-label" />
                       <div className="col-sm-6">
@@ -214,16 +237,16 @@ export default function Section() {
                         <tr>
                           <th>Serial</th>
                           <th>Chapter Title</th>
-                          <th>Chapter Order</th>
+                         
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {DSsection.map((value, index) =>
                           <tr key={index}>
-                            <td>{value.id}</td>
+                            <td>{index+1}</td>
                             <td>{value.name}</td>
-                            <td>1</td>
+                            
                             <td>
                               <a
                                 href

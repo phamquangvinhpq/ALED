@@ -19,12 +19,7 @@ public class OrderDTO {
 
 	private int status;
 
-	//bi-directional many-to-one association to User
-
 	private int user;
 
-//	//bi-directional many-to-one association to OrderDetail
-//	@OneToMany(mappedBy="order")
-//	private List<OrderDetail> orderDetails;
-
+	private String courseName;
 }

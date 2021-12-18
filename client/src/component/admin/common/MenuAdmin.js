@@ -40,7 +40,6 @@ export default function MenuAdmin() {
               <li > <NavLink to="/admin/CourseCategory">
                 <i className="fa fa-circle-o"  /> <span className="fa-laptop1">Course Category</span> 
               </NavLink></li>
-            
             </ul>
           </li>
           

@@ -10,6 +10,8 @@ export default function Homestd() {
     const [listCourse, setListCourse] = useState([])
     const [listFavorite, setListFavorite] = useState([]);
     const [listCategories, setListCategories] = useState([]);
+    const [damua, setdamua] = useState(false);
+
     const user_id = localStorage.getItem("userid")
     const dispatch = useDispatch()
     let history = useHistory();
@@ -31,6 +33,12 @@ export default function Homestd() {
             }
         }
     }
+
+    function getcheckout(value) {
+        
+       damuakhoahoc(value)
+    
+      }
 
     const deleteFavorite = (value) => {
         var requestOptions = {
@@ -94,7 +102,7 @@ export default function Homestd() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}course`, requestOptions)
+        fetch(`${DEFAULT_API}course/buythemost`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result);
@@ -122,8 +130,29 @@ export default function Homestd() {
     }
 
     const onClickCategory = (select) => {
-        history.push(`/Course/${select}`)
+        history.replace(`/Course/${select}`)
+        window.location.reload();
       };
+    
+      const damuakhoahoc = async (value) => {
+
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${value.id}`, requestOptions)
+          .then(response => response.text())
+          .then(result => {
+            console.log(result);
+            if (result === "bought") {
+              alert("bạn đã mua khóa học này ")
+            } else{
+                history.replace(`/checkout/${value.id}`)
+            }
+            
+          })
+          .catch(error => console.log('error', error));
+      }
     
     return (
         <div>
@@ -135,7 +164,7 @@ export default function Homestd() {
                     <div className="hero-image">
                         <img src="assets/images/hero-home-2.jpg" alt="image" />
                         <div className="video-play-button">
-                            <a href="https://www.youtube.com/watch?v=8AGgbIQyqR8" className="button-video">
+                            <a href="/Course/0" className="button-video">
                                 <i className="fa fa-play item-ripple" />
                             </a>
                         </div>
@@ -147,7 +176,7 @@ export default function Homestd() {
                                     <h1 className="home-2"><span>learn new skills online find best courses</span> &amp; become master</h1>
                                     <div className="hero-description"><h6>hire proven pros with confidence using world largest remote talent platform.</h6></div>
                                     <div className="hero-button">
-                                        <a href="course.html" className="template-button">start course <i className="fa fa-play-circle" /></a>
+                                        <a href="/Course/0" className="template-button">start course <i className="fa fa-play-circle" /></a>
                                     </div>
                                 </div>
                             </div>
@@ -217,28 +246,21 @@ export default function Homestd() {
                                     <div className="col-lg-4 col-md-6 grid-item marketing">
                                         <div className="single-course-item">
                                             <div className="course-image">
-                                                <img src="assets/images/course-image-1.png" alt="image" />
+                                                <img src={value.image}   style={{ height: 250, maxWidth: 350 }}alt="image" />
                                             </div>
                                             <div className="course-content margin-top-30">
                                                 <div className="course-title">
-                                                    <h4 className="home-2">{value.courseName}</h4>
+                                                    <h4 className="home-2">Course Name : {value.courseName}</h4>
                                                 </div>
                                                 <div className="course-instructor-rating margin-top-20">
                                                     <div className="course-instructor">
-                                                        <img src="assets/images/course-instructor-1.png" alt="instructor" />
-                                                        <h6>john doe</h6>
+                                                        <img src={value.imageAuthor} alt="instructor" />
+                                                        <h6>{value.authorName}</h6>
                                                     </div>
                                                     <div className="course-rating">
-                                                        {/* <ul>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                            <li><i className="fa fa-star" /></li>
-                                                        </ul>
-                                                        <span>4.2(30)</span> */}
                                                         <span>
-                                                            <ReactStars
+                                                            {value.rate ? 
+                                                                <ReactStars
                                                                 edit={false}
                                                                 value={value.rate}
                                                                 size={24}
@@ -246,20 +268,15 @@ export default function Homestd() {
                                                                 emptyIcon={<i className="far fa-star"></i>}
                                                                 halfIcon={<i className="fa fa-star-half-alt"></i>}
                                                                 fullIcon={<i className="fa fa-star"></i>}
-                                                                activeColor="#ffd700"
-                                                            />
-                                                            </span>{value.rate}<span>
+                                                                activeColor="#ffd700"/> : 
+                                                                "Chưa có đánh giá"}
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div className="course-info margin-top-20">
-                                                    <div className="course-view">
-                                                        <i className="fa fa-eye" />
-                                                        <span>25,000 views</span>
-                                                    </div>
                                                     <div className="course-video">
                                                         <i className="fa fa-play-circle-o" />
-                                                        <span>36 lectures</span>
+                                                        <span> Chapter: {value.countChapter}</span>
                                                     </div>
                                                     <div className="course-time">
                                                         <i className="fa fa-clock-o" />
@@ -269,7 +286,7 @@ export default function Homestd() {
                                                 <div className="course-price-cart margin-top-20">
                                                     <div className="course-price">
                                                         <span className="span-big">$ {value.price}</span>
-                                                        <span className="span-cross">$ 500.00</span>
+                                                        {/* <span className="span-cross">$ 500.00</span> */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -281,28 +298,16 @@ export default function Homestd() {
                                                {/* {ListFavorite.includes(value.id) ? <span onClick={() => deleteFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart" /></span> : <span onClick={() => addFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart-o" /></span>} */}
                                                {checkTym(value.id)}
                                                
-                                                <span className="title-tag">by instructor</span>
+                                                <span className="title-tag">by {value.authorName}</span>
 
                                                 <div className="course-title margin-top-10">
                                                     <h4 className="home-2"><a href="course-details.html">user experience design with adobe XD</a></h4>
                                                 </div>
                                                 <div className="course-price-info margin-top-20">
-                                                    <span className="best-seller">best seller</span>
-                                                    <span className="course-category"><a href="#">web design</a></span>
-                                                    <span className="course-price">$ 400.00</span>
+                                                    <span className="best-seller">{value.categoryName}</span>
+                                                    <span className="course-price">$ {value.price}</span>
                                                 </div>
                                                 <div className="course-info margin-top-30">
-                                                    <div className="course-enroll">
-                                                        <span>enrolled 0</span>
-                                                    </div>
-                                                    <div className="course-video">
-                                                        <i className="fa fa-play-circle-o" />
-                                                        <span>36 lectures</span>
-                                                    </div>
-                                                    <div className="course-time">
-                                                        <i className="fa fa-clock-o" />
-                                                        <span>2h 40mins</span>
-                                                    </div>
                                                 </div>
                                                 <p className="margin-top-20">Learn WordPress like a Professional! Start from the basics and go all the way to creating your own applications and website!</p>
                                                 <ul className="margin-top-20">
@@ -314,7 +319,8 @@ export default function Homestd() {
                                                     <a onClick={() =>{
                                                          history.replace("detail/"+value.id)
                                                     }} className="template-button">course preview</a>
-                                                    <a href="cart.html" className="template-button margin-left-10">buy now</a>
+                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a> }
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -338,6 +344,7 @@ export default function Homestd() {
                         </div>
                          <div className="row">
                             {listCategories.map((value, index) => 
+                            
                                 <div className="col-lg-3 col-md-6" onClick={() => onClickCategory(value.id)}>
                                     <a>
                                         <div className="single-category-item">
@@ -359,7 +366,7 @@ export default function Homestd() {
                         <div className="row">
                             <div className="col-12">
                                 <div className="category-section-link">
-                                    <h6>Dont's see wht you're looking for? <a href="/Course">See all categories.</a></h6>
+                                    <h6>Dont's see wht you're looking for? <a href="/Course/0">See all categories.</a></h6>
                                 </div>
                             </div>
                         </div>

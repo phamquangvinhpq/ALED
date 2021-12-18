@@ -127,7 +127,7 @@ export default function AllKH() {
                     {value.price}
                   </td>
                   <td>
-                    <img src={value.image} className="w-100" />
+                    <img src={value.image} style={{ height: 80 }} className="w-100" />
                   </td>
                   <td>{value.description}</td>
                   <td>
@@ -141,8 +141,7 @@ export default function AllKH() {
                         chuyentrangupdate(event, value, index)
                       }} className="btn btn-primary btn-sm btn-block">
                       Edit									</a>
-                    <a href="" className="btn btn-danger btn-sm btn-block" onClick={() => deletecourse(value)}>
-                      Delete										</a>
+                    
                   </td>
                 </tr>
               )}

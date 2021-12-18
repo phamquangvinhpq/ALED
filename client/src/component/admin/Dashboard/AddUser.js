@@ -37,15 +37,19 @@ export default function AddUser() {
                                             <input type="text" className="form-control" name="email" />
                                         </div>
                                     </div>
-                                    
+
                                     <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">Photo <span>*</span></label>
-                                        <div className="col-sm-9 pt_5">
-                                            <input type="file" name="category_photo" />(Only jpg, jpeg, gif and png are
-                                            allowed)
+                                        <label htmlFor className="col-sm-3 control-label">Role <span>*</span></label>
+                                        <div className="col-sm-4">
+                                            <select className="form-control select2 w-100-p" >
+                                                <option>-- Chọn danh mục --</option>
+                                                <option value="1">User</option>
+                                                <option value="2">Introduct</option>
+                                                <option value="3">Admin</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="form-group">
                                         <label htmlFor className="col-sm-3 control-label" />
                                         <div className="col-sm-6">
@@ -60,4 +64,5 @@ export default function AddUser() {
             </section>
         </div>
 
-    )}
+    )
+}
