@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 
 import lombok.Data;
 
@@ -27,7 +28,8 @@ public class Users  {
     private String username;
     private String address;
 
-    @Column(name = "email", unique = true, length = 20)
+    @Column(name = "email", length = 20)
+    @Email(message = "email không hợp lệ")
 	private String email;
 
 	private String image;
