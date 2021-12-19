@@ -228,6 +228,8 @@ export default function HeaderStudent() {
   }
   const logout = () =>{
       localStorage.clear()
+      history.push("/home")
+      window.location.reload()
       
 
   }

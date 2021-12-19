@@ -123,7 +123,7 @@ export default function Section() {
           };
 
           fetch(`${DEFAULT_API}` + `giangvien/Section/${value.id}`, requestOptions)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(result => {
               console.log(result)
               setIsEnable(isEnable + 1)

@@ -28,10 +28,6 @@ public class confvpn {
 
 
 	
-	
-	
-	
-	
     public static String hmacSHA512(final String key, final String data) {
         try {
 
