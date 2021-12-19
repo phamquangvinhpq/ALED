@@ -3,6 +3,8 @@ package com.ALED.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -96,7 +98,7 @@ public class AuthencationController {
     
    
     @PostMapping("/register")
-	public Users register(@RequestBody Users user) {
+	public Users register(@Valid @RequestBody Users user) {
 		
 
 		userServiceSystem.create(user);

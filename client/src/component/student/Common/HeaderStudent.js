@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
+import swal from "sweetalert";
 import {
   BrowserRouter as Router,
   Switch,
@@ -266,6 +267,21 @@ export default function HeaderStudent() {
     window.location.reload()
   }
   const signup = () => {
+    var regexKhoangTrang = /\S/;
+        var regex = /[A-Za-z0-9]/
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if (!regexName.test(users.name)) {
+      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) ) {
+      swal("Thất bại", "không được bỏ trống", "warning")
+    } 
+    else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    }else if (!regex.test(users.username) ) {
+        swal("Thất bại", "Name không được chứa kí tự", "warning")
+      }
+     else {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -298,7 +314,10 @@ export default function HeaderStudent() {
     
         if(result.loicode == -1)
         {
-          alert("email  đã tồn tại")
+          swal("nhập đầy đủ thông tin", {
+            text: result.details,
+            icon: "warning",
+          });
         }
         else{
           alert("kiểm tra email để lấy mật khẩu")
@@ -307,6 +326,7 @@ export default function HeaderStudent() {
        
       })
       .catch(error => console.log('error', error));
+    }
   }
   const [selectedFile, setSelectedFile] = useState();
   const changeHandler = (event) => {
@@ -314,6 +334,24 @@ export default function HeaderStudent() {
     console.log(event.target.files[0]);
   };
   const signupintructer = () => {
+    var regexKhoangTrang = /\S/;
+        var regex = /[A-Za-z0-9]/
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if (!regexName.test(users.name)) {
+      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username)
+     || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.address) || !regexKhoangTrang.test(users.phone) ) {
+      swal("Thất bại", "không được bỏ trống", "warning")
+    } 
+    else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    }else if (!regex.test(users.username) ) {
+        swal("Thất bại", "Name không được chứa kí tự", "warning")
+      }else if (Number.isNaN(users.phone) ) {
+        swal("Thất bại", "phone phải là số", "warning")
+      }
+     else {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -350,6 +388,7 @@ export default function HeaderStudent() {
        
       })
       .catch(error => console.log('error', error));
+    }
   }
 
 
