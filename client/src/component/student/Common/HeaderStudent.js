@@ -163,13 +163,16 @@ export default function HeaderStudent() {
     let role = localStorage.getItem("role");
     if (role == "ROLE_GIANGVIEN") {
       history.push("/giangvien")
+      window.location.reload()
     
     }else if(role == "ROLE_ADMIN")
     {
       history.push("/admin")
+      window.location.reload()
     }
     else {
       history.push("/home")
+      window.location.reload()
       
     }
 
@@ -354,7 +357,7 @@ export default function HeaderStudent() {
 
 
     const qlgiangvien = () =>{
-  history.push("/giangvien")
+        history.push("/giangvien")
       
     }
 

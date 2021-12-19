@@ -56,6 +56,7 @@ public class UserController {
 	public List<Users> readAll() {
 		return userService.readAll();
 	}
+	
 
 	@PutMapping("/user")
 	public Users update(@RequestBody Users vo) {

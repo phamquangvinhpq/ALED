@@ -44,7 +44,6 @@ export default function IndexGV() {
             <Switch>
               <Route path="/giangvien/database"></Route>
 
-
               <Route path="/giangvien/AddCourse">
                 <AddKH />
               </Route>

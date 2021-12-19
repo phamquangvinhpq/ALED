@@ -72,15 +72,13 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users update(Users user) {
-		Users entity = userRepository.getById(user.getId());
-		if (entity != null) {
-			user.setPassword(entity.getPassword());
-			user.setUsername(entity.getUsername());
-			user.setEmail(entity.getEmail());
-			user.setIsEnable(entity.getIsEnable());
-			user.setStatus(entity.getStatus());
-			user.setImage(entity.getImage());
-			userRepository.save(user);
+		Optional<Users> entity = userRepository.findById(user.getId());
+		if (entity.isPresent()) {
+			Users us=entity.get();
+			us.setAddress(user.getAddress());
+			us.setName(user.getName());
+			us.setPhone(user.getPhone());
+			userRepository.save(us);
 		}
 		return user;
 	}

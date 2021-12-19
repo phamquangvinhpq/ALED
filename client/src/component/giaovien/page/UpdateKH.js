@@ -93,11 +93,11 @@ export default function UpdateKH() {
       formdata.append("price", price);
       formdata.append("file",selectedFile);
       formdata.append("description", BaiGiang.description);
-      formdata.append("status", "1");
+      formdata.append("status", "0");
       formdata.append("category_id", selectedDanhMuc);
       formdata.append("user_id", user_id);
-      formdata.append("author_id", "1");
-      formdata.append("image", "hello");
+      formdata.append("author_id", user_id);
+      formdata.append("image", BaiGiang.image);
       var requestOptions = {
         method: 'PUT',
         headers: myHeaders,
@@ -228,14 +228,7 @@ export default function UpdateKH() {
                     </div>
 
                     
-                    <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Status *</label>
-                      <div className="col-sm-9">
-
-                        <input className="form-control editor" name="status" value={BaiGiang.status} onChange={onInputChange} />
-
-                      </div>
-                    </div>
+             
 
                     <div className="form-group">
                       <label htmlFor className="col-sm-3 control-label">Selece Category *</label>

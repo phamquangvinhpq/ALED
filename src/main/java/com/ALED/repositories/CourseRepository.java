@@ -68,4 +68,9 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query(value = "SELECT * FROM course c WHERE c.author_id = ?1", nativeQuery = true)
 	Page<Course> getCourseByAuthor(Integer author_id, Pageable paging);
+
+	@Query(value = "SELECT section.course_id FROM lession JOIN section ON lession.section_id=section.id WHERE section_id =:id LIMIT 1", nativeQuery = true)
+	Integer getCoursid(@Param("id") Integer id);
+	
+	
 }

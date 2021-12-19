@@ -752,6 +752,8 @@ export default function Courvideo() {
         </div>
       </div>
 
+
+
       <div
         class="modal fade"
         id="exampleModalCenter1"
@@ -837,6 +839,9 @@ export default function Courvideo() {
           </div>
         </div>
       </div>
+
+
+
     </div>
   );
 }

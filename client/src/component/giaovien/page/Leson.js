@@ -21,9 +21,10 @@ export default function Leson() {
   const [lession, setLession] = useState({
     name: "",
     linkVideo: "",
-    section_id: selectedSection,
+    section_id: "",
   });
 
+  
   let history = useHistory();
 
   let id = useParams();
@@ -34,7 +35,7 @@ export default function Leson() {
     lession.name = value.name;
     console.log(value)
     lession.linkVideo = value.linkVideo;
-    lession.section_id = value.selectedSection;
+    lession.section_id = value.section_id;
   }
 
   const [selectedFile, setSelectedFile] = useState();
@@ -51,6 +52,7 @@ export default function Leson() {
 
   const changeHandler1 = (event) => {
     setSelectedFile1(event.target.files[0]);
+  
   };
 
 
@@ -108,7 +110,9 @@ export default function Leson() {
     formdata.append("name", lession.name);
     formdata.append("linkVideo", lession.linkVideo);
     formdata.append("type", "video/mp4");
-    formdata.append("section_id", selectedSection);
+    formdata.append("section_id",  lession.section_id);
+    formdata.append("Courseid",  lession.section_id);
+
 
     var requestOptions = {
       method: 'PUT',
@@ -226,9 +230,8 @@ export default function Leson() {
     var formdata = new FormData();
     formdata.append("file", selectedFile);
     formdata.append("name", lession.name);
-    formdata.append("linkVideo", lession.linkVideo);
-    formdata.append("type", "video/mp4");
     formdata.append("section_id", selectedSection);
+    formdata.append("Courseid",  id.id);
 
     var requestOptions = {
       method: 'POST',
@@ -382,14 +385,7 @@ export default function Leson() {
                         YouTube Video URL
                       </label>
                       <div className="col-sm-6">
-                        <input
-                          type="text"
-                          autoComplete="off"
-                          className="form-control"
-                          name="linkVideo"
-                          onChange={onInputChange}
-                          placeholder="Example: https://www.youtube.com/watch?v=KXdUNp_9oHs"
-                        />
+                       <h4>đang cập nhập</h4>
                       </div>
                     </div>
                     <div className="form-group" id="mp4Box">
@@ -577,14 +573,7 @@ export default function Leson() {
                     Lesson YouTube
                   </label>
                   <div className="col-sm-8">
-                    <input
-                      type="text"
-                      autoComplete="off"
-                      className="form-control"
-                      name="linkVideo"
-                      onChange={onInputChange}
-                      placeholder="Example: https://www.youtube.com/watch?v=KXdUNp_9oHs"
-                    />
+                  <h4>đang cập nhập</h4>
                   </div>
                 </div>
                 <div className="form-group" id="mp4Box10">

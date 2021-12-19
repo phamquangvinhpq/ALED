@@ -82,7 +82,7 @@ export default function Favorite() {
                 <img src={favorite.image} alt="" />
               </td>
               <td>
-                <a onClick={() => redirect(favorite.course_id) } target="_blank" className="btn btn-info btn-sm">
+                <a href="" onClick={() => redirect(favorite.course_id) }  className="btn btn-info btn-sm">
                   Course Content
                 </a>
               </td>
