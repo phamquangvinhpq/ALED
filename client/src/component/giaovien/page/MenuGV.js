@@ -23,13 +23,13 @@ export default function MenuGV(props) {
                 onClick={() => change("Withdraw History")}
                 className="menuvalue"
               >
-                <NavLink to="/giangvien/AddCourse">Withdraw History</NavLink>
+                <NavLink to="/giangvien/WithdrawHistory">Withdraw History</NavLink>
               </li>
               <li
                 onClick={() => change("Withdraw Money")}
                 className="menuvalue"
               >
-                <a href="">Withdraw Money</a>
+                <NavLink to="/giangvien/WithdrawMoney">Withdraw History</NavLink>
               </li>
             </ul>
           </div>

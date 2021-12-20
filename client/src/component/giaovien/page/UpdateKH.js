@@ -7,12 +7,6 @@ import { useHistory } from "react-router-dom";
 export default function UpdateKH() {
 
   let history = useHistory();
-  const chuyentrang = function (event) {
-    if(updateCourse() === true){
-      swal("Thành Công", "Sửa khóa học thành công", "success")
-      history.push(`/giangvien/AllCourses/`);
-    }
-  }
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -83,7 +77,7 @@ export default function UpdateKH() {
     }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
       swal("Thất bại", "courseName không được bỏ trống", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.description)){
-      swal("Thất bại", "courseName không được bỏ trống", "warning")
+      swal("Thất bại", "Description không được bỏ trống", "warning")
     }
     else{
       var myHeaders = new Headers();
@@ -106,9 +100,18 @@ export default function UpdateKH() {
       };
 
       fetch(`${DEFAULT_API}` + "course/edit", requestOptions)
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => {
+          if(result.loicode==-1){
+            swal("nhập đầy đủ thông tin", {
+              text: `yêu cầu nhập price ` ,
+              icon: "warning",
+            });
+          }else{
+          swal("Thành Công", "Sửa khóa học thành công", "success")
+          history.push(`/giangvien/AllCourses/`);
           setIsEnable(isEnable + 1)
+          }
         })
         .catch(error => console.log('error', error));
       }
@@ -249,10 +252,8 @@ export default function UpdateKH() {
 
                     <div className="form-group">
                       <div className="col-sm-offset-3 col-sm-9">
-                        <button type="button" className="btn btn-success pull-left c-button" onClick={
-                          (event) => {
-                            chuyentrang(event)
-                          }} name="form1">Update</button>
+                        <button type="button" className="btn btn-success pull-left c-button"
+                         onClick={updateCourse} name="form1">Update</button>
                       </div>
                     </div>
                   </form>

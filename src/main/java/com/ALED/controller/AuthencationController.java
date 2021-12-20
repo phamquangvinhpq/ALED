@@ -99,8 +99,6 @@ public class AuthencationController {
    
     @PostMapping("/register")
 	public Users register(@Valid @RequestBody Users user) {
-		
-
 		userServiceSystem.create(user);
 		return user;
 	}

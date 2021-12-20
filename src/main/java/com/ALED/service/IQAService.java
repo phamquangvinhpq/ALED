@@ -8,5 +8,6 @@ public interface IQAService {
 	List<QADTO> getAll(QADTO dto);
 	QADTO save(QADTO dto);
 	QADTO update(QADTO dto);
+	List<QADTO> getBystatus(Integer status);
 
 }

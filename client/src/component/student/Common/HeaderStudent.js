@@ -316,11 +316,10 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "auth/register", requestOptions)
       .then(response => response.json())
       .then(result => {
-    
         if(result.loicode == -1)
         {
           swal("nhập đầy đủ thông tin", {
-            text: result.details,
+            text: "email ko hợp lệ hoặc đã tồn tại",
             icon: "warning",
           });
         }
