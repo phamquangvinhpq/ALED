@@ -319,7 +319,7 @@ export default function HeaderStudent() {
         if(result.loicode == -1)
         {
           swal("nhập đầy đủ thông tin", {
-            text: result.details,
+            text: "email ko hợp lệ hoặc đã tồn tại",
             icon: "warning",
           });
         }
