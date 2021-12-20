@@ -48,6 +48,9 @@ public class ContentQAService implements IContentQAService {
 				BeanUtils.copyProperties(contentQA, dto2);
 				dto2.setQa_id(contentQA.getQa().getId());
 				dto2.setTime(contentQA.getCreate_date().toString());
+				dto2.setUser_name(contentQA.getQa().getUsers().getName());
+				dto2.setAuthor_name(contentQA.getQa().getCourse().getAuthor().getName());
+				dto2.setCourse_name(contentQA.getQa().getCourse().getCourseName());
 				listDto.add(dto2);
 			}
 		}

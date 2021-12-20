@@ -10,9 +10,11 @@ import Footer from "../../student/Common/FooterStudent";
 import HeaderStudent from "../../student/Common/HeaderStudent";
 import AddKH from "./AddKH";
 import AllKH from "./AllKH";
+import Answered from "./Answered";
 import Dashboard from "./Dashboard";
 import Leson from "./Leson";
 import MenuGV from "./MenuGV";
+import NotAnswered from "./NotAnswered";
 import Section from "./Section";
 import UpdateKH from "./UpdateKH";
 
@@ -50,6 +52,14 @@ export default function IndexGV() {
 
               <Route path="/giangvien/AllCourses">
                 <AllKH />
+              </Route>
+
+              <Route path="/giangvien/Answered">
+                <Answered />
+              </Route>
+
+              <Route path="/giangvien/NoteAnswered">
+                <NotAnswered />
               </Route>
 
               <Route path="/giangvien/Section/:id">
