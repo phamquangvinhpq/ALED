@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
+import { NavLink } from "react-router-dom";
 
 export default function Users() {
 
@@ -71,7 +72,7 @@ export default function Users() {
                     <h1>View Users (Students / Instructors)</h1>
                 </div>
                 <div className="content-header-right">
-                    <a href="/admin/adduser" className="btn btn-primary btn-sm">Add New</a>
+                <NavLink to="/admin/adduser" className="btn btn-primary btn-sm">Add New</NavLink>
                 </div>
             </section>
             <section className="content">

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { DEFAULT_API } from '../../../conf/env'
 
 export default function Dashboard() {
     const [countCourse,setCountCourse] = useState(0)
@@ -25,7 +26,7 @@ export default function Dashboard() {
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/course/count", requestOptions)
+    fetch(`${DEFAULT_API}` +`course/count`, requestOptions)
         .then(response => response.json())
         .then(result => {setCountCourse(result)
                     console.log("hihi:" +result);        
@@ -43,7 +44,7 @@ export default function Dashboard() {
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/count", requestOptions)
+    fetch(`${DEFAULT_API}` +`count`, requestOptions)
         .then(response => response.json())
         .then(result => {setCountUser(result)
                     console.log("hihi:" +result);        
@@ -61,7 +62,7 @@ export default function Dashboard() {
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/category/count", requestOptions)
+    fetch(`${DEFAULT_API}` +`category/count`, requestOptions)
         .then(response => response.json())
         .then(result => {setCountCategory(result)
                     console.log("hihi:" +result);        

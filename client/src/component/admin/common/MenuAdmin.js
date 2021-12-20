@@ -8,9 +8,9 @@ export default function MenuAdmin() {
         <ul className="sidebar-menu">
           <br /><br />
           <li className="treeview active">
-            <a href="/admin/Dashboard">
+          <NavLink to="/admin/Dashboard">
               <i className="fa fa-laptop" /> <span className="fa-laptop1">Dashboard</span>
-            </a>
+            </NavLink>
           </li>
 
           <li className="treeview">

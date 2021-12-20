@@ -12,6 +12,7 @@ import IndexDash from './component/student/Dashboard/IndexDash';
 import Indexwath from './component/Watch/Indexwath';
 import Indexstudent from './component/student/page/Index';
 import IndexAdmin from './component/admin/Dashboard/IndexAdmin';
+import Payhanhcong from './component/student/page/Payhanhcong';
 export default function Routers() {
     let role =localStorage.getItem("role");
 
@@ -38,13 +39,19 @@ export default function Routers() {
                         <Route path='/wath' >
                         <Indexwath />
                     </Route>
+                    <Route path='/thanhcong' >
+                        <Payhanhcong />
+                    </Route>
 
+                    <Route path='/thanhcong' >
+                        <Payhanhcong />
+                    </Route>
                     <Route path='/' >
                         <Indexstudent />
                     </Route>
+
                     
-
-
+                    
                 </Switch>
 
 

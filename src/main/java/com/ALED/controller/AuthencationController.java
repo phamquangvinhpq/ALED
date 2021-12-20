@@ -98,8 +98,15 @@ public class AuthencationController {
     
    
     @PostMapping("/register")
+<<<<<<< HEAD
 	public Users register(@Valid @RequestBody Users user) throws Exception {
     	userServiceSystem.create(user);
+=======
+	public Users register(@Valid @RequestBody Users user) {
+		
+
+		userServiceSystem.create(user);
+>>>>>>> 0a76972553d66380bd678827a5948377ddf0393c
 		return user;
 	}
 }

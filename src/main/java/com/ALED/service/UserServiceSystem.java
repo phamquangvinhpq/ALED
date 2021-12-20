@@ -72,15 +72,13 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users update(Users user) {
-		Users entity = userRepository.getById(user.getId());
-		if (entity != null) {
-			user.setPassword(entity.getPassword());
-			user.setUsername(entity.getUsername());
-			user.setEmail(entity.getEmail());
-			user.setIsEnable(entity.getIsEnable());
-			user.setStatus(entity.getStatus());
-			user.setImage(entity.getImage());
-			userRepository.save(user);
+		Optional<Users> entity = userRepository.findById(user.getId());
+		if (entity.isPresent()) {
+			Users us=entity.get();
+			us.setAddress(user.getAddress());
+			us.setName(user.getName());
+			us.setPhone(user.getPhone());
+			userRepository.save(us);
 		}
 		return user;
 	}
@@ -170,9 +168,10 @@ public class UserServiceSystem implements IUserServiceSystem {
 			SimpleMailMessage message = new SimpleMailMessage();
 
 			message.setTo(user.getEmail());
-			message.setSubject("MẬT KHẨU MỚI CỦA BẠN");
-
-			message.setText("MẬT KHẨU MỚI CỦA BẠN LÀ :" + newPassword);
+			message.setSubject("Reset Password ALED");
+			message.setText("We hope you had a pleasant experience on our website.\r\n"
+					+ "Don't worry if you don't remember your password. This is a common problem for everyone:");
+			message.setText("Your new password will be:" + newPassword);
 
 			// Send Message!
 			emailSender.send(message);
@@ -199,7 +198,9 @@ public class UserServiceSystem implements IUserServiceSystem {
 	BeanUtils.copyProperties(UserAuthorDTO, us);
 	    userRepository.save(us);
 	    Author author=new Author();
+	    
 	    author.setId(us.getId());
+	    author.setName(UserAuthorDTO.getName());
 	    author.setDescription(UserAuthorDTO.getEmail());
 	    
 	    authorrepository.save(author);
@@ -229,9 +230,12 @@ public class UserServiceSystem implements IUserServiceSystem {
 		SimpleMailMessage message = new SimpleMailMessage();
 		 
         message.setTo(UserAuthorDTO.getEmail());
-        message.setSubject(" ĐĂNG KÝ TÀI KHOẢN ALED");
-        
-        message.setText("MẬT KHẨU  CỦA BẠN LÀ :"+ newPassword);
+        message.setSubject("REGISTER AN ACCOUNT ALED");
+        message.setText("Thank you for trusting and choosing ALED as a place to learn knowledge.\r\n"
+        		+ "We will bring you the useful courses you are looking for and maybe you will like other courses too");
+        message.setText("Here is your password:"+ newPassword);
+        message.setText("Hope you won't mind changing your password\r\n"
+        		+ "Wish you have a great experience with our website");
        
 
         // Send Message!

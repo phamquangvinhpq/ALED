@@ -51,7 +51,6 @@ public class LessionController {
 				lessionDTO.setType(file.getContentType());
 		}
 		
-
 		return lessionService.create(lessionDTO);
 
 	}
@@ -62,13 +61,18 @@ public class LessionController {
 		return lessionService.delete(id);
 	}
 
+	
 	@PutMapping
-	public LessionDTO update(@RequestBody @RequestParam("file") MultipartFile file, LessionDTO lessionDTO)
+	public LessionDTO update(@RequestBody @RequestParam(name="file",required = false ) MultipartFile file, LessionDTO lessionDTO)
 			throws IOException {
-		if (file.getContentType() != null) {
+		if (file != null) {
 			lessionDTO.setLinkVideo(
 					serverProto + "://" + serverUrl + "/api/file/video?videoName=" + fileService.uploadImage(file));
 				lessionDTO.setType(file.getContentType());
+		}
+		else {
+			lessionDTO.setLinkVideo(lessionDTO.getLinkVideo());
+			lessionDTO.setType(lessionDTO.getType());
 		}
 
 		return lessionService.update(lessionDTO);

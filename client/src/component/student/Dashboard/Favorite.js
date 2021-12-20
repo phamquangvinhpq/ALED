@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import swal from 'sweetalert';
 import { useHistory } from "react-router-dom";
+import { DEFAULT_API } from '../../../conf/env';
+
 export default function Favorite() {
   const [listFavorite, setListFavorite] = useState([]);
   const [status, setStatus] = useState(0);
@@ -8,7 +10,7 @@ export default function Favorite() {
   let history = useHistory();
 
   const loadFavorite = () => {
-    fetch("http://localhost:8080/favorite?user_id=" + user_id)
+    fetch(`${DEFAULT_API}` +`favorite?user_id=` + user_id)
       .then((response) => response.json())
       .then((data) => 
        setListFavorite(data),
@@ -17,7 +19,7 @@ export default function Favorite() {
 
   const redirect = (id) => {
     history.push(`/detail/${id}`)
-    window.location.reload();
+    
   };
 
 
@@ -37,7 +39,7 @@ export default function Favorite() {
           redirect: 'follow'
         };
         
-        fetch(`http://localhost:8080/favorite?user_id=${user_id}&course_id=${course_id}` , requestOptions)
+        fetch(`${DEFAULT_API}` +`favorite?user_id=${user_id}&course_id=${course_id}` , requestOptions)
           .then(response => response.text())
           .then(result => {
             console.log(result)
@@ -80,7 +82,7 @@ export default function Favorite() {
                 <img src={favorite.image} alt="" />
               </td>
               <td>
-                <a onClick={() => redirect(favorite.course_id) } target="_blank" className="btn btn-info btn-sm">
+                <a href="" onClick={() => redirect(favorite.course_id) }  className="btn btn-info btn-sm">
                   Course Content
                 </a>
               </td>

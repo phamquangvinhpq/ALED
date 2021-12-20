@@ -2,39 +2,34 @@ package com.ALED.DTO;
 
 
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
 @Data
-
 public class CourseDTO {
 
 	private Integer id;
-
-	@NotNull
-	@Size(min = 3, message = "Tên khóa học phải lớn hơn 3 kí tự")
-	private String courseName;
 	
 	@NotNull
+	@Size(min = 2, message = "lớn hơn 2 ký tự")
+	private String courseName;
+	
+	@NotNull(message = "nhập mô tả")
 	private String description;
 
-	@NotBlank
-	@Min(0)
+	@NotNull(message = "nhập giá")
+	@Size(min = 2, message = "lớn hơn 2 ký tự")
 	private Double price;
 
-	@NotNull
+	@NotNull(message = "chọn ảnh")
 	private String image;
 
-	@NotBlank
+	@NotNull(message = "nhập mô tả")
 	private Integer status;
-
-	@NotBlank
+	
+	@NotNull(message = "chọn danh mục")
 	private Integer category_id;
 
 	private Integer author_id;

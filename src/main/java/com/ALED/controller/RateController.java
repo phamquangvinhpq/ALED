@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.DTO.RateDTO;
@@ -17,10 +18,10 @@ import com.ALED.service.RateService;
 public class RateController {
 	@Autowired
 	private RateService rateService;
-	
-	@GetMapping("/rate/{id}")
-	public List<UserRateDTO> rate(@PathVariable Integer id) {
-		return rateService.detailcour(id);
+
+	@GetMapping("/rate")
+	public List<UserRateDTO> rate(@RequestParam(required = false) Integer userId,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "2") int size) {
+		return rateService.detailcour(userId,page,size);
 	}
 	
 	
@@ -45,5 +46,4 @@ public class RateController {
 		return rateService.findbyrate(userid, course);
 	}
 	
-
 }

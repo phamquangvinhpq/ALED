@@ -9,39 +9,39 @@ export default function Footer() {
       <div className="col-md-3">
         <h3>Trending Courses</h3>
         <ul>
-          <li><a href="course/magento-2-essential-video-training.html">Magento 2 Essential Video
+          <li><a >Magento 2 Essential Video
               Training</a></li>
-          <li><a href="course/build-an-ecommerce-website-with-wordpress.html">Build An eCommerce Website
+          <li><a >Build An eCommerce Website
               With WordPress</a></li>
-          <li><a href="course/learn-html5-programming-from-scratch.html">Learn HTML5 Programming From
+          <li><a >Learn HTML5 Programming From
               Scratch</a></li>
-          <li><a href="course/python-django-dev-to-deployment.html">Python Django Dev To Deployment</a>
+          <li><a>Python Django Dev To Deployment</a>
           </li>
         </ul>
       </div>
       <div className="col-md-3">
         <h3>Bestseller Courses</h3>
         <ul>
-          <li><a href="course/wordpress-for-beginners-create-a-website-step-by-step.html">WordPress for
+          <li><a>WordPress for
               Beginners: Create a Website Step by Step</a></li>
-          <li><a href="course/build-an-ecommerce-website-with-wordpress.html">Build An eCommerce Website
+          <li><a >Build An eCommerce Website
               With WordPress</a></li>
-          <li><a href="course/learn-php-fundamentals-from-scratch">Learn PHP Fundamentals From Scratch</a>
+          <li><a >Learn PHP Fundamentals From Scratch</a>
           </li>
-          <li><a href="course/python-and-django-full-stack-web-developer-bootcamp.html">Python and Django
+          <li><a >Python and Django
               Full Stack Web Developer Bootcamp</a></li>
         </ul>
       </div>
       <div className="col-md-3">
         <h3>Recent Courses</h3>
         <ul>
-          <li><a href="course/build-an-ecommerce-website-with-wordpress.html">Build An eCommerce Website
+          <li><a >Build An eCommerce Website
               With WordPress</a></li>
-          <li><a href="course/master-shopify---create-a-shopify-store-in-1-hour.html">Master Shopify -
+          <li><a >Master Shopify -
               Create a Shopify Store in 1 Hour</a></li>
-          <li><a href="course/wordpress-for-beginners-create-a-website-step-by-step.html">WordPress for
+          <li><a >WordPress for
               Beginners: Create a Website Step by Step</a></li>
-          <li><a href="course/learn-php-fundamentals-from-scratch">Learn PHP Fundamentals From Scratch</a>
+          <li><a >Learn PHP Fundamentals From Scratch</a>
           </li>
         </ul>
       </div>
@@ -60,15 +60,15 @@ export default function Footer() {
         <div className="footer-menu">
           <ul>
             <li>
-              <a href="index.html">
+              <a >
                 Home </a>
             </li>
             <li>
-              <a href="privacy-policy.html">
+              <a >
                 Privacy Policy </a>
             </li>
             <li>
-              <a href="terms-and-conditions.html">
+              <a>
                 Terms and Conditions </a>
             </li>
           </ul>

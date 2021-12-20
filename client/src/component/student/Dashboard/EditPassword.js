@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import swal from 'sweetalert';
+import { DEFAULT_API } from '../../../conf/env';
 export default function EditPassword() {
 const object = {
   password:String = "",
@@ -33,7 +34,7 @@ const handleSubmit = (event) => {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/user/updatepassword?newPassword=" + inputs.newPassword, requestOptions)
+    fetch(`${DEFAULT_API}` +`user/updatepassword?newPassword=` + inputs.newPassword, requestOptions)
       .then(response => response.text())
       .then(result => {
         console.log(result)

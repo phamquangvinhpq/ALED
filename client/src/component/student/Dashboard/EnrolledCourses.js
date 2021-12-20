@@ -40,13 +40,13 @@ export default function EnrolledCourses() {
   ]))
 
   function chuyentrang(value) {
-    history.replace(`/wath/video/${value.course}`)
+    history.push(`/wath/video/${value.course}`)
     window.location.reload()
   }
 
   function chuyentrangdetail(value) {
-    history.replace(`/Detail/${value.course}`)
-    window.location.reload();
+    history.push(`/Detail/${value.course}`)
+    
   }
 
   
@@ -86,7 +86,7 @@ export default function EnrolledCourses() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/addrate", requestOptions)
+    fetch(`${DEFAULT_API}` +`addrate`, requestOptions)
       .then(response => response.json())
       .then(result => swal("Thành công", "Thêm thành công", "success"))
       .catch(error => console.log('error', error));
@@ -103,7 +103,7 @@ export default function EnrolledCourses() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/findrate/${id}/${rate.course_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`findrate/${id}/${rate.course_id}`, requestOptions)
       .then(response => response.text())
       .then(result => {
        
