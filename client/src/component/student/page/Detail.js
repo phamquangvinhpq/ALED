@@ -125,10 +125,9 @@ export default function Detail() {
   };
 
   function chuyentrang(value) {
-    history.push(`/wath/video/${value.id}`)
-    window.location.reload()
+    history.push(`/wath/video/${value}`)
+    
   }
-
 
   const loaduserrate = async (pg = page, pgsize = pagesize) => {
     var requestOptions = {
@@ -212,7 +211,7 @@ export default function Detail() {
 
     function viewDetail(value) {
 
-    history.push(`/Viewdetail/${value.id}`)
+    history.push(`/Viewdetail/${value}`)
 
   }
 
@@ -294,9 +293,9 @@ export default function Detail() {
                   >
                     Proceed to Checkout
                   </a>: <a
-                 
+                    href=''
                     className="btn btn-info btn-sm"
-                    onClick={()=> chuyentrang(value)}
+                    onClick={()=> chuyentrang(value.id)}
                   >
                    xem
                   </a> }</div>
@@ -507,9 +506,9 @@ export default function Detail() {
               </div>
               <div className="author-detail-button mt_30">
                 <a
-                  href=""
-                  onClick={()=> viewDetail(infoAuthor)}
                   className="btn btn-success btn-lg"
+                  onClick={()=> viewDetail(infoAuthor.id)}
+                 
                 >
                   View Detail
                 </a>

@@ -52,7 +52,7 @@ export default function Checkout1() {
 
         var raw = JSON.stringify({
             "price": DSkhoahoc.price,
-            "description": "mua khóa học " + DSkhoahoc.courseName,
+            "description": "pay the course on aled",
             "user_id": user_id,
             "course_id": DSkhoahoc.id
         });
@@ -86,7 +86,7 @@ export default function Checkout1() {
                                 <a >Home</a>
                                 <i className="fa fa-angle-right" />
                                  
-                                checkout            </h3>
+                                checkout</h3>
                         </div>
                     </div>
                 </div>

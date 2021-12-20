@@ -73,7 +73,7 @@ export default function Course() {
   }
 
   function chuyentrang(value) {
-    history.push(`/Detail/${value.id}`)
+    history.push(`/detail/${value.id}`)
     
   }
 

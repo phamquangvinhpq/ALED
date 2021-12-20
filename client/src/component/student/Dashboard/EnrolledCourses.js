@@ -45,7 +45,7 @@ export default function EnrolledCourses() {
   }
 
   function chuyentrangdetail(value) {
-    history.push(`/Detail/${value.course}`)
+    history.push(`/ detail/${value.course}`)
     
   }
 

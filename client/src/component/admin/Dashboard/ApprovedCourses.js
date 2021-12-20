@@ -75,7 +75,7 @@ export default function ApprovedCourses() {
                                              {value.authorName}
                                          </td>
                                                 <td>
-                                                    <a href={`/Detail/${value.id}`} className="btn btn-success btn-block btn-xs" >See Course
+                                                    <a href={`/detail/${value.id}`} className="btn btn-success btn-block btn-xs" >See Course
                                                         Details</a>
 
                                                     <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >See Course

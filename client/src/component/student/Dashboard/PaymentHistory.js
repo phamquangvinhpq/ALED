@@ -12,7 +12,8 @@ export default function PaymentHistory() {
     
     fetch(`${DEFAULT_API}` +`orders/${user_id}`, requestOptions)
       .then(response => response.json())
-      .then(result => setOrderData(result))
+      .then(result => {setOrderData(result)
+      })
       .catch(error => console.log('error', error));
   }
 
@@ -39,7 +40,7 @@ export default function PaymentHistory() {
                   <td>{index+1}</td>
                   <td>{data.mota}</td>
                   <td>{data.bank}</td>
-                  <td>{data.bank}</td>
+                  <td>{data.monny}</td>
                   <td>{data.createDate}</td>
                 </tr>
                 ))}
