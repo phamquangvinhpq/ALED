@@ -71,6 +71,9 @@ public class QAService implements IQAService {
 				dto2.setCourse_id(entity.getCourse().getId());
 				dto2.setUsers_id(entity.getUsers().getId());
 				dto2.setId(entity.getId());
+				dto2.setCourse_name(entity.getCourse().getCourseName());
+				dto2.setUser_name(entity.getUsers().getName());
+				dto2.setAuthor_name(entity.getCourse().getAuthor().getName());
 				listDto.add(dto2);
 			}
 		}

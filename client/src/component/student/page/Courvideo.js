@@ -20,19 +20,56 @@ export default function Courvideo() {
 
   let id = useParams();
   let history = useHistory();
+  const user_id = localStorage.getItem("userid");
 
   const [lessionId, setLesssionId] = useState(-1);
   const [note, setNote] = useState("");
   const [listNote, setListNote] = useState([]);
   const [listQA, setListQA] = useState([]);
+  const [contentMess, setContentMess] = useState({
+    user_id: user_id,
+    course_id: id.id,
+    people: 0,
+  });
+  const [refesh, setRefesh] = useState(0)
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setContentMess((values) => ({ ...values, [name]: value }));
+    console.log(contentMess)
+  };
+
+  const sendMess = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(contentMess);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/contentqa/student", requestOptions)
+      .then(response => response.text())
+      .then(result => loadQA())
+      .catch(error => console.log('error', error));
+      setContentMess((values) => ({
+        ...values,
+        content : ""
+      }));
+  }
 
   const tinNhan = (value) => {
     if (value.people === 1) {
       return (
         <li className="clearfix">
           <div className="message-data text-right">
-            <span className="message-data-time">Thầy Giáo</span>
-            <span className="message-data-time">10:10 AM, Today</span>
+            <span className="message-data-time">{value.author_name} |</span>
+            <span className="message-data-time">{value.time}</span>
           </div>
           <div className="message other-message float-right">{value.content}</div>
         </li>
@@ -41,8 +78,8 @@ export default function Courvideo() {
       return (
         <li className="clearfix">
           <div className="message-data">
-            <span className="message-data-time">Học Sinh</span>
-            <span className="message-data-time">10:12 AM, Today</span>
+            <span className="message-data-time">{value.user_name} |</span>
+            <span className="message-data-time">{value.time}</span>
           </div>
           <div className="message my-message">{value.content}</div>
         </li>
@@ -51,26 +88,15 @@ export default function Courvideo() {
   };
 
   const loadQA = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      users_id: "3",
-      author_id: "106",
-      course_id: "14",
-    });
-
     var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
+      method: 'GET',
+      redirect: 'follow'
     };
-
-    fetch(`${DEFAULT_API}` +`qa/get`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => setListQA(result))
-      .catch((error) => console.log("error", error));
+    
+    fetch(`http://localhost:8080/contentqa/getallcontentstudent?users_id=${user_id}&course_id=+${id.id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => setListQA(result))
+      .catch(error => console.log('error', error));
   };
 
   const changeNote = (e) => {
@@ -145,7 +171,6 @@ export default function Courvideo() {
   };
 
   useEffect(() => {
-    // loadQA();
     damua();
     loaddanhmuc();
     getLessionBySection();
@@ -168,8 +193,6 @@ export default function Courvideo() {
       })
       .catch((error) => console.log("error", error));
   };
-
-  let user_id = localStorage.getItem("userid");
 
   const damua = async () => {
     var requestOptions = {
@@ -762,8 +785,7 @@ export default function Courvideo() {
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -785,7 +807,7 @@ export default function Courvideo() {
                   <div className="col-lg-6">
                     <div className="chat">
                       <div className="chat-header clearfix">
-                        <div className="row">
+                        {/* <div className="row">
                           <div className="col-lg-6">
                             <a
                               href="javascript:void(0);"
@@ -801,7 +823,7 @@ export default function Courvideo() {
                               <h6 className="m-b-0">Aiden Chavez</h6>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="chat-history">
                       {listQA.map((value, index) => (
@@ -812,16 +834,25 @@ export default function Courvideo() {
                       </div>
                       <div className="chat-message clearfix">
                         <div className="input-group mb-0">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text">
-                              <i className="fa fa-send" />
-                            </span>
-                          </div>
-                          <input
+                          <input onChange={handleChange}
+                            value={contentMess.content}
                             type="text"
                             className="form-control"
                             placeholder="Enter text here..."
+                            name="content"
                           />
+                          <br />
+                          <br />
+                          <div className="input-group-prepend">
+                          <button disabled={contentMess.content ? false : true}
+                            type="button"
+                            className="tab-two"
+                            class="btn btn-success"
+                            onClick={sendMess}
+                            >
+                            Reply
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>

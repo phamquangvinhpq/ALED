@@ -16,20 +16,14 @@ export default function MenuGV(props) {
               <li onClick={() => change("Add Course")} className="menuvalue">
                 <NavLink to="/giangvien/AddCourse">Add Course</NavLink>
               </li>
-              <li onClick={() => change(" All Courses")} className="menuvalue">
+              <li onClick={() => change("All Courses")} className="menuvalue">
                 <NavLink to="/giangvien/AllCourses">All Courses</NavLink>
               </li>
-              <li
-                onClick={() => change("Withdraw History")}
-                className="menuvalue"
-              >
-                <NavLink to="/giangvien/WithdrawHistory">Withdraw History</NavLink>
+              <li onClick={() => change("Answered")} className="menuvalue">
+                <NavLink to="/giangvien/Answered">Answered</NavLink>
               </li>
-              <li
-                onClick={() => change("Withdraw Money")}
-                className="menuvalue"
-              >
-                <NavLink to="/giangvien/WithdrawMoney">Withdraw History</NavLink>
+              <li onClick={() => change("Not Answered")} className="menuvalue">
+                <NavLink to="/giangvien/NoteAnswered">Not Answered</NavLink>
               </li>
             </ul>
           </div>
