@@ -70,6 +70,8 @@ public class Course implements Serializable {
 	@JoinColumn(name = "users_id")
 	private Users users;
 
+	@OneToMany(mappedBy="course")
+	private List<QA> qas;
 
 
 }

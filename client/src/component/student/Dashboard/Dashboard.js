@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { DEFAULT_API } from '../../../conf/env';
 
 export default function Dashboard() {
 
@@ -11,7 +12,7 @@ export default function Dashboard() {
       redirect: "follow",
     };
 
-    fetch(`http://localhost:8080/studentoverview?user_id=${user_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`studentoverview?user_id=${user_id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setInfoStudent(result))
       .catch((error) => console.log("error", error));

@@ -22,7 +22,7 @@ export default function Pendinginstructer() {
             redirect: 'follow'
           };
           
-          fetch(`http://localhost:8080/getskill/${value.id}`, requestOptions)
+          fetch(`${DEFAULT_API}` +`getskill/${value.id}`, requestOptions)
          
             .then(response => response.json())
             .then(result => {setskill(result)
@@ -149,7 +149,7 @@ export default function Pendinginstructer() {
                         </div>
                         <div className="modal-body">
                         {skill.map((value,index) =>
-                            <textarea rows="9" cols="70">
+                            <textarea rows="9" cols="70" disabled>
                                {value.skill}
                             </textarea>
 )}

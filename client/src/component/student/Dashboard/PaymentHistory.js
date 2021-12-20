@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { DEFAULT_API } from '../../../conf/env';
+
 export default function PaymentHistory() {
   const user_id = localStorage.getItem("userid")
   const [orderData, setOrderData] = useState([])
@@ -8,7 +10,7 @@ export default function PaymentHistory() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/orders/${user_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`orders/${user_id}`, requestOptions)
       .then(response => response.json())
       .then(result => setOrderData(result))
       .catch(error => console.log('error', error));

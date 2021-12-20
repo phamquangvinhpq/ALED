@@ -20,6 +20,8 @@ public class LessionDTO implements Serializable {
 	
 	private int status;
 	
+	private int Courseid;
+	
 
 
 }

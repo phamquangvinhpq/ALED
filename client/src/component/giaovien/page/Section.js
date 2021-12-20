@@ -89,7 +89,6 @@ export default function Section() {
     fetch(`${DEFAULT_API}` + "giangvien/Section/", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
         if(result.loicode==-1){
           swal("nhập đầy đủ thông tin", {
             text: `yêu cầu name ` + " " + result.details ,
@@ -111,7 +110,7 @@ export default function Section() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/giangvien/Coursebyid/${user_id}/${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`giangvien/Coursebyid/${user_id}/${id.id}`, requestOptions)
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
@@ -148,15 +147,22 @@ export default function Section() {
           };
 
           fetch(`${DEFAULT_API}` + `giangvien/Section/${value.id}`, requestOptions)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(result => {
-              console.log(result)
-              setIsEnable(isEnable + 1)
+              if(result.loicode == -1 ){
+                swal("danh mục đã có khóa học", {
+                });
+              }
+              else{
+                swal("đã xóa", {
+                  icon: "success",
+                });
+                setIsEnable(isEnable + 1)
+              }
+             
             })
             .catch(error => console.log('error', error));
-          swal("đã xóa", {
-            icon: "success",
-          });
+       
         }
       });
 
@@ -184,9 +190,9 @@ export default function Section() {
     fetch(`${DEFAULT_API}` + "giangvien/Section/", requestOptions)
       .then(response => response.text())
       .then(result => {
-        console.log(result)
-        alert("đã sửa")
-        setIsEnable(isEnable + 1)
+       
+          setIsEnable(isEnable + 1)
+        
       })
       .catch(error => console.log('error', error));
   }
@@ -194,7 +200,6 @@ export default function Section() {
   const layid = (value) => {
     setgiatriID(value.id)
     Section.namesection = value.name
-
   }
 
   return (

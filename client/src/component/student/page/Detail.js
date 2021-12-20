@@ -22,7 +22,9 @@ export default function Detail() {
   const [damua, setdamua] = useState(false);
   let history = useHistory();
   let id = useParams();
-
+  const [totalCount, setTotalCount] = useState(0)
+  const [page, setPage] = useState(0);
+  let pagesize = 3
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
   
@@ -43,9 +45,13 @@ export default function Detail() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/teacheroverview/getinfoauthor?author_id=${author_id}` , requestOptions)
+    fetch(`${DEFAULT_API}` +`teacheroverview/getinfoauthor?author_id=${author_id}` , requestOptions)
       .then(response => response.json())
-      .then(result => setInfoAuthor(result))
+      .then(result => {
+        console.log(result);
+        setInfoAuthor(result)
+      
+      } )
       .catch(error => console.log('error', error));
   }
 
@@ -55,7 +61,7 @@ export default function Detail() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/teacheroverview?author_id=${authorId}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`teacheroverview?author_id=${authorId}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setInfoTeacher(result);
@@ -119,20 +125,35 @@ export default function Detail() {
   };
 
   function chuyentrang(value) {
-    history.replace(`/wath/video/${value.id}`)
+    history.push(`/wath/video/${value.id}`)
     window.location.reload()
   }
 
 
-  const loaduserrate = async () => {
+  const loaduserrate = async (pg = page, pgsize = pagesize) => {
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
-    fetch(`${DEFAULT_API}` + `rate/${id.id}`, requestOptions)
-      .then(response => response.json())
-      .then(result => { setuserrate(result) })
-      .catch(error => console.log('error', error));
+    fetch(`${DEFAULT_API}` + `rate?userId=${id.id}&page=${pg}&size=${pgsize}`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          setTotalCount(result.length)
+          setuserrate(result) })
+        .catch(error => console.log('error', error));
+  }
+
+  const nextPage = async () => {
+    const pg =  page + 1
+    loaduserrate(pg)
+    setPage(pg)
+  }
+
+  const backPage = async () => {
+    const pg =  page - 1
+    loaduserrate(pg)
+    setPage(pg)
+    console.log(page);
   }
 
 
@@ -165,6 +186,7 @@ export default function Detail() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+        console.log(result);
        if(result[0].status ==0)
        {
          settrangthai(true)
@@ -184,13 +206,13 @@ export default function Detail() {
 
   function getcheckout(value) {
 
-    history.replace(`/checkout/${value.id}`)
+    history.push(`/checkout/${value}`)
 
   }
 
     function viewDetail(value) {
 
-    history.replace(`/Viewdetail/1`)
+    history.push(`/Viewdetail/${value.id}`)
 
   }
 
@@ -326,6 +348,13 @@ export default function Detail() {
                   </div>
                 </div>
               ))}
+              <button type="button" className="btn btn-outline-primary" disabled={page == 0}
+                      onClick={backPage}>Previous
+              </button>
+              <button type="button" className="btn btn-outline-primary"
+                      disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
+              </button>
+
             </div>
           </div>
           <div className="row">
@@ -479,7 +508,7 @@ export default function Detail() {
               <div className="author-detail-button mt_30">
                 <a
                   href=""
-                  onClick={viewDetail}
+                  onClick={()=> viewDetail(infoAuthor)}
                   className="btn btn-success btn-lg"
                 >
                   View Detail

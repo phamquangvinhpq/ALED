@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route,    Redirect, Link, Switch, BrowserRouter } from "react-router-dom";
 import FooterStudent from '../Common/FooterStudent';
 import HeaderStudent from '../Common/HeaderStudent';
 import Courvideo from './Courvideo';
@@ -14,12 +14,21 @@ import Signup from './Signup';
 import Cart from './Cart';
 import Course from './Course';
 import Checkout1 from './Checkout1';
+import { useHistory } from "react-router-dom";
 import About from './About';
 import Faq from './Faq';
 import Contact from './Contact';
 
 export default function Index() {
     let role =localStorage.getItem("role");
+    let history = useHistory();
+
+    function chuyentrang()
+    {
+        alert("vui lòng đăng nhập");
+        history.push("/home");
+        
+    }
     return (
         <div>
              <BrowserRouter History={History}>
@@ -63,7 +72,7 @@ export default function Index() {
                     </Route>
 
                     <Route path='/Checkout/:id' render={() => {
-                        return role == null ? alert("vui lòng đăng nhập")  :  <Checkout1 /> 
+                        return role == null ?  chuyentrang() :  <Checkout1 /> 
                     }}  >
                     </Route>
 
@@ -73,6 +82,10 @@ export default function Index() {
 
                     <Route path="/Course">
                         <Course />
+                    </Route>
+
+                    <Route  path="/">
+                        <Homestd />
                     </Route>
                     
                 </Switch>

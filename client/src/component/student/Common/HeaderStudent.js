@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
+import swal from "sweetalert";
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
   Switch,
+  Route,
   NavLink,
-  Link
+  Redirect,
+  Link,
 } from "react-router-dom";
 import { event } from 'jquery';
 import { useDispatch } from 'react-redux'
@@ -47,6 +50,7 @@ export default function HeaderStudent() {
     history.push(`/Course/${event.target.value}`)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
+    window.location.reload();
   };
 
   
@@ -158,13 +162,19 @@ export default function HeaderStudent() {
 
   function chuyentrang() {
     let role = localStorage.getItem("role");
-    if (role == "ROLE_ADMIN") {
-      history.replace("/giangvien/Section")
-      window.location.reload();
+    if (role == "ROLE_GIANGVIEN") {
+      history.push("/giangvien")
+      window.location.reload()
+    
+    }else if(role == "ROLE_ADMIN")
+    {
+      history.push("/admin")
+      window.location.reload()
     }
     else {
-      history.replace("/home")
-      window.location.reload();
+      history.push("/home")
+      window.location.reload()
+      
     }
 
   }
@@ -218,7 +228,9 @@ export default function HeaderStudent() {
   }
   const logout = () =>{
       localStorage.clear()
-      window.location.reload();
+      history.push("/home")
+      window.location.reload()
+      
 
   }
 
@@ -260,6 +272,21 @@ export default function HeaderStudent() {
     window.location.reload()
   }
   const signup = () => {
+    var regexKhoangTrang = /\S/;
+        var regex = /[A-Za-z0-9]/
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if (!regexName.test(users.name)) {
+      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) ) {
+      swal("Thất bại", "không được bỏ trống", "warning")
+    } 
+    else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    }else if (!regex.test(users.username) ) {
+        swal("Thất bại", "Name không được chứa kí tự", "warning")
+      }
+     else {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -289,10 +316,12 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "auth/register", requestOptions)
       .then(response => response.json())
       .then(result => {
-    
         if(result.loicode == -1)
         {
-          alert("email  đã tồn tại")
+          swal("nhập đầy đủ thông tin", {
+            text: result.details,
+            icon: "warning",
+          });
         }
         else{
           alert("kiểm tra email để lấy mật khẩu")
@@ -301,6 +330,7 @@ export default function HeaderStudent() {
        
       })
       .catch(error => console.log('error', error));
+    }
   }
   const [selectedFile, setSelectedFile] = useState();
   const changeHandler = (event) => {
@@ -308,6 +338,24 @@ export default function HeaderStudent() {
     console.log(event.target.files[0]);
   };
   const signupintructer = () => {
+    var regexKhoangTrang = /\S/;
+        var regex = /[A-Za-z0-9]/
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if (!regexName.test(users.name)) {
+      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username)
+     || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.address) || !regexKhoangTrang.test(users.phone) ) {
+      swal("Thất bại", "không được bỏ trống", "warning")
+    } 
+    else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    }else if (!regex.test(users.username) ) {
+        swal("Thất bại", "Name không được chứa kí tự", "warning")
+      }else if (Number.isNaN(users.phone) ) {
+        swal("Thất bại", "phone phải là số", "warning")
+      }
+     else {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -344,23 +392,25 @@ export default function HeaderStudent() {
        
       })
       .catch(error => console.log('error', error));
+    }
   }
 
 
     const qlgiangvien = () =>{
-  history.replace("/giangvien/Dashboard")
-      window.location.reload();
+        history.push("/giangvien")
+      
     }
 
     const qladmin = () =>{
-      history.replace("/admin")
-          window.location.reload();
+      history.push("/admin")
+          
         }
     
 
     const qlstudent = () =>{
-  history.replace("/student/Dashboard")
-      window.location.reload();
+      history.push("/student")
+      
+
     }
 
 let user_id = localStorage.getItem("userid")
@@ -386,13 +436,7 @@ const loadCart = async () => {
       .catch(error => console.log('error', error));
 }
 
-function chuyentrangcart() {
-  history.push("/cart")
-}
 
-function chuyentrangcourse() {
-  history.push("/Course")
-}
 
 
 const doipassword = async () =>{
@@ -410,14 +454,14 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/forgot-password", requestOptions)
+fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
   .then(response => response.text())
   .then(result => {
     if(result=="thành công")
     {
       alert(result)
-      history.replace("/home")
-      window.location.reload();
+      history.push("/home")
+      
     }
     else{
       alert(result)
@@ -444,11 +488,11 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
               <div className="top-right">
                 <ul>{accessToken == null ?
                   <li><a href="#" data-toggle="modal" data-target="#login_modal"><i className="fa fa-sign-in" />
-                    Login</a></li> : <li><a href="#" onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
+                    Login</a></li> : <li><a href=""  onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
                     </a></li>}
                   {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
                   {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > admin</a></li> : ""}
-                  {role == null ? <li><a href="#" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="#" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
+                  {role == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
                 </ul>
 
                 <div className="modal fade" id="join_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -581,7 +625,7 @@ fetch("http://localhost:8080/forgot-password", requestOptions)
           <div className="row">
             <div className="col-md-4 col-sm-3">
               <div className="logo">
-                <a href="index.html"><img src="http://localhost:3000/logo1.jpg" alt="logo" /></a>
+                <a ><img src="/assets/uploads/logoaled.png" alt="logo" /></a>
               </div>
             </div>
             <div className="col-md-8 col-sm-9">

@@ -304,21 +304,21 @@ export default function Leson() {
                       <div id={`ok` + index} className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div className="panel-body">
                           <div className="table-responsive">
-                            <table className="table table-bordered table-striped" >
+                          <table className="table table-bordered table-striped" >
                               <thead>
                                 <tr>
-                                  <th className="w-10-p">Name</th>
-                                  <th className="w-40-p">Lesson Link Video</th>
-                                  <th className="w-10-p">Lesson Section ID</th>
+                                <th className="w-10-p">ID</th>
+                                  <th className="w-40-p">Name</th>
+                                  <th className="w-30-p">Lesson Section ID</th>
                                   <th className="w-15-p">Lesson Content</th>
-                                
+                                  <th >Action </th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {video.map((value, index) => (
                                   <tr key={index}>
+                                    <td>{index+1}</td>
                                     <td>{value.name}</td>
-                                    <td>{value.linkVideo}</td>
                                     <td>{value.section_id}</td>
                                     <td>
                                       <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
@@ -326,7 +326,10 @@ export default function Leson() {
                                       </a>
 
                                     </td>
-                                    
+                                    <td>
+                                     
+                                      <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Delete</a>
+                                    </td>
                                   </tr>
                                 ))}
                               </tbody>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import swal from "sweetalert";
 import { useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env';
 import { useHistory } from "react-router-dom";
@@ -7,9 +8,10 @@ export default function UpdateKH() {
 
   let history = useHistory();
   const chuyentrang = function (event) {
-    updateCourse();
-    history.push(`/giangvien/AllCourses/`);
-    alert("cập nhật thành công");
+    if(updateCourse() === true){
+      swal("Thành Công", "Sửa khóa học thành công", "success")
+      history.push(`/giangvien/AllCourses/`);
+    }
   }
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -74,34 +76,43 @@ export default function UpdateKH() {
 
 
   const updateCourse = (e) => {
+    const price = Number(BaiGiang.price)
+    var regexKhoangTrang = /\S/;
+    if(Number.isNaN(price)){
+      swal("Thất bại", "Price chỉ được nhập số", "warning")
+    }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
+      swal("Thất bại", "courseName không được bỏ trống", "warning")
+    }else if(!regexKhoangTrang.test(BaiGiang.description)){
+      swal("Thất bại", "courseName không được bỏ trống", "warning")
+    }
+    else{
+      var myHeaders = new Headers();
+      var formdata = new FormData();
+      formdata.append("id", id.id);
+      formdata.append("courseName", BaiGiang.courseName);
+      formdata.append("price", price);
+      formdata.append("file",selectedFile);
+      formdata.append("description", BaiGiang.description);
+      formdata.append("status", "0");
+      formdata.append("category_id", selectedDanhMuc);
+      formdata.append("user_id", user_id);
+      formdata.append("author_id", user_id);
+      formdata.append("image", BaiGiang.image);
+      var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+      };
 
-    var myHeaders = new Headers();
-    var formdata = new FormData();
-    formdata.append("id", id.id);
-    formdata.append("courseName", BaiGiang.courseName);
-    formdata.append("price", BaiGiang.price);
-    formdata.append("file",selectedFile);
-    formdata.append("description", BaiGiang.description);
-    formdata.append("status", "1");
-    formdata.append("category_id", selectedDanhMuc);
-    formdata.append("user_id", user_id);
-    formdata.append("author_id", user_id );
-    formdata.append("image", BaiGiang.image);
-    var requestOptions = {
-      method: 'PUT',
-      headers: myHeaders,
-      body: formdata,
-      redirect: 'follow'
-    };
-
-    fetch(`${DEFAULT_API}` + "course/edit", requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        console.log(result)
-
-        setIsEnable(isEnable + 1)
-      })
-      .catch(error => console.log('error', error));
+      fetch(`${DEFAULT_API}` + "course/edit", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          setIsEnable(isEnable + 1)
+        })
+        .catch(error => console.log('error', error));
+      }
+      return true;
   }
 
 
@@ -118,7 +129,7 @@ export default function UpdateKH() {
     fetch(`${DEFAULT_API}` + `course/${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-   
+        setSelectedDanhMuc(result[0].category_id)
         setdata(result);
         {result.map((value,index)=>{
           setBaiGiang(value)
@@ -217,14 +228,7 @@ export default function UpdateKH() {
                     </div>
 
                     
-                    <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Status *</label>
-                      <div className="col-sm-9">
-
-                        <input className="form-control editor" name="status" value={BaiGiang.status} onChange={onInputChange} />
-
-                      </div>
-                    </div>
+             
 
                     <div className="form-group">
                       <label htmlFor className="col-sm-3 control-label">Selece Category *</label>

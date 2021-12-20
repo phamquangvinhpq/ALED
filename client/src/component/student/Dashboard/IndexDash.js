@@ -14,7 +14,6 @@ import EditPassword from "./EditPassword";
 import EnrolledCourses from "./EnrolledCourses";
 import ListCourse from "./EditProfile";
 
-import Not404 from "./Not404";
 import Favorite from "./Favorite";
 import PaymentHistory from "./PaymentHistory";
 
@@ -44,9 +43,7 @@ export default function IndexDash() {
           <div className="container">
             <Menusv changleTitle={changleTitle} />
             <Switch>
-              <Route path="/student/Dashboard">
-                <Dashboard />
-              </Route>
+              
               <Route path="/student/EditPassword">
                 <EditPassword />
               </Route>
@@ -62,9 +59,12 @@ export default function IndexDash() {
               <Route path="/student/favorite">
                 <Favorite />
               </Route>
-              <Route path="/">
-                <Not404 />
+              
+              <Route path="/student">
+                <Dashboard />
               </Route>
+
+              
             </Switch>
           </div>
         </div>

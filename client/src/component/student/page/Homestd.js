@@ -130,8 +130,8 @@ export default function Homestd() {
     }
 
     const onClickCategory = (select) => {
-        history.replace(`/Course/${select}`)
-        window.location.reload();
+        history.push(`/Course/${select}`)
+       
       };
     
       const damuakhoahoc = async (value) => {
@@ -147,7 +147,7 @@ export default function Homestd() {
             if (result === "bought") {
               alert("bạn đã mua khóa học này ")
             } else{
-                history.replace(`/checkout/${value.id}`)
+                history.push(`/checkout/${value.id}`)
             }
             
           })
@@ -190,9 +190,9 @@ export default function Homestd() {
                         <div className="container">
                             <div className="common-section">
                                 <div className="counter-shape">
-                                    <img src="assets/images/round-shape-2.png" alt="shape" className="round-shape-2" />
-                                    <img src="assets/images/plus-sign.png" alt="shape" className="plus-sign item-rotate" />
-                                    <img src="assets/images/round-shape-3.png" alt="shape" className="round-shape-3" />
+                                    <img src="/assets/images/round-shape-2.png" alt="shape" className="round-shape-2" />
+                                    <img src="/assets/images/plus-sign.png" alt="shape" className="plus-sign item-rotate" />
+                                    <img src="/assets/images/round-shape-3.png" alt="shape" className="round-shape-3" />
                                 </div>
                                 <div className="row">
                                     <div className="col-lg-6">
@@ -317,7 +317,7 @@ export default function Homestd() {
                                                 </ul>
                                                 <div className="preview-button margin-top-20">
                                                     <a onClick={() =>{
-                                                         history.replace("detail/"+value.id)
+                                                         history.push("detail/"+value.id)
                                                     }} className="template-button">course preview</a>
                                                     {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a> }
                                                     

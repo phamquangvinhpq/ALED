@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.LessionDTO;
+import com.ALED.entities.Course;
 import com.ALED.entities.Lession;
 import com.ALED.entities.Section;
+import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.LessionRepository;
 import com.ALED.repositories.SectionRepository;
 
@@ -24,6 +26,9 @@ public class LessionService implements ILessionService {
 
 	@Autowired
 	private SectionRepository sectionRepository;
+	
+	@Autowired
+	private CourseRepository courseRepository;
 	
 
 	@Override
@@ -85,7 +90,12 @@ public class LessionService implements ILessionService {
 		BeanUtils.copyProperties(lessionDTO, lession);
 		lession.setSection(sectionRepository.getById(lessionDTO.getSection_id()));// lấy id_section của DTO, tìm trong																				// section có thì set vào
 		lessionRepository.save(lession);
+		
 		lessionDTO.setId(lession.getId());
+		Optional<Course> op=courseRepository.findById(lessionDTO.getCourseid());
+		Course sou=op.get();
+		sou.setStatus(0);
+		courseRepository.save(sou);
 		return lessionDTO;
 	}
 	
@@ -97,6 +107,11 @@ public class LessionService implements ILessionService {
 			BeanUtils.copyProperties(lessionDTO, lession);
 			Optional<Section> optional = sectionRepository.findById(lessionDTO.getSection_id());
 			lession.setSection(optional.get());
+			
+			Optional<Course> op=courseRepository.findById(courseRepository.getCoursid(lessionDTO.getCourseid()));
+			Course sou = op.get();
+			sou.setStatus(0);
+			courseRepository.save(sou);
 			lessionRepository.save(lession);
 		}
 		return lessionDTO;

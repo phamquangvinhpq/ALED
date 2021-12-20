@@ -8,13 +8,13 @@ export default function MenuAdmin() {
         <ul className="sidebar-menu">
           <br /><br />
           <li className="treeview active">
-            <a href="/admin/Dashboard">
+          <NavLink to="/admin/Dashboard">
               <i className="fa fa-laptop" /> <span className="fa-laptop1">Dashboard</span>
-            </a>
+            </NavLink>
           </li>
 
           <li className="treeview">
-            <a href="#">
+            <a href="#" >
               <i className="fa fa-newspaper-o" />
               <span className="fa-newspaper-o1">Course</span>
               <span className="pull-right-container">
@@ -37,9 +37,7 @@ export default function MenuAdmin() {
                   <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Courses</span>
                 </NavLink>
               </li>
-              <li > <NavLink to="/admin/CourseCategory">
-                <i className="fa fa-circle-o"  /> <span className="fa-laptop1">Course Category</span> 
-              </NavLink></li>
+
             </ul>
           </li>
           
@@ -67,12 +65,17 @@ export default function MenuAdmin() {
                   <i className="fa fa-circle-o" /> <span className="fa-laptop1">Instructors</span>
                 </NavLink>
               </li>
+              <li>
+              <NavLink to="/admin/Pendinginstructer">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Instructors</span>
+                </NavLink>
+              </li>
             </ul>
           </li>
           <li className="treeview ">
-            <a href="/admin/Payment">
+          <NavLink to="/admin/Payment">
               <i className="fa fa-usd" /> <span className="fa-laptop1">Payment History</span>
-            </a>
+           </NavLink>
           </li>
 
         </ul>

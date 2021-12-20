@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
+import { DEFAULT_API } from '../../../conf/env'
 export default function Checkout1() {
     const [khoahoc, setkhoahoc] = useState([])
     const [DSkhoahoc, setDSkhoahoc] = useState({
@@ -26,7 +27,7 @@ export default function Checkout1() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/course/${id.id}`, requestOptions)
+        fetch(`${DEFAULT_API}` +`course/${id.id}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                
@@ -63,7 +64,7 @@ export default function Checkout1() {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/Thanhtoan/Course", requestOptions)
+        fetch(`${DEFAULT_API}` +`Thanhtoan/Course`, requestOptions)
             .then(response => response.text())
             .then(result => {
                 window.location = result
