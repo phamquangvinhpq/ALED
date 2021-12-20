@@ -289,10 +289,9 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "auth/register", requestOptions)
       .then(response => response.json())
       .then(result => {
-    
         if(result.loicode == -1)
         {
-          alert("email  đã tồn tại")
+          alert(result.details)
         }
         else{
           alert("kiểm tra email để lấy mật khẩu")

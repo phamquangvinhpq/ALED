@@ -1,45 +1,42 @@
 package com.ALED.entities;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QA implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class ContentQA {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "users_id")
-	private Users users;
+	@Column
+	private String content;
+
+	@Column
+	private Integer people;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date create_date;
 
 	@ManyToOne
-	@JoinColumn(name = "course_id")
-	private Course course;
-
-	private Integer status;
-
-	@OneToMany(mappedBy = "qa")
-	private List<ContentQA> contentQAs;
+	@JoinColumn(name = "qa_id")
+	private QA qa;
 
 }
