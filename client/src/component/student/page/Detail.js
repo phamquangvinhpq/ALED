@@ -306,10 +306,7 @@ export default function Detail() {
             </div>
           ))}
 
-          <h2 className="course_title mt_20">Course Details</h2>
-          <p>Lorem </p>
-          <p>Sit</p>
-          <p>Copiosae </p>
+         
           <h2 className="course_title mt_20">Reviews ({thongtin})</h2>
           <div className="product-single-review">
             <div className="review-item">
@@ -401,7 +398,7 @@ export default function Detail() {
                               <tr>
                                 <th>Lesson Title</th>
                                 <th>Lesson Preview</th>
-                                <th>Lesson Duration</th>
+                                
                               </tr>
                               {video.map((value, index) => (
                                 <tr>
@@ -438,7 +435,7 @@ export default function Detail() {
                                       </div>
                                     </div>
                                   </td>
-                                  <td>03:43 </td>
+                                  
                                 </tr>
                               ))}
                             </tbody>
