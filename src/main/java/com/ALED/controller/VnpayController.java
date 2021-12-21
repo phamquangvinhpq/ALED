@@ -141,11 +141,11 @@ public class VnpayController {
 			mycourseDTO.setCourse((int) context.getAttribute("course"));
 			mycourseDTO.setUsers((int) context.getAttribute("user_id"));
 			mycourseService.create(mycourseDTO);
-			 redirectView.setUrl("https://api-lms.hachinet.com/thanhcong");
+			 redirectView.setUrl("http://localhost:3000/thanhcong");
 			 return redirectView;
 		}
 		else {
-			 redirectView.setUrl("https://api-lms.hachinet.com/thatbai");
+			 redirectView.setUrl("http://localhost:3000/thatbai");
 			return redirectView;
 		}
 		
