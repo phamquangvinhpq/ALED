@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DEFAULT_API } from "../../../conf/env";
 
 export default function Answered() {
   const users_id = localStorage.getItem("userid");

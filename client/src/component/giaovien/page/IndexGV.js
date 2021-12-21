@@ -44,7 +44,7 @@ export default function IndexGV() {
           <div className="container">
             <MenuGV changleTitle={changleTitle} />
             <Switch>
-              <Route path="/giangvien/database"></Route>
+              
 
               <Route path="/giangvien/AddCourse">
                 <AddKH />
