@@ -19,8 +19,8 @@ public class QAController {
 	IQAService iqaService;
 
 	@GetMapping("/getbystatus")
-	List<QADTO> getBystatus(@RequestParam("status") Integer status) {
-		return iqaService.getBystatus(status);
+	List<QADTO> getBystatus(@RequestParam("status") Integer status, @RequestParam("users_id") Integer users_id) {
+		return iqaService.getBystatus(status, users_id);
 	}
 
 }

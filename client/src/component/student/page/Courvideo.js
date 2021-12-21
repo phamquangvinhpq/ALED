@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import swal from 'sweetalert';
 import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import { DEFAULT_API } from "../../../conf/env";
@@ -23,7 +24,6 @@ export default function Courvideo() {
   const user_id = localStorage.getItem("userid");
 
   const [lessionId, setLesssionId] = useState(-1);
-  const [note, setNote] = useState("");
   const [listNote, setListNote] = useState([]);
   const [listQA, setListQA] = useState([]);
   const [contentMess, setContentMess] = useState({
@@ -31,13 +31,26 @@ export default function Courvideo() {
     course_id: id.id,
     people: 0,
   });
-  const [refesh, setRefesh] = useState(0)
+
+  const [note, setNote] = useState({
+    users_id: user_id,
+  });
+
+  const handleChangeNote = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setNote((values) => ({ ...values, [name]: value }));
+    console.log(note)
+  };
+
+  const editNoteClick = (value) => {
+    setNote((values) => ({ ...values, note : value.note, id : value.id }));
+  }
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setContentMess((values) => ({ ...values, [name]: value }));
-    console.log(contentMess)
   };
 
   const sendMess = () => {
@@ -99,42 +112,36 @@ export default function Courvideo() {
       .catch(error => console.log('error', error));
   };
 
-  const changeNote = (e) => {
-    console.log(e.target.value);
-    setNote(e.target.value);
+  const deleteNoteClick = (value) => {
+    swal({
+      title: "Are you sure?",
+      text: "Nếu bạn xóa, bạn không thể khôi phục !",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        var requestOptions = {
+          method: "DELETE",
+          redirect: "follow",
+        };
+    
+        fetch(`${DEFAULT_API}` +`note/` + value, requestOptions)
+          .then((response) => response.json())
+          .then((result) => getListNote())
+          .catch((error) => console.log("error", error));
+      }
+    });
   };
 
   const addNoteClick = () => {
-    addNote();
-  };
-
-  const deleteNoteClick = (value) => {
-    console.log(value);
-    deleteNote(value);
-  };
-
-  const deleteNote = (value) => {
-    var requestOptions = {
-      method: "DELETE",
-      redirect: "follow",
-    };
-
-    fetch(`${DEFAULT_API}` +`note/` + value, requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .then(setStatus(status + 1))
-      .catch((error) => console.log("error", error));
-  };
-
-  const addNote = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-      users_id: user_id,
-      note: note,
-      lession_id: lessionId,
-    });
+    setNote((values) => ({ ...values, id : 0 }));
+
+    var raw = JSON.stringify(note);
 
     var requestOptions = {
       method: "POST",
@@ -145,8 +152,33 @@ export default function Courvideo() {
 
     fetch(`${DEFAULT_API}` +`note`, requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
-      .then(setStatus(status + 1))
+      .then((result) => {
+        setNote((values) => ({ ...values, note: "" }));
+        getListNote()
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  const editNote = () => {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(note);
+
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${DEFAULT_API}` +`note`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        setNote((values) => ({ ...values, note: "" }));
+        getListNote()
+      })
       .catch((error) => console.log("error", error));
   };
 
@@ -160,7 +192,7 @@ export default function Courvideo() {
       `${DEFAULT_API}` +`note?users_id=` +
         user_id +
         `&lession_id=` +
-        lessionId,
+        note.lession_id,
       requestOptions
     )
       .then((response) => response.json())
@@ -174,7 +206,6 @@ export default function Courvideo() {
     damua();
     loaddanhmuc();
     getLessionBySection();
-    getListNote();
   }, [status]);
 
   const getLessionBySection = async () => {
@@ -188,7 +219,6 @@ export default function Courvideo() {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         setvideo(result);
       })
       .catch((error) => console.log("error", error));
@@ -216,8 +246,7 @@ export default function Courvideo() {
 
   const getData = (value) => {
     lession.linkVideo = value.linkVideo;
-
-    setLesssionId(value.id);
+    setNote((values) => ({ ...values, lession_id: value.id }));
     setStatus(status + 1);
   };
 
@@ -227,28 +256,6 @@ export default function Courvideo() {
     setStatus(status + 1);
   };
 
-  const updateStatus = async (value) => {
-    console.log(value.status);
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
-
-    // var raw = JSON.stringify({
-    //   "id": value.id,
-    //   "status": "1"
-    // });
-
-    // var requestOptions = {
-    //   method: 'PUT',
-    //   headers: myHeaders,
-    //   body: raw,
-    //   redirect: 'follow'
-    // };
-
-    // fetch("http://localhost:8080/lession/updateStaus", requestOptions)
-    //   .then(response => response.text())
-    //   .then(result =>{})
-    //   .catch(error => console.log('error', error));
-  };
 
   const loaddanhmuc = async () => {
     var myHeaders = new Headers();
@@ -343,6 +350,7 @@ export default function Courvideo() {
                       class="btn btn-primary"
                       data-toggle="modal"
                       data-target="#exampleModalCenter"
+                      onClick={getListNote}
                     >
                       <span>note</span>
                     </li>
@@ -604,7 +612,7 @@ export default function Courvideo() {
                   <div className="tab-three-content tab-content-bg note-content lost">
                     <div className="header-search">
                       <form action="#">
-                        <input type="text" placeholder="Create New Note" />
+                        <input  type="text" placeholder="Create New Note" />
                         <button type="submit">
                           <i className="fa fa-plus" />
                         </button>
@@ -741,28 +749,37 @@ export default function Courvideo() {
               </button>
             </div>
             <div class="tab-three-content tab-content-bg note-content lost">
-              <div class="header-search">
-                <h6 class="fa fa-sticky-note"> nôi dung hay</h6>
-                <form>
-                  <input
-                    onChange={(e) => changeNote(e)}
+                <br />
+                <span>
+                  <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg"
+                    onChange={handleChangeNote}
                     type="text"
                     placeholder="Create New Note"
+                    name="note"
+                    value={note.note}
                   />
-                  <a onClick={() => addNoteClick()} className="btn btn-primary">
-                    <i class="fa fa-plus"></i>
+                  <a onClick={addNoteClick} className="btn btn-primary">
+                    <i class="fa fa-plus"> Add</i>
                   </a>
-                </form>
+                  &ensp;
+                  <a onClick={editNote} className="btn btn-primary">
+                    <i class="fa fa-plus"> Update</i>
+                  </a>
+                  </span>
+                <ul>
                 {listNote.map((value, index) => (
-                  <div>
-                    <p key={index}>{value.note}</p>
-                    <i
+                  <li>
+                   {value.note}
+                    <i className="fa fa-remove" style={{fontSize: '24px'}} 
                       onClick={() => deleteNoteClick(value.id)}
-                      class="fa fa-trash"
-                    ></i>
-                  </div>
+                    />
+                    &ensp;
+                    <i className="fa fa-edit" style={{fontSize: '24px'}} 
+                       onClick={() => editNoteClick(value)}
+                    />
+                  </li>
                 ))}
-              </div>
+                </ul>
             </div>
             <div class="modal-footer">
               <button
