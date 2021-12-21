@@ -187,7 +187,10 @@ export default function ViewDetail() {
                       </span>
                       <span className="review-text">(Total Reviews: 1)</span>
                     </div>
-                    <div className="price">{value.price}$</div>
+                    <div className="price">{value.price.toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    })}</div>
                     <div className="buy">
                       <a
                         onClick={() => getcheckout(value)}
