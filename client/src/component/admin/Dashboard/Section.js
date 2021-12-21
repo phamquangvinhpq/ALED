@@ -70,6 +70,7 @@ export default function Section() {
   const addsection = () => {
     var regexKhoangTrang = /\S/;
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexName.test(Section.namesection)){
       swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
