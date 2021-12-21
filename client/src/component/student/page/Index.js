@@ -54,7 +54,7 @@ export default function Index() {
                         <ListCourse />
                     </Route>
 
-                    <Route path="/Detail/:id">
+                    <Route path="/detail/:id">
                         <Detail />
                     </Route>
                     <Route path="/Viewdetail/:id">

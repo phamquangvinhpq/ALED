@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import swal from 'sweetalert';
 import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
-
+import  { Redirect } from 'react-router-dom'
 export default function Favorite() {
   const [listFavorite, setListFavorite] = useState([]);
   const [status, setStatus] = useState(0);
@@ -19,9 +19,10 @@ export default function Favorite() {
 
   const redirect = (id) => {
     history.push(`/detail/${id}`)
-    
-  };
+    window.location.reload();
+  
 
+  };
 
   const clickDelete = (course_id) => {
     console.log(user_id + course_id)
@@ -81,7 +82,7 @@ export default function Favorite() {
                 <img src={favorite.image} alt="" />
               </td>
               <td>
-                <a href="" onClick={() => redirect(favorite.course_id) }  className="btn btn-info btn-sm">
+                <a className="btn btn-info btn-sm" onClick={() => redirect(favorite.course_id) }  >
                   Course Content
                 </a>
               </td>

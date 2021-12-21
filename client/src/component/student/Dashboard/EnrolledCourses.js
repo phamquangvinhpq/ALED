@@ -45,7 +45,7 @@ export default function EnrolledCourses() {
   }
 
   function chuyentrangdetail(value) {
-    history.push(`/Detail/${value.course}`)
+    history.push(`/ detail/${value.course}`)
     
   }
 
@@ -106,8 +106,7 @@ export default function EnrolledCourses() {
     fetch(`${DEFAULT_API}` +`findrate/${id}/${rate.course_id}`, requestOptions)
       .then(response => response.text())
       .then(result => {
-       
-        if(result === "yes")
+        if(result == "yes")
         {
           setdanhgia(true)
         
@@ -165,7 +164,7 @@ export default function EnrolledCourses() {
                   <button type="button" className="close" data-dismiss="modal">×</button>
                   <h4 className="modal-title">Rating</h4>
                 </div>
-                {danhgia == true ? 
+                {danhgia == false ? 
                 <div className="modal-body">
                   <form acceptCharset="utf-8" />
                   <input type="hidden" name="course_id" defaultValue={30} />

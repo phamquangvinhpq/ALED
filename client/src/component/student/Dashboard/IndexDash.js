@@ -16,6 +16,7 @@ import ListCourse from "./EditProfile";
 
 import Favorite from "./Favorite";
 import PaymentHistory from "./PaymentHistory";
+import Courvideo from "../page/Courvideo";
 
 export default function IndexDash() {
   const [title, setTitle] = useState("Student Setting");
@@ -44,6 +45,10 @@ export default function IndexDash() {
             <Menusv changleTitle={changleTitle} />
             <Switch>
               
+            <Route path="/student/video/:id">
+                <Courvideo />
+              </Route>
+
               <Route path="/student/EditPassword">
                 <EditPassword />
               </Route>

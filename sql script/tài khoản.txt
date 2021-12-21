@@ -1,0 +1,3 @@
+user : 	hocsinh
+	testtung
+password:	1

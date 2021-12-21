@@ -17,8 +17,6 @@ import MenuGV from "./MenuGV";
 import NotAnswered from "./NotAnswered";
 import Section from "./Section";
 import UpdateKH from "./UpdateKH";
-import WithdrawHistory from "./WithdrawHistory";
-import WithdrawMoney from "./WithdrawMoney";
 
 export default function IndexGV() {
   const [title, setTitle] = useState("Instructor Setting");
@@ -50,14 +48,6 @@ export default function IndexGV() {
 
               <Route path="/giangvien/AddCourse">
                 <AddKH />
-              </Route>
-              
-              <Route path="/giangvien/WithdrawHistory">
-                <WithdrawHistory />
-              </Route>
-
-              <Route path="/giangvien/WithdrawMoney">
-                <WithdrawMoney />
               </Route>
 
               <Route path="/giangvien/AllCourses">

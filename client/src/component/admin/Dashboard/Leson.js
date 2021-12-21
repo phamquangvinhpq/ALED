@@ -210,6 +210,7 @@ export default function Leson() {
 
 
   const addLession = () => {
+    
     var regexKhoangTrang = /\S/;
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
@@ -228,7 +229,7 @@ export default function Leson() {
     formdata.append("linkVideo", lession.linkVideo);
     formdata.append("type", "video/mp4");
     formdata.append("section_id", selectedSection);
-
+ 
     var requestOptions = {
       method: 'POST',
       body: formdata,

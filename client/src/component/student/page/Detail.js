@@ -125,10 +125,9 @@ export default function Detail() {
   };
 
   function chuyentrang(value) {
-    history.push(`/wath/video/${value.id}`)
-    window.location.reload()
+    history.push(`/wath/video/${value}`)
+    
   }
-
 
   const loaduserrate = async (pg = page, pgsize = pagesize) => {
     var requestOptions = {
@@ -212,7 +211,7 @@ export default function Detail() {
 
     function viewDetail(value) {
 
-    history.push(`/Viewdetail/${value.id}`)
+    history.push(`/Viewdetail/${value}`)
 
   }
 
@@ -294,9 +293,9 @@ export default function Detail() {
                   >
                     Proceed to Checkout
                   </a>: <a
-                 
+                    href=''
                     className="btn btn-info btn-sm"
-                    onClick={()=> chuyentrang(value)}
+                    onClick={()=> chuyentrang(value.id)}
                   >
                    xem
                   </a> }</div>
@@ -307,10 +306,7 @@ export default function Detail() {
             </div>
           ))}
 
-          <h2 className="course_title mt_20">Course Details</h2>
-          <p>Lorem </p>
-          <p>Sit</p>
-          <p>Copiosae </p>
+         
           <h2 className="course_title mt_20">Reviews ({thongtin})</h2>
           <div className="product-single-review">
             <div className="review-item">
@@ -402,7 +398,7 @@ export default function Detail() {
                               <tr>
                                 <th>Lesson Title</th>
                                 <th>Lesson Preview</th>
-                                <th>Lesson Duration</th>
+                                
                               </tr>
                               {video.map((value, index) => (
                                 <tr>
@@ -439,7 +435,7 @@ export default function Detail() {
                                       </div>
                                     </div>
                                   </td>
-                                  <td>03:43 </td>
+                                  
                                 </tr>
                               ))}
                             </tbody>
@@ -507,9 +503,9 @@ export default function Detail() {
               </div>
               <div className="author-detail-button mt_30">
                 <a
-                  href=""
-                  onClick={()=> viewDetail(infoAuthor)}
                   className="btn btn-success btn-lg"
+                  onClick={()=> viewDetail(infoAuthor.id)}
+                 
                 >
                   View Detail
                 </a>

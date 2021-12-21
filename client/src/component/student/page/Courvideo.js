@@ -17,6 +17,8 @@ export default function Courvideo() {
     linkVideo: "https://www.youtube.com/watch?v=CS2A8shF6To",
   });
 
+
+
   let id = useParams();
   let history = useHistory();
   const user_id = localStorage.getItem("userid");
