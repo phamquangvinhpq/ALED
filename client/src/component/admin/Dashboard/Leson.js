@@ -77,11 +77,8 @@ export default function Leson() {
 
   const updateLession = () => {
     var regexKhoangTrang = /\S/;
-    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
-    if(!regexName.test(lession.name)){
-      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
-    }else if(!regexKhoangTrang.test(lession.name)){
+    if(!regexKhoangTrang.test(lession.name)){
       swal("Thất bại", "Name không được bỏ trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
@@ -210,13 +207,10 @@ export default function Leson() {
 
 
   const addLession = () => {
-    
+
     var regexKhoangTrang = /\S/;
-    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
-    if(!regexName.test(lession.name)){
-      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
-    }else if(!regexKhoangTrang.test(lession.name)){
+    if(!regexKhoangTrang.test(lession.name)){
       swal("Thất bại", "Name không được bỏ trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
