@@ -12,11 +12,11 @@ export default function Payhanhcong() {
             <div className="row">
               <div className="col-sm-10 offset-sm-1 text-center">
                   <br /><br /><br /><br /><br /><br /><br />
-                <h1 >   Thanh toán Thành công</h1>
+                <h1 >   Payment success</h1>
                 <div className="info-form">
                   <form action className="form-inline justify-content-center">
                 
-                    <h2>    cảm ơn bạn đã sử dụng dịch vụ</h2>
+                    <h2>   Thank you for using the service</h2>
                     <a href='/home' className="btn btn-success ">Home</a>
                   </form>
                 </div>

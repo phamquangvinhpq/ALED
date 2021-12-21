@@ -287,7 +287,7 @@ export default function Detail() {
                     currency: 'VND'
                   })}</div>
                   <div className="buy-now">
-                    {trangthai == true ? "đang chờ duyệt" :
+                    {trangthai == true ? "Waiting for approval" :
                       <div>
                         {damua == false ? <a
 

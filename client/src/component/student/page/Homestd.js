@@ -145,7 +145,7 @@ export default function Homestd() {
           .then(result => {
             console.log(result);
             if (result === "bought") {
-              alert("bạn đã mua khóa học này ")
+              alert("you bought this course")
             } else{
                 history.push(`/checkout/${value.id}`)
             }
@@ -269,7 +269,7 @@ export default function Homestd() {
                                                                 halfIcon={<i className="fa fa-star-half-alt"></i>}
                                                                 fullIcon={<i className="fa fa-star"></i>}
                                                                 activeColor="#ffd700"/> : 
-                                                                "Chưa có đánh giá"}
+                                                                "There are no reviews yet"}
                                                         </span>
                                                     </div>
                                                 </div>

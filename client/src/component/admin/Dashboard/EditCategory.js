@@ -56,12 +56,12 @@ export default function EditCategory() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(DanhMuc.name)) {
-      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
+      swal("Failed", "Name Only text can be entered and cannot be left blank", "warning")
     } else if (!regexKhoangTrang.test(DanhMuc.name)) {
-      swal("Thất bại", "Name không được bỏ trống", "warning")
+      swal("Failed", "Name not be empty", "warning")
 
     } else if (regexKitu.test(DanhMuc.name)) {
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
 
     } else {
       var myHeaders = new Headers();

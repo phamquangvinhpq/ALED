@@ -73,12 +73,12 @@ export default function Section() {
 
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexName.test(Section.namesection)){
-      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
+      swal("Failed", "Name Only text can be entered and cannot be left blank", "warning")
     }else if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Thất bại", "Name không được bỏ trống", "warning")
+      swal("Failed", "Name not be empty", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
      
     }else{
     var myHeaders = new Headers();
@@ -120,7 +120,7 @@ export default function Section() {
   const deletesection = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa`,
+      text: `Are you sure you want to delete?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -156,10 +156,10 @@ export default function Section() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Thất bại", "Name không được bỏ trống", "warning")
+      swal("Failed", "Name not be empty", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     
     }else{
     var myHeaders = new Headers();

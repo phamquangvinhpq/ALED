@@ -70,7 +70,7 @@ export default function AllKH() {
   const deletecourse = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa`,
+      text: `Are you sure you want to delete?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -121,7 +121,7 @@ export default function AllKH() {
             <tbody>
               {BaiGiang.map((value, index) =>
                 <tr key={index}>
-                  <td>{value.id}</td>
+                  <td>{index+1}</td>
                   <td>{value.courseName}</td>
                   <td>
                     {value.price}

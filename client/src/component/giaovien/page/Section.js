@@ -74,10 +74,10 @@ export default function Section() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Thất bại", "Name không được bỏ trống", "warning")
+      swal("Failed", "Name not be empty", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     
     }else{
     var myHeaders = new Headers();
@@ -124,7 +124,7 @@ export default function Section() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("bạn không có quyền truy cập khóa học này")
+          alert("you do not have permission to access this course")
           history.push("/giangvien/AllCourses")
          
         }
@@ -140,7 +140,7 @@ export default function Section() {
   const deletesection = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa`,
+      text: `Are you sure you want to delete?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -160,11 +160,11 @@ export default function Section() {
             .then(response => response.json())
             .then(result => {
               if(result.loicode == -1 ){
-                swal("danh mục đã có khóa học", {
+                swal("the list has courses", {
                 });
               }
               else{
-                swal("đã xóa", {
+                swal("deleted", {
                   icon: "success",
                 });
                 setIsEnable(isEnable + 1)
@@ -183,10 +183,10 @@ export default function Section() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Thất bại", "Name không được bỏ trống", "warning")
+      swal("Failed", "Name not be empty", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     
     }else{
     var myHeaders = new Headers();

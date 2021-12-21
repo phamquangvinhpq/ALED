@@ -90,7 +90,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("bạn không có quyền truy cập khóa học này")
+          alert("you do not have permission to access this course")
           history.push("/giangvien/AllCourses")
          
         }
@@ -107,10 +107,10 @@ export default function Leson() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Thất bại", "Name không được bỏ trống", "warning")
+      swal("Failed", "Name not be empty", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     
     }else{
     var formdata = new FormData();
@@ -240,10 +240,10 @@ export default function Leson() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Thất bại", "Name không được bỏ trống", "warning")
+      swal("Failed", "Name not be empty", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     
     }else{
     var formdata = new FormData();
@@ -270,7 +270,7 @@ export default function Leson() {
   const deleteLession = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa ?`,
+      text: `Are you sure you want to delete? ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -351,7 +351,7 @@ export default function Leson() {
                         value={selectedSection}
                         onChange={onChangeSection}
                       >
-                        <option>-- Chọn danh mục --</option>
+                        <option>-- Select Category --</option>
 
                         {listSection.map((value, index) => {
                           return (

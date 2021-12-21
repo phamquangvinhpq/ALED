@@ -188,7 +188,7 @@ export default function EnrolledCourses() {
                     <textarea name="comment" className="form-control h-100" cols={30} rows={10} required defaultValue={""} onChange={onInputChange} />
                   </div>
                   <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={addRate}>Submit</button>
-                </div> : "bạn đã dánh giá khóa  học này" }
+                </div> : "You have already assessed the course" }
                
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Close</b></button>

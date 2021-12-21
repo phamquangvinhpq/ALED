@@ -277,14 +277,14 @@ export default function HeaderStudent() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
-      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+      swal("Failed", "Name only enter letters", "warning")
     } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) ) {
-      swal("Thất bại", "không được bỏ trống", "warning")
+      swal("Failed", "not be empty", "warning")
     } 
     else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     }else if (!regex.test(users.username) ) {
-        swal("Thất bại", "Name không được chứa kí tự", "warning")
+        swal("Failed", "Name must not contain the character", "warning")
       }
      else {
     var myHeaders = new Headers();
@@ -343,17 +343,17 @@ export default function HeaderStudent() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
-      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+      swal("Failed", "Name only enter letters", "warning")
     } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username)
      || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.address) || !regexKhoangTrang.test(users.phone) ) {
-      swal("Thất bại", "không được bỏ trống", "warning")
+      swal("Failed", "not be empty", "warning")
     } 
     else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     }else if (!regex.test(users.username) ) {
-        swal("Thất bại", "Name không được chứa kí tự", "warning")
+        swal("Failed", "Name must not contain the character", "warning")
       }else if (Number.isNaN(users.phone) ) {
-        swal("Thất bại", "phone phải là số", "warning")
+        swal("Failed", "phone must be number", "warning")
       }
      else {
     var myHeaders = new Headers();
@@ -488,11 +488,11 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
               <div className="top-right">
                 <ul>{accessToken == null ?
                   <li><a href="#" data-toggle="modal" data-target="#login_modal"><i className="fa fa-sign-in" />
-                    Login</a></li> : <li><a href=""  onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
+                    Login</a></li> : <li><a href=""  onClick={qlstudent} ><i className="fa fa-user-circle" />Student
                     </a></li>}
-                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
-                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > admin</a></li> : ""}
-                  {accessToken == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
+                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > Instructor</a></li> : ""}
+                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > Admin</a></li> : ""}
+                  {accessToken == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="" onClick={logout}><i className="fa fa-sign-in"  />log out </a></li>}
                 </ul>
 
                 <div className="modal fade" id="join_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
