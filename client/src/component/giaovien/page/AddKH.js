@@ -111,7 +111,7 @@ export default function AddKH() {
     }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
       swal("Thất bại", "courseName không được bỏ trống", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.description)){
-      swal("Thất bại", "courseName không được bỏ trống", "warning")
+      swal("Thất bại", "Description không được bỏ trống", "warning")
     }else{
       var myHeaders = new Headers();
       var formdata = new FormData();
@@ -134,7 +134,7 @@ export default function AddKH() {
         .then((result) => {
           if(result.loicode==-1){
             swal("nhập đầy đủ thông tin", {
-              text: `yêu cầu ` + " " + result.details ,
+              text: `yêu cầu nhập price  `,
               icon: "warning",
             });
           }else{
