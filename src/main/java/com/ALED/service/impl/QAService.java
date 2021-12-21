@@ -61,11 +61,11 @@ public class QAService implements IQAService {
 	}
 
 	@Override
-	public List<QADTO> getBystatus(Integer status) {
+	public List<QADTO> getBystatus(Integer status,Integer users_id) {
 		List<QA> listEntity = qARepository.findAll();
 		List<QADTO> listDto = new ArrayList<QADTO>();
 		for (QA entity : listEntity) {
-			if (status == entity.getStatus()) {
+			if (status == entity.getStatus() && users_id == entity.getCourse().getAuthor().getId()) {
 				QADTO dto2 = new QADTO();
 				BeanUtils.copyProperties(entity, dto2);
 				dto2.setCourse_id(entity.getCourse().getId());

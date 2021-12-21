@@ -37,7 +37,7 @@ export default function PendingCourse() {
     const deletecourse = (value) => {
         swal({
           title: "Are you sure?",
-          text: `Bạn có chắc muốn hủy`,
+          text: `Are you sure you want to cancel?`,
           icon: "warning",
           buttons: true,
           dangerMode: true,

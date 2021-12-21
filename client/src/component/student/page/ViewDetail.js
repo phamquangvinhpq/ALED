@@ -100,6 +100,7 @@ export default function ViewDetail() {
                     src={infoAuthor.image}
                     className="card-img-top img-responsive image"
                     alt=""
+                    style={{ height: 250, maxWidth: 250 }}
                   />
                   <div className="profile_content">
                     <p className="card_text"></p>
@@ -186,10 +187,7 @@ export default function ViewDetail() {
                       </span>
                       <span className="review-text">(Total Reviews: 1)</span>
                     </div>
-                    <div className="price">{value.price.toLocaleString('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND'
-                  })}</div>
+                    <div className="price">{value.price}$</div>
                     <div className="buy">
                       <a
                         onClick={() => getcheckout(value)}

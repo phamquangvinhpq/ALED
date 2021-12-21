@@ -210,6 +210,7 @@ export default function Leson() {
 
 
   const addLession = () => {
+    
     var regexKhoangTrang = /\S/;
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
@@ -247,7 +248,7 @@ export default function Leson() {
   const deleteLession = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa ?`,
+      text: `Are you sure you want to delete?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,

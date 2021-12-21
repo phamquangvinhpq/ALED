@@ -229,7 +229,7 @@ export default function Detail() {
             <div className="col-md-12">
               <h1>Detail</h1>
               <h3>
-                <a href="">Home</a>
+                <a href="../index.html">Home</a>
                 <i className="fa fa-angle-right" />
                 detail{" "}
               </h3>
@@ -245,7 +245,7 @@ export default function Detail() {
                 <div className="product-single-video">
                   <div className="play_video">
                     <div className="bg_fade" />
-                    <img src={value.image} alt="" />
+                    <img src={value.image} alt=""  />
                   </div>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export default function Detail() {
                             activeColor="#ffd700"
                           />
                         ) : (
-                          "Chưa có đánh giá"
+                          "There are no reviews yet"
                         )}
                       </span>
                       {value.rate}
@@ -282,10 +282,7 @@ export default function Detail() {
               </div>
               <div className="col-md-3">
                 <div className="download-buy-section">
-                  <div className="price"> {value.price.toLocaleString('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-    })}</div>
+                  <div className="price">$ {value.price}</div>
                   <div className="buy-now">
                     {trangthai == true ? "đang chờ duyệt" : 
                     <div>
@@ -336,7 +333,6 @@ export default function Detail() {
                           fullIcon={<i className="fa fa-star"></i>}
                           activeColor="#ffd700"
                         />{" "}
-                        (3.0)
                       </div>
                     </div>
                     <div className="review-by">{value.user} </div>
@@ -455,7 +451,7 @@ export default function Detail() {
           <div className="row mt_20">
             <div className="col-md-3 instructor">
                 <div className="card">
-                <img src={infoAuthor.image} className="card-img-top img-responsive image" alt=""
+                <img src={infoAuthor.image} className="card-img-top img-responsive image" alt="" style={{ height: 250, maxWidth: 250 }}
                 />
                   {infoTeacher.map((value, i) => (
                   <div className="profile_content">

@@ -97,7 +97,7 @@ export default function Students() {
                 <td>{value.name}</td>
               
                 <td>
-                  <a href={`/detail/${value.course}`} target="_blank" className="btn btn-info btn-sm"  >Course Detail</a>
+                  <a href={`/ detail/${value.course}`} target="_blank" className="btn btn-info btn-sm"  >Course Detail</a>
                 </td>
                
               </tr>
