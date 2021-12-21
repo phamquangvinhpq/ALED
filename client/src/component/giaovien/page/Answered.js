@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 export default function Answered() {
-  const [user_id, setUser_id] = useState();
-  const [course_id, setCourse_id] = useState();
+  const users_id = localStorage.getItem("userid");
   const [listQA, setListQA] = useState([]);
   const [contentMess, setContentMess] = useState([]);
-  const [refesh, setRefesh] = useState(0);
   const [inputMess, setInputMess] = useState({});
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputMess((values) => ({ ...values, [name]: value }));
-    console.log(inputMess);
   };
 
   const tinNhan = (value) => {
@@ -20,7 +17,7 @@ export default function Answered() {
       return (
         <li className="clearfix">
           <div className="message-data text-right">
-            <span className="message-data-time">{value.author_name} |</span>
+            <span className="message-data-time">{value.user_name} |</span>
             <span className="message-data-time">{value.time}</span>
           </div>
           <div className="message other-message float-right">{value.content}</div>
@@ -30,7 +27,7 @@ export default function Answered() {
       return (
         <li className="clearfix">
           <div className="message-data">
-            <span className="message-data-time">{value.user_name} |</span>
+            <span className="message-data-time">{value.author_name} |</span>
             <span className="message-data-time">{value.time}</span>
           </div>
           <div className="message my-message">{value.content}</div>
@@ -104,7 +101,7 @@ export default function Answered() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/qa/getbystatus?status=1", requestOptions)
+    fetch(`http://localhost:8080/qa/getbystatus?status=1&users_id=${users_id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setListQA(result))
       .catch((error) => console.log("error", error));
