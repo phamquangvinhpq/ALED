@@ -99,8 +99,8 @@ export default function ViewDetail() {
                   <img
                     src={infoAuthor.image}
                     className="card-img-top img-responsive image"
+                    style={{ height: 200, maxWidth: 350 }}
                     alt=""
-                    style={{ height: 250, maxWidth: 250 }}
                   />
                   <div className="profile_content">
                     <p className="card_text"></p>

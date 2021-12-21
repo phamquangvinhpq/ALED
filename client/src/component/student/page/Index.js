@@ -25,7 +25,7 @@ export default function Index() {
 
     function chuyentrang()
     {
-        alert("Please log in");
+        alert("vui lòng đăng nhập");
         history.push("/home");
         
     }

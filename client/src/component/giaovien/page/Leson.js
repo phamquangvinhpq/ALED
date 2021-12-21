@@ -90,7 +90,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("You do not have permission to access this course")
+          alert("bạn không có quyền truy cập khóa học này")
           history.push("/giangvien/AllCourses")
          
         }
@@ -270,7 +270,7 @@ export default function Leson() {
   const deleteLession = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Are you sure you want to delete?`,
+      text: `Bạn có chắc muốn xóa ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,

@@ -26,7 +26,7 @@ export default function CourseCategory() {
     const deleteCate = (value) => {
         swal({
           title: "Are you sure?",
-          text: `Are you sure you want to delete?`,
+          text: `Bạn có chắc muốn xóa`,
           icon: "warning",
           buttons: true,
           dangerMode: true,

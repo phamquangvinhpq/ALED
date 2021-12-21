@@ -130,7 +130,7 @@ export default function Checkout1() {
                             </div>
                             
                             <div className="text-right">
-                                <a className="btn btn-success" onClick={pay}>Buy Now </a>
+                                <a className="btn btn-success" onClick={pay}>thanh toán ngay </a>
                             </div>
                         </div>
                         <div className="col-md-5">
@@ -141,7 +141,7 @@ export default function Checkout1() {
                                         <div className="panel-heading p-3 mb-3" role="tab" id="heading1">
                                             <h3 className="panel-title">
                                                 <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#faq1">
-                                                    <span>Bank transfer </span>
+                                                    <span>chuyển khoản ngân hàng</span>
                                                 </a>
                                             </h3>
                                         </div>

@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -43,8 +45,7 @@ public class Users  {
 
 	private String Type;
 	
-	@OneToMany(mappedBy="users")
-	private List<Cart> carts;
+
 
     private Boolean isEnable;
    
@@ -66,6 +67,7 @@ public class Users  {
 //	private List<Mycourse> mycourses;
 //    
 //
+    @JsonIgnore
     @OneToMany(mappedBy = "users")
     private List<QA> qas;
    

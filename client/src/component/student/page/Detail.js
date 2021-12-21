@@ -268,7 +268,7 @@ export default function Detail() {
                             activeColor="#ffd700"
                           />
                         ) : (
-                          "There are no reviews yet"
+                          "Chưa có đánh giá"
                         )}
                       </span>
                       {value.rate}
@@ -336,6 +336,7 @@ export default function Detail() {
                           fullIcon={<i className="fa fa-star"></i>}
                           activeColor="#ffd700"
                         />{" "}
+                        
                       </div>
                     </div>
                     <div className="review-by">{value.user} </div>
@@ -454,7 +455,7 @@ export default function Detail() {
           <div className="row mt_20">
             <div className="col-md-3 instructor">
               <div className="card">
-                <img src={infoAuthor.image} className="card-img-top img-responsive image" alt="" style={{ height: 250, maxWidth: 250 }}
+                <img src={infoAuthor.image} className="card-img-top img-responsive image"    style={{ height: 200, maxWidth: 350 }} alt=""
                 />
                 {infoTeacher.map((value, i) => (
                   <div className="profile_content">
