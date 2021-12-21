@@ -104,6 +104,18 @@ export default function Leson() {
 
 
   const updateLession = () => {
+    var regexKhoangTrang = /\S/;
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexName.test(lession.name)){
+      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
+    }else if(!regexKhoangTrang.test(lession.name)){
+      swal("Thất bại", "Name không được bỏ trống", "warning")
+    
+    }else if(regexKitu.test(lession.name)){
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    
+    }else{
     var formdata = new FormData();
     formdata.append("id", giatriID);
     formdata.append("file", selectedFile1);
@@ -131,6 +143,7 @@ export default function Leson() {
       })
       .catch(error => console.log('error', error)
       );
+    }
   }
 
 
@@ -227,6 +240,18 @@ export default function Leson() {
 
 
   const addLession = () => {
+    var regexKhoangTrang = /\S/;
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexName.test(lession.name)){
+      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
+    }else if(!regexKhoangTrang.test(lession.name)){
+      swal("Thất bại", "Name không được bỏ trống", "warning")
+    
+    }else if(regexKitu.test(lession.name)){
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    
+    }else{
     var formdata = new FormData();
     formdata.append("file", selectedFile);
     formdata.append("name", lession.name);
@@ -243,6 +268,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => { setStatus(status + 1) })
       .catch(error => console.log('error', error));
+  }
   };
 
 

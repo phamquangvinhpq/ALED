@@ -71,6 +71,18 @@ export default function Section() {
   let user_id=localStorage.getItem("userid")
 
   const addsection = () => {
+    var regexKhoangTrang = /\S/;
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexName.test(Section.namesection)){
+      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
+    }else if(!regexKhoangTrang.test(Section.namesection)){
+      swal("Thất bại", "Name không được bỏ trống", "warning")
+    
+    }else if(regexKitu.test(Section.namesection)){
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    
+    }else{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -102,6 +114,7 @@ export default function Section() {
        
       })
       .catch(error => console.log('error', error));
+    }
   }
 
   const checkkhoahocuser = async () =>{
@@ -170,7 +183,18 @@ export default function Section() {
 
 
   const updateSection = () => {
-
+    var regexKhoangTrang = /\S/;
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexName.test(Section.namesection)){
+      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
+    }else if(!regexKhoangTrang.test(Section.namesection)){
+      swal("Thất bại", "Name không được bỏ trống", "warning")
+    
+    }else if(regexKitu.test(Section.namesection)){
+      swal("Thất bại", "Name không được chứa kí tự", "warning")
+    
+    }else{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -195,6 +219,7 @@ export default function Section() {
         
       })
       .catch(error => console.log('error', error));
+    }
   }
 
   const layid = (value) => {
