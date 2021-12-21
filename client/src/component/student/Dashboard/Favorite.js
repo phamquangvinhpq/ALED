@@ -42,7 +42,6 @@ export default function Favorite() {
         fetch(`${DEFAULT_API}` +`favorite?user_id=${user_id}&course_id=${course_id}` , requestOptions)
           .then(response => response.text())
           .then(result => {
-            console.log(result)
             swal("Poof! Your imaginary file has been deleted!", {
               icon: "success",
             });
