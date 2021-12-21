@@ -228,7 +228,7 @@ export default function Leson() {
     formdata.append("linkVideo", lession.linkVideo);
     formdata.append("type", "video/mp4");
     formdata.append("section_id", selectedSection);
-
+ 
     var requestOptions = {
       method: 'POST',
       body: formdata,
