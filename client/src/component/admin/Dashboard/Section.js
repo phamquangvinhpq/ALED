@@ -78,7 +78,7 @@ export default function Section() {
     
     }else if(regexKitu.test(Section.namesection)){
       swal("Thất bại", "Name không được chứa kí tự", "warning")
-    
+     
     }else{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
