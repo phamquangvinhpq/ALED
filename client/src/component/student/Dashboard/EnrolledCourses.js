@@ -45,7 +45,7 @@ export default function EnrolledCourses() {
   }
 
   function chuyentrangdetail(value) {
-    history.push(`/ detail/${value.course}`)
+    history.push(`/detail/${value.course}`)
     
   }
 
@@ -147,7 +147,7 @@ export default function EnrolledCourses() {
                   <td>
                     <a href className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalRating1" onClick={() => layidkh(value.course)}>Give Rating</a>
                     &ensp;
-                    <a href className="btn btn-success btn-sm" data-toggle="modal" onClick={()=> chuyentrangdetail(value)} >View Detail</a>
+                    <a href="" className="btn btn-success btn-sm"  onClick={()=> chuyentrangdetail(value)} >View Detail</a>
                   </td>
                 </tr>
               )}

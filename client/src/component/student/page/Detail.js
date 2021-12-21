@@ -229,7 +229,7 @@ export default function Detail() {
             <div className="col-md-12">
               <h1>Detail</h1>
               <h3>
-                <a href="../index.html">Home</a>
+                <a href="">Home</a>
                 <i className="fa fa-angle-right" />
                 detail{" "}
               </h3>
@@ -282,7 +282,10 @@ export default function Detail() {
               </div>
               <div className="col-md-3">
                 <div className="download-buy-section">
-                  <div className="price">$ {value.price}</div>
+                  <div className="price"> {value.price.toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    })}</div>
                   <div className="buy-now">
                     {trangthai == true ? "đang chờ duyệt" : 
                     <div>
