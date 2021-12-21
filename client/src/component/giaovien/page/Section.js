@@ -72,11 +72,8 @@ export default function Section() {
 
   const addsection = () => {
     var regexKhoangTrang = /\S/;
-    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
-    if(!regexName.test(Section.namesection)){
-      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
-    }else if(!regexKhoangTrang.test(Section.namesection)){
+    if(!regexKhoangTrang.test(Section.namesection)){
       swal("Thất bại", "Name không được bỏ trống", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
@@ -184,11 +181,8 @@ export default function Section() {
 
   const updateSection = () => {
     var regexKhoangTrang = /\S/;
-    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
-    if(!regexName.test(Section.namesection)){
-      swal("Thất bại", "Name chỉ được nhập chữ và không được bỏ trống", "warning")
-    }else if(!regexKhoangTrang.test(Section.namesection)){
+    if(!regexKhoangTrang.test(Section.namesection)){
       swal("Thất bại", "Name không được bỏ trống", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
