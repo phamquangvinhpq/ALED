@@ -210,6 +210,7 @@ export default function Leson() {
 
 
   const addLession = () => {
+    
     var regexKhoangTrang = /\S/;
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
