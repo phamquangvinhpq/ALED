@@ -12,7 +12,7 @@ export default function EnrolledCourses() {
 
   const [rate, setrate] = useState({
 
-    star: "",
+    star: "5",
     course_id: "",
     comment: ""
   })
