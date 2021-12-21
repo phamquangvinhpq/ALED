@@ -243,7 +243,8 @@ export default function HeaderStudent() {
     roles: '',
     phone:'',
     address:'',
-    skill:''
+    skill:'',
+    education:''
 
   });
   const maquyen = 0;
@@ -318,13 +319,13 @@ export default function HeaderStudent() {
       .then(result => {
         if(result.loicode == -1)
         {
-          swal("nhập đầy đủ thông tin", {
-            text: "email ko hợp lệ hoặc đã tồn tại",
+          swal("Fill in all the information", {
+            text: "Email is invalid or already exists",
             icon: "warning",
           });
         }
         else{
-          alert("kiểm tra email để lấy mật khẩu")
+          alert("check email for password")
           chuyentrang();
         }
        
@@ -337,6 +338,7 @@ export default function HeaderStudent() {
     setSelectedFile(event.target.files[0]);
     console.log(event.target.files[0]);
   };
+
   const signupintructer = () => {
     var regexKhoangTrang = /\S/;
         var regex = /[A-Za-z0-9]/
@@ -367,6 +369,7 @@ export default function HeaderStudent() {
     formdata.append("phone", users.phone);
     formdata.append("isEnable", "0");
     formdata.append("status", "1");
+    formdata.append("education", users.education);
     formdata.append("roles", "3");
     formdata.append("skill", users.skill);
     formdata.append("file", selectedFile);
@@ -383,10 +386,10 @@ export default function HeaderStudent() {
     
         if(result.loicode == -1)
         {
-          alert("có lỗi xẩy ra kiểm tra lại thông tin")
+          alert("An error occurred, check the information again")
         }
         else{
-          alert("kiểm tra email để lấy mật khẩu")
+          alert("check email for password")
           chuyentrang();
         }
        
@@ -564,6 +567,10 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                             <div className="form-group">
                               <label >Phone</label>
                               <input type="text" className="form-control"  name="phone" onChange={onInputChangedangki} placeholder="Phone" required />
+                            </div>
+                            <div className="form-group">
+                              <label >education</label>
+                              <input type="text" className="form-control"  name="education" onChange={onInputChangedangki} placeholder="education" required />
                             </div>
                             <div className="form-group">
                               <label >Skill</label>

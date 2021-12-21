@@ -49,7 +49,7 @@ export default function Answered() {
     };
 
     fetch(
-      `http://localhost:8080/contentqa/getallcontentauthor?qa_id=${value.id}`,
+      `${DEFAULT_API}` +`contentqa/getallcontentauthor?qa_id=${value.id}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -64,7 +64,7 @@ export default function Answered() {
     };
 
     fetch(
-      `http://localhost:8080/contentqa/getallcontentauthor?qa_id=${value}`,
+      `${DEFAULT_API}` +`contentqa/getallcontentauthor?qa_id=${value}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -85,7 +85,7 @@ export default function Answered() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/contentqa/author", requestOptions)
+    fetch(`${DEFAULT_API}` +`contentqa/author`, requestOptions)
       .then((response) => response.json())
       .then((result) => loadContentMess2(result.qa_id))
       .catch((error) => console.log("error", error));
@@ -101,7 +101,7 @@ export default function Answered() {
       redirect: "follow",
     };
 
-    fetch(`http://localhost:8080/qa/getbystatus?status=1&users_id=${users_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`qa/getbystatus?status=1&users_id=${users_id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setListQA(result))
       .catch((error) => console.log("error", error));

@@ -27,8 +27,16 @@ export default function Detail() {
   let pagesize = 3
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
+var chek=isNaN(id.id);
 
   useEffect(() => {
+    if(chek==true)
+    {
+      history.push("/404")
+      window.location.reload();
+    }
+   
+   
     countKH();
     loaddanhmuc();
     getCoursebyid();
@@ -193,6 +201,7 @@ export default function Detail() {
         setcoursebyid(result)
         loadInfoTeacher(result[0].author_id)
         loadInfoAuthor(result[0].author_id)
+        
       })
       .catch(error => console.log('error', error));
   }
@@ -268,7 +277,7 @@ export default function Detail() {
                             activeColor="#ffd700"
                           />
                         ) : (
-                          "Chưa có đánh giá"
+                          "There are no reviews yet"
                         )}
                       </span>
                       {value.rate}

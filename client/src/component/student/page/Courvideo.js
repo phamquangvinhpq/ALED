@@ -66,7 +66,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/contentqa/student", requestOptions)
+    fetch(`${DEFAULT_API}` +`contentqa/student`, requestOptions)
       .then(response => response.text())
       .then(result => loadQA())
       .catch(error => console.log('error', error));
@@ -106,7 +106,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/contentqa/getallcontentstudent?users_id=${user_id}&course_id=+${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`contentqa/getallcontentstudent?users_id=${user_id}&course_id=+${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => setListQA(result))
       .catch(error => console.log('error', error));
@@ -238,6 +238,7 @@ export default function Courvideo() {
       .then((result) => {
         if (result === "nobought") {
           history.push("/home");
+          window.location.reload();
           
         }
       })

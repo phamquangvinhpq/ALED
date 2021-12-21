@@ -57,6 +57,7 @@ export default function Index() {
                     <Route path="/detail/:id">
                         <Detail />
                     </Route>
+
                     <Route path="/Viewdetail/:id">
                         <ViewDetail />
                     </Route>

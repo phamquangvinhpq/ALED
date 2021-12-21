@@ -115,12 +115,18 @@ export default function Checkout1() {
                                                 <img src={value.image} className="w-100" />
                                             </td>
                                             <td>{value.courseName}</td>
-                                            <td>{value.price}</td>
+                                            <td>{value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</td>
                                         </tr>
 
                                         <tr>
                                             <td colSpan={3} className="tot tar">Total: </td>
-                                            <td colSpan={2} className="tot">{value.price}</td>
+                                            <td colSpan={2} className="tot">{value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</td>
                                         </tr>
 
 

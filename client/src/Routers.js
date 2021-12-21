@@ -10,6 +10,7 @@ import Payhanhcong from './component/student/page/Payhanhcong';
 import PayThatbai from './component/student/page/PayThatbai';
 import Courvideo from './component/student/page/Courvideo';
 import Homestd from './component/student/page/Homestd';
+import Not404 from './component/student/page/Not404';
 
 export default function Routers() {
     let role =localStorage.getItem("role");
@@ -48,6 +49,10 @@ export default function Routers() {
 
                     <Route path='/thatbai' >
                         <PayThatbai />
+                    </Route>
+
+                    <Route path='/404' >
+                        <Not404 />
                     </Route>
 
                     <Route path='/' >

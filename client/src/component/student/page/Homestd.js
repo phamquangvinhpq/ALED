@@ -17,7 +17,7 @@ export default function Homestd() {
     let history = useHistory();
 
     useEffect(() => {
-        if(user_id){
+        if (user_id) {
             loadFavorite();
         }
         loadListCategories();
@@ -25,28 +25,28 @@ export default function Homestd() {
     }, []);
 
     const checkTym = (value) => {
-        if(user_id){
-            if(listFavorite.some(favorite => favorite.course_id === value)){
+        if (user_id) {
+            if (listFavorite.some(favorite => favorite.course_id === value)) {
                 return <span onClick={() => deleteFavorite(value)} className="heart-icon"><i className="fa fa-heart" /></span>
-            } else{
+            } else {
                 return <span onClick={() => addFavorite(value)} className="heart-icon"><i className="fa fa-heart-o" /></span>
             }
         }
     }
 
     function getcheckout(value) {
-        
-       damuakhoahoc(value)
-    
-      }
+
+        damuakhoahoc(value)
+
+    }
 
     const deleteFavorite = (value) => {
         var requestOptions = {
             method: 'DELETE',
             redirect: 'follow'
-          };
-          
-          fetch(`${DEFAULT_API}favorite?user_id=${user_id}&course_id=${value}`, requestOptions)
+        };
+
+        fetch(`${DEFAULT_API}favorite?user_id=${user_id}&course_id=${value}`, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .then(swal("Thành Công", "Đã bỏ yêu thích", "success"))
@@ -57,26 +57,26 @@ export default function Homestd() {
     const addFavorite = (value) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        
+
         var raw = JSON.stringify({
-          "user_id": user_id,
-          "course_id": value,
-          "status": 1
+            "user_id": user_id,
+            "course_id": value,
+            "status": 1
         });
-        
+
         var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
         };
-        
+
         fetch(`${DEFAULT_API}favorite`, requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .then(swal("Thành Công", "Đã thêm yêu thích", "success"))
-          .then(loadFavorite)
-          .catch(error => console.log('error', error));
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then(swal("Thành Công", "Đã thêm yêu thích", "success"))
+            .then(loadFavorite)
+            .catch(error => console.log('error', error));
     };
 
     const loadFavorite = async () => {
@@ -89,9 +89,9 @@ export default function Homestd() {
         };
 
         fetch(`${DEFAULT_API}favorite?user_id=${user_id}`, requestOptions)
-          .then((response) => response.json())
-          .then((response) => setListFavorite(response));
-      };
+            .then((response) => response.json())
+            .then((response) => setListFavorite(response));
+    };
 
     const loadListCourse = async () => {
         var myHeaders = new Headers();
@@ -131,29 +131,32 @@ export default function Homestd() {
 
     const onClickCategory = (select) => {
         history.push(`/Course/${select}`)
-       
-      };
-    
-      const damuakhoahoc = async (value) => {
+
+    };
+
+    const damuakhoahoc = async (value) => {
 
         var requestOptions = {
-          method: 'GET',
-          redirect: 'follow'
+            method: 'GET',
+            redirect: 'follow'
         };
         fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${value.id}`, requestOptions)
-          .then(response => response.text())
-          .then(result => {
-            console.log(result);
-            if (result === "bought") {
-              alert("you bought this course")
-            } else{
-                history.push(`/checkout/${value.id}`)
-            }
-            
-          })
-          .catch(error => console.log('error', error));
-      }
+            .then(response => response.text())
+            .then(result => {
+                console.log(result);
+                if (result === "bought") {
+                    alert("you bought this course")
+                } else {
+                    history.push(`/checkout/${value.id}`)
+                    
+                }
+
+            })
+            .catch(error => console.log('error', error));
+    }
+
     
+
     return (
         <div>
             <div>
@@ -164,7 +167,7 @@ export default function Homestd() {
                     <div className="hero-image">
                         <img src="assets/images/hero-home-2.jpg" alt="image" />
                         <div className="video-play-button">
-                            <a href="/Course/0" className="button-video">
+                            <a href="https://www.youtube.com/watch?v=eybyQcXUdzM" className="button-video">
                                 <i className="fa fa-play item-ripple" />
                             </a>
                         </div>
@@ -176,7 +179,7 @@ export default function Homestd() {
                                     <h1 className="home-2"><span>learn new skills online find best courses</span> &amp; become master</h1>
                                     <div className="hero-description"><h6>hire proven pros with confidence using world largest remote talent platform.</h6></div>
                                     <div className="hero-button">
-                                        <a href="/Course/0" className="template-button">start course <i className="fa fa-play-circle" /></a>
+                                        <a href="https://www.youtube.com/watch?v=eybyQcXUdzM" className="template-button">start course <i className="fa fa-play-circle" /></a>
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +249,7 @@ export default function Homestd() {
                                     <div className="col-lg-4 col-md-6 grid-item marketing">
                                         <div className="single-course-item">
                                             <div className="course-image">
-                                                <img src={value.image}   style={{ height: 250, maxWidth: 350 }}alt="image" />
+                                                <img src={value.image} style={{ height: 250, maxWidth: 350 }} alt="image" />
                                             </div>
                                             <div className="course-content margin-top-30">
                                                 <div className="course-title">
@@ -259,16 +262,16 @@ export default function Homestd() {
                                                     </div>
                                                     <div className="course-rating">
                                                         <span>
-                                                            {value.rate ? 
+                                                            {value.rate ?
                                                                 <ReactStars
-                                                                edit={false}
-                                                                value={value.rate}
-                                                                size={24}
-                                                                isHalf={true}
-                                                                emptyIcon={<i className="far fa-star"></i>}
-                                                                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                                                fullIcon={<i className="fa fa-star"></i>}
-                                                                activeColor="#ffd700"/> : 
+                                                                    edit={false}
+                                                                    value={value.rate}
+                                                                    size={24}
+                                                                    isHalf={true}
+                                                                    emptyIcon={<i className="far fa-star"></i>}
+                                                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                                                    fullIcon={<i className="fa fa-star"></i>}
+                                                                    activeColor="#ffd700" /> :
                                                                 "There are no reviews yet"}
                                                         </span>
                                                     </div>
@@ -278,14 +281,14 @@ export default function Homestd() {
                                                         <i className="fa fa-play-circle-o" />
                                                         <span> Chapter: {value.countChapter}</span>
                                                     </div>
-                                                    <div className="course-time">
-                                                        <i className="fa fa-clock-o" />
-                                                        <span>2h 40mins</span>
-                                                    </div>
+                                                    
                                                 </div>
                                                 <div className="course-price-cart margin-top-20">
                                                     <div className="course-price">
-                                                        <span className="span-big">$ {value.price}</span>
+                                                        <span className="span-big">{value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</span>
                                                         {/* <span className="span-cross">$ 500.00</span> */}
                                                     </div>
                                                 </div>
@@ -294,33 +297,32 @@ export default function Homestd() {
 
 
                                             <div className="hover-state">
-                                               
-                                               {/* {ListFavorite.includes(value.id) ? <span onClick={() => deleteFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart" /></span> : <span onClick={() => addFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart-o" /></span>} */}
-                                               {checkTym(value.id)}
-                                               
+
+                                                {/* {ListFavorite.includes(value.id) ? <span onClick={() => deleteFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart" /></span> : <span onClick={() => addFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart-o" /></span>} */}
+                                                {checkTym(value.id)}
+
                                                 <span className="title-tag">by {value.authorName}</span>
 
                                                 <div className="course-title margin-top-10">
-                                                    <h4 className="home-2"><a href="course-details.html">user experience design with adobe XD</a></h4>
+                                                    <h4 className="home-2"><a >{value.courseName}</a></h4>
                                                 </div>
                                                 <div className="course-price-info margin-top-20">
                                                     <span className="best-seller">{value.categoryName}</span>
-                                                    <span className="course-price">$ {value.price}</span>
+                                                    <span className="course-price">{value.price.toLocaleString('vi-VN', {
+                                                        style: 'currency',
+                                                        currency: 'VND'
+                                                    })}</span>
                                                 </div>
                                                 <div className="course-info margin-top-30">
                                                 </div>
-                                                <p className="margin-top-20">Learn WordPress like a Professional! Start from the basics and go all the way to creating your own applications and website!</p>
-                                                <ul className="margin-top-20">
-                                                    <li><i className="fa fa-circle-o" /><span>Lorem ipsum dolor sit amet.</span></li>
-                                                    <li><i className="fa fa-circle-o" /><span>Consectetur adipisicing elit.</span></li>
-                                                    <li><i className="fa fa-circle-o" /><span>Placeat dolore quaerat itaque.</span></li>
-                                                </ul>
+                                                <p className="margin-top-20">{value.description}</p>
+                                                
                                                 <div className="preview-button margin-top-20">
-                                                    <a onClick={() =>{
-                                                         history.push("detail/"+value.id)
+                                                    <a onClick={() => {
+                                                        history.push("detail/" + value.id)
                                                     }} className="template-button">course preview</a>
-                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a> }
-                                                    
+                                                    {damua == true ? <a disabled="disabled" className="template-button margin-left-10" >buy now</a> : <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a>}
+
                                                 </div>
                                             </div>
                                         </div>
@@ -342,9 +344,9 @@ export default function Homestd() {
                                 </div>
                             </div>
                         </div>
-                         <div className="row">
-                            {listCategories.map((value, index) => 
-                            
+                        <div className="row">
+                            {listCategories.map((value, index) =>
+
                                 <div className="col-lg-3 col-md-6" onClick={() => onClickCategory(value.id)}>
                                     <a>
                                         <div className="single-category-item">
@@ -361,7 +363,7 @@ export default function Homestd() {
                                         </div>
                                     </a>
                                 </div>
-                                )}
+                            )}
                         </div>
                         <div className="row">
                             <div className="col-12">

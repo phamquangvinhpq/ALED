@@ -135,7 +135,7 @@ public class UserController {
 	@PostMapping("/createauthoer")
 	public UserAuthorDTO createauthoer(@RequestBody @RequestParam(name = "file", required = false) MultipartFile file, UserAuthorDTO ua
 			) throws IOException {
-		if (file.getContentType() != null) {
+		if (file != null) {
 
 			ua.setImage(serverProto + "://" + serverUrl + "/api/file/imageuser?videoName=" + fileService.uploadImage(file));
 			ua.setType(file.getContentType());

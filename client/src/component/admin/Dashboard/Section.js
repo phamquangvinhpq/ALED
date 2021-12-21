@@ -16,7 +16,6 @@ export default function Section() {
   })
 
 
-  // check xem thằng giảng viên này có id khóa học này không 
 
 
 

@@ -52,7 +52,10 @@ export default function PaymentHistory() {
                                             <tr key={index}>
                                             <td>{value.id}</td>
                                             <td>{value.createDate}</td>
-                                            <td>{value.monny}</td>
+                                            <td>{value.monny.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</td>
                                             <td>{value.bank}</td>
                                             <td>
                                                 {value.status == 0 ? "Completed" : "Uncompleted" } </td>

@@ -12,6 +12,7 @@ export default function ViewDetail() {
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
   const [listCourse, setListCourse] = useState([]);
+  const [damua, setdamua] = useState(false);
 
   const loadCourse = (page) => {
     var requestOptions = {
@@ -54,6 +55,7 @@ export default function ViewDetail() {
       .then(result => setInfoAuthor(result))
       .catch(error => console.log('error', error));
   }
+  const user_id = localStorage.getItem("userid")
 
   useEffect(() => {
     loadCourse(page);
@@ -67,8 +69,30 @@ export default function ViewDetail() {
   };
 
   function getcheckout(value) {
-    history.push(`/checkout/${value.id}`);
+    damuakhoahoc(value)
   }
+
+  const damuakhoahoc = async (value) => {
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${value.id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            console.log(result);
+            if (result === "bought") {
+                alert("you bought this course")
+            } else {
+                history.push(`/checkout/${value.id}`)
+            }
+
+        })
+        .catch(error => console.log('error', error));
+}
+
+
   return (
     <div>
       <div

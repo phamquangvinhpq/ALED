@@ -37,7 +37,7 @@ export default function PendingCourse() {
     const deletecourse = (value) => {
         swal({
           title: "Are you sure?",
-          text: `Bạn có chắc muốn hủy`,
+          text: `Are you sure you want to cancel?`,
           icon: "warning",
           buttons: true,
           dangerMode: true,
@@ -125,7 +125,10 @@ export default function PendingCourse() {
                                          <td>{value.id}</td>
                                          <td>{value.courseName}</td>
                                          <td>
-                                             {value.price}
+                                             {value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}
                                          </td>
                                          <td>
                                              <img

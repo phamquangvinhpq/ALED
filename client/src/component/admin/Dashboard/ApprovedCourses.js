@@ -61,7 +61,10 @@ export default function ApprovedCourses() {
                                                 <td>{value.id}</td>
                                                 <td>{value.courseName}</td>
                                                 <td>
-                                                    {value.price}
+                                                    {value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}
                                                 </td>
                                                 <td>
                                                     <img

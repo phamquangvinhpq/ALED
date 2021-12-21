@@ -139,10 +139,9 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 		message.setTo(user.getEmail());
 		message.setSubject("REGISTER AN ACCOUNT ALED");
-		
 		message.setText("Thank you for trusting and choosing ALED as a place to learn knowledge.\r\n"
 				+ "We will bring you the useful courses you are looking for and maybe you will like other courses too\r\n"
-				+ "Here is your password:"+newPassword +"\\r\\n"
+				+ "Here is your password:"+newPassword +"\r\n"
 				+ "Hope you won't mind changing your password\r\n"
 				+ "Wish you have a great experience with our website");
 
@@ -189,10 +188,10 @@ public class UserServiceSystem implements IUserServiceSystem {
 		double randomDouble = Math.random();
 		randomDouble = randomDouble * 1000000 + 1;
 		int randomInt = (int) randomDouble;
-
+		
 		String newPassword = String.valueOf(randomInt);
 		UserAuthorDTO.setPassword(passwordEncoder.encode(newPassword));
-
+		
 		Users us = new Users();
 		BeanUtils.copyProperties(UserAuthorDTO, us);
 		userRepository.save(us);
@@ -200,7 +199,9 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 		author.setId(us.getId());
 		author.setName(UserAuthorDTO.getName());
+		author.setImage(UserAuthorDTO.getImage());
 		author.setDescription(UserAuthorDTO.getEmail());
+		author.setEducation(UserAuthorDTO.getEducation());
 
 		authorrepository.save(author);
 
@@ -210,6 +211,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 		ausk.setSkill(UserAuthorDTO.getSkill());
 
 		authorskillRepository.save(ausk);
+		
 
 		// save user role
 		List<Role> inputRole = UserAuthorDTO.getRoles();
@@ -231,7 +233,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 		message.setSubject("REGISTER AN ACCOUNT ALED");
 		message.setText("Thank you for trusting and choosing ALED as a place to learn knowledge.\r\n"
 				+ "We will bring you the useful courses you are looking for and maybe you will like other courses too\r\n"
-				+ "Here is your password:"+newPassword +"\\r\\n"
+				+ "Here is your password:"+newPassword +"\r\n"
 				+ "Hope you won't mind changing your password\r\n"
 				+ "Wish you have a great experience with our website");
 

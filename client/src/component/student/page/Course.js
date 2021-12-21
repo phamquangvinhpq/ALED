@@ -169,6 +169,7 @@ export default function Course() {
                   <div className="course-single-item">
                     <div className="course-image">
                       <img
+                      onClick={() => chuyentrang(value)}
                         src={value.image}
                         style={{ height: 250, maxWidth: 350 }}
                         alt="image"
@@ -199,7 +200,7 @@ export default function Course() {
                       </div>
                       <div className="cotent-bottom margin-top-20">
                         <div className="content-left">
-                          <h5>{value.rate ? ("Rating: " + value.rate) : ("Chưa có đánh giá")}</h5>
+                          <h5>{value.rate ? ("Rating: " + value.rate) : ("There are no reviews yet")}</h5>
                         </div>
                         <div className="content-right">
                           <span>
