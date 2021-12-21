@@ -342,20 +342,24 @@ export default function HeaderStudent() {
   const signupintructer = () => {
     var regexKhoangTrang = /\S/;
         var regex = /[A-Za-z0-9]/
+  var regexPhone =/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
       swal("Failed", "Name only enter letters", "warning")
-    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username)
-     || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.address) || !regexKhoangTrang.test(users.phone) ) {
+    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.phone)|| !regexKhoangTrang.test(users.skill)|| !regexKhoangTrang.test(users.education)) {
       swal("Failed", "not be empty", "warning")
     } 
+
+
+
     else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
       swal("Failed", "Name must not contain the character", "warning")
     }else if (!regex.test(users.username) ) {
         swal("Failed", "Name must not contain the character", "warning")
-      }else if (Number.isNaN(users.phone) ) {
-        swal("Failed", "phone must be number", "warning")
+      } 
+      else if (!regexPhone.test(users.phone) ) {
+        swal("Failed", "Phone number is not invalid", "warning")
       }
      else {
     var myHeaders = new Headers();
@@ -647,7 +651,7 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                   
                     
                   <div className="form-group">
-                  <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
+                    <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
                         <option value={0} >-- All Category --</option>
                         {DScategory.map((value, index) => {
                           return (
@@ -709,15 +713,7 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
               <li><a href='/about'>About</a></li>
               <li><a href='/faq'>FAQ</a></li>
               <li><a href='/contact'>Contact</a></li>
-              <li className="static"><a onClick={chuyentrangAllCourse}>All Courses <i className="fa fa-angle-down" /></a>
-                <div className="mega-menu mega-full">
-                  <ul>
-                    {DScategory.map((category, index) => 
-                      <li><a class="dropdown-item" href={category.id}>{category.name}</a></li>
-                    )}
-                  </ul>
-                </div>
-              </li>
+             
             </ul>
           </nav>
         </div>
