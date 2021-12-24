@@ -6,7 +6,9 @@ export default function Users() {
 
     const [giangVien, setGiangVien] = useState([])
     const [isEnable, setIsEnable] = useState(0);
-
+    const [pageSt, setPageSt] = useState(0);
+    const [totalCountSt, setTotalCountSt] = useState(0)
+    let size = 10;
 
   useEffect(() => {
     loadGiangVien()
@@ -14,6 +16,18 @@ export default function Users() {
       isEnable
   ])
 
+
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadGiangVien(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadGiangVien(pg)
+    setPageSt(pg)
+  }
 
 
   const huyActive = async (value) => {
@@ -46,7 +60,7 @@ export default function Users() {
       .catch(error => console.log('error', error));
   }
 
-  const loadGiangVien = () => {
+  const loadGiangVien = (pg = pageSt, pgsize = size) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var requestOptions = {
@@ -55,9 +69,10 @@ export default function Users() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `get-hs-and-gv`, requestOptions)
+    fetch(`${DEFAULT_API}` + `get-hs-and-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+        setTotalCountSt(result.length)
         setGiangVien(result)
         console.log(result)
       })
@@ -109,6 +124,10 @@ export default function Users() {
                                         
                                     </tbody>
                                 </table>
+                                <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                             </div>
                         </div>
                     </div>

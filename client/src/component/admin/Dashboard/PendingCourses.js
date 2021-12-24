@@ -8,13 +8,28 @@ export default function PendingCourse() {
 
     const [isEnable, setIsEnable] = useState(0);
     const [khoahoc,setKhoaHoc] = useState([])
+    const [pageSt, setPageSt] = useState(0);
+    const [totalCountSt, setTotalCountSt] = useState(0)
+    let size = 10;
     useEffect(()=> {
             loadkhoahoc()
     },[
         isEnable
     ])
 
-    const loadkhoahoc = () =>{
+    const backPageSt = async () => {
+      const pg = pageSt - 1
+      loadkhoahoc(pg)
+      setPageSt(pg)
+    }
+  
+    const nextPageSt = async () => {
+      const pg = pageSt + 1
+      loadkhoahoc(pg)
+      setPageSt(pg)
+    }
+
+    const loadkhoahoc = (pg = pageSt, pgsize = size) =>{
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var requestOptions = {
@@ -23,9 +38,10 @@ export default function PendingCourse() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}` + `course/cour-no-act`, requestOptions)
+        fetch(`${DEFAULT_API}` + `course/cour-no-act?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
+              setTotalCountSt(result.length)
                 setKhoaHoc(result)
                 console.log(result)
             })
@@ -159,6 +175,10 @@ export default function PendingCourse() {
                                    
                                     </tbody>
                                 </table>
+                                <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                             </div>
                         </div>
                     </div>

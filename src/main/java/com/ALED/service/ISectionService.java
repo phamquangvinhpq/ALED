@@ -18,7 +18,7 @@ public interface ISectionService {
 	
 	public SectionDTO detail(Integer id);
 	
-	public List<SectionDTO> detailcour(Integer id);
+	public List<SectionDTO> detailcour(Integer id,int page,int size);
 	
 	public List<SectionDTO> findpage(Integer pageno,Integer pagesize);
 	

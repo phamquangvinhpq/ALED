@@ -8,7 +8,7 @@ public interface IMycourseService {
 	
 	public MycourseDTO create(MycourseDTO MycourseDTO);
 
-	public List<MycourseDTO> readallbyid(Integer id);
+	public List<MycourseDTO> readallbyid(Integer id,int page,int size);
 
 
 }

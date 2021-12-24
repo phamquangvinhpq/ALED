@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.UserAuthorDTO;
+import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Users;
 import com.ALED.entities.author_skill;
 import com.ALED.repositories.UserRepository;
@@ -102,23 +103,23 @@ public class UserController {
 	
 	
 	@GetMapping("/get-gv")
-	public List<Users> getAllGv(){
-		return userService.getAllGV();
+	public List<UserDTO> getAllGv(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllGV(pageno,pagesize);
 	}
 	
 	@GetMapping("/get-hs")
-	public List<Users> getAllSt(){
-		return userService.getAllSt();
+	public List<UserDTO> getAllSt(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllSt(pageno,pagesize);
 	}
 	
 	@GetMapping("/get-hs-and-gv")
-	public List<Users> getAllStAndGv(){
-		return userService.getAllStAndGv();
+	public List<UserDTO> getAllStAndGv(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllStAndGv(pageno,pagesize);
 	}
 	
 	@GetMapping("/get-ins-no-isnable")
-	public List<Users> getAllInsNoIsNable(){
-		return userService.getAllInsNoIsNable();
+	public List<UserDTO> getAllInsNoIsNable(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllInsNoIsNable(pageno,pagesize);
 	}
 	
 	@PutMapping("/isenable")

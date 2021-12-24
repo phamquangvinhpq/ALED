@@ -8,12 +8,26 @@ export default function Pendinginstructer() {
     const [isEnable, setIsEnable] = useState(0);
     const [giangVien, setGiangVien] = useState([])
     const [skill, setskill] = useState([])
-
+    const [pageSt, setPageSt] = useState(0);
+    const [totalCountSt, setTotalCountSt] = useState(0)
+    let size = 10;
     useEffect(() => {
         loadGiangVien()
     }, [
         isEnable
     ])
+
+    const backPageSt = async () => {
+        const pg = pageSt - 1
+        loadGiangVien(pg)
+        setPageSt(pg)
+      }
+    
+      const nextPageSt = async () => {
+        const pg = pageSt + 1
+        loadGiangVien(pg)
+        setPageSt(pg)
+      }
 
 
     const loadskill = async (value) => {
@@ -33,7 +47,7 @@ export default function Pendinginstructer() {
 
     }
 
-    const loadGiangVien = () => {
+    const loadGiangVien = (pg = pageSt, pgsize = size) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var requestOptions = {
@@ -42,7 +56,7 @@ export default function Pendinginstructer() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}` + `get-ins-no-isnable`, requestOptions)
+        fetch(`${DEFAULT_API}` + `get-ins-no-isnable?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setGiangVien(result)
@@ -134,6 +148,10 @@ export default function Pendinginstructer() {
 
                                     </tbody>
                                 </table>
+                <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                             </div>
                         </div>
                     </div>
@@ -148,7 +166,7 @@ export default function Pendinginstructer() {
                             <h4 className="modal-title">Skill</h4>
                         </div>
                         <div className="modal-body">
-                        {skill.map((value,index) =>
+                        {skill.map((value) =>
                             <textarea rows="9" cols="70" disabled>
                                {value.skill}
                             </textarea>

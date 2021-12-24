@@ -6,13 +6,28 @@ import { NavLink } from "react-router-dom";
 export default function ApprovedCourses() {
 
     const [khoahoc, setKhoaHoc] = useState([])
+    const [pageSt, setPageSt] = useState(0);
+    const [totalCountSt, setTotalCountSt] = useState(0)
+    let size = 10;
     useEffect(() => {
         loadkhoahoc()
     }, [
 
     ])
 
-    const loadkhoahoc = () => {
+    const backPageSt = async () => {
+        const pg = pageSt - 1
+        loadkhoahoc(pg)
+        setPageSt(pg)
+      }
+    
+      const nextPageSt = async () => {
+        const pg = pageSt + 1
+        loadkhoahoc(pg)
+        setPageSt(pg)
+      }
+
+    const loadkhoahoc = (pg = pageSt, pgsize = size) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var requestOptions = {
@@ -21,9 +36,10 @@ export default function ApprovedCourses() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}` + `course/cour-act`, requestOptions)
+        fetch(`${DEFAULT_API}` + `course/cour-act?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
+                setTotalCountSt(result.length)
                 setKhoaHoc(result)
                 console.log(result)
             })
@@ -90,6 +106,10 @@ export default function ApprovedCourses() {
 
                                     </tbody>
                                 </table>
+                                <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                             </div>
                         </div>
                     </div>
