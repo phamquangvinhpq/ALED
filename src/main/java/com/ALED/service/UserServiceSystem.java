@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.UserAuthorDTO;
+import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Author;
 import com.ALED.entities.Role;
 import com.ALED.entities.UserRole;
@@ -243,29 +244,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 		return UserAuthorDTO;
 	}
 
-	@Override
-	public List<Users> getAllGV() {
-		List<Users> list = userRepository.getAllGV();
-		return list;
-	}
-
-	@Override
-	public List<Users> getAllSt() {
-		List<Users> list = userRepository.getAllHs();
-		return list;
-	}
-
-	@Override
-	public List<Users> getAllStAndGv() {
-		List<Users> list = userRepository.getAllHsAndGv();
-		return list;
-	}
-
-	@Override
-	public List<Users> getAllInsNoIsNable() {
-		List<Users> list = userRepository.getAllInsNoIsNable();
-		return list;
-	}
+	
 
 	public boolean changePassword(Users user, String newPassword) {
 		Optional<Users> optional = userRepository.findById(user.getId());
@@ -321,6 +300,68 @@ public class UserServiceSystem implements IUserServiceSystem {
 		}
 
 		return ds;
+	}
+
+	@Override
+	public List<UserDTO> getAllStAndGv(Integer pageno, Integer pagesize) {
+		List<Users> listEnity = new ArrayList<Users>();
+		List<UserDTO> listDto = new ArrayList<UserDTO>();
+		Pageable paging = PageRequest.of(pageno, pagesize);
+		Page<Users> pageCourses = userRepository.getAllHsAndGv(paging);
+		listEnity = pageCourses.getContent();
+		for (Users entity : listEnity) {
+			UserDTO dto = new UserDTO();
+			BeanUtils.copyProperties(entity, dto);
+			
+			listDto.add(dto);
+		}
+		return listDto;
+	}
+
+	@Override
+	public List<UserDTO> getAllSt(Integer pageno, Integer pagesize) {
+		List<Users> listEnity = new ArrayList<Users>();
+		List<UserDTO> listDto = new ArrayList<UserDTO>();
+		Pageable paging = PageRequest.of(pageno, pagesize);
+		Page<Users> pageCourses = userRepository.getAllHs(paging);
+		listEnity = pageCourses.getContent();
+		for (Users entity : listEnity) {
+			UserDTO dto = new UserDTO();
+			BeanUtils.copyProperties(entity, dto);
+			listDto.add(dto);
+		}
+		return listDto;
+	}
+
+	@Override
+	public List<UserDTO> getAllGV(Integer pageno, Integer pagesize) {
+		List<Users> listEnity = new ArrayList<Users>();
+		List<UserDTO> listDto = new ArrayList<UserDTO>();
+		Pageable paging = PageRequest.of(pageno, pagesize);
+		Page<Users> pageCourses = userRepository.getAllGV(paging);
+		listEnity = pageCourses.getContent();
+		for (Users entity : listEnity) {
+			UserDTO dto = new UserDTO();
+			BeanUtils.copyProperties(entity, dto);
+			listDto.add(dto);
+		}
+		return listDto;
+	}
+
+	@Override
+	public List<UserDTO> getAllInsNoIsNable(Integer pageno, Integer pagesize) {
+		List<Users> listEnity = new ArrayList<Users>();
+		List<UserDTO> listDto = new ArrayList<UserDTO>();
+		Pageable paging = PageRequest.of(pageno, pagesize);
+		Page<Users> pageCourses = userRepository.getAllInsNoIsNable(paging);
+		listEnity = pageCourses.getContent();
+		for (Users entity : listEnity) {
+			UserDTO dto = new UserDTO();
+			BeanUtils.copyProperties(entity, dto);
+			
+			listDto.add(dto);
+		}
+		return listDto;
 	}
 
 }

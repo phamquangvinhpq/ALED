@@ -44,18 +44,23 @@ public class CourseController {
 	private FileService fileService;
 
 	@GetMapping("/cour-act")
-	public List<CourseDTO> getAllCouAct() {
-		return courseService.getAllCouAct();
+	public List<CourseDTO> getAllCouAct(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size) {
+		return courseService.getAllCouAct(page,size);
 	}
 
 	@GetMapping("/cour-no-act")
-	public List<CourseDTO> getAllCouNoAct() {
-		return courseService.getAllCouNoAct();
+	public List<CourseDTO> getAllCouNoAct(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size) {
+		return courseService.getAllCouNoAct(page,size);
 	}
 
 	@GetMapping("")
 	public List<CourseDTO> getAll() {
 		return courseService.readAll();
+	}
+	
+	@GetMapping("/get-page")
+	public List<CourseDTO> getAllByPage(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size) {
+		return courseService.getAll(page,size);
 	}
 
 	@GetMapping("/count")
@@ -109,8 +114,8 @@ public class CourseController {
 	}
 
 	@GetMapping("user/{id}")
-	public List<CourseDTO> getByUser(@PathVariable Integer id) {
-		return courseService.detailus(id);
+	public List<CourseDTO> getByUser(@PathVariable Integer id,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return courseService.detailus(id,page,size);
 	}
 
 	@GetMapping("get-all-by-name")

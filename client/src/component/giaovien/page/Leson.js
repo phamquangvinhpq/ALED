@@ -55,6 +55,22 @@ export default function Leson() {
   
   };
 
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 10;
+
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loaddanhmuc(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loaddanhmuc(pg)
+    setPageSt(pg)
+  }
+
 
   const getLessionBySection = async () => {
 
@@ -218,7 +234,7 @@ export default function Leson() {
 
 
 
-  const loaddanhmuc = async () => {
+  const loaddanhmuc = async (pg = pageSt, pgsize = size) => {
     var myHeaders = new Headers();
 
     var requestOptions = {
@@ -226,9 +242,10 @@ export default function Leson() {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}?page=${pg}&size=${pgsize}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        setTotalCountSt(result.length)
         console.log(result);
         setListSection(result);
       })
@@ -361,6 +378,8 @@ export default function Leson() {
                           );
                         })}
                       </select>
+
+                      
                     </div>
                   </div>
                   <div className="form-group">
@@ -446,6 +465,7 @@ export default function Leson() {
                           </a>
                         </h4>
                       </div>
+                      
                       <div id={`ok` + index} className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div className="panel-body">
                           <div className="table-responsive">
@@ -492,7 +512,10 @@ export default function Leson() {
                       </div>
                     </div>
                   )}
-
+                  <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                 </div>
 
               </div>

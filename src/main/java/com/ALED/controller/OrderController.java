@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.DTO.OrderDTO;
@@ -25,5 +26,15 @@ public class OrderController {
 	@GetMapping("")
 	public List<OrderDTO> getAll() {
 		return IOrderService.getAll();
+	}
+	
+	@GetMapping("user/{id}")
+	public List<OrderDTO> findByUserbyPage(@PathVariable Integer id,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return IOrderService.findpage(id,page,size);
+	}
+	
+	@GetMapping("/get-all-by-page")
+	public List<OrderDTO> getAllByPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return IOrderService.getAllByPage(page,size);
 	}
 }

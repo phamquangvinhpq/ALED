@@ -11,4 +11,5 @@ public interface ICategoryService {
 	public CategoryDTO update(CategoryDTO categoryDTO);
 	public CategoryDTO delete(Integer id);
 	public CategoryDTO detail(Integer id);
+	List<CategoryDTO> readAllByPage(int page, int size);
 }

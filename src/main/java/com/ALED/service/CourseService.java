@@ -147,9 +147,12 @@ public class CourseService implements ICourseService {
 
 
 	@Override
-	public List<CourseDTO> detailus(Integer id) {
+	public List<CourseDTO> detailus(Integer id,int page,int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
-		List<Course> lstCourse = courseRepository.timcour(id);
+		List<Course> lstCourse = new ArrayList<Course>();
+		Pageable paging = PageRequest.of(page, size);
+		Page<Course> pageCourses = courseRepository.pagecour(id, paging);
+		lstCourse = pageCourses.getContent();
 		for (Course course : lstCourse) {
 			CourseDTO courseDTO = new CourseDTO();
 			BeanUtils.copyProperties(course, courseDTO);
@@ -254,9 +257,12 @@ public class CourseService implements ICourseService {
 	}
 	
 	@Override
-	public List<CourseDTO> getAllCouAct(){
+	public List<CourseDTO> getAllCouAct(int page, int size){
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
-		List<Course> lstCourse = courseRepository.getAllCouAct();
+		Pageable paging = PageRequest.of(page, size);
+		List<Course> lstCourse = new ArrayList<Course>(); 
+		Page<Course> page2 = courseRepository.getAllCouAct(paging);
+		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
 			CourseDTO courseDTO = new CourseDTO();
 			BeanUtils.copyProperties(course, courseDTO);
@@ -272,9 +278,12 @@ public class CourseService implements ICourseService {
 	}
 	
 	@Override
-	public List<CourseDTO> getAllCouNoAct(){
+	public List<CourseDTO> getAllCouNoAct(int page, int size){
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
-		List<Course> lstCourse = courseRepository.getAllCouNoAct();
+		Pageable paging = PageRequest.of(page, size);
+		List<Course> lstCourse = new ArrayList<Course>(); 
+		Page<Course> page2 = courseRepository.getAllCouNoAct(paging);
+		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
 			CourseDTO courseDTO = new CourseDTO();
 			BeanUtils.copyProperties(course, courseDTO);

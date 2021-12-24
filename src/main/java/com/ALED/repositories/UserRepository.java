@@ -30,20 +30,20 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 	@Query(value = "Select Count(*) from users", nativeQuery = true)
 	Integer countUser();
 
-	@Query(value = "SELECT * FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
+	@Query(value = "SELECT users.* FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
 			+ "where userrole.role_id = 3 AND is_enable = 1", nativeQuery = true)
-	List<Users> getAllGV();
+	Page<Users> getAllGV(Pageable pageable);
 
-	@Query(value = "SELECT * FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
+	@Query(value = "SELECT users.* FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
 			+ "where userrole.role_id = 2 AND is_enable = 1", nativeQuery = true)
-	List<Users> getAllHs();
+	Page<Users> getAllHs(Pageable pageable);
 
 	@Query(value = "SELECT users.*,author_skill.skill FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id JOIN author_skill ON users.id=author_skill.id where userrole.role_id = 3 AND is_enable = 0", nativeQuery = true)
-	List<Users> getAllInsNoIsNable();
+	Page<Users> getAllInsNoIsNable(Pageable pageable);
 
-	@Query(value = "SELECT * FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
+	@Query(value = "SELECT users.* FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
 			+ "where userrole.role_id IN (2,3) AND is_enable = 1", nativeQuery = true)
-	List<Users> getAllHsAndGv();
+	Page<Users> getAllHsAndGv(Pageable pageable);
 
 	@Modifying
 	@Transactional

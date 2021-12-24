@@ -5,6 +5,7 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import com.ALED.DTO.UserAuthorDTO;
+import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Users;
 import com.ALED.entities.author_skill;
 
@@ -30,17 +31,17 @@ public interface IUserServiceSystem {
 
 	public boolean changePassword(Users user, String newPassword);
 
-	List<Users> getAllStAndGv();
+	List<UserDTO> getAllStAndGv(Integer pageno, Integer pagesize);
 
-	List<Users> getAllSt();
+	List<UserDTO> getAllSt(Integer pageno, Integer pagesize);
 
-	List<Users> getAllGV();
+	List<UserDTO> getAllGV(Integer pageno, Integer pagesize);
 
 	Users updateStatus(Users user);
 
 	Users updateIsEnable(Users user);
 
-	List<Users> getAllInsNoIsNable();
+	List<UserDTO> getAllInsNoIsNable(Integer pageno, Integer pagesize);
 
 	List<author_skill> getkill(Integer id);
 

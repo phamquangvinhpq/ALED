@@ -21,7 +21,7 @@ public interface ICourseService {
 
 	CourseDTO searchUser(String keyword);
 
-	List<CourseDTO> detailus(Integer id);
+	List<CourseDTO> detailus(Integer id,int page,int size);
 
 	List<CourseDTO> getAll(int page, int size);
 	
@@ -32,9 +32,9 @@ public interface ICourseService {
 
 	Course AcceptCour(Course course);
 
-	List<CourseDTO> getAllCouNoAct();
+	List<CourseDTO> getAllCouNoAct(int page, int size);
 
-	List<CourseDTO> getAllCouAct();
+	List<CourseDTO> getAllCouAct(int page, int size);
 
 	List<CourseDTO> buythemost();
 	

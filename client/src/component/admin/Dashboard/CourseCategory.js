@@ -8,7 +8,9 @@ export default function CourseCategory() {
     const [Categories, setCategory] = useState([])
     const history = useHistory()
     const [isEnable, setIsEnable] = useState(0);
-
+    const [pageSt, setPageSt] = useState(0);
+    const [totalCountSt, setTotalCountSt] = useState(0)
+    let size = 10;
     const chuyentrangAdd = function (event) {
         history.push("/admin/addCategory")
     }
@@ -64,9 +66,19 @@ export default function CourseCategory() {
           });
         };
 
-    const countCate = async () => {
+        const backPageSt = async () => {
+            const pg = pageSt - 1
+            countCate(pg)
+            setPageSt(pg)
+          }
+        
+          const nextPageSt = async () => {
+            const pg = pageSt + 1
+            countCate(pg)
+            setPageSt(pg)
+          }
 
-
+    const countCate = async (pg = pageSt, pgsize = size) => {
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -76,9 +88,10 @@ export default function CourseCategory() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}` + `category/`, requestOptions)
+        fetch(`${DEFAULT_API}` + `category?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
+                setTotalCountSt(result.length)
                 setCategory(result)
                 console.log(result)
             })
@@ -132,6 +145,10 @@ export default function CourseCategory() {
 
                                     </tbody>
                                 </table>
+                                <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                             </div>
                         </div>
                     </div></div></section>

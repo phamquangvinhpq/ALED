@@ -90,7 +90,8 @@ export default function Homestd() {
 
         fetch(`${DEFAULT_API}favorite?user_id=${user_id}`, requestOptions)
             .then((response) => response.json())
-            .then((response) => setListFavorite(response));
+            .then((result) => setListFavorite(result))
+            .catch(error => console.log('error', error));
     };
 
     const loadListCourse = async () => {

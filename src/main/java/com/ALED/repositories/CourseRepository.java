@@ -58,10 +58,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	Integer countCour();
 
 	@Query(value = "Select * from course where status = 1",nativeQuery = true)
-	List<Course> getAllCouAct();
+	Page<Course> getAllCouAct(Pageable paging);
 
 	@Query(value = "Select * from course where status = 0",nativeQuery = true)
-	List<Course> getAllCouNoAct();
+	Page<Course> getAllCouNoAct(Pageable paging);
 
 	@Query(value = "SELECT COUNT(*) FROM `section` where course_id = ?1", nativeQuery = true)
 	Integer countChapter(Integer course_id);
