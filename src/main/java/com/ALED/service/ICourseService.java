@@ -29,7 +29,6 @@ public interface ICourseService {
 	
 	List<CourseDTO> getAllByCategory(Integer categoryId, int page, int size);
 
-
 	Course AcceptCour(Course course);
 
 	List<CourseDTO> getAllCouNoAct(int page, int size);
@@ -40,6 +39,20 @@ public interface ICourseService {
 	
 	List<CourseDTO> getCourseByAuthor(Integer author_id, int page, int size);
 
+	List<CourseDTO> getPriceAsc(int page, int size);
 
+	List<CourseDTO> getPriceDesc(int page, int size);
+
+	List<CourseDTO> getPriceAscByCate(Integer categoryId,int page, int size);
+
+	List<CourseDTO> getPriceDescByCate(Integer categoryId,int page, int size);
+	
+	List<CourseDTO> getRateAsc(int page, int size);
+
+	List<CourseDTO> getRateDesc(int page, int size);
+
+	List<CourseDTO> getRateAscByCate(Integer categoryId,int page, int size);
+
+	List<CourseDTO> getRateDescByCate(Integer categoryId,int page, int size);
 
 }

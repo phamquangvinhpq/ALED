@@ -6,7 +6,9 @@ export default function NotAnswered() {
   const [listQA, setListQA] = useState([]);
   const [contentMess, setContentMess] = useState([]);
   const [inputMess, setInputMess] = useState({});
-
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 5;
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -96,15 +98,29 @@ export default function NotAnswered() {
       }));
   };
 
-  const loadQA = () => {
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadQA(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadQA(pg)
+    setPageSt(pg)
+  }
+
+  const loadQA = (pg = pageSt, pgsize = size) => {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
 
-    fetch(`${DEFAULT_API}` +`qa/getbystatus?status=0&users_id=${users_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`qa/getbystatus?status=0&users_id=${users_id}&page=${pg}&size=${pgsize}`, requestOptions)
       .then((response) => response.json())
-      .then((result) => setListQA(result))
+      .then((result) => {setListQA(result)
+        setTotalCountSt(result.length)
+      })
       .catch((error) => console.log("error", error));
   };
 
@@ -151,6 +167,10 @@ export default function NotAnswered() {
               ))}
             </tbody>
           </table>
+          <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
         </div>
       </div>
 
