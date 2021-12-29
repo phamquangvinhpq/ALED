@@ -5,9 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ALED.DTO.CourseDTO;
 import com.ALED.DTO.MycourseDTO;
+import com.ALED.entities.Course;
 import com.ALED.entities.Mycourse;
 import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.MycourseRepository;
@@ -42,17 +47,21 @@ public class MycourseService implements IMycourseService {
 	}
 
 	@Override
-	public List<MycourseDTO> readallbyid(Integer id) {
+	public List<MycourseDTO> readallbyid(Integer id,int page,int size) {
+		
+		List<Mycourse> Mycourses = new ArrayList<Mycourse>();
 		List<MycourseDTO> MycourseDTO = new ArrayList<MycourseDTO>();
-		List<Mycourse> Mycourses = mycourseRepository.findbymycourse(id);
-		for (Mycourse Mycourse : Mycourses) {
+		Pageable paging = PageRequest.of(page, size);
+		Page<Mycourse> pageCourses = mycourseRepository.findbymycourse(id,paging);
+		Mycourses = pageCourses.getContent();
+		for (Mycourse entity : Mycourses) {
 			MycourseDTO DTO = new MycourseDTO();
-			BeanUtils.copyProperties(Mycourse, DTO);
-			DTO.setUsers(Mycourse.getUser().getId());
-			DTO.setCourse(Mycourse.getCourse().getId());
-			DTO.setName(Mycourse.getCourse().getCourseName());
-			DTO.setDescription(Mycourse.getCourse().getDescription());
-			DTO.setImage(Mycourse.getCourse().getImage());
+			BeanUtils.copyProperties(entity, DTO);
+			DTO.setUsers(entity.getUser().getId());
+			DTO.setCourse(entity.getCourse().getId());
+			DTO.setName(entity.getCourse().getCourseName());
+			DTO.setDescription(entity.getCourse().getDescription());
+			DTO.setImage(entity.getCourse().getImage());
 			MycourseDTO.add(DTO);
 		}
 		return MycourseDTO;

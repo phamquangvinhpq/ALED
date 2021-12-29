@@ -56,7 +56,7 @@ export default function Cart() {
     const deletecart = (value) => {
         swal({
           title: "Are you sure?",
-          text: `Bạn có chắc muốn xóa`,
+          text: `Are you sure you want to delete?`,
           icon: "warning",
           buttons: true,
           dangerMode: true,

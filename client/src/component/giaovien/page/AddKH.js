@@ -107,11 +107,11 @@ export default function AddKH() {
     const price = Number(BaiGiang.price)
     var regexKhoangTrang = /\S/;
     if(Number.isNaN(price)){
-      swal("Thất bại", "Price chỉ được nhập số", "warning")
+      swal("Failed", "Price only enter numbers", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
-      swal("Thất bại", "courseName không được bỏ trống", "warning")
+      swal("Failed", "courseName not be empty", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.description)){
-      swal("Thất bại", "courseName không được bỏ trống", "warning")
+      swal("Failed", "Description not be empty", "warning")
     }else{
       var myHeaders = new Headers();
       var formdata = new FormData();
@@ -134,7 +134,7 @@ export default function AddKH() {
         .then((result) => {
           if(result.loicode==-1){
             swal("nhập đầy đủ thông tin", {
-              text: `yêu cầu ` + " " + result.details ,
+              text: `yêu cầu nhập price  `,
               icon: "warning",
             });
           }else{
@@ -181,7 +181,7 @@ export default function AddKH() {
             <label htmlFor className="col-sm-3 control-label">Selece Category *</label>
             <div className="col-sm-6">
               <select className="form-control select2 w-100-p" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                <option>-- Chọn danh mục --</option>
+                <option>-- Select Category --</option>
 
                 {danhmuc.map((value, index) => {
                   return (

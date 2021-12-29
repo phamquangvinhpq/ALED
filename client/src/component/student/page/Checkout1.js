@@ -52,7 +52,7 @@ export default function Checkout1() {
 
         var raw = JSON.stringify({
             "price": DSkhoahoc.price,
-            "description": "mua khóa học " + DSkhoahoc.courseName,
+            "description": "pay the course on aled",
             "user_id": user_id,
             "course_id": DSkhoahoc.id
         });
@@ -86,7 +86,9 @@ export default function Checkout1() {
                                 <a >Trang chủ</a>
                                 <i className="fa fa-angle-right" />
                                  
+
                                 Thanh toán            </h3>
+
                         </div>
                     </div>
                 </div>
@@ -115,12 +117,18 @@ export default function Checkout1() {
                                                 <img src={value.image} className="w-100" />
                                             </td>
                                             <td>{value.courseName}</td>
-                                            <td>{value.price}</td>
+                                            <td>{value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</td>
                                         </tr>
 
                                         <tr>
                                             <td colSpan={3} className="tot tar">Total: </td>
-                                            <td colSpan={2} className="tot">{value.price}</td>
+                                            <td colSpan={2} className="tot">{value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</td>
                                         </tr>
 
 
@@ -130,7 +138,7 @@ export default function Checkout1() {
                             </div>
                             
                             <div className="text-right">
-                                <a className="btn btn-success" onClick={pay}>thanh toán ngay </a>
+                                <a className="btn btn-success" onClick={pay}>pay now </a>
                             </div>
                         </div>
                         <div className="col-md-5">
@@ -141,7 +149,7 @@ export default function Checkout1() {
                                         <div className="panel-heading p-3 mb-3" role="tab" id="heading1">
                                             <h3 className="panel-title">
                                                 <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#faq1">
-                                                    <span>chuyển khoản ngân hàng</span>
+                                                    <span>Bank transfer</span>
                                                 </a>
                                             </h3>
                                         </div>

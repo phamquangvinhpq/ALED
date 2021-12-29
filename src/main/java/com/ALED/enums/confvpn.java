@@ -21,7 +21,7 @@ public class confvpn {
 	public static String vnp_CurrCode = "VND";
 	public static String vnp_Locale	 = "vn";
 	public static String vnp_OrderType = "190000";
-	public static String vnp_Returnurl ="https://sos.hachinet.com/ketquathanhtoan";
+	public static String vnp_Returnurl ="http://localhost:8080/ketquathanhtoan";
 	public static String vnp_TmnCode = "NVHFCH2G";
 	public static String vnp_HashSecret = "DOGXCXKJNQQLWYHVPCOWOOFZPPKKVSCA";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/merchant.html";

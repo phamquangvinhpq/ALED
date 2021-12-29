@@ -74,7 +74,9 @@ export default function Course() {
   }
 
   function chuyentrang(value) {
-    history.push(`/Detail/${value.id}`)
+
+    history.push(`/detail/${value.id}`)
+    
 
   }
 
@@ -264,11 +266,47 @@ export default function Course() {
               </div>
             </div>
 
+
             <div className="col-lg-8">
               <div className="row">
                 <div className="col-md-6">
                     <div className="container">
                       <div className="page-content-top margin-bottom-40">
+
+            <div className="row grid">
+              {BaiGiang.map((value, index) => (
+                <div
+                  className="col-lg-4 col-sm-6 grid-item collection"
+                  key={index}
+                >
+                  <div className="course-single-item">
+                    <div className="course-image">
+                      <img
+                      onClick={() => chuyentrang(value)}
+                        src={value.image}
+                        style={{ height: 250, maxWidth: 350 }}
+                        alt="image"
+                      />
+                      <br />
+                      <br />
+                      <div className="course-video-part">
+                        <div className="video-play-button">
+                          {checkTym(value.id)} &ensp;
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div className="course-content">
+                      <h4>
+                        <a onClick={() => chuyentrang(value)}>
+                          Name: {value.courseName}
+                        </a>
+                      </h4>
+                      <p className="margin-top-20">
+                        Description: {value.description}
+                      </p>
+                      <div className="signle-progressbar margin-top-20">
+
                         <div className="row align-items-center">
                           <div className="col-md-6">
                             <div className="course-tab">
@@ -281,6 +319,7 @@ export default function Course() {
                           </div>
                         </div>
                       </div>
+
                       <div className="row grid">
                         {BaiGiang.map((value, index) => (
                           <div
@@ -342,6 +381,27 @@ export default function Course() {
                             </div>
                           </div>
                         ))}
+
+                      <div className="cotent-bottom margin-top-20">
+                        <div className="content-left">
+                          <h5>{value.rate ? ("Rating: " + value.rate) : ("There are no reviews yet")}</h5>
+                        </div>
+                        <div className="content-right">
+                          <span>
+                            {value.rate ?
+                              <ReactStars
+                                edit={false}
+                                value={value.rate}
+                                size={24}
+                                isHalf={true}
+                                emptyIcon={<i className="far fa-star"></i>}
+                                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                fullIcon={<i className="fa fa-star"></i>}
+                                activeColor="#ffd700" /> :
+                              ""}
+                          </span>
+                        </div>
+
                       </div>
 
                       {<nav aria-label="Page navigation example">

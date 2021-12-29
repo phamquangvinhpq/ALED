@@ -34,14 +34,14 @@ export default function AddUser() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(taikhoan.name)) {
-      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+      swal("Failed", "Name can only enter letters", "warning")
     } else if (!regexKhoangTrang.test(taikhoan.name) || !regexKhoangTrang.test(taikhoan.username) || !regexKhoangTrang.test(taikhoan.email) ) {
-      swal("Thất bại", "không được bỏ trống", "warning")
+      swal("Failed", "not be empty", "warning")
     } 
     else if (regexKitu.test(taikhoan.name) || regexKitu.test(taikhoan.username) ) {
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     }else if (!regex.test(taikhoan.username) ) {
-        swal("Thất bại", "Name không được chứa kí tự", "warning")
+        swal("Failed", "Name must not contain the character", "warning")
       }
      else {
         var myHeaders = new Headers();

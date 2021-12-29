@@ -20,7 +20,7 @@ const handleChange = (event) => {
 const handleSubmit = (event) => {
   event.preventDefault();
   if (inputs.newPassword === "" || inputs.re_newPassword === "" || inputs.password === "") {
-    swal("Thất bại", "Không được để trống các trường", "error")
+    swal("Failed", "Fields cannot be left blank", "error")
   } else if (inputs.newPassword.normalize() === inputs.re_newPassword.normalize()) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -39,14 +39,14 @@ const handleSubmit = (event) => {
       .then(result => {
         console.log(result)
         if(result === "true")
-          swal("Thành Công", "Mật khẩu đã được đổi thành công", "success")
+          swal("Success", "Password has been changed successfully", "success")
         else
-          swal("Thất bại", "Mật khẩu cũ không đúng", "error")
+          swal("Failed", "Old password is incorrect", "error")
         })
       .catch(error => console.log('error', error));
   }
   else{
-    swal("Thất bại", "Mật khẩu mới và nhập lại mật khẩu mới không trùng nhau", "error")
+    swal("Failed", "New password and re-enter new password do not match", "error")
   }
 }
 

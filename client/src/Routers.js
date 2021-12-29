@@ -1,24 +1,23 @@
 import React from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    NavLink,
-    Redirect,
-    Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, Redirect, BrowserRouter } from "react-router-dom";
 import IndexGV from './component/giaovien/page/IndexGV';
 import IndexDash from './component/student/Dashboard/IndexDash';
 import Indexwath from './component/Watch/Indexwath';
 import Indexstudent from './component/student/page/Index';
 import IndexAdmin from './component/admin/Dashboard/IndexAdmin';
 import Payhanhcong from './component/student/page/Payhanhcong';
+
+import PayThatbai from './component/student/page/PayThatbai';
+import Courvideo from './component/student/page/Courvideo';
+import Homestd from './component/student/page/Homestd';
+import Not404 from './component/student/page/Not404';
+
 export default function Routers() {
     let role =localStorage.getItem("role");
 
     return (
         <div>
-            <Router>
+              <BrowserRouter >
                 <Switch>       
                         <Route path='/giangvien' render={() =>{
                             return  role === "ROLE_GIANGVIEN"  ?  <IndexGV /> : <Redirect to="/home" />
@@ -35,17 +34,27 @@ export default function Routers() {
                             return  role === "ROLE_ADMIN"  ?  <IndexAdmin /> : <Redirect to="/home" />
                         }}  >   
                         </Route>
-
-                        <Route path='/wath' >
-                        <Indexwath />
+                        
+                        <Route path='/wath'  render={() =>{
+                            return <Indexwath />
+                        }}  >   
+                        
                     </Route>
+
+
+
                     <Route path='/thanhcong' >
                         <Payhanhcong />
                     </Route>
 
-                    <Route path='/thanhcong' >
-                        <Payhanhcong />
+                    <Route path='/thatbai' >
+                        <PayThatbai />
                     </Route>
+
+                    <Route path='/404' >
+                        <Not404 />
+                    </Route>
+
                     <Route path='/' >
                         <Indexstudent />
                     </Route>
@@ -56,7 +65,7 @@ export default function Routers() {
 
 
 
-            </Router>
+                </BrowserRouter>
         </div>
     )
 }

@@ -243,7 +243,8 @@ export default function HeaderStudent() {
     roles: '',
     phone:'',
     address:'',
-    skill:''
+    skill:'',
+    education:''
 
   });
   const maquyen = 0;
@@ -277,14 +278,14 @@ export default function HeaderStudent() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
-      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
+      swal("Failed", "Name only enter letters", "warning")
     } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) ) {
-      swal("Thất bại", "không được bỏ trống", "warning")
+      swal("Failed", "not be empty", "warning")
     } 
     else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     }else if (!regex.test(users.username) ) {
-        swal("Thất bại", "Name không được chứa kí tự", "warning")
+        swal("Failed", "Name must not contain the character", "warning")
       }
      else {
     var myHeaders = new Headers();
@@ -318,13 +319,13 @@ export default function HeaderStudent() {
       .then(result => {
         if(result.loicode == -1)
         {
-          swal("nhập đầy đủ thông tin", {
-            text: result.details,
+          swal("Fill in all the information", {
+            text: "Email is invalid or already exists",
             icon: "warning",
           });
         }
         else{
-          alert("kiểm tra email để lấy mật khẩu")
+          alert("check email for password")
           chuyentrang();
         }
        
@@ -337,23 +338,28 @@ export default function HeaderStudent() {
     setSelectedFile(event.target.files[0]);
     console.log(event.target.files[0]);
   };
+
   const signupintructer = () => {
     var regexKhoangTrang = /\S/;
         var regex = /[A-Za-z0-9]/
+  var regexPhone =/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
-      swal("Thất bại", "Name chỉ được nhập chữ", "warning")
-    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username)
-     || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.address) || !regexKhoangTrang.test(users.phone) ) {
-      swal("Thất bại", "không được bỏ trống", "warning")
+      swal("Failed", "Name only enter letters", "warning")
+    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.phone)|| !regexKhoangTrang.test(users.skill)|| !regexKhoangTrang.test(users.education)) {
+      swal("Failed", "not be empty", "warning")
     } 
+
+
+
     else if (regexKitu.test(users.name) || regexKitu.test(users.username) ) {
-      swal("Thất bại", "Name không được chứa kí tự", "warning")
+      swal("Failed", "Name must not contain the character", "warning")
     }else if (!regex.test(users.username) ) {
-        swal("Thất bại", "Name không được chứa kí tự", "warning")
-      }else if (Number.isNaN(users.phone) ) {
-        swal("Thất bại", "phone phải là số", "warning")
+        swal("Failed", "Name must not contain the character", "warning")
+      } 
+      else if (!regexPhone.test(users.phone) ) {
+        swal("Failed", "Phone number is not invalid", "warning")
       }
      else {
     var myHeaders = new Headers();
@@ -367,6 +373,7 @@ export default function HeaderStudent() {
     formdata.append("phone", users.phone);
     formdata.append("isEnable", "0");
     formdata.append("status", "1");
+    formdata.append("education", users.education);
     formdata.append("roles", "3");
     formdata.append("skill", users.skill);
     formdata.append("file", selectedFile);
@@ -383,10 +390,10 @@ export default function HeaderStudent() {
     
         if(result.loicode == -1)
         {
-          alert("có lỗi xẩy ra kiểm tra lại thông tin")
+          alert("An error occurred, check the information again")
         }
         else{
-          alert("kiểm tra email để lấy mật khẩu")
+          alert("check email for password")
           chuyentrang();
         }
        
@@ -488,11 +495,11 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
               <div className="top-right">
                 <ul>{accessToken == null ?
                   <li><a href="#" data-toggle="modal" data-target="#login_modal"><i className="fa fa-sign-in" />
-                    Login</a></li> : <li><a href=""  onClick={qlstudent} ><i className="fa fa-user-circle" /> quanlystudent
+                    Login</a></li> : <li><a href=""  onClick={qlstudent} ><i className="fa fa-user-circle" />Student
                     </a></li>}
-                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > giang vien</a></li> : ""}
-                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > admin</a></li> : ""}
-                  {role == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="" onClick={logout}><i className="fa fa-sign-in"  /> đăng xuất</a></li>}
+                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > Instructor</a></li> : ""}
+                  {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > Admin</a></li> : ""}
+                  {accessToken == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li>:<li><a href="" onClick={logout}><i className="fa fa-sign-in"  />log out </a></li>}
                 </ul>
 
                 <div className="modal fade" id="join_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -564,6 +571,10 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                             <div className="form-group">
                               <label >Phone</label>
                               <input type="text" className="form-control"  name="phone" onChange={onInputChangedangki} placeholder="Phone" required />
+                            </div>
+                            <div className="form-group">
+                              <label >education</label>
+                              <input type="text" className="form-control"  name="education" onChange={onInputChangedangki} placeholder="education" required />
                             </div>
                             <div className="form-group">
                               <label >Skill</label>
@@ -640,8 +651,11 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                   
                     
                   <div className="form-group">
+
                   <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
                         <option value={0} >-- Tất cả khóa học --</option>
+
+ 
                         {DScategory.map((value, index) => {
                           return (
                             <option value={value.id} key={index}>
@@ -698,6 +712,7 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
         <div className="menu">
           <nav>
             <ul id="menu">
+
               <li><a  onClick={chuyentranglogin} href="">Trang chủ</a></li>
               <li><a href='/about'>Về chúng tôi</a></li>
               <li><a href='/faq'>Câu hỏi thường gặp</a></li>
@@ -711,6 +726,7 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                   </ul>
                 </div>
               </li>
+
             </ul>
           </nav>
         </div>

@@ -76,6 +76,15 @@ export default function Leson() {
 
 
   const updateLession = () => {
+    var regexKhoangTrang = /\S/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexKhoangTrang.test(lession.name)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(lession.name)){
+      swal("Failed", "Name must not contain the character", "warning")
+    
+    }else{
     var formdata = new FormData();
     formdata.append("id", giatriID);
     formdata.append("file", selectedFile1);
@@ -101,6 +110,7 @@ export default function Leson() {
       })
       .catch(error => console.log('error', error)
       );
+    }
   }
 
 
@@ -197,13 +207,23 @@ export default function Leson() {
 
 
   const addLession = () => {
+
+    var regexKhoangTrang = /\S/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexKhoangTrang.test(lession.name)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(lession.name)){
+      swal("Failed", "Name must not contain the character", "warning")
+    
+    }else{
     var formdata = new FormData();
     formdata.append("file", selectedFile);
     formdata.append("name", lession.name);
     formdata.append("linkVideo", lession.linkVideo);
     formdata.append("type", "video/mp4");
     formdata.append("section_id", selectedSection);
-
+ 
     var requestOptions = {
       method: 'POST',
       body: formdata,
@@ -214,6 +234,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => { setStatus(status + 1) })
       .catch(error => console.log('error', error));
+  }
   };
 
 
@@ -221,7 +242,7 @@ export default function Leson() {
   const deleteLession = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa ?`,
+      text: `Are you sure you want to delete? ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,

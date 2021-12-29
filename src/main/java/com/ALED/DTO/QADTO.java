@@ -13,4 +13,10 @@ public class QADTO {
 
 	private Integer status;
 
+	private String user_name;
+
+	private String course_name;
+	
+	private String author_name;
+
 }
