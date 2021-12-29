@@ -105,17 +105,17 @@ export default function Instructors() {
                     <div className="modal-content">
                       <div className="modal-header">
                         <button type="button" className="close" data-dismiss="modal">×</button>
-                        <h4 className="modal-title">Number Of Courses</h4>
+                        <h4 className="modal-title">Số lượng khóa học</h4>
                       </div>
                       <div className="modal-body">
                         <table className="table table-bordered t3">
                           <thead>
                             <tr>
                               <th>ID</th>
-                              <th>Title</th>
-                              <th>Price</th>
-                              <th>Photo</th>
-                              <th>Description</th>
+                              <th>Tiêu đề</th>
+                              <th>Giá</th>
+                              <th>Ảnh</th>
+                              <th>Mô tả</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -141,7 +141,7 @@ export default function Instructors() {
                         </table>
                       </div>
                       <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal">Đóng</button>
                       </div>
                     </div>
                   </div>
@@ -151,12 +151,12 @@ export default function Instructors() {
                 <table id="example1" className="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th width={50}>SL</th>
-                      <th>Photo</th>
-                      <th>Name</th>
+                      <th width={50}>STT</th>
+                      <th>Ảnh</th>
+                      <th>Tên</th>
                       <th>Email</th>
-                      <th>Status</th>
-                      <th width={120}>Action</th>
+                      <th>Trạng thái</th>
+                      <th width={120}>Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -171,7 +171,9 @@ export default function Instructors() {
                         <td>
                           {value.status == 1 ? "Active" : "No-Active"}</td>
                         <td>
+                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => loadBaiGiang(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
                           <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Show Courses </a>
+
 
                         </td>
                       </tr>

@@ -63,12 +63,12 @@ export default function ApprovedCourses() {
                                     <thead>
                                         <tr>
                                             <th>SL</th>
-                                            <th>Title</th>
-                                            <th>Price</th>
-                                            <th>Photo</th>
-                                            <th>Category</th>
-                                            <th>Instructor</th>
-                                            <th>Action</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Giá</th>
+                                            <th>Ảnh</th>
+                                            <th>Danh mục</th>
+                                            <th>Giảng viên</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -94,11 +94,14 @@ export default function ApprovedCourses() {
                                              {value.authorName}
                                          </td>
                                                 <td>
+
+                                                    <a href={`/Detail/${value.id}`} className="btn btn-success btn-block btn-xs" >Xem chi tiết khóa học</a>
+
                                                     <a href={`/detail/${value.id}`} className="btn btn-success btn-block btn-xs" >See Course
                                                         Details</a>
 
-                                                    <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >See Course
-                                                        Content Details</NavLink>
+
+                                                    <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >Xem chi tiết nội dung khóa học</NavLink>
                                                     
                                                 </td>
                                             </tr>
