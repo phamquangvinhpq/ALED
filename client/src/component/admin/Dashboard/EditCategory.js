@@ -111,7 +111,7 @@ export default function EditCategory() {
           <h1>Edit Category</h1>
         </div>
         <div className="content-header-right">
-          <a href="/admin/CourseCategory" className="btn btn-primary btn-sm">View All</a>
+          <a href="/admin/CourseCategory" className="btn btn-primary btn-sm">Xem tất cả</a>
         </div>
       </section>
       <section className="content">
@@ -121,7 +121,7 @@ export default function EditCategory() {
               <div className="box box-info">
                 <div className="box-body">
                   <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Category Name
+                    <label htmlFor className="col-sm-3 control-label">Tên danh mục
                       <span>*</span></label>
                     <div className="col-sm-4">
                       <input type="text" className="form-control" name="name" onChange={onInputChange} defaultValue={DanhMuc.name} />
@@ -133,7 +133,7 @@ export default function EditCategory() {
                       <button onClick={
                         (event) => {
                           chuyentrang(event)
-                        }} type="submit" className="btn btn-success pull-left" name="form1">Update</button>
+                        }} type="submit" className="btn btn-success pull-left" name="form1">Cập nhập</button>
                     </div>
                   </div>
                 </div>

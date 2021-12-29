@@ -82,10 +82,10 @@ export default function Students() {
                   <table className="table table-bordered t3">
             <thead>
               <tr>
-                <th>Serial</th>
-                <th>Thumbnail</th>
-                <th>Course Title</th>
-                <th>Course Detail</th>
+                <th>STT</th>
+                <th>Ảnh</th>
+                <th>Tiêu đề khóa học</th>
+                <th>Chi tiết khóa học</th>
              
               </tr>
             </thead>
@@ -97,7 +97,7 @@ export default function Students() {
                 <td>{value.name}</td>
               
                 <td>
-                  <a href={`/Detail/${value.course}`} target="_blank" className="btn btn-info btn-sm"  >Course Detail</a>
+                  <a href={`/Detail/${value.course}`} target="_blank" className="btn btn-info btn-sm"  >Chi tiết khóa học</a>
                 </td>
                
               </tr>
@@ -108,7 +108,7 @@ export default function Students() {
           </table>
                   </div>
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-danger" data-dismiss="modal">Đóng</button>
                   </div>
                 </div>
               </div>
@@ -126,11 +126,11 @@ export default function Students() {
                 <thead>
                   <tr>
                   <th>STT</th>
-                    <th>Content</th>
-                    <th>money</th>
-                    <th>bank</th>
-                    <th>Create Date</th>
-                    <th>Status</th>
+                    <th>Nội dung</th>
+                    <th>Tiền</th>
+                    <th>Ngân hàng</th>
+                    <th>Ngày tạo</th>
+                    <th>Trạng thái</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -149,7 +149,7 @@ export default function Students() {
               </table>
                   </div>
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-danger" data-dismiss="modal">Đóng</button>
                   </div>
                 </div>
               </div>
@@ -160,11 +160,11 @@ export default function Students() {
               <thead>
                 <tr>
                   <th width={50}>SL</th>
-                  <th>Photo</th>
-                  <th>Name</th>
+                  <th>Ảnh</th>
+                  <th>Tên</th>
                   <th>Email</th>
-                  <th>Status</th>
-                  <th width={120}>Action</th>
+                  <th>Trạng thái</th>
+                  <th width={120}>Hành động</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,9 +177,8 @@ export default function Students() {
                         <td>
                         {value.status == 1 ? "Active" : "No-Active" }  </td>
                         <td>
-                        <a href className="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#enrolledCourses1" onClick={() => loadBaiGiang(value)}>Enrolled Courses</a>
-                    <a data-toggle="modal" data-target="#enrolledCourses2" className="btn btn-success btn-xs btn-block" onClick={() => loadpayment(value)} target="_blank">Payment
-                      History</a>
+                        <a href className="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#enrolledCourses1" onClick={() => loadBaiGiang(value)}>Các khóa học đã đang ký</a>
+                    <a data-toggle="modal" data-target="#enrolledCourses2" className="btn btn-success btn-xs btn-block" onClick={() => loadpayment(value)} target="_blank">Lịch sử thanh toán</a>
                         </td>
                       </tr>
                     )}

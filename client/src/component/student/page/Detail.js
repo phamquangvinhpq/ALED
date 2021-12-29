@@ -228,11 +228,11 @@ export default function Detail() {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>Detail</h1>
+              <h1>Chi tiết</h1>
               <h3>
-                <a href="../index.html">Home</a>
+                <a href="../index.html">Trang chủ</a>
                 <i className="fa fa-angle-right" />
-                detail{" "}
+                chi tiết{" "}
               </h3>
             </div>
           </div>
@@ -253,7 +253,7 @@ export default function Detail() {
               <div className="col-md-6">
                 <div className="product-single-item">
                   <h2>{value.courseName}</h2>
-                  <h3>By: {value.authorName}</h3>
+                  <h3>{value.authorName}</h3>
                   <div className="review-comment-line">
                     <div className="review">
                       <span>
@@ -273,11 +273,11 @@ export default function Detail() {
                         )}
                       </span>
                       {value.rate}
-                      <span>&ensp; (Total Reviews: {thongtin})</span>
+                      <span>&ensp; (Tổng đánh giá: {thongtin})</span>
                     </div>
                   </div>
                   <div className="short-des">
-                    Description: {value.description}
+                    Mô tả: {value.description}
                   </div>
                 </div>
               </div>
@@ -292,7 +292,7 @@ export default function Detail() {
                     className="btn btn-block btn-warning"
                     onClick={() => getcheckout(value.id)}
                   >
-                    Proceed to Checkout
+                    Thanh toán
                   </a>: <a
                  
                     className="btn btn-info btn-sm"
@@ -307,11 +307,11 @@ export default function Detail() {
             </div>
           ))}
 
-          <h2 className="course_title mt_20">Course Details</h2>
+          <h2 className="course_title mt_20">Chi tiết khóa học</h2>
           <p>Lorem </p>
           <p>Sit</p>
           <p>Copiosae </p>
-          <h2 className="course_title mt_20">Reviews ({thongtin})</h2>
+          <h2 className="course_title mt_20">Đánh giá ({thongtin})</h2>
           <div className="product-single-review">
             <div className="review-item">
               {userrate.map((value, index) => (
@@ -349,17 +349,17 @@ export default function Detail() {
                 </div>
               ))}
               <button type="button" className="btn btn-outline-primary" disabled={page == 0}
-                      onClick={backPage}>Previous
+                      onClick={backPage}>Trước
               </button>
               <button type="button" className="btn btn-outline-primary"
-                      disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
+                      disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Tiếp
               </button>
 
             </div>
           </div>
           <div className="row">
             <div className="col-md-12">
-              <h2 className="course_title">Course Content</h2>
+              <h2 className="course_title">Nội dung khóa học</h2>
               <div className="accordion-section mt_20">
                 <div
                   className="panel-group"
@@ -400,9 +400,9 @@ export default function Detail() {
                           <table className="table table-bordered table-striped front-end-course-table">
                             <tbody>
                               <tr>
-                                <th>Lesson Title</th>
+                                <th>Tên bài học</th>
                                 <th>Lesson Preview</th>
-                                <th>Lesson Duration</th>
+                                <th>Thời lượng bài học</th>
                               </tr>
                               {video.map((value, index) => (
                                 <tr>
@@ -452,7 +452,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          <h2 className="course_title mt_20">Instructor Detail</h2>
+          <h2 className="course_title mt_20">Chi tiết giảng viên</h2>
           <div className="row mt_20">
             <div className="col-md-3 instructor">
                 <div className="card">
@@ -476,19 +476,19 @@ export default function Detail() {
                       </span>
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-star" /> Instructor Rating{" "}
+                      <i className="fa fa-star" /> Đánh giá giảng viên{" "}
                       {value.instructorRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-play-circle" /> Total Courses:{" "}
+                      <i className="fa fa-play-circle" /> Tổng khóa học:{" "}
                       {value.totalCourse}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-comment" /> Total Rating:{" "}
+                      <i className="fa fa-comment" /> Tổng đánh giá:{" "}
                       {value.totalRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-user" /> Total Students:{" "}
+                      <i className="fa fa-user" /> Tổng học sỉnh:{" "}
                       {value.totalStudents}
                     </div>
                     <p />
@@ -497,12 +497,12 @@ export default function Detail() {
                 </div>
             </div>
             <div className="col-md-9">
-              <h3 className="profile_title">Name: {infoAuthor.name}</h3>
+              <h3 className="profile_title">Tên: {infoAuthor.name}</h3>
               <p className="profile_sub_title">
                 Education: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-                Description: {infoAuthor.description}
+                Mô tả: {infoAuthor.description}
                 <br />
               </div>
               <div className="author-detail-button mt_30">
@@ -511,7 +511,7 @@ export default function Detail() {
                   onClick={()=> viewDetail(infoAuthor)}
                   className="btn btn-success btn-lg"
                 >
-                  View Detail
+                  Xem chi tiết
                 </a>
               </div>
             </div>

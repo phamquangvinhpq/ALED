@@ -72,7 +72,7 @@ export default function Users() {
                     <h1>View Users (Students / Instructors)</h1>
                 </div>
                 <div className="content-header-right">
-                <NavLink to="/admin/adduser" className="btn btn-primary btn-sm">Add New</NavLink>
+                <NavLink to="/admin/adduser" className="btn btn-primary btn-sm">Thêm mới</NavLink>
                 </div>
             </section>
             <section className="content">
@@ -84,10 +84,10 @@ export default function Users() {
                                     <thead>
                                         <tr>
                                             <th width={50}>SL</th>
-                                            <th>Photo</th>
-                                            <th>Name</th>
+                                            <th>Ảnh</th>
+                                            <th>Tên</th>
                                             <th>Email</th>
-                                            <th>Status</th>
+                                            <th>Trạng thía</th>
                                             <th width={120}>Action</th>
                                         </tr>
                                     </thead>
@@ -101,7 +101,7 @@ export default function Users() {
                                              <td>
                                                  {value.status == 1 ? "Active" : "No-Active" } </td>
                                                  <td>
-                                                <a  className="btn btn-warning btn-xs btn-block" onClick={() => huyActive(value)} >Change Status</a>
+                                                <a  className="btn btn-warning btn-xs btn-block" onClick={() => huyActive(value)} >Thay đổi tranh thái</a>
                                                 
                                             </td>
                                          </tr>

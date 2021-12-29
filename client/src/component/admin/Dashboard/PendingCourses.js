@@ -111,12 +111,12 @@ export default function PendingCourse() {
                                     <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Title</th>
-                                        <th>Price</th>
-                                        <th>Photo</th>
-                                        <th>Category</th>
-                                        <th>Instructor</th>
-                                        <th>Action</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Giá</th>
+                                        <th>Ảnh</th>
+                                        <th>Danh mục</th>
+                                        <th>Giảng viên</th>
+                                        <th>Hành động</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -142,14 +142,13 @@ export default function PendingCourse() {
                                              {/* <a href="#"
                                                 className="btn btn-success btn-block btn-xs" target="_blank">See Course
                                                  Details</a> */}
-                                             <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >See Course
-                                                        Content Details</NavLink>
+                                             <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >Xem chi tiết nội dung khóa học</NavLink>
                                              <a onClick={() => Accept(value)}
-                                                className="btn btn-danger btn-block btn-xs"
-                                                >Accept</a>
-                                             <a onClick={() => deletecourse(value)}
                                                 className="btn btn-success btn-block btn-xs"
-                                                >Cancel</a>
+                                                >Chập nhận</a>
+                                             <a onClick={() => deletecourse(value)}
+                                                className="btn btn-danger btn-block btn-xs"
+                                                >Không chấp nhận</a>
                                          </td>
                                      </tr>
                                         )}

@@ -635,13 +635,13 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                   
                     
                      <div className="form-group">
-                     <input className="form-control" type="text" placeholder="Search By Course Name" name="course_name" onChange={onInputCourseNameChange}   />
+                     <input className="form-control" type="text" placeholder="Tìm kiếm theo tên khóa học" name="course_name" onChange={onInputCourseNameChange}   />
                     </div>
                   
                     
                   <div className="form-group">
                   <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                        <option value={0} >-- All Category --</option>
+                        <option value={0} >-- Tất cả khóa học --</option>
                         {DScategory.map((value, index) => {
                           return (
                             <option value={value.id} key={index}>
@@ -698,11 +698,11 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
         <div className="menu">
           <nav>
             <ul id="menu">
-              <li><a  onClick={chuyentranglogin} href="">Home</a></li>
-              <li><a href='/about'>About</a></li>
-              <li><a href='/faq'>FAQ</a></li>
-              <li><a href='/contact'>Contact</a></li>
-              <li className="static"><a onClick={chuyentrangAllCourse}>All Courses <i className="fa fa-angle-down" /></a>
+              <li><a  onClick={chuyentranglogin} href="">Trang chủ</a></li>
+              <li><a href='/about'>Về chúng tôi</a></li>
+              <li><a href='/faq'>Câu hỏi thường gặp</a></li>
+              <li><a href='/contact'>Liên hệ</a></li>
+              <li className="static"><a onClick={chuyentrangAllCourse}>Tất cả khóa học <i className="fa fa-angle-down" /></a>
                 <div className="mega-menu mega-full">
                   <ul>
                     {DScategory.map((category, index) => 

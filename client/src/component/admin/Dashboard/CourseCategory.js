@@ -95,7 +95,7 @@ export default function CourseCategory() {
                     <a onClick={
                         (event) => {
                             chuyentrangAdd(event)
-                        }} className="btn btn-primary btn-sm">Add New</a>
+                        }} className="btn btn-primary btn-sm">Thêm mới</a>
                 </div>
             </section>
             <section className="content">
@@ -107,10 +107,10 @@ export default function CourseCategory() {
                                     <thead>
                                         <tr>
                                             <th>SL</th>
-                                            <th>Category Name</th>
+                                            <th>Tên danh mục</th>
                                             {/* <th>Category Slug</th>
                                              <th>Show on home?</th> */}
-                                            <th>Action</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,8 +124,8 @@ export default function CourseCategory() {
                                                     <a onClick={
                                                         (event) => {
                                                             chuyentrangupdate(event, value, index)
-                                                        }} className="btn btn-primary btn-xs">Edit</a>
-                                                    <a className="btn btn-danger btn-xs" onClick={() => deleteCate(value)}>Delete</a>
+                                                        }} className="btn btn-primary btn-xs">Sửa</a>
+                                                    <a className="btn btn-danger btn-xs" onClick={() => deleteCate(value)}>Xóa</a>
                                                 </td>
                                             </tr>
                                         )}
