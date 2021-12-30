@@ -55,4 +55,16 @@ public interface ICourseService {
 
 	List<CourseDTO> getRateDescByCate(Integer categoryId,int page, int size);
 
+	List<CourseDTO> getPrice3ByCate(Integer categoryId, int page, int size);
+
+	List<CourseDTO> getPrice2ByCate(Integer categoryId, int page, int size);
+
+	List<CourseDTO> getPrice1ByCate(Integer categoryId, int page, int size);
+
+	List<CourseDTO> getPrice3(int page, int size);
+
+	List<CourseDTO> getPrice2(int page, int size);
+
+	List<CourseDTO> getPrice1(int page, int size);
+
 }
