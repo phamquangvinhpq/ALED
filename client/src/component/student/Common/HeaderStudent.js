@@ -40,7 +40,6 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + "category/", requestOptions)
       .then(response => response.json())
       .then(result => {
-      
         setDScategory(result)
       })
       .catch(error => console.log('error', error));
@@ -50,7 +49,6 @@ export default function HeaderStudent() {
     history.push(`/Course/${event.target.value}`)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
-    window.location.reload();
   };
 
   
@@ -91,7 +89,6 @@ export default function HeaderStudent() {
       .then(response => response.json())
       .then(result => {
         dispatch({type: "GET_DATA", payload: result})        
-   
         setIsEnable(isEnable + 1)
         history.push(`/Course`)
       }
@@ -653,7 +650,7 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                   <div className="form-group">
 
                   <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                        <option value={0} >-- Tất cả khóa học --</option>
+                        <option value="" >-- Tất cả khóa học --</option>
 
  
                         {DScategory.map((value, index) => {

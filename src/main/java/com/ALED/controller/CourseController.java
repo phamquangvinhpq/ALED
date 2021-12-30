@@ -197,4 +197,37 @@ public class CourseController {
 		return courseService.getRateDescByCate(categoryId, page, size);
 	}
 	
+	@GetMapping("get-price-1-by-category")
+	public List<CourseDTO> getPrice1ByCate(@RequestParam(required = false) Integer categoryId,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+		return courseService.getPrice1ByCate(categoryId, page, size);
+	}
+	
+	@GetMapping("get-price-2-by-category")
+	public List<CourseDTO> getPrice2ByCate(@RequestParam(required = false) Integer categoryId,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+		return courseService.getPrice2ByCate(categoryId, page, size);
+	}
+	
+	@GetMapping("get-price-3-by-category")
+	public List<CourseDTO> getPrice3ByCate(@RequestParam(required = false) Integer categoryId,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+		return courseService.getPrice3ByCate(categoryId, page, size);
+	}
+	
+	@GetMapping("/price-1")
+	public List<CourseDTO> getPrice1(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "3") Integer size) {
+		return courseService.getPrice1(page,size);
+	}
+	
+	@GetMapping("/price-2")
+	public List<CourseDTO> getPrice2(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "3") Integer size) {
+		return courseService.getPrice2(page,size);
+	}
+	
+	@GetMapping("/price-3")
+	public List<CourseDTO> getPrice3(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "3") Integer size) {
+		return courseService.getPrice3(page,size);
+	}
+	
 }

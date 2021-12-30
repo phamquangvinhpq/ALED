@@ -180,7 +180,7 @@ export default function AddKH() {
           <div className="form-group">
             <label htmlFor className="col-sm-3 control-label">Selece Category *</label>
             <div className="col-sm-6">
-              <select className="form-control select2 w-100-p" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
+              <select className="form-control w-100-p" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
                 <option>-- Select Category --</option>
 
                 {danhmuc.map((value, index) => {
