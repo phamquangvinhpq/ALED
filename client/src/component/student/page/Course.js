@@ -233,7 +233,7 @@ export default function Course() {
     // </div>
 
     <div>
-      <section className="course-category-section padding-top-120 padding-bottom-90">
+      <section className="course-category-section  padding-right-120 padding-top-10 padding-bottom-90 ">
         <div className="container">
           <div className="row">
             <div className="col-lg-4 padding-80">
@@ -267,7 +267,7 @@ export default function Course() {
             <div className="col-lg-8">
               <div className="row">
                 <div className="col-md-6">
-                    <div className="container">
+                    <div className="container1">
                       <div className="page-content-top margin-bottom-40">
                         <div className="row align-items-center">
                           <div className="col-md-6">

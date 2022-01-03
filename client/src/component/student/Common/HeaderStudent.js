@@ -702,15 +702,15 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
               <li><a href='/about'>Về chúng tôi</a></li>
               <li><a href='/faq'>Câu hỏi thường gặp</a></li>
               <li><a href='/contact'>Liên hệ</a></li>
-              <li className="static"><a onClick={chuyentrangAllCourse}>Tất cả khóa học <i className="fa fa-angle-down" /></a>
-                <div className="mega-menu mega-full">
-                  <ul>
-                    {DScategory.map((category, index) => 
-                      <li><a class="dropdown-item" href={category.id}>{category.name}</a></li>
+              {/* <li className="static"><a onClick={chuyentrangAllCourse}>Tất cả khóa học <i className="fa fa-angle-down" /></a>
+               <div className="mega-menu mega-full">
+                 <ul>
+                   {DScategory.map((category, index) =>
+                     <li><a class="dropdown-item" href={category.id}>{category.name}</a></li>
                     )}
                   </ul>
                 </div>
-              </li>
+              </li>  */}
             </ul>
           </nav>
         </div>
