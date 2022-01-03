@@ -36,7 +36,8 @@ public class UserAuthorDTO {
 
     private Integer status;
     
-
+    private String education;
+    
     private List<Role> roles;
 	@NotNull
     private String skill;

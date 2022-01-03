@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.SectionDTO;
@@ -108,9 +111,12 @@ public class SectionService implements ISectionService {
 
 
 	@Override
-	public List<SectionDTO> detailcour(Integer id) {
+	public List<SectionDTO> detailcour(Integer id,int page,int size) {
 		List<SectionDTO> listSection = new ArrayList<SectionDTO>();
-		List<Section> entities = sectionRepository.timcour(id);
+		List<Section> entities = new ArrayList<Section>();
+		Pageable pageable = PageRequest.of(page, size);
+			Page<Section> page2 =	sectionRepository.timcour(id,pageable);
+			entities = page2.getContent();
 		for (Section Sections : entities) {
 			SectionDTO SectionDTO = new SectionDTO();
 			BeanUtils.copyProperties(Sections, SectionDTO);

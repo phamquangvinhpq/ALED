@@ -27,15 +27,23 @@ export default function Detail() {
   let pagesize = 3
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
-  
+var chek=isNaN(id.id);
+
   useEffect(() => {
+    if(chek==true)
+    {
+      history.push("/404")
+      window.location.reload();
+    }
+   
+   
     countKH();
     loaddanhmuc();
     getCoursebyid();
     getLessionBySection();
     loaduserrate();
-    damuakhoahoc();   
-    
+    damuakhoahoc();
+
 
   }, [status])
 
@@ -44,14 +52,14 @@ export default function Detail() {
       method: 'GET',
       redirect: 'follow'
     };
-    
-    fetch(`${DEFAULT_API}` +`teacheroverview/getinfoauthor?author_id=${author_id}` , requestOptions)
+
+    fetch(`${DEFAULT_API}` + `teacheroverview/getinfoauthor?author_id=${author_id}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);
         setInfoAuthor(result)
-      
-      } )
+
+      })
       .catch(error => console.log('error', error));
   }
 
@@ -60,8 +68,8 @@ export default function Detail() {
       method: 'GET',
       redirect: 'follow'
     };
-    
-    fetch(`${DEFAULT_API}` +`teacheroverview?author_id=${authorId}`, requestOptions)
+
+    fetch(`${DEFAULT_API}` + `teacheroverview?author_id=${authorId}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setInfoTeacher(result);
@@ -85,7 +93,7 @@ export default function Detail() {
         if (result === "bought") {
           setdamua(true)
         }
-        
+
       })
       .catch(error => console.log('error', error));
   }
@@ -125,10 +133,9 @@ export default function Detail() {
   };
 
   function chuyentrang(value) {
-    history.push(`/wath/video/${value.id}`)
-    window.location.reload()
-  }
+    history.push(`/wath/video/${value}`)
 
+  }
 
   const loaduserrate = async (pg = page, pgsize = pagesize) => {
     var requestOptions = {
@@ -136,21 +143,22 @@ export default function Detail() {
       redirect: 'follow'
     };
     fetch(`${DEFAULT_API}` + `rate?userId=${id.id}&page=${pg}&size=${pgsize}`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          setTotalCount(result.length)
-          setuserrate(result) })
-        .catch(error => console.log('error', error));
+      .then(response => response.json())
+      .then(result => {
+        setTotalCount(result.length)
+        setuserrate(result)
+      })
+      .catch(error => console.log('error', error));
   }
 
   const nextPage = async () => {
-    const pg =  page + 1
+    const pg = page + 1
     loaduserrate(pg)
     setPage(pg)
   }
 
   const backPage = async () => {
-    const pg =  page - 1
+    const pg = page - 1
     loaduserrate(pg)
     setPage(pg)
     console.log(page);
@@ -187,13 +195,13 @@ export default function Detail() {
       .then(response => response.json())
       .then(result => {
         console.log(result);
-       if(result[0].status ==0)
-       {
-         settrangthai(true)
-       }
+        if (result[0].status == 0) {
+          settrangthai(true)
+        }
         setcoursebyid(result)
         loadInfoTeacher(result[0].author_id)
         loadInfoAuthor(result[0].author_id)
+        
       })
       .catch(error => console.log('error', error));
   }
@@ -210,9 +218,9 @@ export default function Detail() {
 
   }
 
-    function viewDetail(value) {
+  function viewDetail(value) {
 
-    history.push(`/Viewdetail/${value.id}`)
+    history.push(`/Viewdetail/${value}`)
 
   }
 
@@ -269,7 +277,7 @@ export default function Detail() {
                             activeColor="#ffd700"
                           />
                         ) : (
-                          "Chưa có đánh giá"
+                          "There are no reviews yet"
                         )}
                       </span>
                       {value.rate}
@@ -283,8 +291,12 @@ export default function Detail() {
               </div>
               <div className="col-md-3">
                 <div className="download-buy-section">
-                  <div className="price">$ {value.price}</div>
+                  <div className="price">{value.price.toLocaleString('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                  })}</div>
                   <div className="buy-now">
+
                     {trangthai == true ? "đang chờ duyệt" : 
                     <div>
                   {damua==false ? <a
@@ -302,6 +314,8 @@ export default function Detail() {
                   </a> }</div>
 }
                 </div>
+
+                  
                 </div>
               </div>
             </div>
@@ -312,6 +326,7 @@ export default function Detail() {
           <p>Sit</p>
           <p>Copiosae </p>
           <h2 className="course_title mt_20">Đánh giá ({thongtin})</h2>
+
           <div className="product-single-review">
             <div className="review-item">
               {userrate.map((value, index) => (
@@ -337,7 +352,7 @@ export default function Detail() {
                           fullIcon={<i className="fa fa-star"></i>}
                           activeColor="#ffd700"
                         />{" "}
-                        (3.0)
+                        
                       </div>
                     </div>
                     <div className="review-by">{value.user} </div>
@@ -349,10 +364,12 @@ export default function Detail() {
                 </div>
               ))}
               <button type="button" className="btn btn-outline-primary" disabled={page == 0}
-                      onClick={backPage}>Trước
+
+                onClick={backPage}>Previous
               </button>
               <button type="button" className="btn btn-outline-primary"
-                      disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Tiếp
+                disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
+-
               </button>
 
             </div>
@@ -403,6 +420,7 @@ export default function Detail() {
                                 <th>Tên bài học</th>
                                 <th>Lesson Preview</th>
                                 <th>Thời lượng bài học</th>
+
                               </tr>
                               {video.map((value, index) => (
                                 <tr>
@@ -439,7 +457,7 @@ export default function Detail() {
                                       </div>
                                     </div>
                                   </td>
-                                  <td>03:43 </td>
+
                                 </tr>
                               ))}
                             </tbody>
@@ -455,10 +473,10 @@ export default function Detail() {
           <h2 className="course_title mt_20">Chi tiết giảng viên</h2>
           <div className="row mt_20">
             <div className="col-md-3 instructor">
-                <div className="card">
-                <img src={infoAuthor.image} className="card-img-top img-responsive image" alt=""
+              <div className="card">
+                <img src={infoAuthor.image} className="card-img-top img-responsive image"    style={{ height: 200, maxWidth: 350 }} alt=""
                 />
-                  {infoTeacher.map((value, i) => (
+                {infoTeacher.map((value, i) => (
                   <div className="profile_content">
                     <p className="card_text"></p>
                     <div className="review">
@@ -493,8 +511,8 @@ export default function Detail() {
                     </div>
                     <p />
                   </div>
-                  ))}
-                </div>
+                ))}
+              </div>
             </div>
             <div className="col-md-9">
               <h3 className="profile_title">Tên: {infoAuthor.name}</h3>
@@ -507,9 +525,9 @@ export default function Detail() {
               </div>
               <div className="author-detail-button mt_30">
                 <a
-                  href=""
-                  onClick={()=> viewDetail(infoAuthor)}
                   className="btn btn-success btn-lg"
+                  onClick={() => viewDetail(infoAuthor.id)}
+
                 >
                   Xem chi tiết
                 </a>

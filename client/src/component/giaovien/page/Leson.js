@@ -55,6 +55,22 @@ export default function Leson() {
   
   };
 
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 10;
+
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loaddanhmuc(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loaddanhmuc(pg)
+    setPageSt(pg)
+  }
+
 
   const getLessionBySection = async () => {
 
@@ -90,7 +106,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("bạn không có quyền truy cập khóa học này")
+          alert("you do not have permission to access this course")
           history.push("/giangvien/AllCourses")
          
         }
@@ -104,6 +120,15 @@ export default function Leson() {
 
 
   const updateLession = () => {
+    var regexKhoangTrang = /\S/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexKhoangTrang.test(lession.name)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(lession.name)){
+      swal("Failed", "Name must not contain the character", "warning")
+    
+    }else{
     var formdata = new FormData();
     formdata.append("id", giatriID);
     formdata.append("file", selectedFile1);
@@ -131,6 +156,7 @@ export default function Leson() {
       })
       .catch(error => console.log('error', error)
       );
+    }
   }
 
 
@@ -208,7 +234,7 @@ export default function Leson() {
 
 
 
-  const loaddanhmuc = async () => {
+  const loaddanhmuc = async (pg = pageSt, pgsize = size) => {
     var myHeaders = new Headers();
 
     var requestOptions = {
@@ -216,9 +242,10 @@ export default function Leson() {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}?page=${pg}&size=${pgsize}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        setTotalCountSt(result.length)
         console.log(result);
         setListSection(result);
       })
@@ -227,6 +254,15 @@ export default function Leson() {
 
 
   const addLession = () => {
+    var regexKhoangTrang = /\S/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexKhoangTrang.test(lession.name)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(lession.name)){
+      swal("Failed", "Name must not contain the character", "warning")
+    
+    }else{
     var formdata = new FormData();
     formdata.append("file", selectedFile);
     formdata.append("name", lession.name);
@@ -243,6 +279,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => { setStatus(status + 1) })
       .catch(error => console.log('error', error));
+  }
   };
 
 
@@ -250,7 +287,7 @@ export default function Leson() {
   const deleteLession = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa ?`,
+      text: `Are you sure you want to delete? ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -331,7 +368,7 @@ export default function Leson() {
                         value={selectedSection}
                         onChange={onChangeSection}
                       >
-                        <option>-- Chọn danh mục --</option>
+                        <option>-- Select Category --</option>
 
                         {listSection.map((value, index) => {
                           return (
@@ -341,6 +378,8 @@ export default function Leson() {
                           );
                         })}
                       </select>
+
+                      
                     </div>
                   </div>
                   <div className="form-group">
@@ -426,6 +465,7 @@ export default function Leson() {
                           </a>
                         </h4>
                       </div>
+                      
                       <div id={`ok` + index} className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div className="panel-body">
                           <div className="table-responsive">
@@ -472,7 +512,10 @@ export default function Leson() {
                       </div>
                     </div>
                   )}
-
+                  <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                 </div>
 
               </div>

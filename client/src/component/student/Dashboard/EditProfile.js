@@ -35,7 +35,7 @@ export default function ListCourse() {
       infoUser.phone === "" ||
       infoUser.address === ""
     ) {
-      swal("Thất bại", "Không được để trống các trường", "error");
+      swal("Failed", "Fields cannot be left blank", "error");
     } else {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -51,7 +51,7 @@ export default function ListCourse() {
 
       fetch(`${DEFAULT_API}` +`user`, requestOptions)
         .then((response) => response.text())
-        .then((result) => swal("Thành công", "Sửa thành công", "success"))
+        .then((result) => swal("Success", "successful update", "success"))
         .catch((error) => console.log("error", error));
     }
   };

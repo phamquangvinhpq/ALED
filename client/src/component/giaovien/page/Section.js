@@ -25,8 +25,21 @@ export default function Section() {
 
   const [DSsection, setDSsection] = useState([])
   const [isEnable, setIsEnable] = useState(0);
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 10;
   let id = useParams();
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadsection(pg)
+    setPageSt(pg)
+  }
 
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadsection(pg)
+    setPageSt(pg)
+  }
   useEffect(() => {
 
 
@@ -36,7 +49,7 @@ export default function Section() {
     isEnable
   ])
 
-  const loadsection = async () => {
+  const loadsection = async (pg = pageSt, pgsize = size) => {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -49,9 +62,10 @@ export default function Section() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}?page=${pg}&size=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+        setTotalCountSt(result.length)
         setDSsection(result)
 
       })
@@ -71,6 +85,15 @@ export default function Section() {
   let user_id=localStorage.getItem("userid")
 
   const addsection = () => {
+    var regexKhoangTrang = /\S/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexKhoangTrang.test(Section.namesection)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(Section.namesection)){
+      swal("Failed", "Name must not contain the character", "warning")
+    
+    }else{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -102,6 +125,7 @@ export default function Section() {
        
       })
       .catch(error => console.log('error', error));
+    }
   }
 
   const checkkhoahocuser = async () =>{
@@ -114,7 +138,7 @@ export default function Section() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("bạn không có quyền truy cập khóa học này")
+          alert("you do not have permission to access this course")
           history.push("/giangvien/AllCourses")
          
         }
@@ -130,7 +154,7 @@ export default function Section() {
   const deletesection = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa`,
+      text: `Are you sure you want to delete?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -150,11 +174,11 @@ export default function Section() {
             .then(response => response.json())
             .then(result => {
               if(result.loicode == -1 ){
-                swal("danh mục đã có khóa học", {
+                swal("the list has courses", {
                 });
               }
               else{
-                swal("đã xóa", {
+                swal("deleted", {
                   icon: "success",
                 });
                 setIsEnable(isEnable + 1)
@@ -170,7 +194,15 @@ export default function Section() {
 
 
   const updateSection = () => {
-
+    var regexKhoangTrang = /\S/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexKhoangTrang.test(Section.namesection)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(Section.namesection)){
+      swal("Failed", "Name must not contain the character", "warning")
+    
+    }else{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -195,6 +227,7 @@ export default function Section() {
         
       })
       .catch(error => console.log('error', error));
+    }
   }
 
   const layid = (value) => {
@@ -267,6 +300,10 @@ export default function Section() {
                         )}
                       </tbody>
                     </table>
+                    <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
                   </div>
                 </div>
               </div>

@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.QADTO;
@@ -61,16 +64,22 @@ public class QAService implements IQAService {
 	}
 
 	@Override
-	public List<QADTO> getBystatus(Integer status) {
-		List<QA> listEntity = qARepository.findAll();
+	public List<QADTO> getBystatus(Integer status,Integer users_id,int page,int size) {
+		List<QA> listEntity = new ArrayList<QA>();
 		List<QADTO> listDto = new ArrayList<QADTO>();
+		Pageable paging = PageRequest.of(page, size);
+		Page<QA> page2 = qARepository.findAll(paging);
+		listEntity = page2.getContent();
 		for (QA entity : listEntity) {
-			if (status == entity.getStatus()) {
+			if (status == entity.getStatus() && users_id == entity.getCourse().getAuthor().getId()) {
 				QADTO dto2 = new QADTO();
 				BeanUtils.copyProperties(entity, dto2);
 				dto2.setCourse_id(entity.getCourse().getId());
 				dto2.setUsers_id(entity.getUsers().getId());
 				dto2.setId(entity.getId());
+				dto2.setCourse_name(entity.getCourse().getCourseName());
+				dto2.setUser_name(entity.getUsers().getName());
+				dto2.setAuthor_name(entity.getCourse().getAuthor().getName());
 				listDto.add(dto2);
 			}
 		}

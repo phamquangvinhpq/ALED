@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.DTO.SectionDTO;
@@ -51,9 +52,9 @@ public class SectionController {
 	}
 
 	@GetMapping("/Sectioncour/{id}")
-	public List<SectionDTO> detailcour(@PathVariable Integer id) {
+	public List<SectionDTO> detailcour(@PathVariable Integer id,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 
-		return sectionService.detailcour(id);
+		return sectionService.detailcour(id,page,size);
 	}
 
 //	@GetMapping("/Section/{pageno}/{pagesize}")

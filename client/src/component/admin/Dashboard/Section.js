@@ -16,7 +16,6 @@ export default function Section() {
   })
 
 
-  // check xem thằng giảng viên này có id khóa học này không 
 
 
 
@@ -68,6 +67,19 @@ export default function Section() {
   }
 
   const addsection = () => {
+    var regexKhoangTrang = /\S/;
+    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexName.test(Section.namesection)){
+      swal("Failed", "Name Only text can be entered and cannot be left blank", "warning")
+    }else if(!regexKhoangTrang.test(Section.namesection)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(Section.namesection)){
+      swal("Failed", "Name must not contain the character", "warning")
+     
+    }else{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -100,13 +112,14 @@ export default function Section() {
        
       })
       .catch(error => console.log('error', error));
+    }
   }
 
 
   const deletesection = (value) => {
     swal({
       title: "Are you sure?",
-      text: `Bạn có chắc muốn xóa`,
+      text: `Are you sure you want to delete?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -139,7 +152,15 @@ export default function Section() {
 
 
   const updateSection = () => {
-
+    var regexKhoangTrang = /\S/;
+    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+    if(!regexKhoangTrang.test(Section.namesection)){
+      swal("Failed", "Name not be empty", "warning")
+    
+    }else if(regexKitu.test(Section.namesection)){
+      swal("Failed", "Name must not contain the character", "warning")
+    
+    }else{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -164,6 +185,7 @@ export default function Section() {
         setIsEnable(isEnable + 1)
       })
       .catch(error => console.log('error', error));
+    }
   }
 
   const layid = (value) => {

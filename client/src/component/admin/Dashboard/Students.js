@@ -4,45 +4,103 @@ import { DEFAULT_API } from '../../../conf/env';
 export default function Students() {
 
   const [giangVien, setGiangVien] = useState([])
-  const [KhoaHoc,setKhoaHoc] = useState([])
-  const [payment,setPayment] = useState([])
+  const [KhoaHoc, setKhoaHoc] = useState([])
+  const [payment, setPayment] = useState([])
+  const [layID, setLayID] = useState({
+    id: ""
+  })
+
+
   useEffect(() => {
     loadGiangVien()
   }, [
   ])
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0)
+  let size = 10;
 
-  const loadBaiGiang = (value) => {
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  const [pageCr, setPageCr] = useState(0);
+  const [totalCountCr, setTotalCountCr] = useState(0)
 
+  const layid = (value) => {
+    layID.id = value.id
+    console.log(value.id);
+    loadpayment(value.id)
+    loadBaiGiang(value.id)
+  }
+
+  const loadBaiGiang = (value, pg = pageCr, pgsize = size) => {
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `mycourse/${value.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `mycourse/${value}?page=${pg}&size=${size}`, requestOptions)
       .then(response => response.json())
-      .then(result => { 
-        setKhoaHoc(result) 
-      console.log(result);})
+      .then(result => {
+        console.log(layID);
+        setTotalCountCr(result.length)
+        setKhoaHoc(result)
+      })
       .catch(error => console.log('error', error));
   }
 
-  const loadpayment = (value) => {
+  const nextPagePay = async () => {
+    const pg = page + 1
+    loadpayment(layID.id, pg)
+    setPage(pg)
+  }
 
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadGiangVien(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadGiangVien(pg)
+    setPageSt(pg)
+  }
+
+  const backPagePay = async () => {
+    const pg = page - 1
+    loadpayment(layID.id, pg)
+    setPage(pg)
+  }
+
+  const backPageCr = async () => {
+    const pg = pageCr - 1
+    loadBaiGiang(layID.id, pg)
+    setPageCr(pg)
+  }
+
+  const nextPageCr = async () => {
+    const pg = pageCr + 1
+    loadBaiGiang(layID.id, pg)
+    setPageCr(pg)
+  }
+
+  const loadpayment = (value, pg = page, pgsize = size) => {
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `orders/${value.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `orders/user/${value}?page=${pg}&size=${pgsize}`, requestOptions)
       .then(response => response.json())
-      .then(result => { 
-        setPayment(result) 
-      console.log(result);})
+      .then(result => {
+        setTotalCount(result.length)
+        setPayment(result)
+          ;
+      })
       .catch(error => console.log('error', error));
   }
 
 
-  const loadGiangVien = () => {
+  const loadGiangVien = (pg = pageSt, pgsize = size) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var requestOptions = {
@@ -51,9 +109,10 @@ export default function Students() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `get-hs`, requestOptions)
+    fetch(`${DEFAULT_API}` + `get-hs?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+        setTotalCountSt(result.length)
         setGiangVien(result)
         console.log(result)
       })
@@ -102,7 +161,10 @@ export default function Students() {
                
               </tr>
               )}
-                
+                 <nav aria-label="Page navigation example">
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Previous</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Next</button>
+                            </nav>
               
             </tbody>
           </table>
@@ -144,7 +206,10 @@ export default function Students() {
                     <td> {value.status == 0 ? "Completed" : "Uncompleted" }</td>
                 </tr>
                   )}
-                  
+                  <nav aria-label="Page navigation example">
+                              <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPagePay} >Previous</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / size)} onClick={nextPagePay} >Next</button>
+                            </nav>
                 </tbody>
               </table>
                   </div>
@@ -177,13 +242,17 @@ export default function Students() {
                         <td>
                         {value.status == 1 ? "Active" : "No-Active" }  </td>
                         <td>
-                        <a href className="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#enrolledCourses1" onClick={() => loadBaiGiang(value)}>Các khóa học đã đang ký</a>
-                    <a data-toggle="modal" data-target="#enrolledCourses2" className="btn btn-success btn-xs btn-block" onClick={() => loadpayment(value)} target="_blank">Lịch sử thanh toán</a>
+                        <a href className="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#enrolledCourses1" onClick={() => layid(value)}>Các khóa học đã đang ký</a>
+                    <a data-toggle="modal" data-target="#enrolledCourses2" className="btn btn-success btn-xs btn-block" onClick={() => layid(value)} target="_blank">Lịch sử thanh toán</a>
                         </td>
                       </tr>
                     )}
               </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
           </div>
         </div>
       </div>

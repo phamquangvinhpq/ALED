@@ -17,4 +17,10 @@ public class ContentQADTO {
 	private Integer user_id;
 	
 	private Integer course_id;
+	
+	private String user_name;
+	
+	private String course_name;
+	
+	private String author_name;
 }

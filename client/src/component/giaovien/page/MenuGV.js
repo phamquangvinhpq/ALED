@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { NavLink } from "react-router-dom";
+import { DEFAULT_API } from "../../../conf/env";
+
 export default function MenuGV(props) {
+  const [listQA, setListQA] = useState([]);
+  const users_id = localStorage.getItem("userid");
+
   const change = (value) => {
     props.changleTitle(value);
   };
+  
+  const loadQA = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(`${DEFAULT_API}` +`qa/getbystatus?status=0&users_id=${users_id}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => setListQA(result))
+      .catch((error) => console.log("error", error));
+  };
+  console.log(listQA);
+  useEffect(() => {
+    loadQA();
+  }, []);
+
   return (
     <div>
       <div>
@@ -16,20 +39,14 @@ export default function MenuGV(props) {
               <li onClick={() => change("Add Course")} className="menuvalue">
                 <NavLink to="/giangvien/AddCourse">Add Course</NavLink>
               </li>
-              <li onClick={() => change(" All Courses")} className="menuvalue">
+              <li onClick={() => change("All Courses")} className="menuvalue">
                 <NavLink to="/giangvien/AllCourses">All Courses</NavLink>
               </li>
-              <li
-                onClick={() => change("Withdraw History")}
-                className="menuvalue"
-              >
-                <NavLink to="/giangvien/WithdrawHistory">Withdraw History</NavLink>
+              <li onClick={() => change("Answered")} className="menuvalue">
+                <NavLink to="/giangvien/Answered">Answered</NavLink>
               </li>
-              <li
-                onClick={() => change("Withdraw Money")}
-                className="menuvalue"
-              >
-                <NavLink to="/giangvien/WithdrawMoney">Withdraw History</NavLink>
+              <li onClick={() => change("Not Answered")} className="menuvalue">
+                <NavLink to="/giangvien/NoteAnswered">Not Answered</NavLink> {listQA.length != 0 ? <span class="header__cart-notice">?</span>:""}
               </li>
             </ul>
           </div>

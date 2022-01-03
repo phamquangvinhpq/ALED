@@ -12,11 +12,11 @@ export default function Paythatbai() {
             <div className="row">
               <div className="col-sm-10 offset-sm-1 text-center">
                   <br /><br /><br /><br /><br /><br /><br />
-                <h1 >   Thanh toán không Thành công</h1>
+                <h1 >   Payment Failed</h1>
                 <div className="info-form">
                   <form action className="form-inline justify-content-center">
                 
-                    <h2>    cảm ơn bạn đã sử dụng dịch vụ</h2>
+                    <h2>  Thank you for using the service</h2>
                     <a href='/home' className="btn btn-success ">Home</a>
                   </form>
                 </div>

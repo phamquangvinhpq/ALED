@@ -12,6 +12,7 @@ export default function ViewDetail() {
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
   const [listCourse, setListCourse] = useState([]);
+  const [damua, setdamua] = useState(false);
 
   const loadCourse = (page) => {
     var requestOptions = {
@@ -54,6 +55,7 @@ export default function ViewDetail() {
       .then(result => setInfoAuthor(result))
       .catch(error => console.log('error', error));
   }
+  const user_id = localStorage.getItem("userid")
 
   useEffect(() => {
     loadCourse(page);
@@ -67,8 +69,30 @@ export default function ViewDetail() {
   };
 
   function getcheckout(value) {
-    history.push(`/checkout/${value.id}`);
+    damuakhoahoc(value)
   }
+
+  const damuakhoahoc = async (value) => {
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${value.id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            console.log(result);
+            if (result === "bought") {
+                alert("you bought this course")
+            } else {
+                history.push(`/checkout/${value.id}`)
+            }
+
+        })
+        .catch(error => console.log('error', error));
+}
+
+
   return (
     <div>
       <div
@@ -99,6 +123,7 @@ export default function ViewDetail() {
                   <img
                     src={infoAuthor.image}
                     className="card-img-top img-responsive image"
+                    style={{ height: 200, maxWidth: 350 }}
                     alt=""
                   />
                   <div className="profile_content">
@@ -186,7 +211,10 @@ export default function ViewDetail() {
                       </span>
                       <span className="review-text">(Total Reviews: 1)</span>
                     </div>
-                    <div className="price">{value.price}$</div>
+                    <div className="price">{value.price.toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    })}</div>
                     <div className="buy">
                       <a
                         onClick={() => getcheckout(value)}

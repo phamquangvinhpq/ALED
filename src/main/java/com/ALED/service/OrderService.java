@@ -2,12 +2,18 @@ package com.ALED.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ALED.DTO.CourseDTO;
 import com.ALED.DTO.OrderDTO;
+import com.ALED.entities.Course;
 import com.ALED.entities.Orders;
 import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.OrderRepository;
@@ -56,6 +62,40 @@ public class OrderService implements IOrderService {
 			dtoList.add(dto);
 		}
 		return dtoList;
+	}
+	
+	@Override
+	public List<OrderDTO> findpage(Integer userId,int page, int size) {
+		List<Orders> courses = new ArrayList<Orders>();
+		List<OrderDTO> courseDTOs = new ArrayList<OrderDTO>();
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Orders> paging =   orderRepository.findByOrderPage(userId, pageable);
+		courses = paging.getContent();
+		for (Orders course : courses) {
+			OrderDTO dto = new OrderDTO();
+			BeanUtils.copyProperties(course, dto);
+			dto.setUser(course.getUser().getId());
+			courseDTOs.add(dto);
+		
+		}
+		
+		return courseDTOs;
+	}
+	
+	@Override
+	public List<OrderDTO> getAllByPage(int page, int size) {
+		List<Orders> courses = new ArrayList<Orders>();
+		List<OrderDTO> courseDTOs = new ArrayList<OrderDTO>();
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Orders> paging =  (Page<Orders>) orderRepository.findAll(pageable);
+		courses = paging.getContent();
+		for (Orders course : courses) {
+			OrderDTO dto = new OrderDTO();
+			BeanUtils.copyProperties(course, dto);
+			dto.setUser(course.getUser().getId());
+			courseDTOs.add(dto);
+		}
+		return courseDTOs;
 	}
 
 }

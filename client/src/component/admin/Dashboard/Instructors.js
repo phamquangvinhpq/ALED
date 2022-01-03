@@ -4,13 +4,49 @@ import { DEFAULT_API } from '../../../conf/env';
 export default function Instructors() {
   const [khoaHoc, setKhoaHoc] = useState([])
   const [giangVien, setGiangVien] = useState([])
-
+  let size = 10;
+  const [layID, setLayID] = useState({
+    id: ""
+  })
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  const [pageCr, setPageCr] = useState(0);
+  const [totalCountCr, setTotalCountCr] = useState(0)
   useEffect(() => {
     loadGiangVien()
   }, [
   ])
 
-  const loadBaiGiang = (value) => {
+  const layid = (value) => {
+    layID.id = value.id
+    loadBaiGiang(value.id)
+  }
+
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadGiangVien(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadGiangVien(pg)
+    setPageSt(pg)
+  }
+
+  const backPageCr = async () => {
+    const pg = pageCr - 1
+    loadBaiGiang(layID.id, pg)
+    setPageCr(pg)
+  }
+
+  const nextPageCr = async () => {
+    const pg = pageCr + 1
+    loadBaiGiang(layID.id, pg)
+    setPageCr(pg)
+  }
+
+  const loadBaiGiang = (value, pg = pageCr, pgsize = size) => {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -23,15 +59,16 @@ export default function Instructors() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `course/user/${value.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `course/user/${value}?page=${pg}&size=${size}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+        setTotalCountCr(result.length)
         setKhoaHoc(result)
       })
       .catch(error => console.log('error', error));
   }
 
-  const loadGiangVien = () => {
+  const loadGiangVien = (pg = pageSt, pgsize = size) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var requestOptions = {
@@ -40,11 +77,11 @@ export default function Instructors() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `get-gv`, requestOptions)
+    fetch(`${DEFAULT_API}` + `get-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setGiangVien(result)
-        console.log(result)
+        setTotalCountSt(result.length)
       })
       .catch(error => console.log('error', error));
   }
@@ -96,10 +133,10 @@ export default function Instructors() {
 
                               </tr>
                             )}
-
-
-
-
+                             <nav aria-label="Page navigation example">
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Previous</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Next</button>
+                            </nav>
                           </tbody>
                         </table>
                       </div>
@@ -125,7 +162,7 @@ export default function Instructors() {
                   <tbody>
                     {giangVien.map((value, index) =>
                       <tr key={index}>
-                        <td>{value.index}</td>
+                        <td>{value.id}</td>
                         <td>
                           <img src={value.image} alt="" className="w-150" />
                         </td>
@@ -135,13 +172,20 @@ export default function Instructors() {
                           {value.status == 1 ? "Active" : "No-Active"}</td>
                         <td>
                           <a href className="btn btn-primary btn-xs btn-block" onClick={() => loadBaiGiang(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
+                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Show Courses </a>
+
 
                         </td>
                       </tr>
                     )}
 
                   </tbody>
+                 
                 </table>
+                <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                </nav>
               </div>
             </div>
           </div>

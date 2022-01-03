@@ -12,7 +12,7 @@ export default function EnrolledCourses() {
 
   const [rate, setrate] = useState({
 
-    star: "",
+    star: "5",
     course_id: "",
     comment: ""
   })
@@ -45,7 +45,7 @@ export default function EnrolledCourses() {
   }
 
   function chuyentrangdetail(value) {
-    history.push(`/Detail/${value.course}`)
+    history.push(`/detail/${value.course}`)
     
   }
 
@@ -106,8 +106,7 @@ export default function EnrolledCourses() {
     fetch(`${DEFAULT_API}` +`findrate/${id}/${rate.course_id}`, requestOptions)
       .then(response => response.text())
       .then(result => {
-       
-        if(result === "yes")
+        if(result == "yes")
         {
           setdanhgia(true)
         
@@ -148,7 +147,7 @@ export default function EnrolledCourses() {
                   <td>
                     <a href className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalRating1" onClick={() => layidkh(value.course)}>Give Rating</a>
                     &ensp;
-                    <a href className="btn btn-success btn-sm" data-toggle="modal" onClick={()=> chuyentrangdetail(value)} >View Detail</a>
+                    <a href="" className="btn btn-success btn-sm"  onClick={()=> chuyentrangdetail(value)} >View Detail</a>
                   </td>
                 </tr>
               )}
@@ -165,7 +164,7 @@ export default function EnrolledCourses() {
                   <button type="button" className="close" data-dismiss="modal">×</button>
                   <h4 className="modal-title">Rating</h4>
                 </div>
-                {danhgia == true ? 
+                {danhgia == false ? 
                 <div className="modal-body">
                   <form acceptCharset="utf-8" />
                   <input type="hidden" name="course_id" defaultValue={30} />
@@ -189,7 +188,7 @@ export default function EnrolledCourses() {
                     <textarea name="comment" className="form-control h-100" cols={30} rows={10} required defaultValue={""} onChange={onInputChange} />
                   </div>
                   <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={addRate}>Submit</button>
-                </div> : "bạn đã dánh giá khóa  học này" }
+                </div> : "You have already assessed the course" }
                
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Close</b></button>
