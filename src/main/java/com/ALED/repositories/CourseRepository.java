@@ -98,4 +98,21 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query(value = "SELECT * FROM `course` JOIN rate ON course.id = rate.course_id WHERE category_id = ?1 ORDER BY rate.rate DESC",nativeQuery = true)
 	Page<Course> getRateDescByCate(Integer categoryId,Pageable paging);
 	
+	@Query(value = "SELECT * FROM `course` WHERE price <= 500000", nativeQuery = true)
+	Page<Course> getPrice1(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE price >= 500000 AND price <= 1000000", nativeQuery = true)
+	Page<Course> getPrice2(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE price >= 1000000", nativeQuery = true)
+	Page<Course> getPrice3(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price <= 500000",nativeQuery = true)
+	Page<Course> getPrice1ByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price >= 500000 AND price <= 1000000",nativeQuery = true)
+	Page<Course> getPrice2ByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price >= 1000000 ",nativeQuery = true)
+	Page<Course> getPrice3ByCate(Integer categoryId,Pageable paging);
 }
