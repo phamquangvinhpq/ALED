@@ -347,9 +347,6 @@ export default function HeaderStudent() {
     } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.phone) || !regexKhoangTrang.test(users.skill) || !regexKhoangTrang.test(users.education)) {
       swal("Failed", "not be empty", "warning")
     }
-
-
-
     else if (regexKitu.test(users.name) || regexKitu.test(users.username)) {
       swal("Failed", "Name must not contain the character", "warning")
     } else if (!regex.test(users.username)) {

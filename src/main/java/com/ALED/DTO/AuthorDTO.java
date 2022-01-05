@@ -15,5 +15,8 @@ public class AuthorDTO {
 
 	private String name;
 	
+
+	private String type;
 	
+	private String photo;
 }

@@ -32,6 +32,9 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query(value = "SELECT * FROM course c Where c.users_id = ?1",nativeQuery = true)
 	Page<Course> pagecour(Integer usersId,Pageable pageable);
 
+	@Query(value = "SELECT * FROM `course` WHERE users_id = :users_id ", nativeQuery = true)
+	List<Course> timcoursbyuserid(@Param("users_id") Integer users_id);
+	
 
 	@Query(value = "SELECT COUNT(*) FROM mycourse INNER JOIN course on mycourse.course_id = course.id INNER JOIN author on course.author_id = author.id\r\n" +
 			"WHERE course.author_id = ?1", nativeQuery = true)
