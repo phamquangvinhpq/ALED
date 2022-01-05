@@ -3716,7 +3716,9 @@ img {
   -webkit-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+
+}
   .course-single-item.diffrent-bg {
     background-color: #fffcf6; }
   .course-single-item:hover {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.CourseDTO;
@@ -81,6 +82,7 @@ public class CourseService implements ICourseService {
 		}
 		return author;
 	}
+	
 
 	@Override
 	public CourseDTO delete(Integer id) {
@@ -293,6 +295,7 @@ public class CourseService implements ICourseService {
 			courseDTO.setRate(IrateService.avgstar(course.getId()));
 			courseDTO.setAuthorName(course.getAuthor().getName());
 			courseDTO.setCategoryName(course.getCategory().getName());
+			courseDTO.setEmail(course.getUsers().getEmail());
 			lstCourseDTO.add(courseDTO);
 		}
 		return lstCourseDTO;

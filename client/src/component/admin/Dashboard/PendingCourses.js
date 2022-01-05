@@ -10,12 +10,39 @@ export default function PendingCourse() {
     const [khoahoc,setKhoaHoc] = useState([])
     const [pageSt, setPageSt] = useState(0);
     const [totalCountSt, setTotalCountSt] = useState(0)
+    const [ua, setUa] = useState([])
     let size = 10;
     useEffect(()=> {
             loadkhoahoc()
     },[
         isEnable
     ])
+
+
+
+    const sendMail = async (value) => {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+  
+      var raw = JSON.stringify({
+        "email": value.email
+      });
+  
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch(`${DEFAULT_API}` + `sendmailreport?userId=${value.author_id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+
+        })
+        .catch(error => console.log('error', error));
+    }
+
 
     const backPageSt = async () => {
       const pg = pageSt - 1
@@ -168,6 +195,9 @@ export default function PendingCourse() {
                                              <a onClick={() => deletecourse(value)}
                                                 className="btn btn-danger btn-block btn-xs"
                                                 >Không chấp nhận</a>
+                                                <a onClick={() => sendMail(value)}
+                                                className="btn btn-danger btn-block btn-xs"
+                                                >Gửi thông báo</a>
                                          </td>
                                      </tr>
                                         )}
