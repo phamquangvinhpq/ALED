@@ -86,12 +86,23 @@ public class LessionService implements ILessionService {
 
 	@Override
 	public LessionDTO create(LessionDTO lessionDTO) {
+		List<Lession> listEntity = lessionRepository.findBySectionId(lessionDTO.getSection_id());
+		String name = lessionDTO.getName().trim();
+		if (listEntity.size() >= 10) {
+			throw new RuntimeException("Tổng số bài học tối đa là 10");
+		}
+		for (Lession lession : listEntity) {
+			if (lession.getName().equals(name)) {
+				throw new RuntimeException("Tên bài học không được trùng");
+			}
+		}
 		Lession lession = new Lession();
 		BeanUtils.copyProperties(lessionDTO, lession);
-		lession.setSection(sectionRepository.getById(lessionDTO.getSection_id()));// lấy id_section của DTO, tìm trong																				// section có thì set vào
+		lession.setSection(sectionRepository.getById(lessionDTO.getSection_id()));// lấy id_section của DTO, tìm trong section có thì set vào
 		lessionRepository.save(lession);
 		
 		lessionDTO.setId(lession.getId());
+		
 		Optional<Course> op=courseRepository.findById(lessionDTO.getCourseid());
 		Course sou=op.get();
 		sou.setStatus(0);
@@ -101,6 +112,14 @@ public class LessionService implements ILessionService {
 	
 	@Override
 	public LessionDTO update(LessionDTO lessionDTO) {
+		List<Lession> listEntity = lessionRepository.findBySectionId(lessionDTO.getSection_id());
+		String name = lessionDTO.getName().trim();
+		for (Lession lession : listEntity) {
+			if (lession.getName().equals(name)) {
+				throw new RuntimeException("Tên bài học không được trùng");
+			}
+		}
+		
 		Optional<Lession> optionalLession = lessionRepository.findById(lessionDTO.getId());
 		if (optionalLession.isPresent()) {
 			Lession lession = optionalLession.get();

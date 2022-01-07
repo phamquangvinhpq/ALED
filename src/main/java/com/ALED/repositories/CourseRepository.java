@@ -52,6 +52,9 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query(value = "SELECT course_id FROM `mycourse`GROUP BY course_id ORDER BY COUNT(mycourse.course_id) DESC LIMIT 6", nativeQuery = true)
 	List<Integer> buyTheMost();
+	
+	@Query(value = "SELECT COUNT(*) FROM `mycourse` WHERE course_id = ?1", nativeQuery = true)
+	Integer totalStudentBuyCourse(Integer course_id);
 
 
 	@Query(value = "Select Count(*) from course", nativeQuery = true )

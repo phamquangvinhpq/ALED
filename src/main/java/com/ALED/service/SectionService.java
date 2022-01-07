@@ -46,8 +46,19 @@ public class SectionService implements ISectionService {
 
 	@Override
 	public SectionDTO create(SectionDTO SectionDTO) {
+		List<Section> listEntity = sectionRepository.findByCourseId(SectionDTO.getCourse_id());
+		String name = SectionDTO.getName().trim();
+		if (listEntity.size() >= 10) {
+			throw new RuntimeException("Tổng số chương tối đa là 10");
+		}
+		for (Section section : listEntity) {
+			if (section.getName().equals(name)) {
+				throw new RuntimeException("Tên chương không được trùng");
+			}
+		}
 		Section section =new Section();
 		BeanUtils.copyProperties(SectionDTO, section);
+		section.setName(name);
 		section.setCourse(courseRepository.getById(SectionDTO.getCourse_id()));
 		sectionRepository.save(section);
 		SectionDTO.setId(section.getId());
@@ -57,14 +68,19 @@ public class SectionService implements ISectionService {
 
 
 	@Override
-	public SectionDTO update(SectionDTO section) {
-		Optional<Section> optional = sectionRepository.findById(section.getId());
-		if(optional.isPresent()) {
-			Section entity = optional.get();
-			BeanUtils.copyProperties(section, entity);
-			sectionRepository.save(entity);
+	public SectionDTO update(SectionDTO dto) {
+		List<Section> listEntity = sectionRepository.findByCourseId(dto.getCourse_id());
+		String name = dto.getName().trim();
+		for (Section section : listEntity) {
+			if (section.getName().equals(name)) {
+				throw new RuntimeException("Tên chương không được trùng");
+			}
 		}
-		return section;
+		Section entity = sectionRepository.getById(dto.getId());
+		BeanUtils.copyProperties(dto, entity);
+		entity.setName(name);
+		sectionRepository.save(entity);
+		return dto;
 		
 	}
 
