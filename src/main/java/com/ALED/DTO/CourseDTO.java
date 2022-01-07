@@ -54,5 +54,6 @@ public class CourseDTO {
 	private Integer discount;
 	
 	private Double price_discount;
+	private String email;
 
 }

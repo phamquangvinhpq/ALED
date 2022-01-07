@@ -18,15 +18,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ALED.DTO.AuthorSkillDTO;
 import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Author;
+import com.ALED.entities.Course;
 import com.ALED.entities.Role;
 import com.ALED.entities.UserRole;
 import com.ALED.entities.Users;
 import com.ALED.entities.author_skill;
 import com.ALED.repositories.AuthorRepository;
 import com.ALED.repositories.AuthorSkillRepository;
+import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.RoleRepository;
 import com.ALED.repositories.UserRepository;
 import com.ALED.repositories.UserRoleRepository;
@@ -57,6 +60,9 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Autowired
 	private PasswordEncoder check;
+	
+	@Autowired
+	private CourseRepository courseRepository;
 
 	@Override
 	public List<Users> readAll() {
@@ -151,6 +157,45 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 		return user;
 	}
+	
+	
+	
+	
+	@Override
+	public String sendMail(UserAuthorDTO authorDTO) {
+
+		SimpleMailMessage message = new SimpleMailMessage();
+
+		message.setTo(authorDTO.getEmail());
+		message.setSubject("Cung cấp thông tin");
+		message.setText(authorDTO.getMail());
+
+		// Send Message!
+		emailSender.send(message);
+		return "thành công";
+	
+	}
+	
+	@Override
+	public String sendMailReport(UserAuthorDTO authorDTO,Integer id)  {
+
+		List<Course> courses = courseRepository.timcoursbyuserid(id);
+		for (Course course : courses) {
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setTo(authorDTO.getEmail());
+			message.setSubject("Thông báo");
+			message.setText("Khóa học " + course.getCourseName() + " của bạn đã vi phạm điều khoản của chúng tôi, xin vui lòng kiểm tra lại khóa học "
+					+ "trong 2 ngày nếu không khóa học của bạn sẽ bị xóa. Xin cảm ơn");
+
+			// Send Message!
+			emailSender.send(message);
+		
+		}
+			
+		return "thành công";
+		
+		
+	}
 
 	@Override
 	public String forgotpassword(Users users) throws MessagingException {
@@ -200,11 +245,14 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 		author.setId(us.getId());
 		author.setName(UserAuthorDTO.getName());
+		author.setPhoto(UserAuthorDTO.getImage2());
 		author.setImage(UserAuthorDTO.getImage());
-		author.setDescription(UserAuthorDTO.getEmail());
+		author.setDescription(UserAuthorDTO.getDescription());
 		author.setEducation(UserAuthorDTO.getEducation());
+		author.setType(UserAuthorDTO.getType2());
 
 		authorrepository.save(author);
+		
 
 		author_skill ausk = new author_skill();
 		ausk.setId(author.getId());
@@ -212,8 +260,6 @@ public class UserServiceSystem implements IUserServiceSystem {
 		ausk.setSkill(UserAuthorDTO.getSkill());
 
 		authorskillRepository.save(ausk);
-		
-
 		// save user role
 		List<Role> inputRole = UserAuthorDTO.getRoles();
 		List<UserRole> userRoles = inputRole.stream().map(e -> {
@@ -352,13 +398,13 @@ public class UserServiceSystem implements IUserServiceSystem {
 	public List<UserDTO> getAllInsNoIsNable(Integer pageno, Integer pagesize) {
 		List<Users> listEnity = new ArrayList<Users>();
 		List<UserDTO> listDto = new ArrayList<UserDTO>();
+		
 		Pageable paging = PageRequest.of(pageno, pagesize);
 		Page<Users> pageCourses = userRepository.getAllInsNoIsNable(paging);
 		listEnity = pageCourses.getContent();
 		for (Users entity : listEnity) {
 			UserDTO dto = new UserDTO();
-			BeanUtils.copyProperties(entity, dto);
-			
+			BeanUtils.copyProperties(entity, dto);		
 			listDto.add(dto);
 		}
 		return listDto;

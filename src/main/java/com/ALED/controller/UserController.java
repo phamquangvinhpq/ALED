@@ -134,12 +134,15 @@ public class UserController {
 	
 
 	@PostMapping("/createauthoer")
-	public UserAuthorDTO createauthoer(@RequestBody @RequestParam(name = "file", required = false) MultipartFile file, UserAuthorDTO ua
+	public UserAuthorDTO createauthoer(@RequestBody @RequestParam(name = "file", required = false) MultipartFile file,@RequestParam(name = "file2", required = false) MultipartFile file2, UserAuthorDTO ua
 			) throws IOException {
 		if (file != null) {
-
 			ua.setImage(serverProto + "://" + serverUrl + "/api/file/imageuser?videoName=" + fileService.uploadImage(file));
 			ua.setType(file.getContentType());
+		}
+		if(file2 != null) {
+			ua.setImage2(serverProto + "://" + serverUrl + "/api/file/imageskill?videoName=" + fileService.uploadImage(file2));
+			ua.setType2(file2.getContentType());
 		}
 		return userService.createAuthor(ua);
 
@@ -155,6 +158,17 @@ public class UserController {
 	@GetMapping("/getskill/{id}")
 	public List<author_skill> getskill(@PathVariable Integer id){
 		return userService.getkill(id);
+	}
+	
+	
+	@PostMapping("/sendmailreport")
+	public String sendMailReport(@RequestBody UserAuthorDTO ua,@RequestParam Integer userId) throws MessagingException{
+		return userService.sendMailReport(ua,userId);
+	}
+	
+	@PostMapping("/sendmail")
+	public String sendMail(@RequestBody UserAuthorDTO ua) throws MessagingException{
+		return userService.sendMail(ua) ;
 	}
 
 }

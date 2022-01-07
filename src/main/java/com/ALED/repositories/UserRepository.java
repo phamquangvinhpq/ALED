@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.ALED.entities.Users;
 import com.ALED.entities.author_skill;
 
+
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
 
@@ -56,4 +57,5 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 	@Query(value = " SELECT * FROM `author_skill` WHERE id=:id", nativeQuery = true)
 	List<author_skill> findBySkill(@Param("id") Integer id);
 
+	
 }

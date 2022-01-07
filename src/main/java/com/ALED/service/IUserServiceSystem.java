@@ -45,4 +45,9 @@ public interface IUserServiceSystem {
 
 	List<author_skill> getkill(Integer id);
 
+	String sendMailReport(UserAuthorDTO authorDTO,Integer id);
+
+	String sendMail(UserAuthorDTO authorDTO);
+
+
 }

@@ -8,6 +8,8 @@ export default function Pendinginstructer() {
     const [isEnable, setIsEnable] = useState(0);
     const [giangVien, setGiangVien] = useState([])
     const [skill, setskill] = useState([])
+    const [author, setAuthor] = useState([])
+    const [ua, setUa] = useState([])
     const [pageSt, setPageSt] = useState(0);
     const [totalCountSt, setTotalCountSt] = useState(0)
     let size = 10;
@@ -16,6 +18,43 @@ export default function Pendinginstructer() {
     }, [
         isEnable
     ])
+
+    const [sendEmail,setSendEmail] = useState({
+        mailText: ''
+      })
+
+      const sendMailForIns = () => {
+        
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+    
+        var raw = JSON.stringify({
+        "email": ua,
+        "mail": sendEmail.mailText
+        });
+    
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+    
+        fetch(`${DEFAULT_API}` + "sendmail", requestOptions)
+          .then(response => response.text())
+          .then(result => {      
+          })
+          .catch(error => console.log('error', error));
+        
+      }
+
+      const onInputSendMail = (event) => {
+        setSendEmail({
+          mailText: event.target.value
+        });
+        console.log(event.target.value);
+      }
 
     const backPageSt = async () => {
         const pg = pageSt - 1
@@ -36,15 +75,27 @@ export default function Pendinginstructer() {
             redirect: 'follow'
           };
           
-          fetch(`${DEFAULT_API}` +`getskill/${value.id}`, requestOptions)
+          fetch(`${DEFAULT_API}` +`getskill/${value}`, requestOptions)
          
             .then(response => response.json())
             .then(result => {setskill(result)
             
         })
             .catch(error => console.log('error', error));
-            console.log(value.id);
+           
 
+    }
+
+    const loadAsk = (value) => {
+            loadskill(value.id)
+ 
+    }
+
+
+
+    const loadUa = (value) => {
+        setUa(value.email)
+        console.log(value.email);
     }
 
     const loadGiangVien = (pg = pageSt, pgsize = size) => {
@@ -59,6 +110,7 @@ export default function Pendinginstructer() {
         fetch(`${DEFAULT_API}` + `get-ins-no-isnable?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
+                setTotalCountSt(result.length)
                 setGiangVien(result)
                 console.log(result)
             })
@@ -135,13 +187,15 @@ export default function Pendinginstructer() {
                                                     {value.address}
                                                 </td>
                                                 <td>
-                                                    <a onClick={()=> loadskill(value)} className="btn btn-primary btn-xs btn-block" data-toggle="modal"  data-target="#enrolledCourses1"> Xem kỹ năng </a>
+                                                    <a onClick={()=> loadAsk(value)} className="btn btn-primary btn-xs btn-block" data-toggle="modal"  data-target="#enrolledCourses1"> Xem kỹ năng </a>
 
 
                                                     <a onClick={() => huyActive(value)}
                                                         className="btn btn-success btn-block btn-xs"
                                                     >Chấp nhận</a>
-
+                                                    <a onClick={() => loadUa(value)}
+                                                className="btn btn-danger btn-block btn-xs" data-toggle="modal"  data-target="#sendMail"
+                                                >Gửi thông báo</a>
                                                 </td>
                                             </tr>
                                         )}
@@ -171,13 +225,39 @@ export default function Pendinginstructer() {
                                {value.skill}
                             </textarea>
 )}
+                 <h4 className="modal-title">Kỹ năng</h4>
+                 
                         </div>
+                        
+                       
                         <div className="modal-footer">
                             <button type="button" className="btn btn-danger" data-dismiss="modal">Đóng</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div id="sendMail" className="modal fade" role="dialog">
+                <div className="modal-dialog w-50-p">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal">×</button>
+                            <h4 className="modal-title">Thông báo</h4>
+                        </div>
+                        
+                        <div className="modal-body">
+                        <input type="text" rows="9" cols="70" className="form-control"  name="email" value={"Gửi tới: " +ua} disabled />
+                        <textarea rows="9" cols="70" name='mail' placeholder="Lời nhắn"  onChange={onInputSendMail}/>
+                           
+                        </div>
+                        <div className="modal-footer">
+                            <button type="submit" className="btn btn-danger" onClick={sendMailForIns} data-dismiss="modal">Gửi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
 
         </div>
 
