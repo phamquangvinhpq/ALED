@@ -11,6 +11,8 @@ import PayThatbai from './component/student/page/PayThatbai';
 import Courvideo from './component/student/page/Courvideo';
 import Homestd from './component/student/page/Homestd';
 import Not404 from './component/student/page/Not404';
+import Register from './component/giaovien/page/Register';
+import Exam from './component/student/page/Exam';
 
 export default function Routers() {
     let role =localStorage.getItem("role");
@@ -53,6 +55,14 @@ export default function Routers() {
 
                     <Route path='/404' >
                         <Not404 />
+                    </Route>
+
+                    <Route path='/register' >
+                        <Register />
+                    </Route>
+
+                    <Route path="/exam">
+                        <Exam />
                     </Route>
 
                     <Route path='/' >

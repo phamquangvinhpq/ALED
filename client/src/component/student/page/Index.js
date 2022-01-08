@@ -19,6 +19,7 @@ import About from './About';
 import Faq from './Faq';
 import Contact from './Contact';
 import Register from '../../giaovien/page/Register';
+import Exam from './Exam';
 
 export default function Index() {
     let role = localStorage.getItem("role");
@@ -70,10 +71,6 @@ export default function Index() {
 
                     <Route path="/courvideo">
                         <Courvideo />
-                    </Route>
-
-                    <Route path="/register">
-                        <Register />
                     </Route>
 
                     <Route path='/Checkout/:id' render={() => {

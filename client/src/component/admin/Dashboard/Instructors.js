@@ -171,8 +171,7 @@ export default function Instructors() {
                         <td>
                           {value.status == 1 ? "Active" : "No-Active"}</td>
                         <td>
-                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => loadBaiGiang(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
-                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Show Courses </a>
+                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
 
 
                         </td>

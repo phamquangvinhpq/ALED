@@ -15,35 +15,35 @@ export default function Register() {
         </div>
       </div>
       <main className="signup-form">
-        <div className="cotainer">
+        <div className="container">
           <div className="row justify-content-center">
-            <div className="col-md-4">
+            <div className="col-md-12">
               <div className="card">
-                <h3 className="card-header text-center">Register User</h3>
+                <h3 className="card-header text-center">Register Introduct</h3>
                 <div className="card-body">
 
                   <form acceptCharset="utf-8" >
-                    <div id='testscop'>
+                    
                       <div id="dangky" aria-hidden="true">
                         <div className="form-group">
                           <label >Họ và tên</label>
-                          <input width="250px" type="text" className="form-control" name="name" placeholder="Full Name" required />
+                          <input width="250px" type="text" className="form-control" name="name"  required />
                         </div>
                         <div className="form-group">
                           <label >Email</label>
-                          <input type="email" className="form-control" name="email" placeholder="Email Address" required />
+                          <input type="email" className="form-control" name="email"  required />
                         </div>
                         <div className="form-group">
                           <label >Tên</label>
-                          <input type="text" className="form-control" name="username" placeholder="Name" required />
+                          <input type="text" className="form-control" name="username"  required />
                         </div>
                         <div className="form-group">
                           <label >Điện thoại</label>
-                          <input type="text" className="form-control" name="phone" placeholder="Phone" required />
+                          <input type="text" className="form-control" name="phone"  required />
                         </div>
                         <div className="form-group">
                           <label >Kỹ năng</label>
-                          <textarea className="form-control" name="skill" placeholder="Skill" required rows="4" cols="50" />
+                          <textarea className="form-control" name="skill"  required rows="4" cols="50" />
                         </div>
                         <div className="form-group">
                           <label >Ảnh</label>
@@ -59,7 +59,7 @@ export default function Register() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    
                     <a type="submit" className="btn btn-primary btn-success" name="form_registration" >Sign Up</a>
                   </form>
 

@@ -396,7 +396,7 @@ export default function Course() {
     // </div>
 
     <div>
-      <section className="course-category-section padding-top-120 padding-bottom-90">
+      <section className="course-category-section padding-top-20 padding-right-120 padding-bottom-90">
         <div className="container">
           <div className="row">
             <div className="col-lg-4 padding-80">
