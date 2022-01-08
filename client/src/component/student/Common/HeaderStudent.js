@@ -50,7 +50,6 @@ export default function HeaderStudent() {
     history.push(`/Course/${event.target.value}`)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
-    window.location.reload();
   };
 
 
@@ -90,7 +89,8 @@ export default function HeaderStudent() {
     fetch(`${DEFAULT_API}` + `course/get-all-by-name?courseName=${courseName.courseName}&page=0&size=${pagesize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        dispatch({ type: "GET_DATA", payload: result })
+
+        dispatch({type: "GET_DATA", payload: result})        
 
         setIsEnable(isEnable + 1)
         history.push(`/Course`)
@@ -647,18 +647,20 @@ export default function HeaderStudent() {
 
                   <div className="form-group">
 
-                    <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                      <option value={0} >-- Tất cả khóa học --</option>
 
+                  <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
+                        <option value="" >-- Tất cả khóa học --</option>
 
-                      {DScategory.map((value, index) => {
-                        return (
-                          <option value={value.id} key={index}>
-                            {value.name}
-                          </option>
-                        );
-                      })}
-                    </select>
+ 
+                        {DScategory.map((value, index) => {
+                          return (
+                            <option value={value.id} key={index}>
+                              {value.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+
                   </div>
 
                   <a className="btn btn-success" type="button" name="form_search_header" onClick={findByName}><i className="fa fa-search" /></a>
