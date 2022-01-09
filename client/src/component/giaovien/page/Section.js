@@ -34,14 +34,18 @@ export default function Section() {
     loadsection(pg)
     setPageSt(pg)
   }
-
+  var chek=isNaN(id.id);
   const nextPageSt = async () => {
     const pg = pageSt + 1
     loadsection(pg)
     setPageSt(pg)
   }
   useEffect(() => {
-
+    if(chek==true)
+    {
+      history.push("/404")
+      window.location.reload();
+    }
 
     checkkhoahocuser();
 
@@ -119,7 +123,7 @@ export default function Section() {
           });
          
         }else{
-          alert("thêm thành công")
+          swal("Thông báo", "Thêm thành công", "success")
           setIsEnable(isEnable + 1)
         }
        
@@ -138,7 +142,7 @@ export default function Section() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("Bạn không có quyền truy cập vào khóa học này")
+          swal("Thông báo", "Bạn không có quyền truy cập vào khóa học này", "warning")
           history.push("/giangvien/AllCourses")
          
         }
@@ -197,10 +201,10 @@ export default function Section() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên chương không được để trống", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên chương không được chứa kí tự", "warning")
     
     }else{
     var myHeaders = new Headers();
@@ -222,7 +226,7 @@ export default function Section() {
     fetch(`${DEFAULT_API}` + "giangvien/Section/", requestOptions)
       .then(response => response.text())
       .then(result => {
-       
+        swal("Thông báo", "Sửa thành công", "success")
           setIsEnable(isEnable + 1)
         
       })
@@ -240,19 +244,19 @@ export default function Section() {
       <div className="col-md-9">
         <div className="nav-tabs-custom instructor-content-tab">
           <ul className="nav nav-tabs">
-            <li className="active"><a href="#tab_chapter" data-toggle="tab">Chapter</a></li>
-            <li><NavLink to={`/giangvien/Lesson/${id.id}`} href="#tab_lesson" data-toggle="tab">Lesson</NavLink></li>
+            <li className="active"><a href="#tab_chapter" data-toggle="tab">Chương</a></li>
+            <li><NavLink to={`/giangvien/Lesson/${id.id}`} href="#tab_lesson" data-toggle="tab">Bài học</NavLink></li>
           </ul>
 
           <div className="tab-content">
             <div className="tab-pane active" id="tab_chapter">
               <div className="box box-info pt_0">
                 <div className="box-body">
-                  <h3 className="sec_title mt_0">Add Chapter</h3>
+                  <h3 className="sec_title mt_0">Thêm chương</h3>
                   <form className="form-horizontal" >
 
                     <div className="form-group">
-                      <label className="col-sm-2 control-label">Chapter Title *</label>
+                      <label className="col-sm-2 control-label">Tên *</label>
                       <div className="col-sm-6">
                         <input type="text" autoComplete="off" className="form-control" name="namesection" onChange={onInputChange} />
                       </div>
@@ -262,21 +266,21 @@ export default function Section() {
                       <label className="col-sm-2 control-label" />
                       <div className="col-sm-6">
 
-                        <button type="button" name="button" onClick={addsection} className="btn btn-success pull-left">submit</button>
+                        <button type="button" name="button" onClick={addsection} className="btn btn-success pull-left">Thêm</button>
                       </div>
                     </div>
 
                   </form>
 
-                  <h3 className="sec_title">All Chapters</h3>
+                  <h3 className="sec_title">Tất cả chương</h3>
                   <div className="table-responsive">
                     <table id className="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th>Serial</th>
-                          <th>Chapter Title</th>
+                          <th>STT</th>
+                          <th>Tên Chương</th>
                          
-                          <th>Action</th>
+                          <th>Hoạt động</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -292,17 +296,17 @@ export default function Section() {
                                 data-target="#myModal4" data-toggle="modal"
                                 onClick={() => layid(value)}
                               >
-                                Edit
+                                Sửa
                               </a>
-                              <a className="btn btn-danger btn-sm" onClick={() => deletesection(value)}>Delete</a>
+                              <a className="btn btn-danger btn-sm" onClick={() => deletesection(value)}>Xóa</a>
                             </td>
                           </tr>
                         )}
                       </tbody>
                     </table>
                     <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                   </div>
                 </div>
@@ -323,7 +327,7 @@ export default function Section() {
               >
                 ×
               </button>
-              <h4 className="modal-title">Edit Lesson</h4>
+              <h4 className="modal-title">Sửa bài học</h4>
             </div>
             <div className="modal-body">
               <form className="form-horizontal"
@@ -335,7 +339,7 @@ export default function Section() {
 
                     className="col-sm-4 control-label pt_5"
                   >
-                    Lesson Name *
+                    Tên bài học *
                   </label>
                   <div className="col-sm-8">
                     <input
@@ -358,7 +362,7 @@ export default function Section() {
                     name="form1"
                     onClick={updateSection}
                   >
-                    Update
+                    Sửa
                   </button>
                 </div>
               </div>
@@ -369,7 +373,7 @@ export default function Section() {
                 className="btn btn-danger"
                 data-dismiss="modal"
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>

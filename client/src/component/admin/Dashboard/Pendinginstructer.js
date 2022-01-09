@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import { NavLink } from "react-router-dom";
-
+import swal from "sweetalert";
 
 export default function Pendinginstructer() {
 
@@ -43,7 +43,8 @@ export default function Pendinginstructer() {
     
         fetch(`${DEFAULT_API}` + "sendmail", requestOptions)
           .then(response => response.text())
-          .then(result => {      
+          .then(result => {   
+            swal("Thành công", "Đã gửi thành công", "success")   
           })
           .catch(error => console.log('error', error));
         
@@ -137,7 +138,7 @@ export default function Pendinginstructer() {
             .then(result => {
                 console.log(result)
                 console.log("hiha:" + value.id);
-                alert("đã kích hoạt")
+                swal("Thông báo", "Đã kích hoạt", "success")
                 setIsEnable(isEnable + 1)
             })
             .catch(error => console.log('error', error));
@@ -148,7 +149,7 @@ export default function Pendinginstructer() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>Giảng viên đang chờ </h1>
+                    <h1>Giảng viên đang chờ duyệt</h1>
                 </div>
             </section>
             <section className="content">
@@ -221,11 +222,18 @@ export default function Pendinginstructer() {
                         </div>
                         <div className="modal-body">
                         {skill.map((value) =>
-                            <textarea rows="9" cols="70" disabled>
+                            <textarea rows="6" cols="60" disabled>
                                {value.skill}
                             </textarea>
 )}
-                 <h4 className="modal-title">Kỹ năng</h4>
+                 <h4 className="modal-title">Ảnh</h4>
+                 {skill.map((value) =>
+                            <img
+                            src={value.photo} className="w-200" />
+
+
+
+)}
                  
                         </div>
                         

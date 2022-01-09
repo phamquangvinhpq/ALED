@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env'
+import { useHistory } from "react-router-dom";
 export default function Checkout1() {
     const [khoahoc, setkhoahoc] = useState([])
     const [DSkhoahoc, setDSkhoahoc] = useState({
@@ -11,9 +12,14 @@ export default function Checkout1() {
   
     let id = useParams();
     let user_id=localStorage.getItem("userid");
-
+    let history = useHistory()
 
     useEffect(() => {
+        if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
         laykhoahoc();
 
     }, [])

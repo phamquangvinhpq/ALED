@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ALED.DTO.AuthorSkillDTO;
 import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Users;
@@ -156,7 +157,7 @@ public class UserController {
 	
 	
 	@GetMapping("/getskill/{id}")
-	public List<author_skill> getskill(@PathVariable Integer id){
+	public List<AuthorSkillDTO> getskill(@PathVariable Integer id){
 		return userService.getkill(id);
 	}
 	

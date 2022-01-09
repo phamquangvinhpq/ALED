@@ -32,7 +32,12 @@ export default function AddKH() {
   const [isEnable, setIsEnable] = useState(0);
 
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
+    if(event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg"){
+      swal("Thất bại", "Chỉ được chọn file jpeg/png", "warning")
+      document.getElementById("uploadFile").value=""
+    } else{
+      setSelectedFile(event.target.files[0]);
+    }
   };
 
   useEffect(() => {
@@ -140,6 +145,7 @@ export default function AddKH() {
           }else{
             setIsEnable(isEnable +1)
             history.push(`/giangvien/AllCourses/`);
+            swal("Thông báo", "Thêm khóa học thành công", "success")
           }
         })
         .catch((error) => console.log("error", error));
@@ -173,7 +179,7 @@ export default function AddKH() {
           <div className="form-group">
             <label htmlFor className="col-sm-3 control-label">Ảnh *</label>
             <div className="col-sm-6 pt_5">
-              <input type="file" name="image" onChange={changeHandler} />
+              <input type="file" name="image" id='uploadFile' onChange={changeHandler} />
             </div>
           </div>
 

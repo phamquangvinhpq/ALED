@@ -18,7 +18,7 @@ export default function Course() {
   const [layValue,setLayValue] = useState({
     vlx: ""
   })
-
+  let id = useParams();
   const onChangeValue = (event) =>
   
   {
@@ -27,6 +27,11 @@ export default function Course() {
 
   }
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     if (user_id) {
       loadFavorite();
     }

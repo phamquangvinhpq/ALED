@@ -81,7 +81,7 @@ export default function AddUser() {
     
               } else {
                 history.push("/admin/users")
-                alert("thêm thành công")
+                swal("Thông báo", "Thêm thành công", "success")
               }  
                 
           })

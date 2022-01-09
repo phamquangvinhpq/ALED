@@ -15,7 +15,6 @@ export default function Leson() {
 
   const [status, setStatus] = useState(0);
   const [selectedSection, setSelectedSection] = useState(-1);
-
   const [sectionId, setSectionId] = useState(-1);
 
   const [lession, setLession] = useState({
@@ -26,7 +25,6 @@ export default function Leson() {
 
   
   let history = useHistory();
-
   let id = useParams();
   const [giatriID, setgiatriID] = useState(-1)
 
@@ -41,18 +39,33 @@ export default function Leson() {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile1, setSelectedFile1] = useState();
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     checkkhoahocuser();
     getLessionBySection();
     jquer();
   }, [status]);
 
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
+    if(event.target.files[0].type != "video/mp4"){
+      swal("Thất bại", "Chỉ được chọn file mp4", "warning")
+      document.getElementById("uploadFile").value=""
+    }else{
+      setSelectedFile(event.target.files[0]);
+    }
+    
   };
 
   const changeHandler1 = (event) => {
-    setSelectedFile1(event.target.files[0]);
-  
+    if(event.target.files[0].type != "video/mp4"){
+      swal("Thất bại", "Chỉ được chọn file mp4", "warning")
+      document.getElementsByName("uploadFile1").value=""
+    }else{
+      setSelectedFile1(event.target.files[0]);
+    }
   };
 
   const [pageSt, setPageSt] = useState(0);
@@ -106,7 +119,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("Bạn không có quyền truy cập vào khóa học này")
+          swal("Thông báo", "Bạn không có quyền truy cập vào khóa học này", "warning")
           history.push("/giangvien/AllCourses")
          
         }
@@ -150,7 +163,7 @@ export default function Leson() {
     fetch(`${DEFAULT_API}` + "lession/", requestOptions)
       .then(response => response.text())
       .then((result) => {
-        console.log("đã gọi api");
+        swal("Thông báo", "Sửa thành công", "success")
         setStatus(status + 1)
         console.log(result)
       })
@@ -277,7 +290,9 @@ export default function Leson() {
 
     fetch(`${DEFAULT_API}` + "lession", requestOptions)
       .then(response => response.text())
-      .then(result => { setStatus(status + 1) })
+      .then(result => {
+        swal("Thông báo", "Thêm thành công", "success")
+         setStatus(status + 1) })
       .catch(error => console.log('error', error));
   }
   };
@@ -410,7 +425,7 @@ export default function Leson() {
                           id="lessonTypeSelect"
                         >
                           <option value="" >
-                            CHọn thể loại
+                            Chọn thể loại
                           </option>
                           <option value="video_youtube">Video (YouTube)</option>
 
@@ -432,7 +447,7 @@ export default function Leson() {
                         Tải File
                       </label>
                       <div className="col-sm-6 pt_5">
-                        <input type="file" name="lesson_mp4" accept="video/*" onChange={changeHandler} /><span className="c-red">
+                        <input type="file" name="lesson_mp4" id="uploadFile" accept="video/*" onChange={changeHandler} /><span className="c-red">
                           (Chỉ chọn dạng Mp4)</span>
                       </div>
                     </div>
@@ -624,7 +639,7 @@ export default function Leson() {
                     Tải File
                   </label>
                   <div className="col-sm-8">
-                    <input type="file" name="lesson_mp4" accept="video/*" onChange={changeHandler1} /><span className="c-red">(
+                    <input type="file" name="lesson_mp4" id="uploadFile1" accept="video/*" onChange={changeHandler1} /><span className="c-red">(
                       Chỉ dùng định dạng Mp4)</span>
                   </div>
                 </div>

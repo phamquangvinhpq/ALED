@@ -12,7 +12,7 @@ export default function UpdateKH() {
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
-    
+    console.log(event.target.files[0]);
     BaiGiang.image=URL.createObjectURL(event.target.files[0])
 
   };
@@ -46,7 +46,11 @@ export default function UpdateKH() {
 
 
   useEffect(() => {
-
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadCategory();
     dulieusua();
     
@@ -108,7 +112,7 @@ export default function UpdateKH() {
               icon: "warning",
             });
           }else{
-          swal("Thành Công", "Sửa khóa học thành công", "success")
+          swal("Thông báo", "Sửa khóa học thành công", "success")
           history.push(`/giangvien/AllCourses/`);
           setIsEnable(isEnable + 1)
           }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import { NavLink } from "react-router-dom";
-
+import swal from "sweetalert";
 export default function Users() {
 
     const [giangVien, setGiangVien] = useState([])
@@ -49,11 +49,10 @@ export default function Users() {
       .then(response => response.json())
       .then(result => {
         if(value.status == 0){
-          
-          alert("đã kích hoạt lại")
+          swal("Thông báo", "Đã kích hoạt lại tài khoản", "success")
         setIsEnable(isEnable + 1)
         }else{
-          alert("đã tạm khóa")
+          swal("Thông báo", "Đã tạm khóa lại tài khoản", "success")
           setIsEnable(isEnable + 1)
         }
       })
@@ -114,7 +113,7 @@ export default function Users() {
                                              <td>{value.name}</td>
                                              <td>{value.email}</td>
                                              <td>
-                                                 {value.status == 1 ? "Active" : "No-Active" } </td>
+                                                 {value.status == 1 ? "Hoạt động" : "Dừng hoạt động" } </td>
                                                  <td>
                                                 <a  className="btn btn-warning btn-xs btn-block" onClick={() => huyActive(value)} >Thay đổi tranh thái</a>
                                                 
