@@ -29,10 +29,10 @@ export default function PaymentHistory() {
             <thead>
               <tr>
                 <th>STT</th>
-                <th>Content</th>
-                <th>Purchase Amount</th>
-                <th>Bank</th>
-                <th>Purchase Date</th>
+                <th>Nội dung</th>
+                <th>Số tiền mua</th>
+                <th>Ngân hàng</th>
+                <th>Ngày mua</th>
               </tr>
             </thead>
             <tbody>

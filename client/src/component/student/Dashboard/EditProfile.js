@@ -35,7 +35,7 @@ export default function ListCourse() {
       infoUser.phone === "" ||
       infoUser.address === ""
     ) {
-      swal("Failed", "Fields cannot be left blank", "error");
+      swal("Failed", "Các trường không được để trống", "error");
     } else {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -51,7 +51,7 @@ export default function ListCourse() {
 
       fetch(`${DEFAULT_API}` +`user`, requestOptions)
         .then((response) => response.text())
-        .then((result) => swal("Success", "successful update", "success"))
+        .then((result) => swal("Success", "Cập nhật thành công", "success"))
         .catch((error) => console.log("error", error));
     }
   };
@@ -66,7 +66,7 @@ export default function ListCourse() {
         >
           <div className="form-group">
             <label htmlFor className="col-sm-2 control-label">
-              Name
+              Tên
             </label>
             <div className="col-sm-10">
               <input
@@ -80,7 +80,7 @@ export default function ListCourse() {
           </div>
           <div className="form-group">
             <label htmlFor className="col-sm-2 control-label">
-              Address
+              Địa chỉ
             </label>
             <div className="col-sm-10">
               <input
@@ -94,7 +94,7 @@ export default function ListCourse() {
           </div>
           <div className="form-group">
             <label htmlFor className="col-sm-2 control-label">
-              Phone
+              Số điện thoại
             </label>
             <div className="col-sm-10">
               <input
@@ -114,7 +114,7 @@ export default function ListCourse() {
                 className="btn btn-default btn-success"
                 name="form1"
               >
-                Update
+                Cập nhật
               </button>
             </div>
           </div>

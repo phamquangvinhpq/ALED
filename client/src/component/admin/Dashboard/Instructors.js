@@ -90,7 +90,7 @@ export default function Instructors() {
     <div className="content-wrapper">
       <section className="content-header">
         <div className="content-header-left">
-          <h1>View Instructors</h1>
+          <h1>Xem Tất cả Giảng viên</h1>
         </div>
       </section>
       <section className="content">
@@ -134,8 +134,8 @@ export default function Instructors() {
                               </tr>
                             )}
                              <nav aria-label="Page navigation example">
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Previous</button>
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Next</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Trước</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Sau</button>
                             </nav>
                           </tbody>
                         </table>
@@ -172,7 +172,7 @@ export default function Instructors() {
                           {value.status == 1 ? "Active" : "No-Active"}</td>
                         <td>
                           <a href className="btn btn-primary btn-xs btn-block" onClick={() => loadBaiGiang(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
-                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Show Courses </a>
+                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Hiển thị Khóa học </a>
 
 
                         </td>

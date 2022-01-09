@@ -122,7 +122,7 @@ export default function Students() {
     <div className="content-wrapper">
   <section className="content-header">
     <div className="content-header-left">
-      <h1>View Students</h1>
+      <h1>Tất cả Sinh viên</h1>
     </div>
   </section>
   <section className="content">
@@ -135,7 +135,7 @@ export default function Students() {
                 <div className="modal-content">
                   <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal">×</button>
-                    <h4 className="modal-title">Enrolled Courses</h4>
+                    <h4 className="modal-title">Các khóa học đã đăng ký</h4>
                   </div>
                   <div className="modal-body">
                   <table className="table table-bordered t3">
@@ -162,8 +162,8 @@ export default function Students() {
               </tr>
               )}
                  <nav aria-label="Page navigation example">
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Previous</button>
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Next</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Trước</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Sau</button>
                             </nav>
               
             </tbody>
@@ -181,7 +181,7 @@ export default function Students() {
                 <div className="modal-content">
                   <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal">×</button>
-                    <h4 className="modal-title">Payment Details</h4>
+                    <h4 className="modal-title">Chi tiết thanh toán</h4>
                   </div>
                   <div className="modal-body">
                   <table className="table table-bordered t3">
@@ -207,8 +207,8 @@ export default function Students() {
                 </tr>
                   )}
                   <nav aria-label="Page navigation example">
-                              <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPagePay} >Previous</button>
-                              <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / size)} onClick={nextPagePay} >Next</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPagePay} >Trước</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / size)} onClick={nextPagePay} >Sau</button>
                             </nav>
                 </tbody>
               </table>

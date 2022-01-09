@@ -124,7 +124,7 @@ export default function Checkout1() {
                                         </tr>
 
                                         <tr>
-                                            <td colSpan={3} className="tot tar">Total: </td>
+                                            <td colSpan={3} className="tot tar">Tổng: </td>
                                             <td colSpan={2} className="tot">{value.price.toLocaleString('vi-VN', {
                                                             style: 'currency',
                                                             currency: 'VND'
@@ -138,7 +138,7 @@ export default function Checkout1() {
                             </div>
                             
                             <div className="text-right">
-                                <a className="btn btn-success" onClick={pay}>pay now </a>
+                                <a className="btn btn-success" onClick={pay}>Mua ngay </a>
                             </div>
                         </div>
                         <div className="col-md-5">
@@ -149,7 +149,7 @@ export default function Checkout1() {
                                         <div className="panel-heading p-3 mb-3" role="tab" id="heading1">
                                             <h3 className="panel-title">
                                                 <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#faq1">
-                                                    <span>Bank transfer</span>
+                                                    <span>Chuyển khoản</span>
                                                 </a>
                                             </h3>
                                         </div>

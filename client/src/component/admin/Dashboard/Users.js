@@ -84,7 +84,7 @@ export default function Users() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Users (Students / Instructors)</h1>
+                    <h1>Tất cả người dùng (Sinh Viên / Giảng viên)</h1>
                 </div>
                 <div className="content-header-right">
                 <NavLink to="/admin/adduser" className="btn btn-primary btn-sm">Thêm mới</NavLink>
@@ -102,8 +102,8 @@ export default function Users() {
                                             <th>Ảnh</th>
                                             <th>Tên</th>
                                             <th>Email</th>
-                                            <th>Trạng thía</th>
-                                            <th width={120}>Action</th>
+                                            <th>Trạng thái</th>
+                                            <th width={120}>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -125,8 +125,8 @@ export default function Users() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                             </div>
                         </div>

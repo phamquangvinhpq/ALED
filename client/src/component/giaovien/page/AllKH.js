@@ -83,8 +83,8 @@ export default function AllKH() {
 
   const deletecourse = (value) => {
     swal({
-      title: "Are you sure?",
-      text: `Are you sure you want to delete?`,
+      title: "Bạn chắc chứ ?",
+      text: `Bạn chắn chắn muốn xóa ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -125,11 +125,11 @@ export default function AllKH() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Photo</th>
-                <th>Description</th>
-                <th className="w-100">Action</th>
+                <th>Tiêu đề</th>
+                <th>Giá</th>
+                <th>Ảnh</th>
+                <th>Mô tả</th>
+                <th className="w-100">Hành Động</th>
               </tr>
             </thead>
             <tbody>
@@ -149,12 +149,12 @@ export default function AllKH() {
                       (event) => {
                         chuyentrangSesion(event, value, index)
                       }} className="btn btn-primary btn-sm btn-block">
-                      Manage Content									</a>
+                      Quản lý nội dung									</a>
                     <a onClick={
                       (event) => {
                         chuyentrangupdate(event, value, index)
                       }} className="btn btn-primary btn-sm btn-block">
-                      Edit									</a>
+                      Sửa								</a>
 
                   </td>
                 </tr>
@@ -164,8 +164,8 @@ export default function AllKH() {
             </tbody>
           </table>
           <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
         </div>
       </div>

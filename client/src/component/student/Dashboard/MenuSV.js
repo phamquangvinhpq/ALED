@@ -12,24 +12,24 @@ export default function Menusv(props) {
           <div className="customer-sidebar">
             <ul>
               <li onClick={() => change("Dashboard")} className>
-                <NavLink to="/student/Dashboard">Dashboard</NavLink>
+                <NavLink to="/student/Dashboard">Bảng Chi tiết</NavLink>
               </li>
               <li onClick={() => change("Edit Profile")} className>
-                <NavLink to="/student/EditProfile">Edit Profile</NavLink>
+                <NavLink to="/student/EditProfile">Cập nhật thông tin cá nhân</NavLink>
               </li>
               <li onClick={() => change("Edit Password")} className>
-                <NavLink to="/student/EditPassword">Edit Password</NavLink>
+                <NavLink to="/student/EditPassword">Sửa mật khẩu</NavLink>
               </li>
               <li onClick={() => change("Enrolled Courses")} className>
                 <NavLink to="/student/EnrolledCourses">
-                  Enrolled Courses
+                Các khóa học đã đăng ký
                 </NavLink>
               </li>
               <li onClick={() => change("Payment history")} className>
-                <NavLink to="/student/PaymentHistory">Payment History</NavLink>
+                <NavLink to="/student/PaymentHistory">Lịch sử thanh toán</NavLink>
               </li>
               <li onClick={() => change("Favorite")} className>
-                <NavLink to="/student/favorite">Favorite</NavLink>
+                <NavLink to="/student/favorite">Yêu thích</NavLink>
               </li>
             </ul>
           </div>{" "}

@@ -16,9 +16,6 @@ export default function Section() {
   })
 
 
-
-
-
   const [giatriID, setgiatriID] = useState([])
 
   const [DSsection, setDSsection] = useState([])
@@ -72,12 +69,12 @@ export default function Section() {
 
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexName.test(Section.namesection)){
-      swal("Failed", "Name Only text can be entered and cannot be left blank", "warning")
+      swal("Failed", "Tên không được để trống hoặc chứa kí tự đặc biệt", "warning")
     }else if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứa kí tự đặc biệt", "warning")
      
     }else{
     var myHeaders = new Headers();
@@ -101,7 +98,7 @@ export default function Section() {
         console.log(result)
         if(result.loicode==-1){
           swal("nhập đầy đủ thông tin", {
-            text: `yêu cầu name ` + " " + result.details ,
+            text: `yêu cầu tên ` + " " + result.details ,
              icon: "warning",
           });
          
@@ -118,8 +115,8 @@ export default function Section() {
 
   const deletesection = (value) => {
     swal({
-      title: "Are you sure?",
-      text: `Are you sure you want to delete?`,
+      title: "Bạn chắc chứ?",
+      text: `Bạn có chắc là muốn xóa?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -155,10 +152,10 @@ export default function Section() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứa kí tự đặc biệt", "warning")
     
     }else{
     var myHeaders = new Headers();
@@ -210,8 +207,8 @@ export default function Section() {
                             <div className="box-body table-responsive">
                             <div className="nav-tabs-custom instructor-content-tab">
           <ul className="nav nav-tabs">
-            <li className="active"><a href="#tab_chapter" data-toggle="tab">Chapter</a></li>
-            <li><NavLink to={`/admin/lession/${id.id}`} href="#tab_lesson" data-toggle="tab">Lesson</NavLink></li>
+            <li className="active"><a href="#tab_chapter" data-toggle="tab">Chương</a></li>
+            <li><NavLink to={`/admin/lession/${id.id}`} href="#tab_lesson" data-toggle="tab">Video </NavLink></li>
           </ul>
 
           <div className="tab-content">
@@ -221,13 +218,13 @@ export default function Section() {
                  
                
 
-                  <h3 className="sec_title">All Chapters</h3>
+                  <h3 className="sec_title">Tất cả Chương</h3>
                   <div className="table-responsive">
                     <table id className="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th>Serial</th>
-                          <th>Chapter Title</th>
+                          <th>STT</th>
+                          <th>Tiêu đề chương</th>
                          
                      
                         </tr>

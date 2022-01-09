@@ -34,19 +34,19 @@ export default function MenuGV(props) {
           <div className="customer-sidebar">
             <ul>
               <li onClick={() => change("Dashboard")} className="menuvalue">
-                <NavLink to="/giangvien/dashboard">Dashboard</NavLink>
+                <NavLink to="/giangvien/dashboard">Bảng điều khiển</NavLink>
               </li>
               <li onClick={() => change("Add Course")} className="menuvalue">
-                <NavLink to="/giangvien/AddCourse">Add Course</NavLink>
+                <NavLink to="/giangvien/AddCourse">Thêm khóa học </NavLink>
               </li>
               <li onClick={() => change("All Courses")} className="menuvalue">
-                <NavLink to="/giangvien/AllCourses">All Courses</NavLink>
+                <NavLink to="/giangvien/AllCourses">Tất cả khóa học</NavLink>
               </li>
               <li onClick={() => change("Answered")} className="menuvalue">
-                <NavLink to="/giangvien/Answered">Answered</NavLink>
+                <NavLink to="/giangvien/Answered">Đã trả lời</NavLink>
               </li>
               <li onClick={() => change("Not Answered")} className="menuvalue">
-                <NavLink to="/giangvien/NoteAnswered">Not Answered</NavLink> {listQA.length != 0 ? <span class="header__cart-notice">?</span>:""}
+                <NavLink to="/giangvien/NoteAnswered">Chưa trả lời</NavLink> {listQA.length != 0 ? <span class="header__cart-notice">?</span>:""}
               </li>
             </ul>
           </div>

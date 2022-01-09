@@ -30,15 +30,15 @@ export default function Dashboard() {
           <table className="table table-bordered">
             <tbody>
               <tr>
-                <th className="w-40-p">Total Enrolled Courses</th>
+                <th className="w-40-p">Tổng số khóa học đã đăng ký</th>
                 <td>{infoStudent.totalCourse}</td>
               </tr>
               <tr>
-                <th>Total Money Spent</th>
+                <th>Tổng số tiền đã chi</th>
                 <td>{infoStudent.totalMoneySpent}</td>
               </tr>
               <tr>
-                <th>Total Rating Given</th>
+                <th>Tổng đánh giá được đưa ra</th>
                 <td>{infoStudent.totalRatingGiven}</td>
               </tr>
             </tbody>
