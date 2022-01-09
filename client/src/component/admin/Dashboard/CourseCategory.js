@@ -27,8 +27,8 @@ export default function CourseCategory() {
 
     const deleteCate = (value) => {
         swal({
-          title: "Are you sure?",
-          text: `Are you sure you want to delete?`,
+          title: "Bạn chắc chứ ?",
+          text: `Bạn có chắc là muốn xóa ?`,
           icon: "warning",
           buttons: true,
           dangerMode: true,
@@ -49,7 +49,7 @@ export default function CourseCategory() {
                 .then(result => {
                     if(result.loicode==-1)
                     {
-                        swal("Unable to delete the category that already has a course", {
+                        swal("Không thể xóa danh mục này vì đang chứa khóa học", {
                             icon: "warning",
                           });
                     }
@@ -102,7 +102,7 @@ export default function CourseCategory() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Categories</h1>
+                    <h1>Xem tất cả Danh mục </h1>
                 </div>
                 <div className="content-header-right">
                     <a onClick={
@@ -146,8 +146,8 @@ export default function CourseCategory() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                             </div>
                         </div>

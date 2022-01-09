@@ -418,7 +418,7 @@ var chek=isNaN(id.id);
                             <tbody>
                               <tr>
                                 <th>Tên bài học</th>
-                                <th>Lesson Preview</th>
+                                <th>Xem Demo</th>
                                 <th>Thời lượng bài học</th>
 
                               </tr>
@@ -426,7 +426,7 @@ var chek=isNaN(id.id);
                                 <tr>
                                   <td>{value.name}</td>
                                   <td>
-                                    <div>Enrolled Course First</div>
+                                    <div>Bạn phải mua khóa học</div>
                                     <div
                                       id="myModalAllWatch0"
                                       className="modal fade video_popup"
@@ -450,7 +450,7 @@ var chek=isNaN(id.id);
                                               className="btn btn-default"
                                               data-dismiss="modal"
                                             >
-                                              Close
+                                              Đóng
                                             </button>
                                           </div>
                                         </div>

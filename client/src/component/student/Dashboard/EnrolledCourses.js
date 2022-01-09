@@ -127,11 +127,11 @@ export default function EnrolledCourses() {
           <table className="table table-bordered t3">
             <thead>
               <tr>
-                <th>Serial</th>
-                <th>Thumbnail</th>
-                <th>Course Title</th>
-                <th>Course Content</th>
-                <th className="w-200">Action</th>
+                <th>STT</th>
+                <th>Ảnh</th>
+                <th>Tiêu đề</th>
+                <th>Nội dung</th>
+                <th className="w-200">Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -142,12 +142,12 @@ export default function EnrolledCourses() {
                   <td>{value.description}</td>
                 
                   <td>
-                    <a target="_blank" className="btn btn-info btn-sm" onClick={()=> chuyentrang(value)} >Course Content</a>
+                    <a target="_blank" className="btn btn-info btn-sm" onClick={()=> chuyentrang(value)} >Nội dung</a>
                   </td>
                   <td>
                     <a href className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalRating1" onClick={() => layidkh(value.course)}>Give Rating</a>
                     &ensp;
-                    <a href="" className="btn btn-success btn-sm"  onClick={()=> chuyentrangdetail(value)} >View Detail</a>
+                    <a href="" className="btn btn-success btn-sm"  onClick={()=> chuyentrangdetail(value)} >Chi tiết nội dung</a>
                   </td>
                 </tr>
               )}
@@ -162,7 +162,7 @@ export default function EnrolledCourses() {
               <div className="modal-content">
                 <div className="modal-header">
                   <button type="button" className="close" data-dismiss="modal">×</button>
-                  <h4 className="modal-title">Rating</h4>
+                  <h4 className="modal-title">Đánh giá</h4>
                 </div>
                 {danhgia == false ? 
                 <div className="modal-body">
@@ -170,7 +170,7 @@ export default function EnrolledCourses() {
                   <input type="hidden" name="course_id" defaultValue={30} />
                   <input type="hidden" name="user_id_instructor" defaultValue={9} />
                   <div className="form-group">
-                    <label htmlFor>Give Rating</label>
+                    <label htmlFor>Đưa ra đánh giá</label>
                     <ReactStars
                       edit={true}
                       value={5}
@@ -184,14 +184,14 @@ export default function EnrolledCourses() {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor>Comment (Optional)</label>
+                    <label htmlFor>Bình Luận (Không bắt buộc)</label>
                     <textarea name="comment" className="form-control h-100" cols={30} rows={10} required defaultValue={""} onChange={onInputChange} />
                   </div>
-                  <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={addRate}>Submit</button>
+                  <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={addRate}>Đồng ý</button>
                 </div> : "You have already assessed the course" }
                
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Close</b></button>
+                  <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Đóng</b></button>
                 </div>
               </div>
             </div>

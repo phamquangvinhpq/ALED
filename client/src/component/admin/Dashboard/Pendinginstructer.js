@@ -148,7 +148,7 @@ export default function Pendinginstructer() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Pending Instructer</h1>
+                    <h1>Giảng viên đang chờ </h1>
                 </div>
             </section>
             <section className="content">
@@ -203,8 +203,8 @@ export default function Pendinginstructer() {
                                     </tbody>
                                 </table>
                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                             </div>
                         </div>

@@ -103,12 +103,12 @@ export default function ViewDetail() {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>View Detail</h1>
+              <h1>Xem chi tiết</h1>
               <h3>
-                <a href="">Home</a>
+                <a href="">Trang chủ</a>
                 <i className="fa fa-angle-right" />
-                detail <i className="fa fa-angle-right" />
-                viewdetail{" "}
+                Chi tiết <i className="fa fa-angle-right" />
+                Xem chi tiết{" "}
               </h3>
             </div>
           </div>
@@ -143,19 +143,19 @@ export default function ViewDetail() {
                       </span> 
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-star" /> Instructor Rating:{" "}
+                      <i className="fa fa-star" /> Đánh giá :{" "}
                       {teacher.instructorRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-play-circle" /> Total Courses:{" "}
+                      <i className="fa fa-play-circle" /> Tổng số khóa học:{" "}
                       {teacher.totalCourse}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-comment" /> Total Rating:{" "}
+                      <i className="fa fa-comment" /> Tổng số đánh giá:{" "}
                       {teacher.totalRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-user" /> Total Students:{" "}
+                      <i className="fa fa-user" /> Tổng số sinh viên:{" "}
                       {teacher.totalStudents}
                     </div>
                     <p />
@@ -167,15 +167,15 @@ export default function ViewDetail() {
             <div className="col-md-9">
               <h3 className="profile_title">{infoAuthor.name}</h3>
               <p className="profile_sub_title">
-              Education: {infoAuthor.education}
+              Trường học : {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-              Description: {infoAuthor.description}
+              Mô tả: {infoAuthor.description}
                 <br />
               </div>
             </div>
           </div>
-          <h2 className="course_title mt_40">All Courses of this Instructor</h2>
+          <h2 className="course_title mt_40">Tất cả khóa học của giảng viên</h2>
 
           <div className="row product-item">
             {listCourse.map((value, index) => (
@@ -192,9 +192,9 @@ export default function ViewDetail() {
                       <a href="">{value.courseName}</a>
                     </h3>
                     <ul>
-                      <li>Author: {value.authorName}</li>
+                      <li>Tác giả: {value.authorName}</li>
 
-                      <li>Category: {value.categoryName}</li>
+                      <li>Danh mục: {value.categoryName}</li>
                     </ul>
                     <div className="review">
                     <span>
@@ -209,7 +209,7 @@ export default function ViewDetail() {
                           activeColor="#ffd700"
                         />
                       </span>
-                      <span className="review-text">(Total Reviews: 1)</span>
+                      <span className="review-text">(Tổng số đánh giá: 1)</span>
                     </div>
                     <div className="price">{value.price.toLocaleString('vi-VN', {
         style: 'currency',
@@ -220,7 +220,7 @@ export default function ViewDetail() {
                         onClick={() => getcheckout(value)}
                         className="btn btn-block btn-success"
                       >
-                        Check Out
+                        Thanh toán
                       </a>
                     </div>
                   </div>

@@ -201,10 +201,10 @@ export default function HeaderStudent() {
       )
       .then(result => {
         if (result.returnCode == 0) {
-          alert("sai tài khoản mật khẩu")
+          alert("Sai tài khoản mật khẩu")
         }
         else if (result.returnCode == -1) {
-          alert("tài khoản chưa được kích hoạt")
+          alert("Tài khoản chưa được kích hoạt")
         }
         else {
 
@@ -219,7 +219,7 @@ export default function HeaderStudent() {
 
       })
       .catch(error => {
-        alert("sai tk mk")
+        alert("Sai tài khoản hoặc mật khẩu")
 
 
       });
@@ -276,14 +276,14 @@ export default function HeaderStudent() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
-      swal("Failed", "Name only enter letters", "warning")
+      swal("Failed", "Tên chỉ chứa chữ cái", "warning")
     } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email)) {
-      swal("Failed", "not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     }
     else if (regexKitu.test(users.name) || regexKitu.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa ký tự", "warning")
     } else if (!regex.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa ký tự", "warning")
     }
     else {
       var myHeaders = new Headers();
@@ -317,12 +317,12 @@ export default function HeaderStudent() {
         .then(result => {
           if (result.loicode == -1) {
             swal("Fill in all the information", {
-              text: "Email is invalid or already exists",
+              text: "Email không hợp lệ hoặc đã tồn tại",
               icon: "warning",
             });
           }
           else {
-            alert("check email for password")
+            alert("Kiểm tra email để biết mật khẩu")
             chuyentrang();
           }
 
@@ -343,17 +343,17 @@ export default function HeaderStudent() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
-      swal("Failed", "Name only enter letters", "warning")
+      swal("Failed", "Tên chỉ nhập chữ ", "warning")
     } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.phone) || !regexKhoangTrang.test(users.skill) || !regexKhoangTrang.test(users.education)) {
-      swal("Failed", "not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     }
     else if (regexKitu.test(users.name) || regexKitu.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứa ký tự", "warning")
     } else if (!regex.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứa ký tự", "warning")
     }
     else if (!regexPhone.test(users.phone)) {
-      swal("Failed", "Phone number is not invalid", "warning")
+      swal("Failed", "Nhập sai định dạng số điện thoại", "warning")
     }
     else {
       var myHeaders = new Headers();
@@ -383,10 +383,10 @@ export default function HeaderStudent() {
         .then(result => {
 
           if (result.loicode == -1) {
-            alert("An error occurred, check the information again")
+            alert("Đã xảy ra lỗi, hãy kiểm tra lại thông tin")
           }
           else {
-            alert("check email for password")
+            alert("Kiểm tra email để lấy mật khẩu")
             chuyentrang();
           }
 

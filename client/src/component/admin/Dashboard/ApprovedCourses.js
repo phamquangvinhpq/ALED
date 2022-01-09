@@ -51,7 +51,7 @@ export default function ApprovedCourses() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Approved Courses</h1>
+                    <h1>Các khóa học được phê duyệt</h1>
                 </div>
             </section>
             <section className="content">
@@ -110,8 +110,8 @@ export default function ApprovedCourses() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                             </div>
                         </div>

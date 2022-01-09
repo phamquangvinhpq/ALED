@@ -132,9 +132,9 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
         <div className="modal-dialog modal-vit" role="document">
           <div className="modal-content">
             <div className="modal-body">
-              <span>điều khoản</span>
+              <span>Điều khoản</span>
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal">đóng</button>
+                <button type="button" className="close" data-dismiss="modal">Đóng</button>
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
           <div className="row justify-content-center">
             <div className="col-md-4">
               <div className="card">
-                <h3 className="card-header text-center">Register User</h3>
+                <h3 className="card-header text-center">Đăng ký người dùng</h3>
                 <div className="card-body">
 
                   <form acceptCharset="utf-8" >
@@ -172,7 +172,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
                                 <textarea className="form-control" name="address" onChange={onInputChangedangki} placeholder="Address" required rows="4" cols="50" />
                               </div>
                               <div className="form-group">
-                                <label >Giáo Dục</label>
+                                <label >Trường học</label>
                                 <input type="text" className="form-control" name="education" onChange={onInputChangedangki} placeholder="Education" required />
                               </div>
                               <div className="form-group">
@@ -195,7 +195,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
                         </div>
                       </div>
                     </div>
-                    <button type="submit" disabled={!checked} className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer} >Sign Up</button>
+                    <button disabled={!checked} className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer} >Sign Up</button>
                   </form>
 
                 </div>

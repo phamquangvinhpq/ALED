@@ -27,8 +27,8 @@ export default function Favorite() {
   const clickDelete = (course_id) => {
     console.log(user_id + course_id)
     swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      title: "Bạn chắc chứ?",
+      text: "Sau khi xóa, bạn sẽ không thể khôi phục tệp tưởng tượng này!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -43,7 +43,7 @@ export default function Favorite() {
         fetch(`${DEFAULT_API}` +`favorite?user_id=${user_id}&course_id=${course_id}` , requestOptions)
           .then(response => response.text())
           .then(result => {
-            swal("Poof! Your imaginary file has been deleted!", {
+            swal("Đồ ngốc! Tệp tưởng tượng của bạn đã bị xóa!", {
               icon: "success",
             });
             setStatus(status+1)
@@ -66,10 +66,10 @@ export default function Favorite() {
               <tr>
                 <th hidden>ID</th>
                 <th>STT</th>
-                <th>Course Title</th>
-                <th className="w-100">Thumbnail</th>
-                <th>Course Content</th>
-                <th>Action</th>
+                <th>Tiêu đề khóa học</th>
+                <th className="w-100">Ảnh</th>
+                <th>Nội dung khóa học</th>
+                <th>Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -83,11 +83,11 @@ export default function Favorite() {
               </td>
               <td>
                 <a className="btn btn-info btn-sm" onClick={() => redirect(favorite.course_id) }  >
-                  Course Content
+                  Nội dung khóa học
                 </a>
               </td>
               <td>
-              <button onClick={() => clickDelete(favorite.course_id)} type="button" class="btn btn-danger">Unlike</button>
+              <button onClick={() => clickDelete(favorite.course_id)} type="button" class="btn btn-danger">Bỏ thích</button>
               </td>
             </tr>
             ))}

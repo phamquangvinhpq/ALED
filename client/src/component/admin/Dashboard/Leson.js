@@ -79,10 +79,10 @@ export default function Leson() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa kí tự đặc biệt", "warning")
     
     }else{
     var formdata = new FormData();
@@ -211,10 +211,10 @@ export default function Leson() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứa kí tự đặc biệt", "warning")
     
     }else{
     var formdata = new FormData();
@@ -241,8 +241,8 @@ export default function Leson() {
 
   const deleteLession = (value) => {
     swal({
-      title: "Are you sure?",
-      text: `Are you sure you want to delete? ?`,
+      title: "Bạn chắc chứ ?",
+      text: `Bạn có chắc là muốn xóa ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,

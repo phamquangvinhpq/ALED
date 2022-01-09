@@ -79,7 +79,7 @@ export default function AddCategory() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>Add Category</h1>
+                    <h1>Thêm Danh mục</h1>
                 </div>
                 <div className="content-header-right">
                     <a href="/admin/CourseCategory" className="btn btn-primary btn-sm">Xem tất cả</a>
@@ -104,7 +104,7 @@ export default function AddCategory() {
                                             <button onClick={
                 (event) => {
                   chuyentrangView(event)
-                }} type="submit" className="btn btn-success pull-left" name="form1">Submit</button>
+                }} type="submit" className="btn btn-success pull-left" name="form1">Đồng ý</button>
                                         </div>
                                     </div>
                                 </div>

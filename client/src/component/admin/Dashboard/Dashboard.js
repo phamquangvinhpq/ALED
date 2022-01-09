@@ -74,7 +74,7 @@ export default function Dashboard() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>Dashboard</h1>
+                    <h1>Bảng điều khiển</h1>
                 </div>
             </section>
             <section className="content">

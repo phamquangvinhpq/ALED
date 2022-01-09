@@ -88,10 +88,10 @@ export default function Section() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(Section.namesection)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(Section.namesection)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa ký tự đặc biệt", "warning")
     
     }else{
     var myHeaders = new Headers();
@@ -114,7 +114,7 @@ export default function Section() {
       .then(result => {
         if(result.loicode==-1){
           swal("nhập đầy đủ thông tin", {
-            text: `yêu cầu name ` + " " + result.details ,
+            text: `yêu cầu tên ` + " " + result.details ,
              icon: "warning",
           });
          
@@ -138,7 +138,7 @@ export default function Section() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("you do not have permission to access this course")
+          alert("Bạn không có quyền truy cập vào khóa học này")
           history.push("/giangvien/AllCourses")
          
         }
@@ -153,8 +153,8 @@ export default function Section() {
 
   const deletesection = (value) => {
     swal({
-      title: "Are you sure?",
-      text: `Are you sure you want to delete?`,
+      title: "Bạn chắc chứ ?",
+      text: `Bạn có chắc là muốn xóa ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -174,11 +174,11 @@ export default function Section() {
             .then(response => response.json())
             .then(result => {
               if(result.loicode == -1 ){
-                swal("the list has courses", {
+                swal("Danh sách có khóa học", {
                 });
               }
               else{
-                swal("deleted", {
+                swal("Đã xóa ", {
                   icon: "success",
                 });
                 setIsEnable(isEnable + 1)

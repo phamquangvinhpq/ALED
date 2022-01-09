@@ -9,7 +9,7 @@ export default function MenuAdmin() {
           <br /><br />
           <li className="treeview active">
           <NavLink to="/admin/Dashboard">
-              <i className="fa fa-laptop" /> <span className="fa-laptop1">Dashboard</span>
+              <i className="fa fa-laptop" /> <span className="fa-laptop1">Thông tin </span>
             </NavLink>
           </li>
 
