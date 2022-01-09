@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
-
+import { useHistory } from "react-router-dom";
 export default function PendingCourse() {
 
 
@@ -17,7 +17,16 @@ export default function PendingCourse() {
     },[
         isEnable
     ])
-
+    let history = useHistory()
+    
+    const section = (value) => {
+      if(isNaN(value.id)){
+        history.push("/404")
+        window.location.reload();
+      }else{
+        <NavLink to={`/admin/Section/${value.id}`} />
+      }
+    }
 
 
     const sendMail = async (value) => {
@@ -38,7 +47,7 @@ export default function PendingCourse() {
       fetch(`${DEFAULT_API}` + `sendmailreport?userId=${value.author_id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
-
+          swal("Thành công", "Đã gửi thành công", "success")
         })
         .catch(error => console.log('error', error));
     }
@@ -131,7 +140,7 @@ export default function PendingCourse() {
               .then(result => {
                 console.log(result)
                 console.log("hiha:" +value.id);
-                alert("đã duyệt")
+                swal("Thông báo", "Đã duyệt", "success")
                 setIsEnable(isEnable + 1)
               })
               .catch(error => console.log('error', error));
@@ -142,7 +151,7 @@ export default function PendingCourse() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Pending Courses</h1>
+                    <h1>Các khóa học đang chờ duyệt</h1>
                 </div>
             </section>
             <section className="content">
@@ -205,8 +214,8 @@ export default function PendingCourse() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                             </div>
                         </div>

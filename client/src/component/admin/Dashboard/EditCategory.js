@@ -12,7 +12,11 @@ export default function EditCategory() {
   const [isEnable, setIsEnable] = useState(0);
 
   useEffect(() => {
-
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadcate();
 
   }, [
@@ -25,7 +29,6 @@ export default function EditCategory() {
   const chuyentrang = function (event) {
     updateCate();
     history.push("/admin/CourseCategory")
-    alert("cập nhật thành công");
   }
 
   const loadcate = () => {
@@ -90,7 +93,7 @@ export default function EditCategory() {
 
           } else {
             setIsEnable(isEnable + 1)
-            alert("thêm thành công")
+            swal("Thông báo", "Sửa thành công", "success")
           }
         })
         .catch(error => console.log('error', error));

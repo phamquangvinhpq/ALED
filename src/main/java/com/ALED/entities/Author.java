@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,7 +51,8 @@ public class Author implements Serializable {
 	private List<Course> courses;
 
 //	 bi-directional many-to-one association to AuthorSkill
-//	@OneToMany(mappedBy="author")
-//	private List<AuthorSkill> authorSkills;
+	@JsonIgnore
+	@OneToMany(mappedBy="author")
+	private List<author_skill> authorSkills;
 
 }

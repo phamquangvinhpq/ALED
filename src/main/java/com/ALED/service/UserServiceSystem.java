@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ALED.DTO.AuthorSkillDTO;
 import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Author;
@@ -255,7 +256,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 		author_skill ausk = new author_skill();
 		ausk.setId(author.getId());
-		ausk.setAuthor_id(author.getId());
+		ausk.setAuthor(author);
 		ausk.setSkill(UserAuthorDTO.getSkill());
 
 		authorskillRepository.save(ausk);
@@ -336,15 +337,18 @@ public class UserServiceSystem implements IUserServiceSystem {
 	}
 
 	@Override
-	public List<author_skill> getkill(Integer id) {
-		List<author_skill> ds = new ArrayList<author_skill>();
-		Optional<author_skill> list = authorskillRepository.findById(id);
-		if (list.isPresent()) {
-			author_skill ask = list.get();
-			ds.add(ask);
+	public List<AuthorSkillDTO> getkill(Integer id) {
+		List<AuthorSkillDTO> list = new ArrayList<AuthorSkillDTO>();
+		List<author_skill> ds = authorskillRepository.findByAuthorId(id);
+		for (author_skill author_skill : ds) {
+			AuthorSkillDTO authorSkillDTO = new AuthorSkillDTO();
+			BeanUtils.copyProperties(author_skill, authorSkillDTO);
+			authorSkillDTO.setAuthor_id(author_skill.getAuthor().getId());
+			authorSkillDTO.setPhoto(author_skill.getAuthor().getPhoto());
+			list.add(authorSkillDTO);
 		}
 
-		return ds;
+		return list;
 	}
 
 	@Override

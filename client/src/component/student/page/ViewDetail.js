@@ -3,11 +3,11 @@ import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
-
+import swal from 'sweetalert';
 export default function ViewDetail() {
   let history = useHistory();
   let author_id = useParams().id;
-
+  let id = useParams();
   const [page, setPage] = useState(0);
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
@@ -58,6 +58,11 @@ export default function ViewDetail() {
   const user_id = localStorage.getItem("userid")
 
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadCourse(page);
     loadInfoAuthor();
     loadInfoTeacher();
@@ -83,7 +88,7 @@ export default function ViewDetail() {
         .then(result => {
             console.log(result);
             if (result === "bought") {
-                alert("you bought this course")
+              swal("Thông báo", "bạn đã mua khóa học này")
             } else {
                 history.push(`/checkout/${value.id}`)
             }

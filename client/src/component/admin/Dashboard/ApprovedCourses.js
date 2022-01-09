@@ -19,13 +19,13 @@ export default function ApprovedCourses() {
         const pg = pageSt - 1
         loadkhoahoc(pg)
         setPageSt(pg)
-      }
-    
-      const nextPageSt = async () => {
+    }
+
+    const nextPageSt = async () => {
         const pg = pageSt + 1
         loadkhoahoc(pg)
         setPageSt(pg)
-      }
+    }
 
     const loadkhoahoc = (pg = pageSt, pgsize = size) => {
         var myHeaders = new Headers();
@@ -78,9 +78,9 @@ export default function ApprovedCourses() {
                                                 <td>{value.courseName}</td>
                                                 <td>
                                                     {value.price.toLocaleString('vi-VN', {
-                                                            style: 'currency',
-                                                            currency: 'VND'
-                                                        })}
+                                                        style: 'currency',
+                                                        currency: 'VND'
+                                                    })}
                                                 </td>
                                                 <td>
                                                     <img
@@ -88,21 +88,21 @@ export default function ApprovedCourses() {
                                                         className="w-100" />
                                                 </td>
                                                 <td>
-                                             {value.categoryName}
-                                         </td>
-                                         <td>
-                                             {value.authorName}
-                                         </td>
+                                                    {value.categoryName}
+                                                </td>
+                                                <td>
+                                                    {value.authorName}
+                                                </td>
                                                 <td>
 
                                                     <a href={`/Detail/${value.id}`} className="btn btn-success btn-block btn-xs" >Xem chi tiết khóa học</a>
 
-                                                    <a href={`/detail/${value.id}`} className="btn btn-success btn-block btn-xs" >See Course
-                                                        Details</a>
+                                                    {/* <a href={`/detail/${value.id}`} className="btn btn-success btn-block btn-xs" >Xem chi tiết khóa học
+                                                    </a> */}
 
 
                                                     <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >Xem chi tiết nội dung khóa học</NavLink>
-                                                    
+
                                                 </td>
                                             </tr>
                                         )}
@@ -110,9 +110,9 @@ export default function ApprovedCourses() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
-                </nav>
+                                    <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                                    <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
+                                </nav>
                             </div>
                         </div>
                     </div>

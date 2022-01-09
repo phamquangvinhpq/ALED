@@ -32,12 +32,12 @@ export default function AddCategory() {
         var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
         var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
         if(!regexName.test(DanhMuc.name)){
-          swal("Failed", "Name only text can be entered and cannot be left blank", "warning")
+          swal("Thất bại", "Tên danh mục chỉ có thể là chữ", "warning")
         }else if(!regexKhoangTrang.test(DanhMuc.name)){
-          swal("Failed", "Name not be empty", "warning")
+          swal("Thất bại", "Tên danh mục không được bỏ trống", "warning")
         
         }else if(regexKitu.test(DanhMuc.name)){
-          swal("Failed", "Name must not contain the character", "warning")
+          swal("Thất bại", "Tên danh mục chỉ không được chứa kí tự", "warning")
         
         }else{
 

@@ -21,9 +21,13 @@ export default function Section() {
   const [DSsection, setDSsection] = useState([])
   const [isEnable, setIsEnable] = useState(0);
   let id = useParams();
-
+  var chek=isNaN(id.id);
   useEffect(() => {
-
+    if(chek==true)
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadsection();
 
   }, [
@@ -103,7 +107,7 @@ export default function Section() {
           });
          
         }else{
-          alert("thêm thành công")
+          swal("Thông báo", "Thêm thành công", "success")
           setIsEnable(isEnable + 1)
         }
        
@@ -178,7 +182,7 @@ export default function Section() {
       .then(response => response.text())
       .then(result => {
         console.log(result)
-        alert("đã sửa")
+        swal("Thông báo", "Đã sửa thành công", "success")
         setIsEnable(isEnable + 1)
       })
       .catch(error => console.log('error', error));
@@ -197,7 +201,7 @@ export default function Section() {
 <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Chapter</h1>
+                    <h1>Xem chương</h1>
                 </div>
             </section>
             <section className="content">
@@ -208,7 +212,7 @@ export default function Section() {
                             <div className="nav-tabs-custom instructor-content-tab">
           <ul className="nav nav-tabs">
             <li className="active"><a href="#tab_chapter" data-toggle="tab">Chương</a></li>
-            <li><NavLink to={`/admin/lession/${id.id}`} href="#tab_lesson" data-toggle="tab">Video </NavLink></li>
+            <li><NavLink to={`/admin/lession/${id.id}`} href="#tab_lesson" data-toggle="tab">Bài học </NavLink></li>
           </ul>
 
           <div className="tab-content">

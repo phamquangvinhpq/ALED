@@ -146,7 +146,7 @@ export default function Homestd() {
             .then(result => {
                 console.log(result);
                 if (result === "bought") {
-                    alert("you bought this course")
+                    swal("Thông báo", "Bạn đã mua khóa học này")
                 } else {
                     history.push(`/checkout/${value.id}`)
                     
