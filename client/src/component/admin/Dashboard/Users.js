@@ -72,17 +72,6 @@ export default function Users() {
       headers: myHeaders,
       redirect: 'follow'
     };
-if (searchemai) {
-            fetch(`${DEFAULT_API}` + `getallnisbyemail??email=${searchemai}&page=${pg}&size=${pgsize}`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    setTotalCountSt(result.length)
-                    setGiangVien(result)
-                    console.log("result123")
-                    setIsEnable(isEnable + 1)
-                })
-                .catch(error => console.log('error', error));
-        } else {
     fetch(`${DEFAULT_API}` + `get-hs-and-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -91,7 +80,7 @@ if (searchemai) {
         console.log(result)
       })
       .catch(error => console.log('error', error));
-    }
+    
   }
 
     return (

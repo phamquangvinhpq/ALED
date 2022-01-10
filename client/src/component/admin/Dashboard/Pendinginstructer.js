@@ -117,17 +117,6 @@ export default function Pendinginstructer() {
             redirect: 'follow'
         };
 
-        if (searchemai) {
-            fetch(`${DEFAULT_API}` + `getallnisbyemail??email=${searchemai}&page=${pg}&size=${pgsize}`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    setTotalCountSt(result.length)
-                    setGiangVien(result)
-                    console.log("result123")
-                    setIsEnable(isEnable + 1)
-                })
-                .catch(error => console.log('error', error));
-        } else {
             fetch(`${DEFAULT_API}` + `get-ins-no-isnable?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
                 .then(response => response.json())
                 .then(result => {
@@ -136,7 +125,7 @@ export default function Pendinginstructer() {
                     console.log(searchemai)
                 })
                 .catch(error => console.log('error', error));
-        }
+        
 
 
     }

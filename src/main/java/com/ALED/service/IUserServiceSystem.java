@@ -50,13 +50,6 @@ public interface IUserServiceSystem {
 
 	String sendMail(UserAuthorDTO authorDTO);
 
-	List<UserDTO> getAllHsByEmail(String email, Integer pageno, Integer pagesize);
-
-	List<UserDTO> getAllGVByEmail(String email, Integer pageno, Integer pagesize);
-
-	List<UserDTO> getAllHsAndGvByEmail(String email, Integer pageno, Integer pagesize);
-
-	List<UserDTO> getAllInsNoIsNableByEmail(String email, Integer pageno, Integer pagesize);
 
 
 }

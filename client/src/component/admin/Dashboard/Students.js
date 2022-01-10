@@ -113,17 +113,7 @@ export default function Students() {
       headers: myHeaders,
       redirect: 'follow'
     };
-    if (searchemai) {
-      fetch(`${DEFAULT_API}` + `getallnisbyemail??email=${searchemai}&page=${pg}&size=${pgsize}`, requestOptions)
-          .then(response => response.json())
-          .then(result => {
-              setTotalCountSt(result.length)
-              setGiangVien(result)
-              console.log("result123")
-              setIsEnable(isEnable + 1)
-          })
-          .catch(error => console.log('error', error));
-  } else {
+   
     fetch(`${DEFAULT_API}` + `get-hs?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -132,7 +122,7 @@ export default function Students() {
         console.log(result)
       })
       .catch(error => console.log('error', error));
-    }
+    
   }
   return (
     <div className="content-wrapper">

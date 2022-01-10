@@ -12,5 +12,4 @@ public interface ICategoryService {
 	public CategoryDTO delete(Integer id);
 	public CategoryDTO detail(Integer id);
 	List<CategoryDTO> readAllByPage(int page, int size);
-	List<CategoryDTO> getByTitle(String name, int page, int size);
 }
