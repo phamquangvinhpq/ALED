@@ -18,7 +18,11 @@ export default function PendingCourse() {
         isEnable
     ])
     let history = useHistory()
-    
+    const [searchTitle, setSearchTitle] = useState('')
+
+    const onInputTitleChange = (event) => {
+        setSearchTitle(event.target.value);
+    }
     const section = (value) => {
       if(isNaN(value.id)){
         history.push("/404")
@@ -73,7 +77,16 @@ export default function PendingCourse() {
             headers: myHeaders,
             redirect: 'follow'
         };
-
+        if (searchTitle) {
+          fetch(`${DEFAULT_API}` + `get-all-cou-no-act-by-title?courseName=${searchTitle}&page=${pg}&size=${pgsize}`, requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  setTotalCountSt(result.length)
+                  setKhoaHoc(result)
+                  setIsEnable(isEnable + 1)
+              })
+              .catch(error => console.log('error', error));
+      } else {
         fetch(`${DEFAULT_API}` + `course/cour-no-act?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -83,7 +96,7 @@ export default function PendingCourse() {
             })
             .catch(error => console.log('error', error));
     
-
+          }
     }
 
     const deletecourse = (value) => {
@@ -159,6 +172,9 @@ export default function PendingCourse() {
                     <div className="col-md-12">
                         <div className="box box-info">
                             <div className="box-body table-responsive">
+                            <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo tiêu đề" name='email' onChange={onInputTitleChange} /> 
+                                </div>
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                     <tr>
@@ -172,7 +188,13 @@ export default function PendingCourse() {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        {khoahoc.map((value,index)=>
+                                        {khoahoc.filter((value)=>{
+                                            if(searchTitle == ""){
+                                                return value
+                                            }else if(value.courseName.toLowerCase().includes(searchTitle.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value,index)=>
                                          <tr key={index}>
                                          <td>{value.id}</td>
                                          <td>{value.courseName}</td>

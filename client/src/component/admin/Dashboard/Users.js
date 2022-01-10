@@ -9,6 +9,11 @@ export default function Users() {
     const [pageSt, setPageSt] = useState(0);
     const [totalCountSt, setTotalCountSt] = useState(0)
     let size = 10;
+    const [searchemai, setSearchEmail] = useState('')
+
+    const onInputEmailChange = (event) => {
+        setSearchEmail(event.target.value);
+    }
 
   useEffect(() => {
     loadGiangVien()
@@ -67,7 +72,17 @@ export default function Users() {
       headers: myHeaders,
       redirect: 'follow'
     };
-
+if (searchemai) {
+            fetch(`${DEFAULT_API}` + `getallnisbyemail??email=${searchemai}&page=${pg}&size=${pgsize}`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    setTotalCountSt(result.length)
+                    setGiangVien(result)
+                    console.log("result123")
+                    setIsEnable(isEnable + 1)
+                })
+                .catch(error => console.log('error', error));
+        } else {
     fetch(`${DEFAULT_API}` + `get-hs-and-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -76,6 +91,7 @@ export default function Users() {
         console.log(result)
       })
       .catch(error => console.log('error', error));
+    }
   }
 
     return (
@@ -94,6 +110,9 @@ export default function Users() {
                     <div className="col-md-12">
                         <div className="box box-info">
                             <div className="box-body table-responsive">
+                            <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo email" name='email' onChange={onInputEmailChange} /> 
+                                </div>
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -106,7 +125,13 @@ export default function Users() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {giangVien.map((value,index) =>
+                                    {giangVien.filter((value)=>{
+                                            if(searchemai == ""){
+                                                return value
+                                            }else if(value.email.toLowerCase().includes(searchemai.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value,index) =>
                                              <tr key={index}>
                                              <td>{value.id}</td>
                                              <td><img src={value.image} alt="" className="w-150" /></td>

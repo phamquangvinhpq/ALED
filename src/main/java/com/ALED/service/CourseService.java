@@ -665,4 +665,52 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
+	
+	@Override
+	public List<CourseDTO> getAllCouNoActByTitle(String courseName, int page, int size) {
+		List<Course> listEnity = new ArrayList<Course>();
+		List<CourseDTO> listDto = new ArrayList<CourseDTO>();
+		Pageable paging = PageRequest.of(page, size);
+		Page<Course> pageCourses;
+		if (courseName == null) {
+			pageCourses = courseRepository.findAll(paging);
+		} else
+			pageCourses = courseRepository.getAllCouNoActByTitle(courseName, paging);
+		listEnity = pageCourses.getContent();
+		for (Course entity : listEnity) {
+			CourseDTO dto = new CourseDTO();
+			BeanUtils.copyProperties(entity, dto);
+			dto.setCategory_id(entity.getCategory().getId());
+			dto.setAuthor_id(entity.getAuthor().getId());
+			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setImageAuthor(entity.getAuthor().getImage());
+			listDto.add(dto);
+		}
+		return listDto;
+	}
+	
+	@Override
+	public List<CourseDTO> getAllCouActByTitle(String courseName, int page, int size) {
+		List<Course> listEnity = new ArrayList<Course>();
+		List<CourseDTO> listDto = new ArrayList<CourseDTO>();
+		Pageable paging = PageRequest.of(page, size);
+		Page<Course> pageCourses;
+		if (courseName == null) {
+			pageCourses = courseRepository.findAll(paging);
+		} else
+			pageCourses = courseRepository.getAllCouActByTitle(courseName, paging);
+		listEnity = pageCourses.getContent();
+		for (Course entity : listEnity) {
+			CourseDTO dto = new CourseDTO();
+			BeanUtils.copyProperties(entity, dto);
+			dto.setCategory_id(entity.getCategory().getId());
+			dto.setAuthor_id(entity.getAuthor().getId());
+			dto.setUser_id(entity.getUsers().getId());
+			dto.setRate(IrateService.avgstar(entity.getId()));
+			dto.setImageAuthor(entity.getAuthor().getImage());
+			listDto.add(dto);
+		}
+		return listDto;
+	}
 }

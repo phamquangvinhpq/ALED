@@ -171,5 +171,25 @@ public class UserController {
 	public String sendMail(@RequestBody UserAuthorDTO ua) throws MessagingException{
 		return userService.sendMail(ua) ;
 	}
+	
+	@GetMapping("/getallbyemail")
+	public List<UserDTO> getAllHsAndGvByEmail(@RequestParam String email,@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size){
+		return userService.getAllHsAndGvByEmail(email, page, size);
+	}
+	
+	@GetMapping("/getallnisbyemail")
+	public List<UserDTO> getAllInsNoIsNableByEmail(@RequestParam String email,@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size){
+		return userService.getAllInsNoIsNableByEmail(email, page, size);
+	}
+	
+	@GetMapping("/getgvbyemail")
+	public List<UserDTO> getAllGVByEmail(@RequestParam String email,@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size){
+		return userService.getAllGVByEmail(email, page, size);
+	}
+	
+	@GetMapping("/gethsbyemail")
+	public List<UserDTO> getAllHsByEmail(@RequestParam String email,@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size){
+		return userService.getAllHsByEmail(email, page, size);
+	}
 
 }

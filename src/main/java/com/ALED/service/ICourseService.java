@@ -67,4 +67,8 @@ public interface ICourseService {
 
 	List<CourseDTO> getPrice1(int page, int size);
 
+	List<CourseDTO> getAllCouActByTitle(String courseName, int page, int size);
+
+	List<CourseDTO> getAllCouNoActByTitle(String courseName, int page, int size);
+
 }

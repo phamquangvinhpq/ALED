@@ -118,4 +118,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	
 	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price >= 1000000 ",nativeQuery = true)
 	Page<Course> getPrice3ByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "Select * from course where status = 1 AND course_name LIKE %?1%",nativeQuery = true)
+	Page<Course> getAllCouActByTitle(String courseName,Pageable paging);
+
+	@Query(value = "Select * from course where status = 0 AND course_name LIKE %?1%",nativeQuery = true)
+	Page<Course> getAllCouNoActByTitle(String courseName,Pageable paging);
 }
