@@ -82,17 +82,7 @@ export default function Instructors() {
       headers: myHeaders,
       redirect: 'follow'
     };
-    if (searchemai) {
-      fetch(`${DEFAULT_API}` + `getallnisbyemail??email=${searchemai}&page=${pg}&size=${pgsize}`, requestOptions)
-          .then(response => response.json())
-          .then(result => {
-              setTotalCountSt(result.length)
-              setGiangVien(result)
-              console.log("result123")
-              setIsEnable(isEnable + 1)
-          })
-          .catch(error => console.log('error', error));
-  } else {
+    
     fetch(`${DEFAULT_API}` + `get-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -100,7 +90,7 @@ export default function Instructors() {
         setTotalCountSt(result.length)
       })
       .catch(error => console.log('error', error));
-    }
+    
   }
 
   return (

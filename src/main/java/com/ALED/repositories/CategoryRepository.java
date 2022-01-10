@@ -16,6 +16,4 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>{
     @Query(value = "Select Count(*) from category", nativeQuery = true )
     Integer countCate();
     
-    @Query(value = "Select * from category where name like %?1%", nativeQuery = true )
-    Page<Category> findByTitle(String name, Pageable pageable);
 }

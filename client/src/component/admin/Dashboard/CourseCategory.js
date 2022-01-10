@@ -91,16 +91,6 @@ export default function CourseCategory() {
             headers: myHeaders,
             redirect: 'follow'
         };
-        if (searchTitle) {
-            fetch(`${DEFAULT_API}` + `get-all-cou-act-by-title??courseName=${searchTitle}&page=${pg}&size=${pgsize}`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    setTotalCountSt(result.length)
-                    setCategory(result)
-                    setIsEnable(isEnable + 1)
-                })
-                .catch(error => console.log('error', error));
-        } else {
         fetch(`${DEFAULT_API}` + `category?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -109,7 +99,7 @@ export default function CourseCategory() {
                 console.log(result)
             })
             .catch(error => console.log('error', error));
-        }
+        
     }
 
     return (

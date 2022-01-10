@@ -77,16 +77,7 @@ export default function PendingCourse() {
             headers: myHeaders,
             redirect: 'follow'
         };
-        if (searchTitle) {
-          fetch(`${DEFAULT_API}` + `get-all-cou-no-act-by-title?courseName=${searchTitle}&page=${pg}&size=${pgsize}`, requestOptions)
-              .then(response => response.json())
-              .then(result => {
-                  setTotalCountSt(result.length)
-                  setKhoaHoc(result)
-                  setIsEnable(isEnable + 1)
-              })
-              .catch(error => console.log('error', error));
-      } else {
+       
         fetch(`${DEFAULT_API}` + `course/cour-no-act?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -96,7 +87,7 @@ export default function PendingCourse() {
             })
             .catch(error => console.log('error', error));
     
-          }
+          
     }
 
     const deletecourse = (value) => {

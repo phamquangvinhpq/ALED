@@ -57,18 +57,5 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 	@Query(value = " SELECT * FROM `author_skill` WHERE id=:id", nativeQuery = true)
 	List<author_skill> findBySkill(@Param("id") Integer id);
 
-	@Query(value = "SELECT users.*,author_skill.skill FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id JOIN author_skill ON users.id=author_skill.id where userrole.role_id = 3 AND is_enable = 0 AND email LIKE %?1%", nativeQuery = true)
-	Page<Users> getAllInsNoIsNableByEmail(String email,Pageable pageable);
 	
-	@Query(value = "SELECT users.* FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
-			+ "where userrole.role_id = 3 AND is_enable = 1 AND email LIKE %?1%", nativeQuery = true)
-	Page<Users> getAllGVByEmail(String email,Pageable pageable);
-
-	@Query(value = "SELECT users.* FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
-			+ "where userrole.role_id = 2 AND is_enable = 1 AND email LIKE %?1%", nativeQuery = true)
-	Page<Users> getAllHsByEmail(String email,Pageable pageable);
-	
-	@Query(value = "SELECT users.* FROM `users` LEFT JOIN `userrole` ON users.id = userrole.user_id\r\n"
-			+ "where userrole.role_id IN (2,3) AND is_enable = 1 AND email LIKE %?1%", nativeQuery = true)
-	Page<Users> getAllHsAndGvByEmail(String email,Pageable pageable);
 }

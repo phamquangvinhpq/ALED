@@ -63,10 +63,4 @@ public class CategoryController {
 	public CategoryDTO edit(@Valid @RequestBody CategoryDTO categoryDTO){
 		return iCategoryService.update(categoryDTO);
 	}
-
-	@GetMapping("get-by-title")
-	public List<CategoryDTO> getByTitle(@RequestParam(required = false) String name,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-		return iCategoryService.getByTitle(name, page, size);
-	}
 }
