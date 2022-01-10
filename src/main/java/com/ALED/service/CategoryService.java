@@ -97,4 +97,25 @@ public class CategoryService implements ICategoryService {
 		return listDto;
 	}
 
+	
+	@Override
+	public List<CategoryDTO> getByTitle(String name,int page,int size){
+		List<Category> listEnity = new ArrayList<Category>();
+		List<CategoryDTO> listDto = new ArrayList<CategoryDTO>();
+		Pageable paging = PageRequest.of(page, size);
+		Page<Category> pageCourses;
+		if(name == null) {
+			pageCourses = categoryRepository.findAll(paging);
+		}else {
+			pageCourses =	categoryRepository.findByTitle(name,paging);
+			listEnity = pageCourses.getContent();
+			for (Category entity : listEnity) {
+				CategoryDTO dto = new CategoryDTO();
+				BeanUtils.copyProperties(entity, dto);		
+				listDto.add(dto);
+		}
+		
+		}
+		return listDto;
+	}
 }

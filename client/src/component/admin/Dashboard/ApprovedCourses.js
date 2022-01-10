@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 
 export default function ApprovedCourses() {
-
+    const [isEnable, setIsEnable] = useState(0);
     const [khoahoc, setKhoaHoc] = useState([])
     const [pageSt, setPageSt] = useState(0);
     const [totalCountSt, setTotalCountSt] = useState(0)
@@ -12,8 +12,15 @@ export default function ApprovedCourses() {
     useEffect(() => {
         loadkhoahoc()
     }, [
-
+        isEnable
     ])
+
+    const [searchTitle, setSearchTitle] = useState('')
+
+    const onInputTitleChange = (event) => {
+        setSearchTitle(event.target.value);
+    }
+
 
     const backPageSt = async () => {
         const pg = pageSt - 1
@@ -35,7 +42,16 @@ export default function ApprovedCourses() {
             headers: myHeaders,
             redirect: 'follow'
         };
-
+        if (searchTitle) {
+            fetch(`${DEFAULT_API}` + `get-all-cou-act-by-title??courseName=${searchTitle}&page=${pg}&size=${pgsize}`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    setTotalCountSt(result.length)
+                    setKhoaHoc(result)
+                    setIsEnable(isEnable + 1)
+                })
+                .catch(error => console.log('error', error));
+        } else {
         fetch(`${DEFAULT_API}` + `course/cour-act?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -44,7 +60,7 @@ export default function ApprovedCourses() {
                 console.log(result)
             })
             .catch(error => console.log('error', error));
-
+        }
     }
 
     return (
@@ -59,6 +75,9 @@ export default function ApprovedCourses() {
                     <div className="col-md-12">
                         <div className="box box-info">
                             <div className="box-body table-responsive">
+                            <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo tiêu đề" name='email' onChange={onInputTitleChange} /> 
+                                </div>
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -72,7 +91,13 @@ export default function ApprovedCourses() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {khoahoc.map((value, index) =>
+                                        {khoahoc.filter((value)=>{
+                                            if(searchTitle == ""){
+                                                return value
+                                            }else if(value.courseName.toLowerCase().includes(searchTitle.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value, index) =>
                                             <tr key={index}>
                                                 <td>{value.id}</td>
                                                 <td>{value.courseName}</td>

@@ -12,9 +12,15 @@ export default function Instructors() {
   const [totalCountSt, setTotalCountSt] = useState(0)
   const [pageCr, setPageCr] = useState(0);
   const [totalCountCr, setTotalCountCr] = useState(0)
+  const [searchemai, setSearchEmail] = useState('')
+  const [isEnable, setIsEnable] = useState(0);
+    const onInputEmailChange = (event) => {
+        setSearchEmail(event.target.value);
+    }
   useEffect(() => {
     loadGiangVien()
   }, [
+    isEnable
   ])
 
   const layid = (value) => {
@@ -58,7 +64,7 @@ export default function Instructors() {
 
       redirect: 'follow'
     };
-
+    
     fetch(`${DEFAULT_API}` + `course/user/${value}?page=${pg}&size=${size}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -76,7 +82,17 @@ export default function Instructors() {
       headers: myHeaders,
       redirect: 'follow'
     };
-
+    if (searchemai) {
+      fetch(`${DEFAULT_API}` + `getallnisbyemail??email=${searchemai}&page=${pg}&size=${pgsize}`, requestOptions)
+          .then(response => response.json())
+          .then(result => {
+              setTotalCountSt(result.length)
+              setGiangVien(result)
+              console.log("result123")
+              setIsEnable(isEnable + 1)
+          })
+          .catch(error => console.log('error', error));
+  } else {
     fetch(`${DEFAULT_API}` + `get-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -84,6 +100,7 @@ export default function Instructors() {
         setTotalCountSt(result.length)
       })
       .catch(error => console.log('error', error));
+    }
   }
 
   return (
@@ -146,7 +163,9 @@ export default function Instructors() {
                     </div>
                   </div>
                 </div>
-
+                <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo email" name='email' onChange={onInputEmailChange} /> 
+                                </div>
 
                 <table id="example1" className="table table-bordered table-striped">
                   <thead>
@@ -160,7 +179,13 @@ export default function Instructors() {
                     </tr>
                   </thead>
                   <tbody>
-                    {giangVien.map((value, index) =>
+                    {giangVien.filter((value)=>{
+                                            if(searchemai == ""){
+                                                return value
+                                            }else if(value.email.toLowerCase().includes(searchemai.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value, index) =>
                       <tr key={index}>
                         <td>{value.id}</td>
                         <td>

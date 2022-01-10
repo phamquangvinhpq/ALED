@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.DTO.CategoryDTO;
+import com.ALED.DTO.CourseDTO;
 import com.ALED.repositories.CategoryRepository;
 import com.ALED.service.ICategoryService;
 
@@ -63,4 +64,9 @@ public class CategoryController {
 		return iCategoryService.update(categoryDTO);
 	}
 
+	@GetMapping("get-by-title")
+	public List<CategoryDTO> getByTitle(@RequestParam(required = false) String name,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return iCategoryService.getByTitle(name, page, size);
+	}
 }

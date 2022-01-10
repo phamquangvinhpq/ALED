@@ -230,4 +230,15 @@ public class CourseController {
 		return courseService.getPrice3(page,size);
 	}
 	
+	@GetMapping("get-all-cou-no-act-by-title")
+	public List<CourseDTO> getAllCouNoActByTitle(@RequestParam(required = false) String courseName,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return courseService.getAllCouNoActByTitle(courseName, page, size);
+	}
+	
+	@GetMapping("get-all-cou-act-by-title")
+	public List<CourseDTO> getAllCouActByTitle(@RequestParam(required = false) String courseName,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return courseService.getAllCouActByTitle(courseName, page, size);
+	}
 }

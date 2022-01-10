@@ -14,7 +14,11 @@ export default function CourseCategory() {
     const chuyentrangAdd = function (event) {
         history.push("/admin/addCategory")
     }
+    const [searchTitle, setSearchTitle] = useState('')
 
+    const onInputTitleChange = (event) => {
+        setSearchTitle(event.target.value);
+    }
     const chuyentrangupdate = function (event, value, index) {
         history.push(`/admin/editCategory/${value.id}`)
     }
@@ -87,7 +91,16 @@ export default function CourseCategory() {
             headers: myHeaders,
             redirect: 'follow'
         };
-
+        if (searchTitle) {
+            fetch(`${DEFAULT_API}` + `get-all-cou-act-by-title??courseName=${searchTitle}&page=${pg}&size=${pgsize}`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    setTotalCountSt(result.length)
+                    setCategory(result)
+                    setIsEnable(isEnable + 1)
+                })
+                .catch(error => console.log('error', error));
+        } else {
         fetch(`${DEFAULT_API}` + `category?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -96,6 +109,7 @@ export default function CourseCategory() {
                 console.log(result)
             })
             .catch(error => console.log('error', error));
+        }
     }
 
     return (
@@ -116,6 +130,9 @@ export default function CourseCategory() {
                     <div className="col-md-12">
                         <div className="box box-info">
                             <div className="box-body table-responsive">
+                            <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo tên danh mục" name='name' onChange={onInputTitleChange} /> 
+                                </div>
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -127,7 +144,13 @@ export default function CourseCategory() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Categories.map((value, index) =>
+                                        {Categories.filter((value)=>{
+                                            if(searchTitle == ""){
+                                                return value
+                                            }else if(value.name.toLowerCase().includes(searchTitle.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value, index) =>
                                             <tr key={index}>
                                                 <td>{index+1}</td>
                                                 <td>{value.name}</td>
