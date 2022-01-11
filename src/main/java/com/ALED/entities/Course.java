@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,7 +62,8 @@ public class Course implements Serializable {
 	@JoinColumn(name = "author_id")
 	private Author author;
 	
-	@OneToMany(mappedBy="course")
+	
+	@OneToMany(mappedBy="course",cascade = CascadeType.REMOVE)
 	private List<Section> sections;
 	
 	

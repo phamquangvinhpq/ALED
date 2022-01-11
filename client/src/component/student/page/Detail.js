@@ -381,11 +381,10 @@ var chek=isNaN(id.id);
               ))}
               <button type="button" className="btn btn-outline-primary" disabled={page == 0}
 
-                onClick={backPage}>Previous
+                onClick={backPage}>Trước
               </button>
               <button type="button" className="btn btn-outline-primary"
-                disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
--
+                disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Sau
               </button>
 
             </div>
@@ -465,7 +464,7 @@ var chek=isNaN(id.id);
                                               data-dismiss="modal"
 
                                             >
-                                              Close
+                                              Đóng
                                             </button>
                                           </div>
                                         </div>
@@ -532,7 +531,7 @@ var chek=isNaN(id.id);
             <div className="col-md-9">
               <h3 className="profile_title">Tên: {infoAuthor.name}</h3>
               <p className="profile_sub_title">
-                Education: {infoAuthor.education}
+                Trường học: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
                 Mô tả: {infoAuthor.description}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env'
+import { useHistory } from "react-router-dom";
 export default function Checkout1() {
     const [khoahoc, setkhoahoc] = useState([])
     const [DSkhoahoc, setDSkhoahoc] = useState({
@@ -11,9 +12,14 @@ export default function Checkout1() {
   
     let id = useParams();
     let user_id=localStorage.getItem("userid");
-
+    let history = useHistory()
 
     useEffect(() => {
+        if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
         laykhoahoc();
 
     }, [])
@@ -124,7 +130,7 @@ export default function Checkout1() {
                                         </tr>
 
                                         <tr>
-                                            <td colSpan={3} className="tot tar">Total: </td>
+                                            <td colSpan={3} className="tot tar">Tổng: </td>
                                             <td colSpan={2} className="tot">{value.price.toLocaleString('vi-VN', {
                                                             style: 'currency',
                                                             currency: 'VND'
@@ -138,7 +144,7 @@ export default function Checkout1() {
                             </div>
                             
                             <div className="text-right">
-                                <a className="btn btn-success" onClick={pay}>pay now </a>
+                                <a className="btn btn-success" onClick={pay}>Mua ngay </a>
                             </div>
                         </div>
                         <div className="col-md-5">
@@ -149,7 +155,7 @@ export default function Checkout1() {
                                         <div className="panel-heading p-3 mb-3" role="tab" id="heading1">
                                             <h3 className="panel-title">
                                                 <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#faq1">
-                                                    <span>Bank transfer</span>
+                                                    <span>Chuyển khoản</span>
                                                 </a>
                                             </h3>
                                         </div>

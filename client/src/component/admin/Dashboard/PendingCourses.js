@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
-
+import { useHistory } from "react-router-dom";
 export default function PendingCourse() {
 
 
@@ -17,7 +17,20 @@ export default function PendingCourse() {
     },[
         isEnable
     ])
+    let history = useHistory()
+    const [searchTitle, setSearchTitle] = useState('')
 
+    const onInputTitleChange = (event) => {
+        setSearchTitle(event.target.value);
+    }
+    const section = (value) => {
+      if(isNaN(value.id)){
+        history.push("/404")
+        window.location.reload();
+      }else{
+        <NavLink to={`/admin/Section/${value.id}`} />
+      }
+    }
 
 
     const sendMail = async (value) => {
@@ -38,7 +51,7 @@ export default function PendingCourse() {
       fetch(`${DEFAULT_API}` + `sendmailreport?userId=${value.author_id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
-
+          swal("Thành công", "Đã gửi thành công", "success")
         })
         .catch(error => console.log('error', error));
     }
@@ -64,7 +77,7 @@ export default function PendingCourse() {
             headers: myHeaders,
             redirect: 'follow'
         };
-
+       
         fetch(`${DEFAULT_API}` + `course/cour-no-act?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -74,7 +87,7 @@ export default function PendingCourse() {
             })
             .catch(error => console.log('error', error));
     
-
+          
     }
 
     const deletecourse = (value) => {
@@ -131,7 +144,7 @@ export default function PendingCourse() {
               .then(result => {
                 console.log(result)
                 console.log("hiha:" +value.id);
-                alert("đã duyệt")
+                swal("Thông báo", "Đã duyệt", "success")
                 setIsEnable(isEnable + 1)
               })
               .catch(error => console.log('error', error));
@@ -142,7 +155,7 @@ export default function PendingCourse() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Pending Courses</h1>
+                    <h1>Các khóa học đang chờ duyệt</h1>
                 </div>
             </section>
             <section className="content">
@@ -150,6 +163,9 @@ export default function PendingCourse() {
                     <div className="col-md-12">
                         <div className="box box-info">
                             <div className="box-body table-responsive">
+                            <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo tiêu đề" name='email' onChange={onInputTitleChange} /> 
+                                </div>
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                     <tr>
@@ -163,7 +179,13 @@ export default function PendingCourse() {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        {khoahoc.map((value,index)=>
+                                        {khoahoc.filter((value)=>{
+                                            if(searchTitle == ""){
+                                                return value
+                                            }else if(value.courseName.toLowerCase().includes(searchTitle.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value,index)=>
                                          <tr key={index}>
                                          <td>{value.id}</td>
                                          <td>{value.courseName}</td>
@@ -205,8 +227,8 @@ export default function PendingCourse() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                             </div>
                         </div>

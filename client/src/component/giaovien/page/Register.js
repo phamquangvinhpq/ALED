@@ -30,13 +30,21 @@ export default function Register() {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile2, setSelectedFile2] = useState();
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    console.log(event.target.files[0]);
+    if(event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg"){
+      swal("Thất bại", "Chỉ được chọn file jpeg/png", "warning")
+      document.getElementById("uploadFile").value=""
+    } else{
+      setSelectedFile(event.target.files[0]);
+    }
   };
 
   const changeHandler2 = (event) => {
-    setSelectedFile2(event.target.files[0]);
-    console.log(event.target.files[0]);
+    if(event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg" && event.target.files[0].type != "application/pdf" ){
+      swal("Thất bại", "Chỉ được chọn file jpeg/png và pdf", "warning")
+      document.getElementById("uploadFile2").value=""
+    } else{
+      setSelectedFile2(event.target.files[0]);
+    }
   };
 
   function chuyentrang() {
@@ -50,8 +58,8 @@ export default function Register() {
       window.location.reload()
     }
     else {
-      history.push("/home")
-      window.location.reload()
+      
+      // window.location.reload()
 
     }
 
@@ -109,11 +117,11 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
         .then(result => {
 
           if (result.loicode == -1) {
-            alert("Đã xảy ra lỗi, hãy kiểm tra lại thông tin")
+            swal("Thông báo", "Đã xảy ra lỗi, hãy kiểm tra lại thông tin", "warning")
           }
           else {
-            alert("Kiểm tra email để lấy mật khẩu")
-            chuyentrang();
+            swal("Thông báo", "Kiểm tra email để lấy mật khẩu", "success")
+            history.push("/home")
           }
 
         })
@@ -129,12 +137,24 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
     <div>
 
       <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div className="modal-dialog modal-vit" role="document">
+        <div className="modal-dialog modal-vit w-60-p" role="document">
           <div className="modal-content">
             <div className="modal-body">
-              <span>điều khoản</span>
+              <h2>Điều khoản</h2>
+              <br/>
+              <h4>1. Trách nhiệm của cá nhân sau khi đăng ký làm giảng viên</h4>
+              <span>1.1. Các cá nhân đã được duyệt trở thành giảng viên phải chịu trách nhiệm về mọi hoạt động được thực hiện bằng tài khoản của mình.<br/>
+              1.2. Chỉ được sử dụng duy nhất một địa chỉ thư điện tử để đăng ký tài khoản trong Hệ thống. Chủ tài khoản tự chịu trách nhiệm bảo mật thư điện tử cá nhân và sử dụng thư điện tử để đăng ký trong Hệ thống.<br/>
+              1.3. Người sử dụng tài khoản chịu trách nhiệm giữ bí mật mật khẩu của mình và phải thông báo kịp thời cho Hệ thống nếu mật khẩu bị mất hoặc bị đánh cắp hoặc phát hiện có người sử dụng trái phép mật khẩu để thực hiện các hành vi có thể ảnh hưởng đến Hệ thống.<br/>
+              1.4. Tất cả các khóa học sau khi đăng lên Hệ thống đều thuộc quyền quản lý của Hệ thống.<br/>
+              1.5 Tuân thủ các quy định về việc đăng khóa học và tiêu chuẩn cộng đồng (VD: Đăng khóa học đúng loại danh mục, nội dung và ngôn từ phù hơp,...)
+              </span>
+              <h4>2. Mọi sai phạm về điều khoản Giảng viên sẽ hoàn toàn chịu trách nhiệm</h4>
+              <span>
+                2.1. Nếu khóa học vi phạm tiêu chuẩn cộng đồng. Giảng viên sẽ chịu hoàn toàn trách nhiệm về việc đền bù thiệt hại cho người dùng và Hệ thống.
+              </span>
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal">đóng</button>
+                <button type="button" className="close" data-dismiss="modal">Đóng</button>
               </div>
             </div>
           </div>
@@ -145,7 +165,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
           <div className="row justify-content-center">
             <div className="col-md-4">
               <div className="card">
-                <h3 className="card-header text-center">Register User</h3>
+                <h3 className="card-header text-center">Đăng ký giảng viên</h3>
                 <div className="card-body">
 
                   <form acceptCharset="utf-8" >
@@ -172,7 +192,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
                                 <textarea className="form-control" name="address" onChange={onInputChangedangki} placeholder="Address" required rows="4" cols="50" />
                               </div>
                               <div className="form-group">
-                                <label >Giáo Dục</label>
+                                <label >Trường học</label>
                                 <input type="text" className="form-control" name="education" onChange={onInputChangedangki} placeholder="Education" required />
                               </div>
                               <div className="form-group">
@@ -181,11 +201,11 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
                               </div>
                         <div className="form-group">
                           <label >Ảnh</label>
-                          <input type="file" className="form-control" onChange={changeHandler} required />
+                          <input type="file" className="form-control" id='uploadFile' onChange={changeHandler} required />
                         </div>
                         <div className="form-group">
                           <label >Ảnh kỹ năng</label>
-                          <input type="file" className="form-control" onChange={changeHandler2} required />
+                          <input type="file" className="form-control" id='uploadFile2' onChange={changeHandler2} required />
                         </div>
                         <div className="form-group mb-3">
                           <div className="checkbox">
@@ -195,7 +215,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
                         </div>
                       </div>
                     </div>
-                    <button type="submit" disabled={!checked} className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer} >Sign Up</button>
+                    <button disabled={!checked} className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer} >Sign Up</button>
                   </form>
 
                 </div>

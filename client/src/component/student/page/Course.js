@@ -18,7 +18,7 @@ export default function Course() {
   const [layValue,setLayValue] = useState({
     vlx: ""
   })
-
+  let id = useParams();
   const onChangeValue = (event) =>
   
   {
@@ -27,6 +27,11 @@ export default function Course() {
 
   }
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     if (user_id) {
       loadFavorite();
     }
@@ -492,11 +497,11 @@ export default function Course() {
                             <div className="course-content">
                               <h4>
                                 <a onClick={() => chuyentrang(value)}>
-                                  Name: {value.courseName}
+                                  Tên: {value.courseName}
                                 </a>
                               </h4>
                               <p className="margin-top-20">
-                                Description: {value.description}
+                                Mô tả: {value.description}
                               </p>
                               <div className="signle-progressbar margin-top-20">
                                 <div className="row align-items-center">
@@ -531,8 +536,8 @@ export default function Course() {
                     </div>
 
                     {<nav aria-label="Page navigation example">
-                      <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPage} >Previous</button>
-                      <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage} >Next</button>
+                      <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPage} >Trước</button>
+                      <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage} >Sau</button>
                     </nav>}
                   </div>
 

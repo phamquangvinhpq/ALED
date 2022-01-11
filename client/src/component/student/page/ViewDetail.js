@@ -8,7 +8,7 @@ import swal from "sweetalert";
 export default function ViewDetail() {
   let history = useHistory();
   let author_id = useParams().id;
-
+  let id = useParams();
   const [page, setPage] = useState(0);
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
@@ -59,6 +59,11 @@ export default function ViewDetail() {
   const user_id = localStorage.getItem("userid")
 
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadCourse(page);
     loadInfoAuthor();
     loadInfoTeacher();
@@ -106,10 +111,10 @@ export default function ViewDetail() {
             <div className="col-md-12">
               <h1>Chi Tiết Giảng Viên</h1>
               <h3>
-                <a href="">Home</a>
+                <a href="">Trang chủ</a>
                 <i className="fa fa-angle-right" />
-                detail <i className="fa fa-angle-right" />
-                viewdetail{" "}
+                Chi tiết <i className="fa fa-angle-right" />
+                Xem chi tiết{" "}
               </h3>
             </div>
           </div>
@@ -176,7 +181,7 @@ export default function ViewDetail() {
               </div>
             </div>
           </div>
-          <h2 className="course_title mt_40">All Courses of this Instructor</h2>
+          <h2 className="course_title mt_40">Tất cả khóa học của giảng viên</h2>
 
           <div className="row product-item">
             {listCourse.map((value, index) => (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { DEFAULT_API } from '../../../conf/env';
+import swal from 'sweetalert';
 export default function Login() {
 
   
@@ -52,11 +53,13 @@ const login = () => {
           
              if(result.returnCode==0)
              {
-                 alert("sai tài khoản mật khẩu")
+              swal("Thông báo", "sai tài khoản mật khẩu")
+                
              }
              else if(result.returnCode==-1)
              {
-              alert("tài khoản chưa được kích hoạt")
+              swal("Thông báo", "tài khoản chưa được kích hoạt")
+              
              }
              else{
                  chuyentrang();
@@ -65,7 +68,7 @@ const login = () => {
           
       })
       .catch(error => {
-          alert("sai tk mk")
+        swal("Thông báo", "sai tài khoản hoặc mật khẩu")
           console.log('error', error)
      
   });

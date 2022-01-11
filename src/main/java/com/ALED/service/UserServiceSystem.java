@@ -144,12 +144,12 @@ public class UserServiceSystem implements IUserServiceSystem {
 		SimpleMailMessage message = new SimpleMailMessage();
 
 		message.setTo(user.getEmail());
-		message.setSubject("REGISTER AN ACCOUNT ALED");
-		message.setText("Thank you for trusting and choosing ALED as a place to learn knowledge.\r\n"
-				+ "We will bring you the useful courses you are looking for and maybe you will like other courses too\r\n"
-				+ "Here is your password:"+newPassword +"\r\n"
-				+ "Hope you won't mind changing your password\r\n"
-				+ "Wish you have a great experience with our website");
+		message.setSubject("ĐĂNG KÝ TÀI KHOẢN ĐƯỢC ALED");
+		message.setText("Cảm ơn bạn đã tin tưởng và lựa chọn ALED là nơi học hỏi kiến ​​thức.\r\n"
+				+ "Chúng tôi sẽ mang đến cho bạn những khóa học bổ ích mà bạn đang tìm kiếm và có thể bạn cũng sẽ thích những khóa học khác\r\n"
+				+ "Đây là mật khẩu của bạn: "+newPassword +"\r\n"
+				+ "Hy vọng bạn sẽ không phiền khi thay đổi mật khẩu của mình\r\n"
+				+ "Chúc bạn có một trải nghiệm tuyệt vời với trang web của chúng tôi.");
 
 		// Send Message!
 		emailSender.send(message);
@@ -255,7 +255,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 		author_skill ausk = new author_skill();
 		ausk.setId(author.getId());
-		ausk.setAuthor_id(author.getId());
+		ausk.setAuthor(author);
 		ausk.setSkill(UserAuthorDTO.getSkill());
 
 		authorskillRepository.save(ausk);
@@ -336,15 +336,18 @@ public class UserServiceSystem implements IUserServiceSystem {
 	}
 
 	@Override
-	public List<author_skill> getkill(Integer id) {
-		List<author_skill> ds = new ArrayList<author_skill>();
-		Optional<author_skill> list = authorskillRepository.findById(id);
-		if (list.isPresent()) {
-			author_skill ask = list.get();
-			ds.add(ask);
+	public List<AuthorSkillDTO> getkill(Integer id) {
+		List<AuthorSkillDTO> list = new ArrayList<AuthorSkillDTO>();
+		List<author_skill> ds = authorskillRepository.findByAuthorId(id);
+		for (author_skill author_skill : ds) {
+			AuthorSkillDTO authorSkillDTO = new AuthorSkillDTO();
+			BeanUtils.copyProperties(author_skill, authorSkillDTO);
+			authorSkillDTO.setAuthor_id(author_skill.getAuthor().getId());
+			authorSkillDTO.setPhoto(author_skill.getAuthor().getPhoto());
+			list.add(authorSkillDTO);
 		}
 
-		return ds;
+		return list;
 	}
 
 	@Override
@@ -408,5 +411,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 		}
 		return listDto;
 	}
+	
+	
 
 }

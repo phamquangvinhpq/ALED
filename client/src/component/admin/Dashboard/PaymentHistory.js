@@ -49,7 +49,7 @@ export default function PaymentHistory() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Payment History</h1>
+                    <h1>Lịch sử giao dịch</h1>
                 </div>
             </section>
             <section className="content">
@@ -88,8 +88,8 @@ export default function PaymentHistory() {
                                 </table>
 
                                 <nav aria-label="Page navigation example">
-                                            <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPage} >Previous</button>
-                                            <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount/size)} onClick={nextPage} >Next</button>
+                                            <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPage} >Trước</button>
+                                            <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount/size)} onClick={nextPage} >Sau</button>
                                         </nav>
                             </div>
                         </div>

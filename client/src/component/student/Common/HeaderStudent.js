@@ -201,10 +201,10 @@ export default function HeaderStudent() {
       )
       .then(result => {
         if (result.returnCode == 0) {
-          alert("sai tài khoản mật khẩu")
+          swal("Thông báo", "Sai tài khoản mật khẩu", "warning")
         }
         else if (result.returnCode == -1) {
-          alert("tài khoản chưa được kích hoạt")
+          swal("Thông báo", "Tài khoản chưa được kích hoạt", "warning")
         }
         else {
 
@@ -219,8 +219,7 @@ export default function HeaderStudent() {
 
       })
       .catch(error => {
-        alert("sai tk mk")
-
+        swal("Thông báo", "Sai tài khoản hoặc mật khẩu", "warning")
 
       });
   }
@@ -276,14 +275,14 @@ export default function HeaderStudent() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name)) {
-      swal("Failed", "Name only enter letters", "warning")
+      swal("Failed", "Tên chỉ chứa chữ cái", "warning")
     } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email)) {
-      swal("Failed", "not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     }
     else if (regexKitu.test(users.name) || regexKitu.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa ký tự", "warning")
     } else if (!regex.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa ký tự", "warning")
     }
     else {
       var myHeaders = new Headers();
@@ -317,12 +316,12 @@ export default function HeaderStudent() {
         .then(result => {
           if (result.loicode == -1) {
             swal("Fill in all the information", {
-              text: "Email is invalid or already exists",
+              text: "Email không hợp lệ hoặc đã tồn tại",
               icon: "warning",
             });
           }
           else {
-            alert("check email for password")
+            swal("Thông báo", "Kiểm tra email để biết mật khẩu", "success")
             chuyentrang();
           }
 
@@ -336,64 +335,64 @@ export default function HeaderStudent() {
     console.log(event.target.files[0]);
   };
 
-  const signupintructer = () => {
-    var regexKhoangTrang = /\S/;
-    var regex = /[A-Za-z0-9]/
-    var regexPhone = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
-    var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
-    var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
-    if (!regexName.test(users.name)) {
-      swal("Failed", "Name only enter letters", "warning")
-    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.phone) || !regexKhoangTrang.test(users.skill) || !regexKhoangTrang.test(users.education)) {
-      swal("Failed", "not be empty", "warning")
-    }
-    else if (regexKitu.test(users.name) || regexKitu.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
-    } else if (!regex.test(users.username)) {
-      swal("Failed", "Name must not contain the character", "warning")
-    }
-    else if (!regexPhone.test(users.phone)) {
-      swal("Failed", "Phone number is not invalid", "warning")
-    }
-    else {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
+  // const signupintructer = () => {
+  //   var regexKhoangTrang = /\S/;
+  //   var regex = /[A-Za-z0-9]/
+  //   var regexPhone = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+  //   var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+  //   var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
+  //   if (!regexName.test(users.name)) {
+  //     swal("Failed", "Tên chỉ nhập chữ ", "warning")
+  //   } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.phone) || !regexKhoangTrang.test(users.skill) || !regexKhoangTrang.test(users.education)) {
+  //     swal("Failed", "Tên không được để trống", "warning")
+  //   }
+  //   else if (regexKitu.test(users.name) || regexKitu.test(users.username)) {
+  //     swal("Failed", "Tên không chứa ký tự", "warning")
+  //   } else if (!regex.test(users.username)) {
+  //     swal("Failed", "Tên không chứa ký tự", "warning")
+  //   }
+  //   else if (!regexPhone.test(users.phone)) {
+  //     swal("Failed", "Nhập sai định dạng số điện thoại", "warning")
+  //   }
+  //   else {
+  //     var myHeaders = new Headers();
+  //     myHeaders.append("Content-Type", "application/json");
 
-      var formdata = new FormData();
-      formdata.append("username", users.username);
-      formdata.append("address", users.address);
-      formdata.append("email", users.email);
-      formdata.append("name", users.name);
-      formdata.append("phone", users.phone);
-      formdata.append("isEnable", "0");
-      formdata.append("status", "1");
-      formdata.append("education", users.education);
-      formdata.append("roles", "3");
-      formdata.append("skill", users.skill);
-      formdata.append("file", selectedFile);
+  //     var formdata = new FormData();
+  //     formdata.append("username", users.username);
+  //     formdata.append("address", users.address);
+  //     formdata.append("email", users.email);
+  //     formdata.append("name", users.name);
+  //     formdata.append("phone", users.phone);
+  //     formdata.append("isEnable", "0");
+  //     formdata.append("status", "1");
+  //     formdata.append("education", users.education);
+  //     formdata.append("roles", "3");
+  //     formdata.append("skill", users.skill);
+  //     formdata.append("file", selectedFile);
 
-      var requestOptions = {
-        method: 'POST',
-        body: formdata,
-        redirect: 'follow'
-      };
+  //     var requestOptions = {
+  //       method: 'POST',
+  //       body: formdata,
+  //       redirect: 'follow'
+  //     };
 
-      fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
-        .then(response => response.json())
-        .then(result => {
+  //     fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
+  //       .then(response => response.json())
+  //       .then(result => {
 
-          if (result.loicode == -1) {
-            alert("An error occurred, check the information again")
-          }
-          else {
-            alert("check email for password")
-            chuyentrang();
-          }
+  //         if (result.loicode == -1) {
+  //           alert("Đã xảy ra lỗi, hãy kiểm tra lại thông tin")
+  //         }
+  //         else {
+  //           alert("Kiểm tra email để lấy mật khẩu")
+  //           chuyentrang();
+  //         }
 
-        })
-        .catch(error => console.log('error', error));
-    }
-  }
+  //       })
+  //       .catch(error => console.log('error', error));
+  //   }
+  // }
 
 
   const qlgiangvien = () => {
@@ -458,12 +457,12 @@ export default function HeaderStudent() {
       .then(response => response.text())
       .then(result => {
         if (result == "thành công") {
-          alert(result)
+          swal("Thông báo", result)
           history.push("/home")
 
         }
         else {
-          alert(result)
+          swal("Thông báo", result)
         }
       })
       .catch(error => console.log('error', error));
@@ -524,7 +523,7 @@ export default function HeaderStudent() {
                         </form>
 
                         <p className="mt_10">
-                          <a data-dismiss="modal" data-toggle="modal" data-target="#register_introduct">Register Instructors</a>
+                          <a href={`/register`}>Register Instructors</a>
                           <br />
                           Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
                         </p>
@@ -536,7 +535,7 @@ export default function HeaderStudent() {
                 {/* đăng ký giảng viên */}
 
 
-                <div className="modal fade" id="register_introduct" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                {/* <div className="modal fade" id="register_introduct" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                   <div className="modal-dialog modal-vit" role="document">
                     <div className="modal-content">
                       <div className="modal-header">
@@ -587,7 +586,7 @@ export default function HeaderStudent() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
 
 

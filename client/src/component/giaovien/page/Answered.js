@@ -185,7 +185,7 @@ export default function Answered() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                QA Question
+                Câu hỏi
               </h5>
               <button
                 type="button"

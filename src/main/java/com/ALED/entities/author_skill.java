@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +25,8 @@ public class author_skill implements Serializable {/**
 
 	private String skill;
 
-	private Integer author_id;
+	@ManyToOne
+	@JoinColumn(name = "author_id")
+	private Author author;
 	
 }

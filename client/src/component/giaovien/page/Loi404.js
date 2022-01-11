@@ -10,9 +10,9 @@ export default function Loi404() {
                 <h1>
                     Oops!</h1>
                 <h2>
-                    404 Not Found</h2>
+                    404 Lỗi </h2>
                 <div class="error-details">
-                    Sorry, an error has occured, Requested page not found!
+                Xin lỗi, đã xảy ra lỗi, không tìm thấy trang được yêu cầu!
                 </div>
                 
             </div>

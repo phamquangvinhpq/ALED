@@ -14,7 +14,11 @@ export default function CourseCategory() {
     const chuyentrangAdd = function (event) {
         history.push("/admin/addCategory")
     }
+    const [searchTitle, setSearchTitle] = useState('')
 
+    const onInputTitleChange = (event) => {
+        setSearchTitle(event.target.value);
+    }
     const chuyentrangupdate = function (event, value, index) {
         history.push(`/admin/editCategory/${value.id}`)
     }
@@ -27,8 +31,8 @@ export default function CourseCategory() {
 
     const deleteCate = (value) => {
         swal({
-          title: "Are you sure?",
-          text: `Are you sure you want to delete?`,
+          title: "Bạn chắc chứ ?",
+          text: `Bạn có chắc là muốn xóa ?`,
           icon: "warning",
           buttons: true,
           dangerMode: true,
@@ -49,7 +53,7 @@ export default function CourseCategory() {
                 .then(result => {
                     if(result.loicode==-1)
                     {
-                        swal("Unable to delete the category that already has a course", {
+                        swal("Không thể xóa danh mục này vì đang chứa khóa học", {
                             icon: "warning",
                           });
                     }
@@ -87,7 +91,6 @@ export default function CourseCategory() {
             headers: myHeaders,
             redirect: 'follow'
         };
-
         fetch(`${DEFAULT_API}` + `category?page=${pg}&size=${pgsize}`, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -96,13 +99,14 @@ export default function CourseCategory() {
                 console.log(result)
             })
             .catch(error => console.log('error', error));
+        
     }
 
     return (
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Categories</h1>
+                    <h1>Xem tất cả Danh mục </h1>
                 </div>
                 <div className="content-header-right">
                     <a onClick={
@@ -116,6 +120,9 @@ export default function CourseCategory() {
                     <div className="col-md-12">
                         <div className="box box-info">
                             <div className="box-body table-responsive">
+                            <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo tên danh mục" name='name' onChange={onInputTitleChange} /> 
+                                </div>
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -127,7 +134,13 @@ export default function CourseCategory() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Categories.map((value, index) =>
+                                        {Categories.filter((value)=>{
+                                            if(searchTitle == ""){
+                                                return value
+                                            }else if(value.name.toLowerCase().includes(searchTitle.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value, index) =>
                                             <tr key={index}>
                                                 <td>{index+1}</td>
                                                 <td>{value.name}</td>
@@ -146,8 +159,8 @@ export default function CourseCategory() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                             </div>
                         </div>
