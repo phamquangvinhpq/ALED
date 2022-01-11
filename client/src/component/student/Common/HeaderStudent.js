@@ -490,11 +490,11 @@ export default function HeaderStudent() {
               <div className="top-right">
                 <ul>{accessToken == null ?
                   <li><a href="#" data-toggle="modal" data-target="#login_modal"><i className="fa fa-sign-in" />
-                    Login</a></li> : <li><a href="" onClick={qlstudent} ><i className="fa fa-user-circle" />Student
+                    Đăng nhập</a></li> : <li><a href="" onClick={qlstudent} ><i className="fa fa-user-circle" />Sinh viên
                     </a></li>}
-                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > Instructor</a></li> : ""}
+                  {role === "ROLE_GIANGVIEN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qlgiangvien}  > Giảng viên</a></li> : ""}
                   {role === "ROLE_ADMIN" ? <li><i className="fa fa-sign-in" /><a href="" onClick={qladmin}  > Admin</a></li> : ""}
-                  {accessToken == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Sign Up</a></li> : <li><a href="" onClick={logout}><i className="fa fa-sign-in" />log out </a></li>}
+                  {accessToken == null ? <li><a href="" data-toggle="modal" data-target="#join_modal"><i className="fa fa-user-circle" /> Đăng ký</a></li> : <li><a href="" onClick={logout}><i className="fa fa-sign-in" />Đăng xuất </a></li>}
                 </ul>
 
                 <div className="modal fade" id="join_modal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -527,7 +527,7 @@ export default function HeaderStudent() {
                         </form>
 
                         <p className="mt_10">
-                          <a data-dismiss="modal" data-toggle="modal" data-target="#register_introduct">Register Instructors</a>
+                          <a href='/register'>Register Instructors</a>
                           <br />
                           Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
                         </p>
