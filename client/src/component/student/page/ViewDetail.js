@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
-import swal from 'sweetalert';
+import swal from "sweetalert";
+
 export default function ViewDetail() {
   let history = useHistory();
   let author_id = useParams().id;
@@ -88,7 +89,7 @@ export default function ViewDetail() {
         .then(result => {
             console.log(result);
             if (result === "bought") {
-              swal("Thông báo", "bạn đã mua khóa học này")
+               swal("Thất Bại", "Bạn đã mua khóa học này rồi", "error")
             } else {
                 history.push(`/checkout/${value.id}`)
             }
@@ -108,7 +109,7 @@ export default function ViewDetail() {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>Xem chi tiết</h1>
+              <h1>Chi Tiết Giảng Viên</h1>
               <h3>
                 <a href="">Trang chủ</a>
                 <i className="fa fa-angle-right" />
@@ -148,19 +149,19 @@ export default function ViewDetail() {
                       </span> 
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-star" /> Đánh giá :{" "}
+                      <i className="fa fa-star" /> Đánh giá trung bình:{" "}
                       {teacher.instructorRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-play-circle" /> Tổng số khóa học:{" "}
+                      <i className="fa fa-play-circle" /> Tổng khóa học:{" "}
                       {teacher.totalCourse}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-comment" /> Tổng số đánh giá:{" "}
+                      <i className="fa fa-comment" /> Số lượng được đánh giá:{" "}
                       {teacher.totalRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-user" /> Tổng số sinh viên:{" "}
+                      <i className="fa fa-user" /> Tổng số học sinh:{" "}
                       {teacher.totalStudents}
                     </div>
                     <p />
@@ -172,10 +173,10 @@ export default function ViewDetail() {
             <div className="col-md-9">
               <h3 className="profile_title">{infoAuthor.name}</h3>
               <p className="profile_sub_title">
-              Trường học : {infoAuthor.education}
+              Trường: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-              Mô tả: {infoAuthor.description}
+              Chi tiết: {infoAuthor.description}
                 <br />
               </div>
             </div>
@@ -197,7 +198,7 @@ export default function ViewDetail() {
                       <a href="">{value.courseName}</a>
                     </h3>
                     <ul>
-                      <li>Tác giả: {value.authorName}</li>
+                      <li>Giảng viên: {value.authorName}</li>
 
                       <li>Danh mục: {value.categoryName}</li>
                     </ul>
@@ -214,7 +215,7 @@ export default function ViewDetail() {
                           activeColor="#ffd700"
                         />
                       </span>
-                      <span className="review-text">(Tổng số đánh giá: 1)</span>
+                      <span className="review-text">(Tổng đánh giá: {value.totalRating})</span>
                     </div>
                     <div className="price">{value.price.toLocaleString('vi-VN', {
         style: 'currency',
@@ -225,7 +226,7 @@ export default function ViewDetail() {
                         onClick={() => getcheckout(value)}
                         className="btn btn-block btn-success"
                       >
-                        Thanh toán
+                        Mua ngay
                       </a>
                     </div>
                   </div>
@@ -241,7 +242,7 @@ export default function ViewDetail() {
                   class="btn btn-primary"
                   onClick={() => chuyenTrang(page - 1)}
                 >
-                  Previous
+                  Trước
                 </button>
               </li>
               <li class="page-item">
@@ -249,7 +250,7 @@ export default function ViewDetail() {
                   class="btn btn-primary"
                   onClick={() => chuyenTrang(page + 1)}
                 >
-                  Next
+                  Sau
                 </button>
               </li>
             </ul>

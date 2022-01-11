@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 export default function EnrolledCourses() {
   const [DSkhoahocdamua, setDSkhoahocdamua] = useState([])
     const [danhgia, setdanhgia] = useState(false)
-
+    const [page, setPage] = useState(0);
   const [rate, setrate] = useState({
 
     star: "5",
@@ -33,7 +33,7 @@ export default function EnrolledCourses() {
   }
 
   useEffect(() => {
-    loadKhoaHocDaMua();
+    loadKhoaHocDaMua(0);
 
   }, ([
 
@@ -49,19 +49,25 @@ export default function EnrolledCourses() {
     
   }
 
+  const chuyenTrang = (page) => {
+    setPage(page);
+    loadKhoaHocDaMua(page);
+  };
+
   
 
 
   // lấy danh sách khóa học đã mua ở bảng mycourse
   // lưu đánh giá và sao vào bảng rate 
 
-  const loadKhoaHocDaMua = async () => {
+  const loadKhoaHocDaMua = async (page) => {
+    const size = 5
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `mycourse/${id}`, requestOptions)
+    fetch(`${DEFAULT_API}mycourse/${id}?page=${page}&size=${size}`, requestOptions)
       .then(response => response.json())
       .then(result => { 
         setDSkhoahocdamua(result) })
@@ -88,7 +94,7 @@ export default function EnrolledCourses() {
 
     fetch(`${DEFAULT_API}` +`addrate`, requestOptions)
       .then(response => response.json())
-      .then(result => swal("Thành công", "Thêm thành công", "success"))
+      .then(result => swal("Thành Công", "Đánh giá thành công", "success"))
       .catch(error => console.log('error', error));
   }
 
@@ -129,9 +135,9 @@ export default function EnrolledCourses() {
               <tr>
                 <th>STT</th>
                 <th>Ảnh</th>
-                <th>Tiêu đề</th>
-                <th>Nội dung</th>
-                <th className="w-200">Hành động</th>
+                <th>Tên Khóa Học</th>
+                <th>Nội Dung</th>
+                <th className="w-200">Hành Động</th>
               </tr>
             </thead>
             <tbody>
@@ -142,18 +148,32 @@ export default function EnrolledCourses() {
                   <td>{value.description}</td>
                 
                   <td>
-                    <a target="_blank" className="btn btn-info btn-sm" onClick={()=> chuyentrang(value)} >Nội dung</a>
+                    <a target="_blank" className="btn btn-info btn-sm" onClick={()=> chuyentrang(value)} >Học Ngay</a>
                   </td>
                   <td>
-                    <a href className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalRating1" onClick={() => layidkh(value.course)}>Give Rating</a>
+                    <a href className="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalRating1" onClick={() => layidkh(value.course)}>Đánh Giá</a>
                     &ensp;
-                    <a href="" className="btn btn-success btn-sm"  onClick={()=> chuyentrangdetail(value)} >Chi tiết nội dung</a>
+                    <a href="" className="btn btn-success btn-sm"  onClick={()=> chuyentrangdetail(value)} >Xem Chi Tiết</a>
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
-
+          
+          <button className="btn btn-info btn-sm"
+          disabled={page == 0 ? true : false}
+          class="btn btn-primary"
+          onClick={() => chuyenTrang(page - 1)}
+          >
+            Trước
+          </button>
+          <p class="btn btn-primary">{page+1}</p>
+          <button className="btn btn-info btn-sm"
+          class="btn btn-primary"
+          onClick={() => chuyenTrang(page + 1)}
+          >
+            Sau
+          </button>
 
 
           {/* dánh giá và comment khóa học  */}
@@ -162,7 +182,7 @@ export default function EnrolledCourses() {
               <div className="modal-content">
                 <div className="modal-header">
                   <button type="button" className="close" data-dismiss="modal">×</button>
-                  <h4 className="modal-title">Đánh giá</h4>
+                  <h4 className="modal-title">Đánh Giá</h4>
                 </div>
                 {danhgia == false ? 
                 <div className="modal-body">
@@ -170,7 +190,7 @@ export default function EnrolledCourses() {
                   <input type="hidden" name="course_id" defaultValue={30} />
                   <input type="hidden" name="user_id_instructor" defaultValue={9} />
                   <div className="form-group">
-                    <label htmlFor>Đưa ra đánh giá</label>
+                    <label htmlFor>Sao Đánh Giá</label>
                     <ReactStars
                       edit={true}
                       value={5}
@@ -184,11 +204,11 @@ export default function EnrolledCourses() {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor>Bình Luận (Không bắt buộc)</label>
+                    <label htmlFor>Bình Luận (Tùy Chọn)</label>
                     <textarea name="comment" className="form-control h-100" cols={30} rows={10} required defaultValue={""} onChange={onInputChange} />
                   </div>
-                  <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={addRate}>Đồng ý</button>
-                </div> : "You have already assessed the course" }
+                  <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={addRate}>Đánh Giá</button>
+                </div> : "Bạn đã đánh giá khóa học này rồi." }
                
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Đóng</b></button>

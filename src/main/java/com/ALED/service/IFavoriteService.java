@@ -8,7 +8,7 @@ public interface IFavoriteService {
 
 	public FavoriteDTO create(FavoriteDTO favoriteDTO);
 
-	public List<FavoriteDTO> findAllByUser(Integer userId);
+	public List<FavoriteDTO> findAllByUser(Integer user_id, Integer page, Integer size);
 
 	public boolean delete(Integer user_id, Integer course_id);
 

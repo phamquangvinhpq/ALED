@@ -11,25 +11,25 @@ export default function Menusv(props) {
         <div className="col-md-3">
           <div className="customer-sidebar">
             <ul>
-              <li onClick={() => change("Dashboard")} className>
-                <NavLink to="/student/Dashboard">Bảng Chi tiết</NavLink>
+              <li onClick={() => change("Tổng Quan")} className>
+                <NavLink to="/student/Dashboard">Tổng Quan</NavLink>
               </li>
-              <li onClick={() => change("Edit Profile")} className>
-                <NavLink to="/student/EditProfile">Cập nhật thông tin cá nhân</NavLink>
+              <li onClick={() => change("Thông Tin")} className>
+                <NavLink to="/student/EditProfile">Thông Tin</NavLink>
               </li>
-              <li onClick={() => change("Edit Password")} className>
-                <NavLink to="/student/EditPassword">Sửa mật khẩu</NavLink>
+              <li onClick={() => change("Đổi Mật Khẩu")} className>
+                <NavLink to="/student/EditPassword">Đổi Mật Khẩu</NavLink>
               </li>
-              <li onClick={() => change("Enrolled Courses")} className>
+              <li onClick={() => change("Khóa Học Đã Mua")} className>
                 <NavLink to="/student/EnrolledCourses">
-                Các khóa học đã đăng ký
+                  Khóa Học Đã Mua
                 </NavLink>
               </li>
-              <li onClick={() => change("Payment history")} className>
-                <NavLink to="/student/PaymentHistory">Lịch sử thanh toán</NavLink>
+              <li onClick={() => change("Lịch Sử Mua Hàng")} className>
+                <NavLink to="/student/PaymentHistory">Lịch Sử Mua Hàng</NavLink>
               </li>
-              <li onClick={() => change("Favorite")} className>
-                <NavLink to="/student/favorite">Yêu thích</NavLink>
+              <li onClick={() => change("Yêu Thích")} className>
+                <NavLink to="/student/favorite">Yêu Thích</NavLink>
               </li>
             </ul>
           </div>{" "}

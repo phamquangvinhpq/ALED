@@ -6,11 +6,12 @@ import  { Redirect } from 'react-router-dom'
 export default function Favorite() {
   const [listFavorite, setListFavorite] = useState([]);
   const [status, setStatus] = useState(0);
+  const [page, setPage] = useState(0);
   let user_id = localStorage.getItem("userid")
   let history = useHistory();
 
-  const loadFavorite = () => {
-    fetch(`${DEFAULT_API}` +`favorite?user_id=` + user_id)
+  const loadFavorite = (page) => {
+    fetch(`${DEFAULT_API}favorite?user_id=${user_id}&page=${page}`)
       .then((response) => response.json())
       .then((data) => 
        setListFavorite(data),
@@ -27,8 +28,8 @@ export default function Favorite() {
   const clickDelete = (course_id) => {
     console.log(user_id + course_id)
     swal({
-      title: "Bạn chắc chứ?",
-      text: "Sau khi xóa, bạn sẽ không thể khôi phục tệp tưởng tượng này!",
+      title: "Bạn chắc chắn chứ?",
+      text: "",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -43,7 +44,7 @@ export default function Favorite() {
         fetch(`${DEFAULT_API}` +`favorite?user_id=${user_id}&course_id=${course_id}` , requestOptions)
           .then(response => response.text())
           .then(result => {
-            swal("Đồ ngốc! Tệp tưởng tượng của bạn đã bị xóa!", {
+            swal("Bỏ yêu thích thành công", {
               icon: "success",
             });
             setStatus(status+1)
@@ -54,8 +55,13 @@ export default function Favorite() {
   }
 
   useEffect(() => {
-    loadFavorite();
+    loadFavorite(page);
   }, [status]);
+
+  const chuyenTrang = (page) => {
+    setPage(page);
+    loadFavorite(page);
+  };
 
   return (
     <div>
@@ -66,10 +72,10 @@ export default function Favorite() {
               <tr>
                 <th hidden>ID</th>
                 <th>STT</th>
-                <th>Tiêu đề khóa học</th>
+                <th>Tên Khóa Học</th>
                 <th className="w-100">Ảnh</th>
-                <th>Nội dung khóa học</th>
-                <th>Hành động</th>
+                <th>Nội Dung</th>
+                <th>Hành Động</th>
               </tr>
             </thead>
             <tbody>
@@ -83,16 +89,30 @@ export default function Favorite() {
               </td>
               <td>
                 <a className="btn btn-info btn-sm" onClick={() => redirect(favorite.course_id) }  >
-                  Nội dung khóa học
+                  Xem Chi Tiết
                 </a>
               </td>
               <td>
-              <button onClick={() => clickDelete(favorite.course_id)} type="button" class="btn btn-danger">Bỏ thích</button>
+              <button onClick={() => clickDelete(favorite.course_id)} type="button" class="btn btn-danger">Bỏ Thích</button>
               </td>
             </tr>
             ))}
             </tbody>
           </table>
+          <button className="btn btn-info btn-sm"
+          disabled={page == 0 ? true : false}
+          class="btn btn-primary"
+          onClick={() => chuyenTrang(page - 1)}
+          >
+            Trước
+          </button>
+          <p class="btn btn-primary">{page+1}</p>
+          <button className="btn btn-info btn-sm"
+          class="btn btn-primary"
+          onClick={() => chuyenTrang(page + 1)}
+          >
+            Sau
+          </button>
         </div>
       </div>
     </div>

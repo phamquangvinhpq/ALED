@@ -3,7 +3,11 @@ import { DEFAULT_API } from '../../../conf/env';
 
 export default function Dashboard() {
 
-  const [infoStudent, setInfoStudent] = useState(Object);
+  const [infoStudent, setInfoStudent] = useState({
+    totalCourse : 0,
+    totalMoneySpent : 0,
+    totalRatingGiven : 0
+  });
   const user_id = localStorage.getItem("userid");
 
   const loadInfoStudent = () => {
@@ -30,15 +34,18 @@ export default function Dashboard() {
           <table className="table table-bordered">
             <tbody>
               <tr>
-                <th className="w-40-p">Tổng số khóa học đã đăng ký</th>
+                <th className="w-40-p">Số Khóa Học Đã Mua</th>
                 <td>{infoStudent.totalCourse}</td>
               </tr>
               <tr>
-                <th>Tổng số tiền đã chi</th>
-                <td>{infoStudent.totalMoneySpent}</td>
+                <th>Tổng Số Tiền Đã Mua</th>
+                <td>{infoStudent.totalMoneySpent.toLocaleString('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND'
+                })}</td>
               </tr>
               <tr>
-                <th>Tổng đánh giá được đưa ra</th>
+                <th>Tổng Số Đánh Giá</th>
                 <td>{infoStudent.totalRatingGiven}</td>
               </tr>
             </tbody>

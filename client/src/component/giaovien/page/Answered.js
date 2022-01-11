@@ -136,9 +136,9 @@ export default function Answered() {
               <tr>
                 <th hidden>ID</th>
                 <th>STT</th>
-                <th>Người hỏi</th>
-                <th>Tên khóa học</th>
-                <th>Trạng thái</th>
+                <th>Người Hỏi</th>
+                <th>Tên Khóa Học</th>
+                <th>Trạng Thái</th>
                 <th>Hành Động</th>
               </tr>
             </thead>
@@ -159,7 +159,7 @@ export default function Answered() {
                       data-toggle="modal"
                       data-target="#exampleModalCenter1"
                     >
-                      Trả lời
+                      Trả Lời
                     </button>
                   </td>
                 </tr>
@@ -244,7 +244,7 @@ export default function Answered() {
                             class="btn btn-success"
                             onClick={sendMess}
                             >
-                            Trả lời
+                            Trả Lời
                             </button>
                           </div>
                         </div>
