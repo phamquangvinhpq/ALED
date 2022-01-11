@@ -20,7 +20,7 @@ const handleChange = (event) => {
 const handleSubmit = (event) => {
   event.preventDefault();
   if (inputs.newPassword === "" || inputs.re_newPassword === "" || inputs.password === "") {
-    swal("Failed", "Fields cannot be left blank", "error")
+    swal("Thất Bại", "Mật khẩu không được để trống", "error")
   } else if (inputs.newPassword.normalize() === inputs.re_newPassword.normalize()) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -39,14 +39,14 @@ const handleSubmit = (event) => {
       .then(result => {
         console.log(result)
         if(result === "true")
-          swal("Success", "Password has been changed successfully", "success")
+          swal("Thành Công", "Đổi mật khẩu thành công", "success")
         else
-          swal("Failed", "Old password is incorrect", "error")
+          swal("Thất Bại", "Mật khẩu cũ không đúng", "error")
         })
       .catch(error => console.log('error', error));
   }
   else{
-    swal("Failed", "New password and re-enter new password do not match", "error")
+    swal("Thất Bại", "Mật khẩu mới và nhập lại mật khẩu phải khớp nhau", "error")
   }
 }
 
@@ -56,26 +56,26 @@ const handleSubmit = (event) => {
             <div className="col-md-9">
               <form onSubmit={handleSubmit}  className="form-horizontal" >
               <div className="form-group">
-                  <label htmlFor className="col-sm-4 control-label">Old Password</label>
+                  <label htmlFor className="col-sm-4 control-label">Mật Khẩu Cũ</label>
                   <div className="col-sm-6">
                     <input onChange={handleChange} type="password" className="form-control" name="password" />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor className="col-sm-4 control-label">New Password</label>
+                  <label htmlFor className="col-sm-4 control-label">Mật Khẩu Mới</label>
                   <div className="col-sm-6">
                     <input onChange={handleChange} defaultValue="" type="password" className="form-control" name="newPassword" />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor className="col-sm-4 control-label">Retype New Password</label>
+                  <label htmlFor className="col-sm-4 control-label">Nhập Lại Mật Khẩu Mới</label>
                   <div className="col-sm-6">
                     <input onChange={handleChange} defaultValue="" type="password" className="form-control" name="re_newPassword" />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-offset-4 col-sm-6">
-                    <button type="submit" className="btn btn-default btn-success" name="form1">Update</button>
+                    <button type="submit" className="btn btn-default btn-success" name="form1">Cập Nhật</button>
                   </div>
                 </div>
               </form>

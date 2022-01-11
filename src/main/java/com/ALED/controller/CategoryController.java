@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.DTO.CategoryDTO;
+import com.ALED.DTO.CourseDTO;
 import com.ALED.repositories.CategoryRepository;
 import com.ALED.service.ICategoryService;
 
@@ -62,5 +63,4 @@ public class CategoryController {
 	public CategoryDTO edit(@Valid @RequestBody CategoryDTO categoryDTO){
 		return iCategoryService.update(categoryDTO);
 	}
-
 }

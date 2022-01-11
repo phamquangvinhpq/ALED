@@ -1,8 +1,10 @@
 package com.ALED.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -42,6 +46,11 @@ public class Course implements Serializable {
 	private Integer status;
 	
 	private String type;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date create_date;
+	
+	private Integer discount;
 
 	//bi-directional many-to-one association to Category
 	@ManyToOne
@@ -53,7 +62,8 @@ public class Course implements Serializable {
 	@JoinColumn(name = "author_id")
 	private Author author;
 	
-	@OneToMany(mappedBy="course")
+	
+	@OneToMany(mappedBy="course",cascade = CascadeType.REMOVE)
 	private List<Section> sections;
 	
 	

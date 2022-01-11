@@ -20,13 +20,14 @@ import Faq from './Faq';
 import Contact from './Contact';
 import Register from '../../giaovien/page/Register';
 import Exam from './Exam';
+import swal from "sweetalert";
 
 export default function Index() {
     let role = localStorage.getItem("role");
     let history = useHistory();
 
     function chuyentrang() {
-        alert("vui lòng đăng nhập");
+        swal("Thông báo", "vui lòng đăng nhập")
         history.push("/home");
 
     }

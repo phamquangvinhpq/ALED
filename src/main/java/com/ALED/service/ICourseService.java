@@ -67,4 +67,6 @@ public interface ICourseService {
 
 	List<CourseDTO> getPrice1(int page, int size);
 
+	
+
 }

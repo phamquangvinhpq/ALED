@@ -229,5 +229,4 @@ public class CourseController {
 	public List<CourseDTO> getPrice3(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "3") Integer size) {
 		return courseService.getPrice3(page,size);
 	}
-	
 }

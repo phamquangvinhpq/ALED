@@ -20,5 +20,6 @@ public interface IAuthorService {
 	List<Author> findpage(Integer pageno,Integer pagesize);
 	
 	List<AuthorDTO> searchUser(String keyword);
+
 	
 }

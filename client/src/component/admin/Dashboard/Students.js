@@ -9,11 +9,12 @@ export default function Students() {
   const [layID, setLayID] = useState({
     id: ""
   })
-
+  const [isEnable, setIsEnable] = useState(0);
 
   useEffect(() => {
     loadGiangVien()
   }, [
+    isEnable
   ])
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0)
@@ -23,7 +24,11 @@ export default function Students() {
   const [totalCountSt, setTotalCountSt] = useState(0)
   const [pageCr, setPageCr] = useState(0);
   const [totalCountCr, setTotalCountCr] = useState(0)
+  const [searchemai, setSearchEmail] = useState('')
 
+    const onInputEmailChange = (event) => {
+        setSearchEmail(event.target.value);
+    }
   const layid = (value) => {
     layID.id = value.id
     console.log(value.id);
@@ -108,7 +113,7 @@ export default function Students() {
       headers: myHeaders,
       redirect: 'follow'
     };
-
+   
     fetch(`${DEFAULT_API}` + `get-hs?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -117,12 +122,13 @@ export default function Students() {
         console.log(result)
       })
       .catch(error => console.log('error', error));
+    
   }
   return (
     <div className="content-wrapper">
   <section className="content-header">
     <div className="content-header-left">
-      <h1>View Students</h1>
+      <h1>Tất cả Sinh viên</h1>
     </div>
   </section>
   <section className="content">
@@ -135,7 +141,7 @@ export default function Students() {
                 <div className="modal-content">
                   <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal">×</button>
-                    <h4 className="modal-title">Enrolled Courses</h4>
+                    <h4 className="modal-title">Các khóa học đã đăng ký</h4>
                   </div>
                   <div className="modal-body">
                   <table className="table table-bordered t3">
@@ -162,8 +168,8 @@ export default function Students() {
               </tr>
               )}
                  <nav aria-label="Page navigation example">
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Previous</button>
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Next</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Trước</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Sau</button>
                             </nav>
               
             </tbody>
@@ -181,7 +187,7 @@ export default function Students() {
                 <div className="modal-content">
                   <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal">×</button>
-                    <h4 className="modal-title">Payment Details</h4>
+                    <h4 className="modal-title">Chi tiết thanh toán</h4>
                   </div>
                   <div className="modal-body">
                   <table className="table table-bordered t3">
@@ -207,8 +213,8 @@ export default function Students() {
                 </tr>
                   )}
                   <nav aria-label="Page navigation example">
-                              <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPagePay} >Previous</button>
-                              <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / size)} onClick={nextPagePay} >Next</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPagePay} >Trước</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / size)} onClick={nextPagePay} >Sau</button>
                             </nav>
                 </tbody>
               </table>
@@ -220,7 +226,9 @@ export default function Students() {
               </div>
             </div>
 
-
+            <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo email" name='email' onChange={onInputEmailChange} /> 
+                                </div>
             <table id="example1" className="table table-bordered table-striped">
               <thead>
                 <tr>
@@ -233,7 +241,13 @@ export default function Students() {
                 </tr>
               </thead>
               <tbody>
-              {giangVien.map((value, index) =>
+              {giangVien.filter((value)=>{
+                                            if(searchemai == ""){
+                                                return value
+                                            }else if(value.email.toLowerCase().includes(searchemai.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value, index) =>
                       <tr key={index}>
                         <td>{value.id}</td>
                         <td><img src={value.image} alt="" className="w-150" /></td>

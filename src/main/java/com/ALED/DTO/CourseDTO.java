@@ -48,5 +48,12 @@ public class CourseDTO {
 	private String imageAuthor;
 
 	private Integer countChapter;
+	
+	private String create_date;
+	
+	private Integer discount;
+	
+	private Double price_discount;
+	private String email;
 
 }

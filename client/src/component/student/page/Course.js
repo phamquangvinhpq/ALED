@@ -5,7 +5,6 @@ import { DEFAULT_API } from '../../../conf/env';
 import { useDispatch, useSelector } from 'react-redux'
 import ReactStars from "react-rating-stars-component";
 import swal from "sweetalert";
-import { event } from 'jquery';
 
 export default function Course() {
   const dispatch = useDispatch()
@@ -19,7 +18,7 @@ export default function Course() {
   const [layValue,setLayValue] = useState({
     vlx: ""
   })
-
+  let id = useParams();
   const onChangeValue = (event) =>
   
   {
@@ -27,8 +26,12 @@ export default function Course() {
     loadBaiGiang(event.target.value)
 
   }
-
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     if (user_id) {
       loadFavorite();
     }
@@ -129,7 +132,6 @@ export default function Course() {
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi")
           setIsEnable(isEnable + 1)
-          console.log(param.id);
         }
         )
         .catch(error => console.log('error', error));
@@ -262,9 +264,8 @@ export default function Course() {
     };
 
     fetch(`${DEFAULT_API}favorite?user_id=${user_id}`, requestOptions)
-      .then(response => response.json())
-      .then(result => setListFavorite(result))
-      .catch(error => console.log('error', error));
+      .then((response) => response.json())
+      .then((response) => setListFavorite(response));
   };
 
   const deleteFavorite = (value) => {
@@ -407,138 +408,146 @@ export default function Course() {
                   </div> */}
                   <div className="form-check" onChange={onChangeValue}>
                   <h4>Lọc theo giá</h4>
-                  <label>  <input className="form-check-input" type="radio" value={1} name="sort"   />
-                    Tăng dần 
-                    </label>
-                    <br/>
-                  
-                  <label> <input className="form-check-input" value={2} type="radio" name="sort" />
-                      Giảm dần
-                    </label>
-                    <br/>
-                    <label><input className="form-check-input" type="radio" value={3} name="sort"   />
-                       Dưới 500.000 VND
-                    </label>
-                    <br/>
-                  <label>
-                    <input className="form-check-input" type="radio" value={4} name="sort"  />
-                       Từ 500.000 - 1.000.000 VND
-                    </label>
-                    <br/>
-                    <label> <input className="form-check-input" type="radio" value={5} name="sort"  />
-                   
-                      Trên 1.000.000 VND
-                    </label>
-                 
-                    </div>
-                  
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" value={1} onChange={onChangeValue} id="flexRadioDefault1" />
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
+                     Tăng dần
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" value={2} onChange={onChangeValue} id="flexRadioDefault1" />
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
+                     Giảm dần
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" value={3} onChange={onChangeValue} id="flexRadioDefault1" />
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
+                     Dưới 500.000 VND
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" value={4} onChange={onChangeValue} id="flexRadioDefault2"  />
+                  <label className="form-check-label" htmlFor="flexRadioDefault2">
+                     Từ 500.000 - 1.000.000 VND
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" value={5} onChange={onChangeValue} id="flexRadioDefault2"  />
+                  <label className="form-check-label" htmlFor="flexRadioDefault2">
+                    Trên 1.000.000 VND
+                  </label>
+                </div>
+                <div className="lms-widget-title">
                   <h4>Lọc theo đánh giá</h4>
-                  <div className="form-check">
-                    <input className="form-check-input" type="radio" value="6" name="sort" onChange={(event) => onChangeValue(event)}  />
-                    <label className="form-check-label" htmlFor="flexRadioDefault2">
-                       Tăng dần
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input className="form-check-input" type="radio" value="7" name="sort" onChange={(event) => onChangeValue(event)} />
-                    <label className="form-check-label" htmlFor="flexRadioDefault2">
-                    Giảm dần
-                    </label>
-                  </div>
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" value={6} onChange={onChangeValue} id="flexRadioDefault1" />
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
+                     Tăng dần
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" value={7} onChange={onChangeValue} id="flexRadioDefault1" />
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
+                     Giảm dần
+                  </label>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="col-lg-8">
-              <div className="row">
-                <div className="col-md-6">
-                    <div className="container">
-                      <div className="page-content-top margin-bottom-40">
-                        <div className="row align-items-center">
-                          <div className="col-md-6">
-                            <div className="course-tab">
-                              <ul>
-                                <li className="active" data-filter="*">
-                                  <h3>{ }</h3>
-                                </li>
-                              </ul>
-                            </div>
+          <div className="col-lg-8">
+            <div className="row">
+              <div className="col-md-6">
+                  <div className="container1">
+                    <div className="page-content-top margin-bottom-40">
+                      <div className="row align-items-center">
+                        <div className="col-md-6">
+                          <div className="course-tab">
+                            <ul>
+                              <li className="active" data-filter="*">
+                                <h3>{ }</h3>
+                              </li>
+                            </ul>
                           </div>
                         </div>
                       </div>
-                      <div className="row grid">
-                        {BaiGiang.map((value, index) => (
-                          <div
-                            className="col-lg-4 col-sm-6 grid-item collection"
-                            key={index}
-                          >
-                            <div className="course-single-item">
-                              <div className="course-image">
-                                <img
-                                  src={value.image}
-                                  style={{ height: 250, maxWidth: 350 }}
-                                  alt="image"
-                                />
-                                <br />
-                                <br />
-                                <div className="course-video-part">
-                                  <div className="video-play-button">
-                                    {checkTym(value.id)} &ensp;
+                    </div>
+                    <div className="row grid">
+                      {BaiGiang.map((value, index) => (
+                        <div
+                          className="col-lg-4 col-sm-6 grid-item collection"
+                          key={index}
+                        >
+                          <div className="course-single-item">
+                            <div className="course-image">
+                              <img
+                                src={value.image}
+                                style={{ height: 250, maxWidth: 350 }}
+                                alt="image"
+                              />
+                              <br />
+                              <br />
+                              <div className="course-video-part">
+                                <div className="video-play-button">
+                                  {checkTym(value.id)} &ensp;
 
-                                  </div>
                                 </div>
                               </div>
-                              <div className="course-content">
-                                <h4>
-                                  <a onClick={() => chuyentrang(value)}>
-                                    Name: {value.courseName}
-                                  </a>
-                                </h4>
-                                <p className="margin-top-20">
-                                  Description: {value.description}
-                                </p>
-                                <div className="signle-progressbar margin-top-20">
-                                  <div className="row align-items-center">
+                            </div>
+                            <div className="course-content">
+                              <h4>
+                                <a onClick={() => chuyentrang(value)}>
+                                  Tên: {value.courseName}
+                                </a>
+                              </h4>
+                              <p className="margin-top-20">
+                                Mô tả: {value.description}
+                              </p>
+                              <div className="signle-progressbar margin-top-20">
+                                <div className="row align-items-center">
 
 
-                                  </div>
                                 </div>
-                                <div className="cotent-bottom margin-top-20">
-                                  <div className="content-left">
-                                    <h5>{value.rate ? ("Rating: " + value.rate) : ("Chưa có đánh giá")}</h5>
-                                  </div>
-                                  <div className="content-right">
-                                    <span>
-                                      {value.rate ?
-                                        <ReactStars
-                                          edit={false}
-                                          value={value.rate}
-                                          size={24}
-                                          isHalf={true}
-                                          emptyIcon={<i className="far fa-star"></i>}
-                                          halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                          fullIcon={<i className="fa fa-star"></i>}
-                                          activeColor="#ffd700" /> :
-                                        ""}
-                                    </span>
-                                  </div>
+                              </div>
+                              <div className="cotent-bottom margin-top-20">
+                                <div className="content-left">
+                                  <h5>{value.rate ? ("Rating: " + value.rate) : ("Chưa có đánh giá")}</h5>
+                                </div>
+                                <div className="content-right">
+                                  <span>
+                                    {value.rate ?
+                                      <ReactStars
+                                        edit={false}
+                                        value={value.rate}
+                                        size={24}
+                                        isHalf={true}
+                                        emptyIcon={<i className="far fa-star"></i>}
+                                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                        fullIcon={<i className="fa fa-star"></i>}
+                                        activeColor="#ffd700" /> :
+                                      ""}
+                                  </span>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        ))}
-                      </div>
-
-                      {<nav aria-label="Page navigation example">
-                        <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPage} >Previous</button>
-                        <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage} >Next</button>
-                      </nav>}
+                        </div>
+                      ))}
                     </div>
 
-                </div>
-              </div></div></div></div>
-      </section>
-    </div>
+                    {<nav aria-label="Page navigation example">
+                      <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPage} >Trước</button>
+                      <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage} >Sau</button>
+                    </nav>}
+                  </div>
+
+              </div>
+            </div></div></div></div>
+    </section>
+  </div>
 
 
   );

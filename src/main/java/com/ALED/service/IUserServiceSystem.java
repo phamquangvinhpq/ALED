@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import com.ALED.DTO.AuthorSkillDTO;
 import com.ALED.DTO.UserAuthorDTO;
 import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Users;
@@ -43,6 +44,12 @@ public interface IUserServiceSystem {
 
 	List<UserDTO> getAllInsNoIsNable(Integer pageno, Integer pagesize);
 
-	List<author_skill> getkill(Integer id);
+	List<AuthorSkillDTO> getkill(Integer id);
+
+	String sendMailReport(UserAuthorDTO authorDTO,Integer id);
+
+	String sendMail(UserAuthorDTO authorDTO);
+
+
 
 }

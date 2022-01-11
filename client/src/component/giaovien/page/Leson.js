@@ -4,6 +4,8 @@ import $ from "jquery";
 import ReactPlayer from 'react-player';
 import { useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env';
+import { FaVideo } from "react-icons/fa";
+import { FaVideoSlash } from "react-icons/fa";
 import { Player } from 'video-react';
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
@@ -15,7 +17,6 @@ export default function Leson() {
 
   const [status, setStatus] = useState(0);
   const [selectedSection, setSelectedSection] = useState(-1);
-
   const [sectionId, setSectionId] = useState(-1);
 
   const [lession, setLession] = useState({
@@ -26,7 +27,6 @@ export default function Leson() {
 
   
   let history = useHistory();
-
   let id = useParams();
   const [giatriID, setgiatriID] = useState(-1)
 
@@ -41,18 +41,33 @@ export default function Leson() {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile1, setSelectedFile1] = useState();
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     checkkhoahocuser();
     getLessionBySection();
     jquer();
   }, [status]);
 
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
+    if(event.target.files[0].type != "video/mp4"){
+      swal("Thất bại", "Chỉ được chọn file mp4", "warning")
+      document.getElementById("uploadFile").value=""
+    }else{
+      setSelectedFile(event.target.files[0]);
+    }
+    
   };
 
   const changeHandler1 = (event) => {
-    setSelectedFile1(event.target.files[0]);
-  
+    if(event.target.files[0].type != "video/mp4"){
+      swal("Thất bại", "Chỉ được chọn file mp4", "warning")
+      document.getElementsByName("uploadFile1").value=""
+    }else{
+      setSelectedFile1(event.target.files[0]);
+    }
   };
 
   const [pageSt, setPageSt] = useState(0);
@@ -106,7 +121,7 @@ export default function Leson() {
       .then(response => response.text())
       .then(result => {
         if(result==="no"){
-          alert("you do not have permission to access this course")
+          swal("Thông báo", "Bạn không có quyền truy cập vào khóa học này", "warning")
           history.push("/giangvien/AllCourses")
          
         }
@@ -117,16 +132,38 @@ export default function Leson() {
       .catch(error => console.log('error', error));
   }
 
+  const xemThu = (id, demo) => {
+    if (demo == 0) {
+      demo = 1;
+    } else {
+      demo = 0;
+    }
+
+    console.log(demo);
+
+    var requestOptions = {
+      method: "PUT",
+      redirect: "follow",
+    };
+
+    fetch(`${DEFAULT_API}lession/updateXemThu?id=${id}&demo=${demo}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        swal("Thành Công","","success")
+        getLessionBySection()
+      })
+      .catch((error) => console.log("error", error));
+  };
 
 
   const updateLession = () => {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứ kí tự đặc biệt", "warning")
     
     }else{
     var formdata = new FormData();
@@ -148,11 +185,13 @@ export default function Leson() {
 
 
     fetch(`${DEFAULT_API}` + "lession/", requestOptions)
-      .then(response => response.text())
+      .then(response => response.json())
       .then((result) => {
-        console.log("đã gọi api");
-        setStatus(status + 1)
-        console.log(result)
+        if (result.loicode == -1) {
+          swal("Thất Bại",result.message,"error")
+        } else {
+          swal("Thành Công","Cập nhật bài học thành công","success")
+        }
       })
       .catch(error => console.log('error', error)
       );
@@ -257,10 +296,10 @@ export default function Leson() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứ ký tự đặc biệt", "warning")
     
     }else{
     var formdata = new FormData();
@@ -277,7 +316,9 @@ export default function Leson() {
 
     fetch(`${DEFAULT_API}` + "lession", requestOptions)
       .then(response => response.text())
-      .then(result => { setStatus(status + 1) })
+      .then(result => {
+        swal("Thông báo", "Thêm thành công", "success")
+         setStatus(status + 1) })
       .catch(error => console.log('error', error));
   }
   };
@@ -286,8 +327,8 @@ export default function Leson() {
 
   const deleteLession = (value) => {
     swal({
-      title: "Are you sure?",
-      text: `Are you sure you want to delete? ?`,
+      title: "Bạn chắc chứ ?",
+      text: `Bạn có chắc là muốn xóa ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -302,10 +343,14 @@ export default function Leson() {
         };
 
         fetch(`${DEFAULT_API}` + "lession/" + value.id, requestOptions)
-          .then((response) => response.text())
+          .then((response) => response.json())
           .then((result) => {
-            console.log(result);
-            setStatus(status + 1);
+            if (result.loicode == -1) {
+              swal("Thất Bại", result.message, "error")
+            } else {
+              swal("Thành Công", "", "success")
+              setStatus(status + 1);
+            }
           })
           .catch((error) => console.log("error", error));
         swal("Đã xóa", {
@@ -335,19 +380,19 @@ export default function Leson() {
                 href="#tab_chapter"
                 data-toggle="tab"
               >
-                Chapter
+                Chương
               </NavLink>
             </li>
             <li className="active">
               <a href="#tab_lesson" data-toggle="tab">
-                Lesson
+                Video
               </a>
             </li>
           </ul>
           <div className="tab-pane" id="tab_lesson">
             <div className="box box-info pt_0">
               <div className="box-body">
-                <h3 className="sec_title mt_0">Add Lesson</h3>
+                <h3 className="sec_title mt_0">Thêm </h3>
                 <form
                   action=""
                   className="form-horizontal"
@@ -357,7 +402,7 @@ export default function Leson() {
                 >
                   <div className="form-group">
                     <label className="col-sm-3 control-label">
-                      Select Chapter *
+                      Chọn chương *
                     </label>
                     <div className="col-sm-6">
                       <select
@@ -368,7 +413,7 @@ export default function Leson() {
                         value={selectedSection}
                         onChange={onChangeSection}
                       >
-                        <option>-- Select Category --</option>
+                        <option>-- Chọn danh mục --</option>
 
                         {listSection.map((value, index) => {
                           return (
@@ -384,7 +429,7 @@ export default function Leson() {
                   </div>
                   <div className="form-group">
                     <label className="col-sm-3 control-label">
-                      Lesson Name *
+                      Tên video *
                     </label>
                     <div className="col-sm-6">
                       <input
@@ -401,7 +446,7 @@ export default function Leson() {
                   <div>
                     <div className="form-group">
                       <label className="col-sm-3 control-label">
-                        Lesson Type *
+                        Thể loại video *
                       </label>
                       <div className="col-sm-6">
                         <select
@@ -410,18 +455,18 @@ export default function Leson() {
                           id="lessonTypeSelect"
                         >
                           <option value="" >
-                            Select Type
+                            Chọn thể loại
                           </option>
                           <option value="video_youtube">Video (YouTube)</option>
 
-                          <option value="video_mp4">file</option>
+                          <option value="video_mp4">File</option>
 
                         </select>
                       </div>
                     </div>
                     <div className="form-group" id="youtubeBox">
                       <label className="col-sm-3 control-label">
-                        YouTube Video URL
+                        Đường dẫn Youtube
                       </label>
                       <div className="col-sm-6">
                        <h4>đang cập nhập</h4>
@@ -429,11 +474,11 @@ export default function Leson() {
                     </div>
                     <div className="form-group" id="mp4Box">
                       <label className="col-sm-3 control-label">
-                        File Upload
+                        Tải File
                       </label>
                       <div className="col-sm-6 pt_5">
-                        <input type="file" name="lesson_mp4" accept="video/*" onChange={changeHandler} /><span className="c-red">(Only MP4
-                          is allowed)</span>
+                        <input type="file" name="lesson_mp4" id="uploadFile" accept="video/*" onChange={changeHandler} /><span className="c-red">
+                          (Chỉ chọn dạng Mp4)</span>
                       </div>
                     </div>
 
@@ -448,14 +493,14 @@ export default function Leson() {
                         className="btn btn-success pull-left"
                         name="form1"
                       >
-                        Submit
+                        Đồng ý
                       </button>
                     </div>
                   </div>
                 </form>
 
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
-                  <h3 className="sec_title">All Lessons</h3>
+                  <h3 className="sec_title">Tất cả bài học</h3>
                   {listSection.map((value, index) =>
                     <div className="panel panel-default">
                       <div className="panel-heading" role="tab" id="headingTwo">
@@ -472,10 +517,11 @@ export default function Leson() {
                             <table className="table table-bordered table-striped" >
                               <thead>
                                 <tr>
-                                <th className="w-10-p">ID</th>
-                                  <th className="w-40-p">Name</th>
-                                  <th className="w-30-p">Lesson Section ID</th>
-                                  <th className="w-15-p">Lesson Content</th>
+                                <th className="w-10-p">STT</th>
+                                  <th className="w-40-p">Tên Bài Học</th>
+                                  <th className="w-30-p">Xem Thử</th>
+                                  <th className="w-30-p">Tên Chương</th>
+                                  <th className="w-15-p">Nội Dung</th>
                                   <th >Action </th>
                                 </tr>
                               </thead>
@@ -484,10 +530,12 @@ export default function Leson() {
                                   <tr key={index}>
                                     <td>{index+1}</td>
                                     <td>{value.name}</td>
+                                    <td>{value.demo == 1 ? 
+                                      <FaVideo onClick={() => xemThu(value.id, value.demo)} /> : <FaVideoSlash  onClick={() => xemThu(value.id, value.demo)}/>}</td>
                                     <td>{value.section_id}</td>
                                     <td>
                                       <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
-                                        <i className="fa fa-video-camera" /> Watch Video
+                                        <i className="fa fa-video-camera" /> Xem
                                       </a>
 
                                     </td>
@@ -498,9 +546,9 @@ export default function Leson() {
                                         data-target="#add-author" data-toggle="modal"
                                         onClick={() => getData(value)}
                                       >
-                                        Edit
+                                        Sửa
                                       </a>
-                                      <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Delete</a>
+                                      <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Xóa</a>
                                     </td>
                                   </tr>
                                 ))}
@@ -513,8 +561,8 @@ export default function Leson() {
                     </div>
                   )}
                   <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
                 </div>
 
@@ -535,7 +583,7 @@ export default function Leson() {
               >
                 ×
               </button>
-              <h4 className="modal-title">Edit Lesson</h4>
+              <h4 className="modal-title">Sửa Bài Học</h4>
             </div>
             <div className="modal-body">
               <form className="form-horizontal"
@@ -575,7 +623,7 @@ export default function Leson() {
 
                     className="col-sm-4 control-label pt_5"
                   >
-                    Lesson Name *
+                    Tên bài học *
                   </label>
                   <div className="col-sm-8">
                     <input
@@ -592,7 +640,7 @@ export default function Leson() {
 
                 <div className="form-group mb_5 ovh">
                   <label className="col-sm-4 control-label">
-                    Lesson Type *
+                    Thể loại bài học *
                   </label>
                   <div className="col-sm-8">
                     <select
@@ -601,19 +649,19 @@ export default function Leson() {
                       id="lessonTypeSelect10"
                     >
                       <option value="" >
-                        Select Type
+                        Chọn thể loại
                       </option>
                       <option value="video_youtube10">
                         Video (YouTube)
                       </option>
-                      <option value="video_mp410">file</option>
+                      <option value="video_mp410">File</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="form-group" id="youtubeBox10">
                   <label className="col-sm-4 control-label pt_5">
-                    Lesson YouTube
+                    Bài học từ Youtbe
                   </label>
                   <div className="col-sm-8">
                   <h4>đang cập nhập</h4>
@@ -621,11 +669,11 @@ export default function Leson() {
                 </div>
                 <div className="form-group" id="mp4Box10">
                   <label className="col-sm-4 control-label pt_5">
-                    Lesson File
+                    Tải File
                   </label>
                   <div className="col-sm-8">
-                    <input type="file" name="lesson_mp4" accept="video/*" onChange={changeHandler1} /><span className="c-red">(Only MP4
-                      is allowed)</span>
+                    <input type="file" name="lesson_mp4" id="uploadFile1" accept="video/*" onChange={changeHandler1} /><span className="c-red">(
+                      Chỉ dùng định dạng Mp4)</span>
                   </div>
                 </div>
 
@@ -639,7 +687,7 @@ export default function Leson() {
                     name="form1"
                     onClick={updateLession}
                   >
-                    Update
+                    Cập nhật
                   </button>
                 </div>
               </div>
@@ -650,7 +698,7 @@ export default function Leson() {
                 className="btn btn-danger"
                 data-dismiss="modal"
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>
@@ -682,7 +730,7 @@ export default function Leson() {
                 data-dismiss="modal"
 
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>

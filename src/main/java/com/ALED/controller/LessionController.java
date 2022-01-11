@@ -95,6 +95,12 @@ public class LessionController {
 		return lessionService.updatestatus(les);
 	}
 	
+	@PutMapping("/updateXemThu")
+	public boolean updateXemThu(@RequestParam(name = "id", required = false) Integer id,
+			@RequestParam(name = "demo", required = false) Integer demo) {
+		return lessionService.updateXemThu(id, demo);
+	}
+	
 	
 
 }

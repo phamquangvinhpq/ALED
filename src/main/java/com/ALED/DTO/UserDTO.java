@@ -25,4 +25,6 @@ public class UserDTO {
     private Integer status;
     
 	private Integer role;
+	
+	private String photo;
 }

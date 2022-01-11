@@ -3,9 +3,10 @@ import useState from 'react-usestateref'
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
 import { Link, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
-import Checkout1 from './Checkout1';
+import { FaVideo } from "react-icons/fa";
+import { FaVideoSlash } from "react-icons/fa";
+import ReactPlayer from 'react-player';
 
 export default function Detail() {
 
@@ -17,6 +18,7 @@ export default function Detail() {
   const [coursebyid, setcoursebyid] = useState([]);
   const [userrate, setuserrate] = useState([]);
   const [trangthai, settrangthai] = useState(false);
+  const [videoDemo, setVideoDemo] = useState("")
 
 
   const [damua, setdamua] = useState(false);
@@ -46,6 +48,21 @@ var chek=isNaN(id.id);
 
 
   }, [status])
+
+  const xemThu = (value) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + `lession/${value}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setVideoDemo(result.linkVideo)
+        console.log(result.linkVideo)
+      })
+      .catch(error => console.log('error', error));
+  }
 
   const loadInfoAuthor = (author_id) => {
     var requestOptions = {
@@ -161,7 +178,6 @@ var chek=isNaN(id.id);
     const pg = page - 1
     loaduserrate(pg)
     setPage(pg)
-    console.log(page);
   }
 
 
@@ -321,10 +337,7 @@ var chek=isNaN(id.id);
             </div>
           ))}
 
-          <h2 className="course_title mt_20">Chi tiết khóa học</h2>
-          <p>Lorem </p>
-          <p>Sit</p>
-          <p>Copiosae </p>
+
           <h2 className="course_title mt_20">Đánh giá ({thongtin})</h2>
 
           <div className="product-single-review">
@@ -365,11 +378,10 @@ var chek=isNaN(id.id);
               ))}
               <button type="button" className="btn btn-outline-primary" disabled={page == 0}
 
-                onClick={backPage}>Previous
+                onClick={backPage}>Trước
               </button>
               <button type="button" className="btn btn-outline-primary"
-                disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
--
+                disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Sau
               </button>
 
             </div>
@@ -418,46 +430,45 @@ var chek=isNaN(id.id);
                             <tbody>
                               <tr>
                                 <th>Tên bài học</th>
-                                <th>Lesson Preview</th>
+                                <th>Xem thử</th>
                                 <th>Thời lượng bài học</th>
-
                               </tr>
                               {video.map((value, index) => (
                                 <tr>
                                   <td>{value.name}</td>
                                   <td>
-                                    <div>Enrolled Course First</div>
+                                    {value.demo == 1 ? <FaVideo onClick={() => xemThu(value.id)} data-toggle="modal" data-target="#myModalAllWatch0" /> : <FaVideoSlash />}
                                     <div
-                                      id="myModalAllWatch0"
-                                      className="modal fade video_popup"
-                                      role="dialog"
-                                    >
-                                      <div className="modal-dialog w-60-p">
+                                      id="myModalAllWatch0" className="modal" aria-hidden="true"  >
+                                      <div id="myForm" className="modal-dialog w-50-p" >
                                         <div className="modal-content">
-                                          <div className="modal-body">
-                                            <iframe
-                                              width={560}
-                                              height={315}
-                                              src="https://www.youtube.com/embed/kkGeOWYOFoA"
-                                              frameBorder={0}
-                                              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                              allowFullScreen
-                                            />
-                                          </div>
+                                          <form>
+                                            <div >
+                                              <ReactPlayer
+                                                controls
+                                                width="100%"
+                                                height="400px"
+                                                url={videoDemo}
+                                              />
+
+                                            </div>
+                                          </form>
                                           <div className="modal-footer">
                                             <button
+
                                               type="button"
                                               className="btn btn-default"
                                               data-dismiss="modal"
+
                                             >
-                                              Close
+                                              Đóng
                                             </button>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
                                   </td>
-
+                                  <td>Chưa</td>
                                 </tr>
                               ))}
                             </tbody>
@@ -517,7 +528,7 @@ var chek=isNaN(id.id);
             <div className="col-md-9">
               <h3 className="profile_title">Tên: {infoAuthor.name}</h3>
               <p className="profile_sub_title">
-                Education: {infoAuthor.education}
+                Trường học: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
                 Mô tả: {infoAuthor.description}

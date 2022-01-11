@@ -136,10 +136,10 @@ export default function Answered() {
               <tr>
                 <th hidden>ID</th>
                 <th>STT</th>
-                <th>Questioner</th>
-                <th>Course Name</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th>Người Hỏi</th>
+                <th>Tên Khóa Học</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
               </tr>
             </thead>
             <tbody>
@@ -159,7 +159,7 @@ export default function Answered() {
                       data-toggle="modal"
                       data-target="#exampleModalCenter1"
                     >
-                      Reply
+                      Trả Lời
                     </button>
                   </td>
                 </tr>
@@ -167,8 +167,8 @@ export default function Answered() {
             </tbody>
           </table>
           <nav aria-label="Page navigation example">
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
-                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Next</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
                 </nav>
         </div>
       </div>
@@ -185,7 +185,7 @@ export default function Answered() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                QA Question
+                Câu hỏi
               </h5>
               <button
                 type="button"
@@ -244,7 +244,7 @@ export default function Answered() {
                             class="btn btn-success"
                             onClick={sendMess}
                             >
-                            Reply
+                            Trả Lời
                             </button>
                           </div>
                         </div>
@@ -260,7 +260,7 @@ export default function Answered() {
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>

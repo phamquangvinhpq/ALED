@@ -19,7 +19,7 @@ import PaymentHistory from "./PaymentHistory";
 import Courvideo from "../page/Courvideo";
 
 export default function IndexDash() {
-  const [title, setTitle] = useState("Student Setting");
+  const [title, setTitle] = useState("Tổng Quan");
   const changleTitle = (text) => {
     setTitle(text);
   };

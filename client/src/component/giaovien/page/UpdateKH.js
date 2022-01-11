@@ -12,7 +12,7 @@ export default function UpdateKH() {
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
-    
+    console.log(event.target.files[0]);
     BaiGiang.image=URL.createObjectURL(event.target.files[0])
 
   };
@@ -26,6 +26,7 @@ export default function UpdateKH() {
   const [BaiGiang, setBaiGiang] = useState({
     courseName: "",
     price: "",
+    discount: "",
     image: "",
     description: "",
     status: "",
@@ -38,6 +39,7 @@ export default function UpdateKH() {
   const [data, setdata] = useState({
     courseName: "",
     price: "",
+    discount: "",
     image: "",
     description: "",
     status: "",
@@ -46,7 +48,11 @@ export default function UpdateKH() {
 
 
   useEffect(() => {
-
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadCategory();
     dulieusua();
     
@@ -73,11 +79,11 @@ export default function UpdateKH() {
     const price = Number(BaiGiang.price)
     var regexKhoangTrang = /\S/;
     if(Number.isNaN(price)){
-      swal("Failed", "Price only enter numbers", "warning")
+      swal("Failed", "Giá chỉ được nhập số", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
-      swal("Failed", "courseName not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.description)){
-      swal("Failed", "Description not be empty", "warning")
+      swal("Failed", "Mô tả không được để trống", "warning")
     }
     else{
       var myHeaders = new Headers();
@@ -85,6 +91,7 @@ export default function UpdateKH() {
       formdata.append("id", id.id);
       formdata.append("courseName", BaiGiang.courseName);
       formdata.append("price", price);
+      formdata.append("price", BaiGiang.discount);
       formdata.append("file",selectedFile);
       formdata.append("description", BaiGiang.description);
       formdata.append("status", "0");
@@ -104,11 +111,11 @@ export default function UpdateKH() {
         .then(result => {
           if(result.loicode==-1){
             swal("nhập đầy đủ thông tin", {
-              text: `yêu cầu nhập price ` ,
+              text: `yêu cầu nhập giá ` ,
               icon: "warning",
             });
           }else{
-          swal("Thành Công", "Sửa khóa học thành công", "success")
+          swal("Thông báo", "Sửa khóa học thành công", "success")
           history.push(`/giangvien/AllCourses/`);
           setIsEnable(isEnable + 1)
           }
@@ -193,7 +200,7 @@ export default function UpdateKH() {
                
                   <form className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
                     <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Course Title *</label>
+                      <label htmlFor className="col-sm-3 control-label">Tiêu đề khóa học *</label>
                       <div className="col-sm-9">
 
                         <input type="text" name="courseName" className="form-control" onChange={onInputChange} value={BaiGiang.courseName} />
@@ -201,15 +208,25 @@ export default function UpdateKH() {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Course Price</label>
+                      <label htmlFor className="col-sm-3 control-label">Giá khóa học</label>
                       <div className="col-sm-9">
 
                         <input type="text" name="price" className="form-control" onChange={onInputChange} value={BaiGiang.price} />
 
                       </div>
+                      
                     </div>
                     <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Description
+                      <label htmlFor className="col-sm-3 control-label">Discount</label>
+                      <div className="col-sm-9">
+
+                        <input type="text" name="discount" className="form-control" onChange={onInputChange} value={BaiGiang.discount} />
+
+                      </div>
+                      
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Mô tả
                         *</label>
                       <div className="col-sm-9">
 
@@ -217,7 +234,7 @@ export default function UpdateKH() {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Featured Photo *</label>
+                      <label htmlFor className="col-sm-3 control-label">Ảnh *</label>
                       <div className="col-sm-6 pt_5">
                         <input  type="file" name="image"  onChange={changeHandler} accept="image/*" />
                       </div>
@@ -234,10 +251,10 @@ export default function UpdateKH() {
              
 
                     <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Selece Category *</label>
+                      <label htmlFor className="col-sm-3 control-label"> Danh mục *</label>
                       <div className="col-sm-6">
                         <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                          <option>-- Select Category --</option>
+                          <option>-- Chọn Danh mục --</option>
 
                           {danhmuc.map((value, index) => {
                             return (
@@ -253,7 +270,7 @@ export default function UpdateKH() {
                     <div className="form-group">
                       <div className="col-sm-offset-3 col-sm-9">
                         <button type="button" className="btn btn-success pull-left c-button"
-                         onClick={updateCourse} name="form1">Update</button>
+                         onClick={updateCourse} name="form1">Cập nhật</button>
                       </div>
                     </div>
                   </form>

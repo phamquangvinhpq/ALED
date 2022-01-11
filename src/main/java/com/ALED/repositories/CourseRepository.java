@@ -32,6 +32,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query(value = "SELECT * FROM course c Where c.users_id = ?1",nativeQuery = true)
 	Page<Course> pagecour(Integer usersId,Pageable pageable);
 
+	@Query(value = "SELECT * FROM `course` WHERE users_id = :users_id ", nativeQuery = true)
+	List<Course> timcoursbyuserid(@Param("users_id") Integer users_id);
+	
+	
 
 	@Query(value = "SELECT COUNT(*) FROM mycourse INNER JOIN course on mycourse.course_id = course.id INNER JOIN author on course.author_id = author.id\r\n" +
 			"WHERE course.author_id = ?1", nativeQuery = true)
@@ -52,6 +56,9 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query(value = "SELECT course_id FROM `mycourse`GROUP BY course_id ORDER BY COUNT(mycourse.course_id) DESC LIMIT 6", nativeQuery = true)
 	List<Integer> buyTheMost();
+	
+	@Query(value = "SELECT COUNT(*) FROM `mycourse` WHERE course_id = ?1", nativeQuery = true)
+	Integer totalStudentBuyCourse(Integer course_id);
 
 
 	@Query(value = "Select Count(*) from course", nativeQuery = true )
@@ -115,4 +122,5 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	
 	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price >= 1000000 ",nativeQuery = true)
 	Page<Course> getPrice3ByCate(Integer categoryId,Pageable paging);
+	
 }

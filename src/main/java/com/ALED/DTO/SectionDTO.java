@@ -1,6 +1,6 @@
 package com.ALED.DTO;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -10,10 +10,9 @@ public class SectionDTO {
 
 	private int id;
 	
-	@NotNull
-	@Size(min = 2, message = "lớn hơn 2 ký tự")
+	@NotBlank(message = "Tên chương không được để trống")
+	@Size(min = 5 , message = "Tên chương phải ít nhất 5 ký tự")
 	private String name;
-	
 	
 	private int Course_id;
 

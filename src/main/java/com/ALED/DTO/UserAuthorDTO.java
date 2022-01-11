@@ -21,8 +21,13 @@ public class UserAuthorDTO {
 	@NotNull
 	@Email(message = "Email không hợp lệ")
 	private String email;
-	@NotNull
+	
 	private String image;
+	
+	private String image2;
+	
+	private String description;
+	
 	@NotNull
 	private String name;
 	
@@ -31,6 +36,9 @@ public class UserAuthorDTO {
 	private String phone;
 	@NotNull
 	private String Type;
+	
+	@NotNull
+	private String Type2;
 	
     private Boolean isEnable;
 
@@ -42,4 +50,5 @@ public class UserAuthorDTO {
 	@NotNull
     private String skill;
 
+	private String mail;
 }

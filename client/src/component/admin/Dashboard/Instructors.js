@@ -12,9 +12,15 @@ export default function Instructors() {
   const [totalCountSt, setTotalCountSt] = useState(0)
   const [pageCr, setPageCr] = useState(0);
   const [totalCountCr, setTotalCountCr] = useState(0)
+  const [searchemai, setSearchEmail] = useState('')
+  const [isEnable, setIsEnable] = useState(0);
+    const onInputEmailChange = (event) => {
+        setSearchEmail(event.target.value);
+    }
   useEffect(() => {
     loadGiangVien()
   }, [
+    isEnable
   ])
 
   const layid = (value) => {
@@ -58,7 +64,7 @@ export default function Instructors() {
 
       redirect: 'follow'
     };
-
+    
     fetch(`${DEFAULT_API}` + `course/user/${value}?page=${pg}&size=${size}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -76,7 +82,7 @@ export default function Instructors() {
       headers: myHeaders,
       redirect: 'follow'
     };
-
+    
     fetch(`${DEFAULT_API}` + `get-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -84,13 +90,14 @@ export default function Instructors() {
         setTotalCountSt(result.length)
       })
       .catch(error => console.log('error', error));
+    
   }
 
   return (
     <div className="content-wrapper">
       <section className="content-header">
         <div className="content-header-left">
-          <h1>View Instructors</h1>
+          <h1>Xem Tất cả Giảng viên</h1>
         </div>
       </section>
       <section className="content">
@@ -134,8 +141,8 @@ export default function Instructors() {
                               </tr>
                             )}
                              <nav aria-label="Page navigation example">
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Previous</button>
-                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Next</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Trước</button>
+                              <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Sau</button>
                             </nav>
                           </tbody>
                         </table>
@@ -146,7 +153,9 @@ export default function Instructors() {
                     </div>
                   </div>
                 </div>
-
+                <div class="form-group col-sm-3">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo email" name='email' onChange={onInputEmailChange} /> 
+                                </div>
 
                 <table id="example1" className="table table-bordered table-striped">
                   <thead>
@@ -160,7 +169,13 @@ export default function Instructors() {
                     </tr>
                   </thead>
                   <tbody>
-                    {giangVien.map((value, index) =>
+                    {giangVien.filter((value)=>{
+                                            if(searchemai == ""){
+                                                return value
+                                            }else if(value.email.toLowerCase().includes(searchemai.toLowerCase())){
+                                                return value
+                                            }
+                                        }).map((value, index) =>
                       <tr key={index}>
                         <td>{value.id}</td>
                         <td>
@@ -171,7 +186,9 @@ export default function Instructors() {
                         <td>
                           {value.status == 1 ? "Active" : "No-Active"}</td>
                         <td>
-                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
+
+                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => loadBaiGiang(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
+                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Hiển thị Khóa học </a>
 
 
                         </td>
