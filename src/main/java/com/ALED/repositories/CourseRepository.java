@@ -72,5 +72,47 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query(value = "SELECT section.course_id FROM lession JOIN section ON lession.section_id=section.id WHERE section_id =:id LIMIT 1", nativeQuery = true)
 	Integer getCoursid(@Param("id") Integer id);
 	
+	@Query(value = "SELECT * FROM `course` ORDER BY price ASC",nativeQuery = true)
+	Page<Course> getPriceAsc(Pageable paging);
 	
+	@Query(value = "SELECT * FROM `course` ORDER BY price DESC",nativeQuery = true)
+	Page<Course> getPriceDesc(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 ORDER BY price ASC",nativeQuery = true)
+	Page<Course> getPriceAscByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 ORDER BY price DESC",nativeQuery = true)
+	Page<Course> getPriceDescByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` JOIN rate ON course.id = rate.course_id\r\n"
+			+ "ORDER BY rate.rate ASC",nativeQuery = true)
+	Page<Course> getRateAsc(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` JOIN rate ON course.id = rate.course_id\r\n"
+			+ "ORDER BY rate.rate DESC",nativeQuery = true)
+	Page<Course> getRateDesc(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` JOIN rate ON course.id = rate.course_id WHERE category_id = ?1 ORDER BY rate.rate ASC",nativeQuery = true)
+	Page<Course> getRateAscByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` JOIN rate ON course.id = rate.course_id WHERE category_id = ?1 ORDER BY rate.rate DESC",nativeQuery = true)
+	Page<Course> getRateDescByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE price <= 500000", nativeQuery = true)
+	Page<Course> getPrice1(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE price >= 500000 AND price <= 1000000", nativeQuery = true)
+	Page<Course> getPrice2(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE price >= 1000000", nativeQuery = true)
+	Page<Course> getPrice3(Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price <= 500000",nativeQuery = true)
+	Page<Course> getPrice1ByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price >= 500000 AND price <= 1000000",nativeQuery = true)
+	Page<Course> getPrice2ByCate(Integer categoryId,Pageable paging);
+	
+	@Query(value = "SELECT * FROM `course` WHERE category_id = ?1 AND price >= 1000000 ",nativeQuery = true)
+	Page<Course> getPrice3ByCate(Integer categoryId,Pageable paging);
 }

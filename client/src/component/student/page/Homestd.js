@@ -240,7 +240,7 @@ export default function Homestd() {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="section-title text-center margin-bottom-40">
-                                        <h2 className="home-2">see our <span>popular courses</span></h2>
+                                        <h2 className="home-2">Các khóa học phổ biến <span>của chúng tôi</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -319,10 +319,12 @@ export default function Homestd() {
                                                 <p className="margin-top-20">{value.description}</p>
                                                 
                                                 <div className="preview-button margin-top-20">
-                                                    <a onClick={() => {
-                                                        history.push("detail/" + value.id)
-                                                    }} className="template-button">course preview</a>
-                                                    {damua == true ? <a disabled="disabled" className="template-button margin-left-10" >buy now</a> : <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a>}
+
+                                                    <a onClick={() =>{
+                                                         history.push("detail/"+value.id)
+                                                    }} className="template-button">Chi tiết khóa học</a>
+                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">Mua ngay</a> }
+                                                    
 
                                                 </div>
                                             </div>
@@ -341,7 +343,7 @@ export default function Homestd() {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="section-title text-center">
-                                    <h2 className="home-2">popular <span>categories</span></h2>
+                                    <h2 className="home-2">Danh mục <span>phổ biến</span></h2>
                                 </div>
                             </div>
                         </div>

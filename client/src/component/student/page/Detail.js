@@ -236,11 +236,11 @@ var chek=isNaN(id.id);
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>Detail</h1>
+              <h1>Chi tiết</h1>
               <h3>
-                <a href="../index.html">Home</a>
+                <a href="../index.html">Trang chủ</a>
                 <i className="fa fa-angle-right" />
-                detail{" "}
+                chi tiết{" "}
               </h3>
             </div>
           </div>
@@ -261,7 +261,7 @@ var chek=isNaN(id.id);
               <div className="col-md-6">
                 <div className="product-single-item">
                   <h2>{value.courseName}</h2>
-                  <h3>By: {value.authorName}</h3>
+                  <h3>{value.authorName}</h3>
                   <div className="review-comment-line">
                     <div className="review">
                       <span>
@@ -281,11 +281,11 @@ var chek=isNaN(id.id);
                         )}
                       </span>
                       {value.rate}
-                      <span>&ensp; (Total Reviews: {thongtin})</span>
+                      <span>&ensp; (Tổng đánh giá: {thongtin})</span>
                     </div>
                   </div>
                   <div className="short-des">
-                    Description: {value.description}
+                    Mô tả: {value.description}
                   </div>
                 </div>
               </div>
@@ -296,30 +296,37 @@ var chek=isNaN(id.id);
                     currency: 'VND'
                   })}</div>
                   <div className="buy-now">
-                    {trangthai == true ? "Waiting for approval" :
-                      <div>
-                        {damua == false ? <a
 
-                          className="btn btn-block btn-warning"
-                          onClick={() => getcheckout(value.id)}
-                        >
-                          Proceed to Checkout
-                        </a> : <a
-                          href=''
-                          className="btn btn-info btn-sm"
-                          onClick={() => chuyentrang(value.id)}
-                        >
-                          xem
-                        </a>}</div>
-                    }
-                  </div>
+                    {trangthai == true ? "đang chờ duyệt" : 
+                    <div>
+                  {damua==false ? <a
+                  
+                    className="btn btn-block btn-warning"
+                    onClick={() => getcheckout(value.id)}
+                  >
+                    Thanh toán
+                  </a>: <a
+                 
+                    className="btn btn-info btn-sm"
+                    onClick={()=> chuyentrang(value)}
+                  >
+                   xem
+                  </a> }</div>
+}
+                </div>
+
+                  
                 </div>
               </div>
             </div>
           ))}
 
+          <h2 className="course_title mt_20">Chi tiết khóa học</h2>
+          <p>Lorem </p>
+          <p>Sit</p>
+          <p>Copiosae </p>
+          <h2 className="course_title mt_20">Đánh giá ({thongtin})</h2>
 
-          <h2 className="course_title mt_20">Reviews ({thongtin})</h2>
           <div className="product-single-review">
             <div className="review-item">
               {userrate.map((value, index) => (
@@ -357,17 +364,19 @@ var chek=isNaN(id.id);
                 </div>
               ))}
               <button type="button" className="btn btn-outline-primary" disabled={page == 0}
+
                 onClick={backPage}>Previous
               </button>
               <button type="button" className="btn btn-outline-primary"
                 disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
+-
               </button>
 
             </div>
           </div>
           <div className="row">
             <div className="col-md-12">
-              <h2 className="course_title">Course Content</h2>
+              <h2 className="course_title">Nội dung khóa học</h2>
               <div className="accordion-section mt_20">
                 <div
                   className="panel-group"
@@ -408,8 +417,9 @@ var chek=isNaN(id.id);
                           <table className="table table-bordered table-striped front-end-course-table">
                             <tbody>
                               <tr>
-                                <th>Lesson Title</th>
+                                <th>Tên bài học</th>
                                 <th>Lesson Preview</th>
+                                <th>Thời lượng bài học</th>
 
                               </tr>
                               {video.map((value, index) => (
@@ -460,7 +470,7 @@ var chek=isNaN(id.id);
               </div>
             </div>
           </div>
-          <h2 className="course_title mt_20">Instructor Detail</h2>
+          <h2 className="course_title mt_20">Chi tiết giảng viên</h2>
           <div className="row mt_20">
             <div className="col-md-3 instructor">
               <div className="card">
@@ -484,19 +494,19 @@ var chek=isNaN(id.id);
                       </span>
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-star" /> Instructor Rating{" "}
+                      <i className="fa fa-star" /> Đánh giá giảng viên{" "}
                       {value.instructorRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-play-circle" /> Total Courses:{" "}
+                      <i className="fa fa-play-circle" /> Tổng khóa học:{" "}
                       {value.totalCourse}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-comment" /> Total Rating:{" "}
+                      <i className="fa fa-comment" /> Tổng đánh giá:{" "}
                       {value.totalRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-user" /> Total Students:{" "}
+                      <i className="fa fa-user" /> Tổng học sỉnh:{" "}
                       {value.totalStudents}
                     </div>
                     <p />
@@ -505,12 +515,12 @@ var chek=isNaN(id.id);
               </div>
             </div>
             <div className="col-md-9">
-              <h3 className="profile_title">Name: {infoAuthor.name}</h3>
+              <h3 className="profile_title">Tên: {infoAuthor.name}</h3>
               <p className="profile_sub_title">
                 Education: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-                Description: {infoAuthor.description}
+                Mô tả: {infoAuthor.description}
                 <br />
               </div>
               <div className="author-detail-button mt_30">
@@ -519,7 +529,7 @@ var chek=isNaN(id.id);
                   onClick={() => viewDetail(infoAuthor.id)}
 
                 >
-                  View Detail
+                  Xem chi tiết
                 </a>
               </div>
             </div>

@@ -60,11 +60,11 @@ export default function PaymentHistory() {
                                 <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th width={50}>SL</th>
-                                            <th>Payment Date</th>
-                                            <th>Paid Amount</th>
-                                            <th>Payment Method</th>
-                                            <th>Payment Status</th>
+                                            <th width={50}>STT</th>
+                                            <th>Ngày thanh toán</th>
+                                            <th>Số tiền thanh toán</th>
+                                            <th>Phương thức thanh toán</th>
+                                            <th>Trạng thái thanh toán</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -78,7 +78,7 @@ export default function PaymentHistory() {
                                                 })}</td>
                                                 <td>{value.bank}</td>
                                                 <td>
-                                                    {value.status == 0 ? "Completed" : "Uncompleted"} </td>
+                                                    {value.status == 0 ? "Thành công" : "Thất bại"} </td>
 
                                             </tr>
                                         )}

@@ -83,7 +83,7 @@ export default function Dashboard() {
                         <div className="info-box">
                             <span className="info-box-icon bg-green"><i className="fa fa-hand-o-right" /></span>
                             <div className="info-box-content">
-                                <span className="info-box-text">Course Categories</span>
+                                <span className="info-box-text">Danh mục khóa học</span>
                                 <span className="info-box-number">{countCategory}</span>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ export default function Dashboard() {
                         <div className="info-box">
                             <span className="info-box-icon bg-green"><i className="fa fa-hand-o-right" /></span>
                             <div className="info-box-content">
-                                <span className="info-box-text">Courses</span>
+                                <span className="info-box-text">Khóa học</span>
                                 <span className="info-box-number">{countCourse}</span>
                                 
                             </div>
@@ -102,7 +102,7 @@ export default function Dashboard() {
                         <div className="info-box">
                             <span className="info-box-icon bg-green"><i className="fa fa-hand-o-right" /></span>
                             <div className="info-box-content">
-                                <span className="info-box-text">Users</span>
+                                <span className="info-box-text">Tài khoản</span>
                                 <span className="info-box-number">{countUs}</span>
                             </div>
                         </div>

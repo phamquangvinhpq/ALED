@@ -108,12 +108,12 @@ export default function Pendinginstructer() {
                                     <thead>
                                         <tr>
                                             <th>STT</th>
-                                            <th>Name</th>
-                                            <th>Image</th>
+                                            <th>Tên</th>
+                                            <th>Ảnh</th>
                                             <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Address</th>
-                                            <th>Action</th>
+                                            <th>Điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -135,12 +135,12 @@ export default function Pendinginstructer() {
                                                     {value.address}
                                                 </td>
                                                 <td>
-                                                    <a onClick={()=> loadskill(value)} className="btn btn-primary btn-xs btn-block" data-toggle="modal"  data-target="#enrolledCourses1"> View Skill </a>
+                                                    <a onClick={()=> loadskill(value)} className="btn btn-primary btn-xs btn-block" data-toggle="modal"  data-target="#enrolledCourses1"> Xem kỹ năng </a>
 
 
                                                     <a onClick={() => huyActive(value)}
-                                                        className="btn btn-danger btn-block btn-xs"
-                                                    >Accept</a>
+                                                        className="btn btn-success btn-block btn-xs"
+                                                    >Chấp nhận</a>
 
                                                 </td>
                                             </tr>
@@ -163,7 +163,7 @@ export default function Pendinginstructer() {
                     <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal">×</button>
-                            <h4 className="modal-title">Skill</h4>
+                            <h4 className="modal-title">Kỹ năng</h4>
                         </div>
                         <div className="modal-body">
                         {skill.map((value) =>
@@ -173,7 +173,7 @@ export default function Pendinginstructer() {
 )}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Đóng</button>
                         </div>
                     </div>
                 </div>

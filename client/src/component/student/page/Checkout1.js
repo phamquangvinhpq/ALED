@@ -81,12 +81,14 @@ export default function Checkout1() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <h1>Check Out</h1>
+                            <h1>Thanh toán</h1>
                             <h3>
-                                <a >Home</a>
+                                <a >Trang chủ</a>
                                 <i className="fa fa-angle-right" />
                                  
-                                checkout</h3>
+
+                                Thanh toán            </h3>
+
                         </div>
                     </div>
                 </div>
@@ -99,10 +101,10 @@ export default function Checkout1() {
                                 <table className="table table-bordered cart-table">
                                     <thead>
                                         <tr>
-                                            <th>Serial</th>
-                                            <th>Thumbnail</th>
-                                            <th>Course Title</th>
-                                            <th>Price</th>
+                                            <th>TT</th>
+                                            <th>Ảnh</th>
+                                            <th>Tên khóa học</th>
+                                            <th>Giá</th>
                                         </tr>
                                     </thead>
                                     {khoahoc.map((value,index) =>
@@ -140,7 +142,7 @@ export default function Checkout1() {
                             </div>
                         </div>
                         <div className="col-md-5">
-                            <h3 className="mt_0">Select a Payment Method</h3>
+                            <h3 className="mt_0">Chọn phương thức thanh toán</h3>
                             <div className="accordion-section mt_20">
                                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                     <div className="panel panel-default">
