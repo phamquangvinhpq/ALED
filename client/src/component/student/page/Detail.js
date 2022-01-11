@@ -3,9 +3,10 @@ import useState from 'react-usestateref'
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
 import { Link, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
-import Checkout1 from './Checkout1';
+import { FaVideo } from "react-icons/fa";
+import { FaVideoSlash } from "react-icons/fa";
+import ReactPlayer from 'react-player';
 
 export default function Detail() {
 
@@ -17,6 +18,7 @@ export default function Detail() {
   const [coursebyid, setcoursebyid] = useState([]);
   const [userrate, setuserrate] = useState([]);
   const [trangthai, settrangthai] = useState(false);
+  const [videoDemo, setVideoDemo] = useState("")
 
 
   const [damua, setdamua] = useState(false);
@@ -46,6 +48,21 @@ var chek=isNaN(id.id);
 
 
   }, [status])
+
+  const xemThu = (value) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + `lession/${value}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setVideoDemo(result.linkVideo)
+        console.log(result.linkVideo)
+      })
+      .catch(error => console.log('error', error));
+  }
 
   const loadInfoAuthor = (author_id) => {
     var requestOptions = {
@@ -161,7 +178,6 @@ var chek=isNaN(id.id);
     const pg = page - 1
     loaduserrate(pg)
     setPage(pg)
-    console.log(page);
   }
 
 
@@ -418,37 +434,36 @@ var chek=isNaN(id.id);
                             <tbody>
                               <tr>
                                 <th>Tên bài học</th>
-                                <th>Lesson Preview</th>
+                                <th>Xem thử</th>
                                 <th>Thời lượng bài học</th>
-
                               </tr>
                               {video.map((value, index) => (
                                 <tr>
                                   <td>{value.name}</td>
                                   <td>
-                                    <div>Enrolled Course First</div>
+                                    {value.demo == 1 ? <FaVideo onClick={() => xemThu(value.id)} data-toggle="modal" data-target="#myModalAllWatch0" /> : <FaVideoSlash />}
                                     <div
-                                      id="myModalAllWatch0"
-                                      className="modal fade video_popup"
-                                      role="dialog"
-                                    >
-                                      <div className="modal-dialog w-60-p">
+                                      id="myModalAllWatch0" className="modal" aria-hidden="true"  >
+                                      <div id="myForm" className="modal-dialog w-50-p" >
                                         <div className="modal-content">
-                                          <div className="modal-body">
-                                            <iframe
-                                              width={560}
-                                              height={315}
-                                              src="https://www.youtube.com/embed/kkGeOWYOFoA"
-                                              frameBorder={0}
-                                              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                              allowFullScreen
-                                            />
-                                          </div>
+                                          <form>
+                                            <div >
+                                              <ReactPlayer
+                                                controls
+                                                width="100%"
+                                                height="400px"
+                                                url={videoDemo}
+                                              />
+
+                                            </div>
+                                          </form>
                                           <div className="modal-footer">
                                             <button
+
                                               type="button"
                                               className="btn btn-default"
                                               data-dismiss="modal"
+
                                             >
                                               Close
                                             </button>
@@ -457,7 +472,7 @@ var chek=isNaN(id.id);
                                       </div>
                                     </div>
                                   </td>
-
+                                  <td>Chưa</td>
                                 </tr>
                               ))}
                             </tbody>

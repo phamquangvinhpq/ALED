@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.CourseDTO;
@@ -60,6 +59,7 @@ public class CourseService implements ICourseService {
 		dto.setImage(entity.getImage());
 		dto.setCountChapter(entity.getSections().size());
 		dto.setCreate_date(getDate(entity.getCreate_date()));
+		dto.setDiscount(entity.getDiscount());
 		return dto;
 	}
 
@@ -84,16 +84,12 @@ public class CourseService implements ICourseService {
 	}
 
 	@Override
-	public CourseDTO save(CourseDTO author) {
-		Course course = new Course();
-		BeanUtils.copyProperties(author, course);
-		course.setCategory(categoryRepository.getById(author.getCategory_id()));
-		course.setAuthor(authorRepository.getById(author.getAuthor_id()));
-		course.setUsers(userRepository.getById(author.getUser_id()));
-
+	public CourseDTO save(CourseDTO dto) {
+		Course course = convertToEntity(dto);
+		course.setDiscount(0);
 		courseRepository.save(course);
-		author.setId(course.getId());
-		return author;
+		dto.setId(course.getId());
+		return dto;
 	}
 
 	@Override
@@ -102,7 +98,6 @@ public class CourseService implements ICourseService {
 		if (optional.isPresent()) {
 			Course course = optional.get();
 			BeanUtils.copyProperties(author, course);
-
 			course.setCategory(categoryRepository.getById(author.getCategory_id()));
 
 			courseRepository.save(course);

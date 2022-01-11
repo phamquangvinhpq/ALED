@@ -52,6 +52,10 @@ public class LessionService implements ILessionService {
 		if (optionalLession.isPresent()) {
 			LessionDTO lessionDTO = new LessionDTO();
 			Lession lession = optionalLession.get();
+			int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(lession.getSection().getCourse().getId());
+			if (soLuongNguoiMua > 0) {
+				throw new RuntimeException("Khóa học đã có người mua, nên bạn không được xóa");
+			}
 			BeanUtils.copyProperties(lession, lessionDTO);
 			lessionRepository.deleteById(id);
 			lessionDTO.setSection_id(lession.getSection().getId());
@@ -86,19 +90,19 @@ public class LessionService implements ILessionService {
 
 	@Override
 	public LessionDTO create(LessionDTO lessionDTO) {
+		Section section = sectionRepository.getById(lessionDTO.getSection_id());
+		int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(section.getCourse().getId());
+		if (soLuongNguoiMua > 0) {
+			throw new RuntimeException("Khóa học đã có người mua, nên bạn không được thêm");
+		}
 		List<Lession> listEntity = lessionRepository.findBySectionId(lessionDTO.getSection_id());
-		String name = lessionDTO.getName().trim();
 		if (listEntity.size() >= 10) {
 			throw new RuntimeException("Tổng số bài học tối đa là 10");
-		}
-		for (Lession lession : listEntity) {
-			if (lession.getName().equals(name)) {
-				throw new RuntimeException("Tên bài học không được trùng");
-			}
 		}
 		Lession lession = new Lession();
 		BeanUtils.copyProperties(lessionDTO, lession);
 		lession.setSection(sectionRepository.getById(lessionDTO.getSection_id()));// lấy id_section của DTO, tìm trong section có thì set vào
+		lession.setDemo(0);
 		lessionRepository.save(lession);
 		
 		lessionDTO.setId(lession.getId());
@@ -112,6 +116,11 @@ public class LessionService implements ILessionService {
 	
 	@Override
 	public LessionDTO update(LessionDTO lessionDTO) {
+		Section section = sectionRepository.getById(lessionDTO.getSection_id());
+		int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(section.getCourse().getId());
+		if (soLuongNguoiMua > 0) {
+			throw new RuntimeException("Khóa học đã có người mua, nên bạn không được cập nhật");
+		}
 		List<Lession> listEntity = lessionRepository.findBySectionId(lessionDTO.getSection_id());
 		String name = lessionDTO.getName().trim();
 		for (Lession lession : listEntity) {
@@ -162,6 +171,16 @@ public class LessionService implements ILessionService {
 		}
 		
 		return lession;
+	}
+
+
+
+	@Override
+	public boolean updateXemThu(Integer id,Integer demo) {
+		Lession entity = lessionRepository.getById(id);
+		entity.setDemo(demo);
+		lessionRepository.save(entity);
+		return true;
 	}
 
 }

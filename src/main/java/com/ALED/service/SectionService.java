@@ -46,19 +46,16 @@ public class SectionService implements ISectionService {
 
 	@Override
 	public SectionDTO create(SectionDTO SectionDTO) {
+		int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(SectionDTO.getCourse_id());
+		if (soLuongNguoiMua > 0) {
+			throw new RuntimeException("Khóa học đã có người mua, nên bạn không được thêm");
+		}
 		List<Section> listEntity = sectionRepository.findByCourseId(SectionDTO.getCourse_id());
-		String name = SectionDTO.getName().trim();
 		if (listEntity.size() >= 10) {
 			throw new RuntimeException("Tổng số chương tối đa là 10");
 		}
-		for (Section section : listEntity) {
-			if (section.getName().equals(name)) {
-				throw new RuntimeException("Tên chương không được trùng");
-			}
-		}
 		Section section =new Section();
 		BeanUtils.copyProperties(SectionDTO, section);
-		section.setName(name);
 		section.setCourse(courseRepository.getById(SectionDTO.getCourse_id()));
 		sectionRepository.save(section);
 		SectionDTO.setId(section.getId());
@@ -69,16 +66,12 @@ public class SectionService implements ISectionService {
 
 	@Override
 	public SectionDTO update(SectionDTO dto) {
-		List<Section> listEntity = sectionRepository.findByCourseId(dto.getCourse_id());
-		String name = dto.getName().trim();
-		for (Section section : listEntity) {
-			if (section.getName().equals(name)) {
-				throw new RuntimeException("Tên chương không được trùng");
-			}
+		int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(dto.getCourse_id());
+		if (soLuongNguoiMua > 0) {
+			throw new RuntimeException("Khóa học đã có người mua, nên bạn không được cập nhật");
 		}
 		Section entity = sectionRepository.getById(dto.getId());
 		BeanUtils.copyProperties(dto, entity);
-		entity.setName(name);
 		sectionRepository.save(entity);
 		return dto;
 		
@@ -92,6 +85,10 @@ public class SectionService implements ISectionService {
 		Optional<Section> optional = sectionRepository.findById(id);
 		if(optional.isPresent()) {
 			Section entity = optional.get();
+			int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(entity.getCourse().getId());
+			if (soLuongNguoiMua > 0) {
+				throw new RuntimeException("Khóa học đã có người mua, nên bạn không được xóa");
+			}
 			BeanUtils.copyProperties(entity, section);
 			sectionRepository.delete(entity);
 		}

@@ -31,11 +31,11 @@ export default function ListCourse() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (
-      infoUser.name === "" ||
-      infoUser.phone === "" ||
-      infoUser.address === ""
+      infoUser.name.trim() === "" ||
+      infoUser.phone.trim() === "" ||
+      infoUser.address.trim() === ""
     ) {
-      swal("Failed", "Fields cannot be left blank", "error");
+      swal("Thất Bại", "Không được để trống thông tin nào", "error");
     } else {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -49,9 +49,9 @@ export default function ListCourse() {
         redirect: "follow",
       };
 
-      fetch(`${DEFAULT_API}` +`user`, requestOptions)
-        .then((response) => response.text())
-        .then((result) => swal("Success", "successful update", "success"))
+      fetch(`${DEFAULT_API}` + `user`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => ( swal("Thành Công", "Cập nhật thành công", "success"), setInfoUser(result) ))
         .catch((error) => console.log("error", error));
     }
   };
@@ -66,7 +66,7 @@ export default function ListCourse() {
         >
           <div className="form-group">
             <label htmlFor className="col-sm-2 control-label">
-              Name
+              Họ Tên
             </label>
             <div className="col-sm-10">
               <input
@@ -80,7 +80,7 @@ export default function ListCourse() {
           </div>
           <div className="form-group">
             <label htmlFor className="col-sm-2 control-label">
-              Address
+              Địa Chỉ
             </label>
             <div className="col-sm-10">
               <input
@@ -94,7 +94,7 @@ export default function ListCourse() {
           </div>
           <div className="form-group">
             <label htmlFor className="col-sm-2 control-label">
-              Phone
+              Số Điện Thoại
             </label>
             <div className="col-sm-10">
               <input
@@ -114,7 +114,7 @@ export default function ListCourse() {
                 className="btn btn-default btn-success"
                 name="form1"
               >
-                Update
+                Cập Nhật
               </button>
             </div>
           </div>

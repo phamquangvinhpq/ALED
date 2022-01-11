@@ -26,6 +26,7 @@ export default function UpdateKH() {
   const [BaiGiang, setBaiGiang] = useState({
     courseName: "",
     price: "",
+    discount: "",
     image: "",
     description: "",
     status: "",
@@ -38,6 +39,7 @@ export default function UpdateKH() {
   const [data, setdata] = useState({
     courseName: "",
     price: "",
+    discount: "",
     image: "",
     description: "",
     status: "",
@@ -85,6 +87,7 @@ export default function UpdateKH() {
       formdata.append("id", id.id);
       formdata.append("courseName", BaiGiang.courseName);
       formdata.append("price", price);
+      formdata.append("price", BaiGiang.discount);
       formdata.append("file",selectedFile);
       formdata.append("description", BaiGiang.description);
       formdata.append("status", "0");
@@ -207,6 +210,16 @@ export default function UpdateKH() {
                         <input type="text" name="price" className="form-control" onChange={onInputChange} value={BaiGiang.price} />
 
                       </div>
+                      
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor className="col-sm-3 control-label">Discount</label>
+                      <div className="col-sm-9">
+
+                        <input type="text" name="discount" className="form-control" onChange={onInputChange} value={BaiGiang.discount} />
+
+                      </div>
+                      
                     </div>
                     <div className="form-group">
                       <label htmlFor className="col-sm-3 control-label">Description

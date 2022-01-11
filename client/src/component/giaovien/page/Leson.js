@@ -4,6 +4,8 @@ import $ from "jquery";
 import ReactPlayer from 'react-player';
 import { useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env';
+import { FaVideo } from "react-icons/fa";
+import { FaVideoSlash } from "react-icons/fa";
 import { Player } from 'video-react';
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
@@ -117,6 +119,28 @@ export default function Leson() {
       .catch(error => console.log('error', error));
   }
 
+  const xemThu = (id, demo) => {
+    if (demo == 0) {
+      demo = 1;
+    } else {
+      demo = 0;
+    }
+
+    console.log(demo);
+
+    var requestOptions = {
+      method: "PUT",
+      redirect: "follow",
+    };
+
+    fetch(`${DEFAULT_API}lession/updateXemThu?id=${id}&demo=${demo}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        swal("Thành Công","","success")
+        getLessionBySection()
+      })
+      .catch((error) => console.log("error", error));
+  };
 
 
   const updateLession = () => {
@@ -148,11 +172,13 @@ export default function Leson() {
 
 
     fetch(`${DEFAULT_API}` + "lession/", requestOptions)
-      .then(response => response.text())
+      .then(response => response.json())
       .then((result) => {
-        console.log("đã gọi api");
-        setStatus(status + 1)
-        console.log(result)
+        if (result.loicode == -1) {
+          swal("Thất Bại",result.message,"error")
+        } else {
+          swal("Thành Công","Cập nhật bài học thành công","success")
+        }
       })
       .catch(error => console.log('error', error)
       );
@@ -302,10 +328,14 @@ export default function Leson() {
         };
 
         fetch(`${DEFAULT_API}` + "lession/" + value.id, requestOptions)
-          .then((response) => response.text())
+          .then((response) => response.json())
           .then((result) => {
-            console.log(result);
-            setStatus(status + 1);
+            if (result.loicode == -1) {
+              swal("Thất Bại", result.message, "error")
+            } else {
+              swal("Thành Công", "", "success")
+              setStatus(status + 1);
+            }
           })
           .catch((error) => console.log("error", error));
         swal("Đã xóa", {
@@ -474,6 +504,7 @@ export default function Leson() {
                                 <tr>
                                 <th className="w-10-p">ID</th>
                                   <th className="w-40-p">Name</th>
+                                  <th className="w-30-p">Privew View</th>
                                   <th className="w-30-p">Lesson Section ID</th>
                                   <th className="w-15-p">Lesson Content</th>
                                   <th >Action </th>
@@ -484,6 +515,8 @@ export default function Leson() {
                                   <tr key={index}>
                                     <td>{index+1}</td>
                                     <td>{value.name}</td>
+                                    <td>{value.demo == 1 ? 
+                                      <FaVideo onClick={() => xemThu(value.id, value.demo)} /> : <FaVideoSlash  onClick={() => xemThu(value.id, value.demo)}/>}</td>
                                     <td>{value.section_id}</td>
                                     <td>
                                       <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
