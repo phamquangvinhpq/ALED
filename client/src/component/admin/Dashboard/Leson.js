@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env';
 import { Player } from 'video-react';
 import swal from "sweetalert";
-
+import { useHistory } from "react-router-dom";
 export default function Leson() {
   const [listSection, setListSection] = useState([]);
   const [video, setvideo] = useState([]);
@@ -33,10 +33,16 @@ export default function Leson() {
     lession.linkVideo = value.linkVideo;
     lession.section_id = value.selectedSection;
   }
-
+  let history = useHistory();
+  var chek=isNaN(id.id);
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile1, setSelectedFile1] = useState();
   useEffect(() => {
+    if(chek==true)
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loaddanhmuc();
     getLessionBySection();
     jquer();
@@ -79,10 +85,10 @@ export default function Leson() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa kí tự đặc biệt", "warning")
     
     }else{
     var formdata = new FormData();
@@ -211,10 +217,10 @@ export default function Leson() {
     var regexKhoangTrang = /\S/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if(!regexKhoangTrang.test(lession.name)){
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
     
     }else if(regexKitu.test(lession.name)){
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không chứa kí tự đặc biệt", "warning")
     
     }else{
     var formdata = new FormData();
@@ -241,8 +247,8 @@ export default function Leson() {
 
   const deleteLession = (value) => {
     swal({
-      title: "Are you sure?",
-      text: `Are you sure you want to delete? ?`,
+      title: "Bạn chắc chứ ?",
+      text: `Bạn có chắc là muốn xóa ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -283,7 +289,7 @@ export default function Leson() {
 <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>View Lession</h1>
+                    <h1>Xem bài học</h1>
                 </div>
             </section>
             <section className="content">
@@ -299,12 +305,12 @@ export default function Leson() {
                 href="#tab_chapter"
                 data-toggle="tab"
               >
-                Chapter
+                Chương
               </NavLink>
             </li>
             <li className="active">
               <a href="#tab_lesson" data-toggle="tab">
-                Lesson
+                Bài học
               </a>
             </li>
           </ul>
@@ -312,7 +318,7 @@ export default function Leson() {
             <div className="box box-info pt_0">
               <div className="box-body">
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
-                  <h3 className="sec_title">All Lessons</h3>
+                  <h3 className="sec_title">Tất cả các bài học</h3>
                   {listSection.map((value, index) =>
                     <div className="panel panel-default">
                       <div className="panel-heading" role="tab" id="headingTwo">

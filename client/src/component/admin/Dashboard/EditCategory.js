@@ -12,7 +12,11 @@ export default function EditCategory() {
   const [isEnable, setIsEnable] = useState(0);
 
   useEffect(() => {
-
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadcate();
 
   }, [
@@ -25,7 +29,6 @@ export default function EditCategory() {
   const chuyentrang = function (event) {
     updateCate();
     history.push("/admin/CourseCategory")
-    alert("cập nhật thành công");
   }
 
   const loadcate = () => {
@@ -56,12 +59,12 @@ export default function EditCategory() {
     var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(DanhMuc.name)) {
-      swal("Failed", "Name Only text can be entered and cannot be left blank", "warning")
+      swal("Failed", "Tên Chỉ có thể nhập văn bản và không được để trống", "warning")
     } else if (!regexKhoangTrang.test(DanhMuc.name)) {
-      swal("Failed", "Name not be empty", "warning")
+      swal("Failed", "Tên không được để trống", "warning")
 
     } else if (regexKitu.test(DanhMuc.name)) {
-      swal("Failed", "Name must not contain the character", "warning")
+      swal("Failed", "Tên không được chứa ký tự", "warning")
 
     } else {
       var myHeaders = new Headers();
@@ -90,7 +93,7 @@ export default function EditCategory() {
 
           } else {
             setIsEnable(isEnable + 1)
-            alert("thêm thành công")
+            swal("Thông báo", "Sửa thành công", "success")
           }
         })
         .catch(error => console.log('error', error));
@@ -108,10 +111,10 @@ export default function EditCategory() {
     <div className="content-wrapper">
       <section className="content-header">
         <div className="content-header-left">
-          <h1>Edit Category</h1>
+          <h1>Sửa Danh mục</h1>
         </div>
         <div className="content-header-right">
-          <a href="/admin/CourseCategory" className="btn btn-primary btn-sm">View All</a>
+          <a href="/admin/CourseCategory" className="btn btn-primary btn-sm">Xem tất cả</a>
         </div>
       </section>
       <section className="content">
@@ -121,7 +124,7 @@ export default function EditCategory() {
               <div className="box box-info">
                 <div className="box-body">
                   <div className="form-group">
-                    <label htmlFor className="col-sm-3 control-label">Category Name
+                    <label htmlFor className="col-sm-3 control-label">Tên danh mục
                       <span>*</span></label>
                     <div className="col-sm-4">
                       <input type="text" className="form-control" name="name" onChange={onInputChange} defaultValue={DanhMuc.name} />
@@ -133,7 +136,7 @@ export default function EditCategory() {
                       <button onClick={
                         (event) => {
                           chuyentrang(event)
-                        }} type="submit" className="btn btn-success pull-left" name="form1">Update</button>
+                        }} type="submit" className="btn btn-success pull-left" name="form1">Cập nhập</button>
                     </div>
                   </div>
                 </div>

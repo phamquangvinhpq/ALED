@@ -20,12 +20,14 @@ public interface ILessionService {
 	public List<LessionDTO> findpage(Integer pageno, Integer pagesize);
 
 	public List<LessionDTO> findAllBySection(Integer sectionId);
-	
+
 	public Lession updatestatus(Lession lession);
+
 
 	public Lession 	updateTime(Lession lession);
 
 	Lession getLessionbyTime();
 
+	public boolean updateXemThu(Integer id, Integer demo);
 
 }

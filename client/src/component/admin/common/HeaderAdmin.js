@@ -13,7 +13,7 @@ export default function HeaderAdmin() {
                 <div className="navbar-custom-menu">
                     <ul className="nav navbar-nav">
                         <li>
-                            <a href='/home'>Home</a>
+                            <a href='/home'>Trang chủ</a>
                         </li>
                         
                     </ul>

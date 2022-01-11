@@ -3,11 +3,12 @@ import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
+import swal from "sweetalert";
 
 export default function ViewDetail() {
   let history = useHistory();
   let author_id = useParams().id;
-
+  let id = useParams();
   const [page, setPage] = useState(0);
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
@@ -58,6 +59,11 @@ export default function ViewDetail() {
   const user_id = localStorage.getItem("userid")
 
   useEffect(() => {
+    if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
     loadCourse(page);
     loadInfoAuthor();
     loadInfoTeacher();
@@ -83,7 +89,7 @@ export default function ViewDetail() {
         .then(result => {
             console.log(result);
             if (result === "bought") {
-                alert("you bought this course")
+               swal("Thất Bại", "Bạn đã mua khóa học này rồi", "error")
             } else {
                 history.push(`/checkout/${value.id}`)
             }
@@ -103,12 +109,12 @@ export default function ViewDetail() {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>View Detail</h1>
+              <h1>Chi Tiết Giảng Viên</h1>
               <h3>
-                <a href="">Home</a>
+                <a href="">Trang chủ</a>
                 <i className="fa fa-angle-right" />
-                detail <i className="fa fa-angle-right" />
-                viewdetail{" "}
+                Chi tiết <i className="fa fa-angle-right" />
+                Xem chi tiết{" "}
               </h3>
             </div>
           </div>
@@ -143,19 +149,19 @@ export default function ViewDetail() {
                       </span> 
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-star" /> Instructor Rating:{" "}
+                      <i className="fa fa-star" /> Đánh giá trung bình:{" "}
                       {teacher.instructorRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-play-circle" /> Total Courses:{" "}
+                      <i className="fa fa-play-circle" /> Tổng khóa học:{" "}
                       {teacher.totalCourse}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-comment" /> Total Rating:{" "}
+                      <i className="fa fa-comment" /> Số lượng được đánh giá:{" "}
                       {teacher.totalRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-user" /> Total Students:{" "}
+                      <i className="fa fa-user" /> Tổng số học sinh:{" "}
                       {teacher.totalStudents}
                     </div>
                     <p />
@@ -167,15 +173,15 @@ export default function ViewDetail() {
             <div className="col-md-9">
               <h3 className="profile_title">{infoAuthor.name}</h3>
               <p className="profile_sub_title">
-              Education: {infoAuthor.education}
+              Trường: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-              Description: {infoAuthor.description}
+              Chi tiết: {infoAuthor.description}
                 <br />
               </div>
             </div>
           </div>
-          <h2 className="course_title mt_40">All Courses of this Instructor</h2>
+          <h2 className="course_title mt_40">Tất cả khóa học của giảng viên</h2>
 
           <div className="row product-item">
             {listCourse.map((value, index) => (
@@ -192,9 +198,9 @@ export default function ViewDetail() {
                       <a href="">{value.courseName}</a>
                     </h3>
                     <ul>
-                      <li>Author: {value.authorName}</li>
+                      <li>Giảng viên: {value.authorName}</li>
 
-                      <li>Category: {value.categoryName}</li>
+                      <li>Danh mục: {value.categoryName}</li>
                     </ul>
                     <div className="review">
                     <span>
@@ -209,7 +215,7 @@ export default function ViewDetail() {
                           activeColor="#ffd700"
                         />
                       </span>
-                      <span className="review-text">(Total Reviews: 1)</span>
+                      <span className="review-text">(Tổng đánh giá: {value.totalRating})</span>
                     </div>
                     <div className="price">{value.price.toLocaleString('vi-VN', {
         style: 'currency',
@@ -220,7 +226,7 @@ export default function ViewDetail() {
                         onClick={() => getcheckout(value)}
                         className="btn btn-block btn-success"
                       >
-                        Check Out
+                        Mua ngay
                       </a>
                     </div>
                   </div>
@@ -236,7 +242,7 @@ export default function ViewDetail() {
                   class="btn btn-primary"
                   onClick={() => chuyenTrang(page - 1)}
                 >
-                  Previous
+                  Trước
                 </button>
               </li>
               <li class="page-item">
@@ -244,7 +250,7 @@ export default function ViewDetail() {
                   class="btn btn-primary"
                   onClick={() => chuyenTrang(page + 1)}
                 >
-                  Next
+                  Sau
                 </button>
               </li>
             </ul>

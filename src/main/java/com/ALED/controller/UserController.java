@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ALED.DTO.AuthorSkillDTO;
 import com.ALED.DTO.UserAuthorDTO;
+import com.ALED.DTO.UserDTO;
 import com.ALED.entities.Users;
 import com.ALED.entities.author_skill;
 import com.ALED.repositories.UserRepository;
@@ -102,23 +104,23 @@ public class UserController {
 	
 	
 	@GetMapping("/get-gv")
-	public List<Users> getAllGv(){
-		return userService.getAllGV();
+	public List<UserDTO> getAllGv(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllGV(pageno,pagesize);
 	}
 	
 	@GetMapping("/get-hs")
-	public List<Users> getAllSt(){
-		return userService.getAllSt();
+	public List<UserDTO> getAllSt(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllSt(pageno,pagesize);
 	}
 	
 	@GetMapping("/get-hs-and-gv")
-	public List<Users> getAllStAndGv(){
-		return userService.getAllStAndGv();
+	public List<UserDTO> getAllStAndGv(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllStAndGv(pageno,pagesize);
 	}
 	
 	@GetMapping("/get-ins-no-isnable")
-	public List<Users> getAllInsNoIsNable(){
-		return userService.getAllInsNoIsNable();
+	public List<UserDTO> getAllInsNoIsNable(@RequestParam(defaultValue = "0") Integer pageno,@RequestParam(defaultValue = "10") Integer pagesize){
+		return userService.getAllInsNoIsNable(pageno,pagesize);
 	}
 	
 	@PutMapping("/isenable")
@@ -133,12 +135,15 @@ public class UserController {
 	
 
 	@PostMapping("/createauthoer")
-	public UserAuthorDTO createauthoer(@RequestBody @RequestParam(name = "file", required = false) MultipartFile file, UserAuthorDTO ua
+	public UserAuthorDTO createauthoer(@RequestBody @RequestParam(name = "file", required = false) MultipartFile file,@RequestParam(name = "file2", required = false) MultipartFile file2, UserAuthorDTO ua
 			) throws IOException {
 		if (file != null) {
-
 			ua.setImage(serverProto + "://" + serverUrl + "/api/file/imageuser?videoName=" + fileService.uploadImage(file));
 			ua.setType(file.getContentType());
+		}
+		if(file2 != null) {
+			ua.setImage2(serverProto + "://" + serverUrl + "/api/file/imageskill?videoName=" + fileService.uploadImage(file2));
+			ua.setType2(file2.getContentType());
 		}
 		return userService.createAuthor(ua);
 
@@ -152,8 +157,20 @@ public class UserController {
 	
 	
 	@GetMapping("/getskill/{id}")
-	public List<author_skill> getskill(@PathVariable Integer id){
+	public List<AuthorSkillDTO> getskill(@PathVariable Integer id){
 		return userService.getkill(id);
 	}
+	
+	
+	@PostMapping("/sendmailreport")
+	public String sendMailReport(@RequestBody UserAuthorDTO ua,@RequestParam Integer userId) throws MessagingException{
+		return userService.sendMailReport(ua,userId);
+	}
+	
+	@PostMapping("/sendmail")
+	public String sendMail(@RequestBody UserAuthorDTO ua) throws MessagingException{
+		return userService.sendMail(ua) ;
+	}
+	
 
 }

@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import swal from "sweetalert";
 
 export default function AllKH() {
-  const dispatch  = useDispatch()
-  const BaiGiang = useSelector(state =>state)
+  const dispatch = useDispatch()
+  const BaiGiang = useSelector(state => state)
 
   let history = useHistory();
   let id = useParams();
@@ -17,7 +17,9 @@ export default function AllKH() {
   const [isEnable, setIsEnable] = useState(0);
   const [giatriID, setgiatriID] = useState([])
   const [formdata, setformdata] = useState([])
-
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 10;
 
 
 
@@ -42,9 +44,20 @@ export default function AllKH() {
     history.push(`/giangvien/Section/${value.id}`);
   }
 
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadBaiGiang(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadBaiGiang(pg)
+    setPageSt(pg)
+  }
   let user_id = localStorage.getItem("userid")
 
-  const loadBaiGiang = async () => {
+  const loadBaiGiang = async (pg = pageSt, pgsize = size) => {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -57,10 +70,11 @@ export default function AllKH() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `course/user/${user_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `course/get-all-by-user?usersId=${user_id}&page=${pg}&size=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        dispatch({type: "GET_DATA", payload: result})
+        dispatch({ type: "GET_DATA", payload: result })
+        setTotalCountSt(result.length)
         console.log(result);
       })
       .catch(error => console.log('error', error));
@@ -69,8 +83,8 @@ export default function AllKH() {
 
   const deletecourse = (value) => {
     swal({
-      title: "Are you sure?",
-      text: `Are you sure you want to delete?`,
+      title: "Bạn chắc chứ ?",
+      text: `Bạn chắn chắn muốn xóa ?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -101,7 +115,7 @@ export default function AllKH() {
 
   };
 
- 
+
 
   return (
     <div>
@@ -111,17 +125,17 @@ export default function AllKH() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Photo</th>
-                <th>Description</th>
-                <th className="w-100">Action</th>
+                <th>Tiêu đề</th>
+                <th>Giá</th>
+                <th>Ảnh</th>
+                <th>Mô tả</th>
+                <th className="w-100">Hành Động</th>
               </tr>
             </thead>
             <tbody>
               {BaiGiang.map((value, index) =>
                 <tr key={index}>
-                  <td>{index+1}</td>
+                  <td>{index + 1}</td>
                   <td>{value.courseName}</td>
                   <td>
                     {value.price}
@@ -135,13 +149,13 @@ export default function AllKH() {
                       (event) => {
                         chuyentrangSesion(event, value, index)
                       }} className="btn btn-primary btn-sm btn-block">
-                      Manage Content									</a>
+                      Quản lý nội dung									</a>
                     <a onClick={
                       (event) => {
                         chuyentrangupdate(event, value, index)
                       }} className="btn btn-primary btn-sm btn-block">
-                      Edit									</a>
-                    
+                      Sửa								</a>
+
                   </td>
                 </tr>
               )}
@@ -149,6 +163,10 @@ export default function AllKH() {
 
             </tbody>
           </table>
+          <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
+                </nav>
         </div>
       </div>
     </div>

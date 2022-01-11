@@ -49,6 +49,8 @@ public class Lession implements Serializable {
 	//bi-directional many-to-one association to Note
 //	@OneToMany(mappedBy="lession")
 //	private List<Note> notes;
+	
+	private int demo;
 
 
 }

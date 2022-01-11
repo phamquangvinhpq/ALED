@@ -81,7 +81,7 @@ export default function AddUser() {
     
               } else {
                 history.push("/admin/users")
-                alert("thêm thành công")
+                swal("Thông báo", "Thêm thành công", "success")
               }  
                 
           })
@@ -93,10 +93,10 @@ export default function AddUser() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>Add User</h1>
+                    <h1>Thêm người dùng</h1>
                 </div>
                 <div className="content-header-right">
-                    <a href="/admin/users" className="btn btn-primary btn-sm">View All</a>
+                    <a href="/admin/users" className="btn btn-primary btn-sm">Xem tất cả</a>
                 </div>
             </section>
             <section className="content">
@@ -106,7 +106,7 @@ export default function AddUser() {
                             <div className="box box-info">
                                 <div className="box-body">
                                     <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">User Name
+                                        <label htmlFor className="col-sm-3 control-label">Tên người dùng
                                             <span>*</span></label>
                                         <div className="col-sm-4">
                                         <input type="text" className="form-control"  name="username" onChange={onInputChangedangki} placeholder="Full Name" required />
@@ -118,19 +118,19 @@ export default function AddUser() {
                                         <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email Address" required /></div>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">Name
+                                        <label htmlFor className="col-sm-3 control-label">Tên
                                             <span>*</span></label>
                                         <div className="col-sm-4">
                                         <input type="text" className="form-control"  name="name"  onChange={onInputChangedangki} placeholder="Full Name" required />
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label" >Role <span>*</span></label>
+                                        <label htmlFor className="col-sm-3 control-label" >Quyền <span>*</span></label>
                                         <div className="col-sm-4">
                                             <select className="form-control w-100-p" value={selectedDanhMuc} onChange={onChangeDanhMuc} >
                                                 <option>-- Chọn quyền --</option>
-                                                <option value="1">User</option>
-                                                <option value="3">Admin</option>
+                                                <option value="1">Người dùng</option>
+                                                <option value="3">Quản lý</option>
                                             </select>
                                         </div>
                                     </div>
@@ -138,7 +138,7 @@ export default function AddUser() {
                                     <div className="form-group">
                                         <label htmlFor className="col-sm-3 control-label" />
                                         <div className="col-sm-6">
-                                            <button type="button" onClick={signup} className="btn btn-success pull-left" name="form1">Submit</button>
+                                            <button type="button" onClick={signup} className="btn btn-success pull-left" name="form1">Đồng ý</button>
                                         </div>
                                     </div>
                                 </div>

@@ -6,7 +6,9 @@ export default function NotAnswered() {
   const [listQA, setListQA] = useState([]);
   const [contentMess, setContentMess] = useState([]);
   const [inputMess, setInputMess] = useState({});
-
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 5;
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -96,15 +98,29 @@ export default function NotAnswered() {
       }));
   };
 
-  const loadQA = () => {
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadQA(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadQA(pg)
+    setPageSt(pg)
+  }
+
+  const loadQA = (pg = pageSt, pgsize = size) => {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
 
-    fetch(`${DEFAULT_API}` +`qa/getbystatus?status=0&users_id=${users_id}`, requestOptions)
+    fetch(`${DEFAULT_API}` +`qa/getbystatus?status=0&users_id=${users_id}&page=${pg}&size=${pgsize}`, requestOptions)
       .then((response) => response.json())
-      .then((result) => setListQA(result))
+      .then((result) => {setListQA(result)
+        setTotalCountSt(result.length)
+      })
       .catch((error) => console.log("error", error));
   };
 
@@ -121,10 +137,10 @@ export default function NotAnswered() {
               <tr>
                 <th hidden>ID</th>
                 <th>STT</th>
-                <th>Questioner</th>
-                <th>Course Name</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th>Người Hỏi</th>
+                <th>Tên Khóa Học</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
               </tr>
             </thead>
             <tbody>
@@ -144,13 +160,17 @@ export default function NotAnswered() {
                       data-toggle="modal"
                       data-target="#exampleModalCenter1"
                     >
-                      Reply
+                      Trả Lời
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
+                </nav>
         </div>
       </div>
 
@@ -166,7 +186,7 @@ export default function NotAnswered() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                QA Question
+                Câu hỏi
               </h5>
               <button
                 type="button"
@@ -225,7 +245,7 @@ export default function NotAnswered() {
                             class="btn btn-success"
                             onClick={sendMess}
                             >
-                            Reply
+                            Trả Lời
                             </button>
                           </div>
                         </div>
@@ -241,7 +261,7 @@ export default function NotAnswered() {
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>

@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
+<<<<<<< HEAD:database/aled.sql
+-- Thời gian đã tạo: Th12 21, 2021 lúc 04:41 PM
+=======
 -- Thời gian đã tạo: Th12 21, 2021 lúc 10:27 AM
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.26
 
@@ -91,7 +95,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
+<<<<<<< HEAD:database/aled.sql
+(1, 'lập trình'),
+=======
 (1, 'iphone'),
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 (3, 'xiaomi');
 
 -- --------------------------------------------------------
@@ -107,6 +115,8 @@ CREATE TABLE `contentqa` (
   `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `create_date` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+<<<<<<< HEAD:database/aled.sql
+=======
 
 --
 -- Đang đổ dữ liệu cho bảng `contentqa`
@@ -115,6 +125,7 @@ CREATE TABLE `contentqa` (
 INSERT INTO `contentqa` (`id`, `qa_id`, `people`, `content`, `create_date`) VALUES
 (31, 17, 0, 'ok em', '2021-12-21 07:30:33'),
 (32, 17, 1, 'vâng', '2021-12-21 08:28:26');
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 
 -- --------------------------------------------------------
 
@@ -135,6 +146,8 @@ CREATE TABLE `course` (
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+<<<<<<< HEAD:database/aled.sql
+=======
 --
 -- Đang đổ dữ liệu cho bảng `course`
 --
@@ -142,6 +155,7 @@ CREATE TABLE `course` (
 INSERT INTO `course` (`id`, `course_name`, `price`, `image`, `description`, `status`, `users_id`, `author_id`, `category_id`, `type`) VALUES
 (28, 'jav1', 12334, 'http://localhost:8080/api/file/image?videoName=1640061744984.png', 'fd', 0, 112, 112, 1, 'image/png');
 
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 -- --------------------------------------------------------
 
 --
@@ -244,6 +258,18 @@ CREATE TABLE `orders` (
 
 -- --------------------------------------------------------
 
+<<<<<<< HEAD:database/aled.sql
+--
+-- Cấu trúc bảng cho bảng `qa`
+--
+
+CREATE TABLE `qa` (
+  `id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+=======
 --
 -- Cấu trúc bảng cho bảng `qa`
 --
@@ -261,6 +287,7 @@ CREATE TABLE `qa` (
 
 INSERT INTO `qa` (`id`, `users_id`, `course_id`, `status`) VALUES
 (17, 112, 28, 1);
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 
 -- --------------------------------------------------------
 
@@ -315,6 +342,8 @@ CREATE TABLE `section` (
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+<<<<<<< HEAD:database/aled.sql
+=======
 --
 -- Đang đổ dữ liệu cho bảng `section`
 --
@@ -322,6 +351,7 @@ CREATE TABLE `section` (
 INSERT INTO `section` (`id`, `name`, `course_id`) VALUES
 (27, 'chương mot', 28);
 
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 -- --------------------------------------------------------
 
 --
@@ -354,7 +384,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
@@ -510,13 +540,21 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `author`
 --
 ALTER TABLE `author`
+<<<<<<< HEAD:database/aled.sql
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 
 --
 -- AUTO_INCREMENT cho bảng `author_skill`
 --
 ALTER TABLE `author_skill`
+<<<<<<< HEAD:database/aled.sql
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -552,7 +590,11 @@ ALTER TABLE `lession`
 -- AUTO_INCREMENT cho bảng `mycourse`
 --
 ALTER TABLE `mycourse`
+<<<<<<< HEAD:database/aled.sql
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 
 --
 -- AUTO_INCREMENT cho bảng `note`
@@ -594,13 +636,21 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT cho bảng `userrole`
 --
 ALTER TABLE `userrole`
+<<<<<<< HEAD:database/aled.sql
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
+<<<<<<< HEAD:database/aled.sql
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+=======
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+>>>>>>> ffb8feabab218661cc7d4761e584de5beedbebe1:database/aled (11).sql
 
 --
 -- Các ràng buộc cho các bảng đã đổ

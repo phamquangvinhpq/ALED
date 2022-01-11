@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { DEFAULT_API } from '../../../conf/env'
+import { useHistory } from "react-router-dom";
 export default function Checkout1() {
     const [khoahoc, setkhoahoc] = useState([])
     const [DSkhoahoc, setDSkhoahoc] = useState({
@@ -11,9 +12,14 @@ export default function Checkout1() {
   
     let id = useParams();
     let user_id=localStorage.getItem("userid");
-
+    let history = useHistory()
 
     useEffect(() => {
+        if(isNaN(id.id))
+    {
+      history.push("/404")
+      window.location.reload();
+    }
         laykhoahoc();
 
     }, [])
@@ -81,12 +87,14 @@ export default function Checkout1() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <h1>Check Out</h1>
+                            <h1>Thanh toán</h1>
                             <h3>
-                                <a >Home</a>
+                                <a >Trang chủ</a>
                                 <i className="fa fa-angle-right" />
                                  
-                                checkout</h3>
+
+                                Thanh toán            </h3>
+
                         </div>
                     </div>
                 </div>
@@ -99,10 +107,10 @@ export default function Checkout1() {
                                 <table className="table table-bordered cart-table">
                                     <thead>
                                         <tr>
-                                            <th>Serial</th>
-                                            <th>Thumbnail</th>
-                                            <th>Course Title</th>
-                                            <th>Price</th>
+                                            <th>TT</th>
+                                            <th>Ảnh</th>
+                                            <th>Tên khóa học</th>
+                                            <th>Giá</th>
                                         </tr>
                                     </thead>
                                     {khoahoc.map((value,index) =>
@@ -122,7 +130,7 @@ export default function Checkout1() {
                                         </tr>
 
                                         <tr>
-                                            <td colSpan={3} className="tot tar">Total: </td>
+                                            <td colSpan={3} className="tot tar">Tổng: </td>
                                             <td colSpan={2} className="tot">{value.price.toLocaleString('vi-VN', {
                                                             style: 'currency',
                                                             currency: 'VND'
@@ -136,18 +144,18 @@ export default function Checkout1() {
                             </div>
                             
                             <div className="text-right">
-                                <a className="btn btn-success" onClick={pay}>pay now </a>
+                                <a className="btn btn-success" onClick={pay}>Mua ngay </a>
                             </div>
                         </div>
                         <div className="col-md-5">
-                            <h3 className="mt_0">Select a Payment Method</h3>
+                            <h3 className="mt_0">Chọn phương thức thanh toán</h3>
                             <div className="accordion-section mt_20">
                                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                     <div className="panel panel-default">
                                         <div className="panel-heading p-3 mb-3" role="tab" id="heading1">
                                             <h3 className="panel-title">
                                                 <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#faq1">
-                                                    <span>Bank transfer</span>
+                                                    <span>Chuyển khoản</span>
                                                 </a>
                                             </h3>
                                         </div>

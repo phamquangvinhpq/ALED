@@ -16,28 +16,28 @@ public class GlobalExceptionHandler {
 
 	// handling specific exception
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<?> resourceNotFoundHandling(ResourceNotFoundException exception, WebRequest request){
-		ErrorDetails errorDetails = 
-				new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false),"-1");
+	public ResponseEntity<?> resourceNotFoundHandling(ResourceNotFoundException exception, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false),
+				"-1");
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
 	// handling global exception
-	
+
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> globalExceptionHandling(Exception exception, WebRequest request){
-		ErrorDetails errorDetails = 
-				new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false),"-1");
+	public ResponseEntity<?> globalExceptionHandling(Exception exception, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false),
+				"-1");
 		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<?> validate(MethodArgumentNotValidException exception){
-		ErrorDetails errorDetails = 
-				new ErrorDetails(new Date(), "Validate erro", exception.getBindingResult().getFieldError().getDefaultMessage(),"-1");
+	public ResponseEntity<?> validate(MethodArgumentNotValidException exception, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(),
+				exception.getBindingResult().getFieldError().getDefaultMessage(), request.getDescription(false), "-1");
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
+
 	
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> ValidateParametersException(ConstraintViolationException exception) {
@@ -45,5 +45,5 @@ public class GlobalExceptionHandler {
                 new ErrorDetails(new Date(), "not valid due to validation error: ", exception.getMessage(),"-1");
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
-	
+
 }

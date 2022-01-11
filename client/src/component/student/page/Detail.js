@@ -3,9 +3,10 @@ import useState from 'react-usestateref'
 import ReactStars from "react-rating-stars-component";
 import { DEFAULT_API } from '../../../conf/env';
 import { Link, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
-import Checkout1 from './Checkout1';
+import { FaVideo } from "react-icons/fa";
+import { FaVideoSlash } from "react-icons/fa";
+import ReactPlayer from 'react-player';
 
 export default function Detail() {
 
@@ -17,6 +18,7 @@ export default function Detail() {
   const [coursebyid, setcoursebyid] = useState([]);
   const [userrate, setuserrate] = useState([]);
   const [trangthai, settrangthai] = useState(false);
+  const [videoDemo, setVideoDemo] = useState("")
 
 
   const [damua, setdamua] = useState(false);
@@ -47,6 +49,21 @@ var chek=isNaN(id.id);
 
 
   }, [status])
+
+  const xemThu = (value) => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + `lession/${value}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setVideoDemo(result.linkVideo)
+        console.log(result.linkVideo)
+      })
+      .catch(error => console.log('error', error));
+  }
 
   const loadInfoAuthor = (author_id) => {
     var requestOptions = {
@@ -162,7 +179,6 @@ var chek=isNaN(id.id);
     const pg = page - 1
     loaduserrate(pg)
     setPage(pg)
-    console.log(page);
   }
 
 
@@ -237,11 +253,11 @@ var chek=isNaN(id.id);
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1>Detail</h1>
+              <h1>Chi tiết</h1>
               <h3>
-                <a href="../index.html">Home</a>
+                <a href="../index.html">Trang chủ</a>
                 <i className="fa fa-angle-right" />
-                detail{" "}
+                chi tiết{" "}
               </h3>
             </div>
           </div>
@@ -262,7 +278,7 @@ var chek=isNaN(id.id);
               <div className="col-md-6">
                 <div className="product-single-item">
                   <h2>{value.courseName}</h2>
-                  <h3>By: {value.authorName}</h3>
+                  <h3>{value.authorName}</h3>
                   <div className="review-comment-line">
                     <div className="review">
                       <span>
@@ -282,11 +298,11 @@ var chek=isNaN(id.id);
                         )}
                       </span>
                       {value.rate}
-                      <span>&ensp; (Total Reviews: {thongtin})</span>
+                      <span>&ensp; (Tổng đánh giá: {thongtin})</span>
                     </div>
                   </div>
                   <div className="short-des">
-                    Description: {value.description}
+                    Mô tả: {value.description}
                   </div>
                 </div>
               </div>
@@ -297,30 +313,34 @@ var chek=isNaN(id.id);
                     currency: 'VND'
                   })}</div>
                   <div className="buy-now">
-                    {trangthai == true ? "Waiting for approval" :
-                      <div>
-                        {damua == false ? <a
 
-                          className="btn btn-block btn-warning"
-                          onClick={() => getcheckout(value.id)}
-                        >
-                          Proceed to Checkout
-                        </a> : <a
-                          href=''
-                          className="btn btn-info btn-sm"
-                          onClick={() => chuyentrang(value.id)}
-                        >
-                          xem
-                        </a>}</div>
-                    }
-                  </div>
+                    {trangthai == true ? "đang chờ duyệt" : 
+                    <div>
+                  {damua==false ? <a
+                  
+                    className="btn btn-block btn-warning"
+                    onClick={() => getcheckout(value.id)}
+                  >
+                    Thanh toán
+                  </a>: <a
+                 
+                    className="btn btn-info btn-sm"
+                    onClick={()=> chuyentrang(value)}
+                  >
+                   xem
+                  </a> }</div>
+}
+                </div>
+
+                  
                 </div>
               </div>
             </div>
           ))}
 
 
-          <h2 className="course_title mt_20">Reviews ({thongtin})</h2>
+          <h2 className="course_title mt_20">Đánh giá ({thongtin})</h2>
+
           <div className="product-single-review">
             <div className="review-item">
               {userrate.map((value, index) => (
@@ -358,17 +378,18 @@ var chek=isNaN(id.id);
                 </div>
               ))}
               <button type="button" className="btn btn-outline-primary" disabled={page == 0}
-                onClick={backPage}>Previous
+
+                onClick={backPage}>Trước
               </button>
               <button type="button" className="btn btn-outline-primary"
-                disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Next
+                disabled={page >= Math.ceil(totalCount / pagesize)} onClick={nextPage}>Sau
               </button>
 
             </div>
           </div>
           <div className="row">
             <div className="col-md-12">
-              <h2 className="course_title">Course Content</h2>
+              <h2 className="course_title">Nội dung khóa học</h2>
               <div className="accordion-section mt_20">
                 <div
                   className="panel-group"
@@ -409,46 +430,46 @@ var chek=isNaN(id.id);
                           <table className="table table-bordered table-striped front-end-course-table">
                             <tbody>
                               <tr>
-                                <th>Lesson Title</th>
-                                <th>Lesson Preview</th>
-
+                                <th>Tên bài học</th>
+                                <th>Xem thử</th>
+                                <th>Thời lượng bài học</th>
                               </tr>
                               {video.map((value, index) => (
                                 <tr>
                                   <td>{value.name}</td>
                                   <td>
-                                    <div>Enrolled Course First</div>
+                                    {value.demo == 1 ? <FaVideo onClick={() => xemThu(value.id)} data-toggle="modal" data-target="#myModalAllWatch0" /> : <FaVideoSlash />}
                                     <div
-                                      id="myModalAllWatch0"
-                                      className="modal fade video_popup"
-                                      role="dialog"
-                                    >
-                                      <div className="modal-dialog w-60-p">
+                                      id="myModalAllWatch0" className="modal" aria-hidden="true"  >
+                                      <div id="myForm" className="modal-dialog w-50-p" >
                                         <div className="modal-content">
-                                          <div className="modal-body">
-                                            <iframe
-                                              width={560}
-                                              height={315}
-                                              src="https://www.youtube.com/embed/kkGeOWYOFoA"
-                                              frameBorder={0}
-                                              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                              allowFullScreen
-                                            />
-                                          </div>
+                                          <form>
+                                            <div >
+                                              <ReactPlayer
+                                                controls
+                                                width="100%"
+                                                height="400px"
+                                                url={videoDemo}
+                                              />
+
+                                            </div>
+                                          </form>
                                           <div className="modal-footer">
                                             <button
+
                                               type="button"
                                               className="btn btn-default"
                                               data-dismiss="modal"
+
                                             >
-                                              Close
+                                              Đóng
                                             </button>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
                                   </td>
-
+                                  <td>Chưa</td>
                                 </tr>
                               ))}
                             </tbody>
@@ -461,7 +482,7 @@ var chek=isNaN(id.id);
               </div>
             </div>
           </div>
-          <h2 className="course_title mt_20">Instructor Detail</h2>
+          <h2 className="course_title mt_20">Chi tiết giảng viên</h2>
           <div className="row mt_20">
             <div className="col-md-3 instructor">
               <div className="card">
@@ -485,19 +506,19 @@ var chek=isNaN(id.id);
                       </span>
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-star" /> Instructor Rating{" "}
+                      <i className="fa fa-star" /> Đánh giá giảng viên{" "}
                       {value.instructorRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-play-circle" /> Total Courses:{" "}
+                      <i className="fa fa-play-circle" /> Tổng khóa học:{" "}
                       {value.totalCourse}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-comment" /> Total Rating:{" "}
+                      <i className="fa fa-comment" /> Tổng đánh giá:{" "}
                       {value.totalRating}
                     </div>
                     <div className="text-muted">
-                      <i className="fa fa-user" /> Total Students:{" "}
+                      <i className="fa fa-user" /> Tổng học sỉnh:{" "}
                       {value.totalStudents}
                     </div>
                     <p />
@@ -506,12 +527,12 @@ var chek=isNaN(id.id);
               </div>
             </div>
             <div className="col-md-9">
-              <h3 className="profile_title">Name: {infoAuthor.name}</h3>
+              <h3 className="profile_title">Tên: {infoAuthor.name}</h3>
               <p className="profile_sub_title">
-                Education: {infoAuthor.education}
+                Trường học: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-                Description: {infoAuthor.description}
+                Mô tả: {infoAuthor.description}
                 <br />
               </div>
               <div className="author-detail-button mt_30">
@@ -520,7 +541,7 @@ var chek=isNaN(id.id);
                   onClick={() => viewDetail(infoAuthor.id)}
 
                 >
-                  View Detail
+                  Xem chi tiết
                 </a>
               </div>
             </div>

@@ -33,19 +33,19 @@ export default function Dashboard() {
             {infoStudent.map((value,index)=> 
             <tbody>
               <tr>
-                <th className="w-40-p">Total Enrolled Courses</th>
+                <th className="w-40-p">Tổng số khóa học đã đăng ký</th>
                 <td>{value.totalCourse}</td>
               </tr>
               <tr>
-                <th>Total Rating Given</th>
+                <th>Tổng đánh giá được đưa ra</th>
                 <td>{value.totalRating}</td>
               </tr>
               <tr>
-                <th>Total Student</th>
+                <th>Tổng số sinh viên</th>
                 <td>{value.totalStudents}</td>
               </tr>
               <tr>
-                <th>Total instructorRating</th>
+                <th>Tổng số người hướng dẫn</th>
                 <td>{value.instructorRating}</td>
               </tr>
             </tbody>

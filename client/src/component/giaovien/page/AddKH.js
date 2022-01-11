@@ -32,7 +32,12 @@ export default function AddKH() {
   const [isEnable, setIsEnable] = useState(0);
 
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
+    if(event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg"){
+      swal("Thất bại", "Chỉ được chọn file jpeg/png", "warning")
+      document.getElementById("uploadFile").value=""
+    } else{
+      setSelectedFile(event.target.files[0]);
+    }
   };
 
   useEffect(() => {
@@ -107,11 +112,11 @@ export default function AddKH() {
     const price = Number(BaiGiang.price)
     var regexKhoangTrang = /\S/;
     if(Number.isNaN(price)){
-      swal("Failed", "Price only enter numbers", "warning")
+      swal("Failed", "Giá giá chỉ được nhập số", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.courseName)){
-      swal("Failed", "courseName not be empty", "warning")
+      swal("Failed", "Tên khóa học không được để trống", "warning")
     }else if(!regexKhoangTrang.test(BaiGiang.description)){
-      swal("Failed", "Description not be empty", "warning")
+      swal("Failed", "Mô tả không được để trống", "warning")
     }else{
       var myHeaders = new Headers();
       var formdata = new FormData();
@@ -134,12 +139,13 @@ export default function AddKH() {
         .then((result) => {
           if(result.loicode==-1){
             swal("nhập đầy đủ thông tin", {
-              text: `yêu cầu nhập price  `,
+              text: `yêu cầu nhập giá  `,
               icon: "warning",
             });
           }else{
             setIsEnable(isEnable +1)
             history.push(`/giangvien/AllCourses/`);
+            swal("Thông báo", "Thêm khóa học thành công", "success")
           }
         })
         .catch((error) => console.log("error", error));
@@ -152,36 +158,36 @@ export default function AddKH() {
       <div className="col-md-9">
         <form action="" className="form-horizontal" encType="multipart/form-data" method="post" acceptCharset="utf-8">
           <div className="form-group">
-            <label htmlFor className="col-sm-3 control-label">Course Title *</label>
+            <label htmlFor className="col-sm-3 control-label">Tiêu đề khóa học *</label>
             <div className="col-sm-9">
               <input type="text" name="courseName" className="form-control" onChange={onInputChange} />
             </div>
           </div>
           <div className="form-group">
-            <label htmlFor className="col-sm-3 control-label">Course Price *</label>
+            <label htmlFor className="col-sm-3 control-label">Giá khóa học *</label>
             <div className="col-sm-9">
               <input type="text" name="price" className="form-control" onChange={onInputChange} />
             </div>
           </div>
           <div className="form-group">
-            <label htmlFor className="col-sm-3 control-label">Description *</label>
+            <label htmlFor className="col-sm-3 control-label">Mô tả *</label>
             <div className="col-sm-9">
               <textarea className="form-control h-120" name="description" onChange={onInputChange} />
             </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor className="col-sm-3 control-label">Featured Photo *</label>
+            <label htmlFor className="col-sm-3 control-label">Ảnh *</label>
             <div className="col-sm-6 pt_5">
-              <input type="file" name="image" onChange={changeHandler} />
+              <input type="file" name="image" id='uploadFile' onChange={changeHandler} />
             </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor className="col-sm-3 control-label">Selece Category *</label>
+            <label htmlFor className="col-sm-3 control-label">Chọn Danh mục *</label>
             <div className="col-sm-6">
-              <select className="form-control select2 w-100-p" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                <option>-- Select Category --</option>
+              <select className="form-control w-100-p" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
+                <option>-- Chọn Danh mục --</option>
 
                 {danhmuc.map((value, index) => {
                   return (
@@ -197,7 +203,7 @@ export default function AddKH() {
           <div className="form-group">
             <div className="col-sm-offset-3 col-sm-9">
               <button type="button" className="btn btn-success pull-left c-button" onClick={
-                addCourse} name="form1">Add Course</button>
+                addCourse} name="form1">Thêm khóa học</button>
             </div>
           </div>
 

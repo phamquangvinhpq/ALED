@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ALED.entities.Author;
 import com.ALED.entities.Course;
 import com.ALED.entities.Users;
+import com.ALED.repositories.AuthorRepository;
+import com.ALED.repositories.AuthorSkillRepository;
 import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.UserRepository;
 import com.ALED.service.FileService;
@@ -42,6 +45,9 @@ public class FileController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private AuthorRepository authorRepository;
 	
 	
 	@GetMapping(value = "/file/image")
@@ -69,6 +75,19 @@ public class FileController {
 		headers.add("Pragma", "no-cache");
 		headers.add("Expires", "0");
 	
+		return ResponseEntity.ok().contentType(MediaType.valueOf(type.getType())).body(imageStream);
+	}
+	
+	@GetMapping(value = "/file/imageskill")
+	public ResponseEntity<?> downloadImage2(@RequestParam String videoName) throws IOException {
+		Author type = authorRepository.findByImage(videoName);
+		File imageFile = fileService.path(videoName);
+		InputStreamResource imageStream = new InputStreamResource(new FileInputStream(imageFile));
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", videoName));
+		headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+		headers.add("Pragma", "no-cache");
+		headers.add("Expires", "0");
 		return ResponseEntity.ok().contentType(MediaType.valueOf(type.getType())).body(imageStream);
 	}
 	

@@ -13,34 +13,36 @@ import Homestd from './component/student/page/Homestd';
 import Not404 from './component/student/page/Not404';
 import Taocauhoi from './component/student/page/Taocauhoi';
 import Taobaithi from './component/student/page/Taobaithi';
+import Register from './component/giaovien/page/Register';
+import Exam from './component/student/page/Exam';
 
 export default function Routers() {
-    let role =localStorage.getItem("role");
+    let role = localStorage.getItem("role");
 
     return (
         <div>
-              <BrowserRouter >
-                <Switch>       
-                        <Route path='/giangvien' render={() =>{
-                            return  role === "ROLE_GIANGVIEN"  ?  <IndexGV /> : <Redirect to="/home" />
-                        }}  >   
-                        </Route>
- 
-                    <Route path='/student' render={() =>{
-                            return  role == null  ? <Redirect to="/home" />   : <IndexDash /> 
-                        }}  >   
-                        </Route>
+            <BrowserRouter >
+                <Switch>
+                    <Route path='/giangvien' render={() => {
+                        return role === "ROLE_GIANGVIEN" ? <IndexGV /> : <Redirect to="/home" />
+                    }}  >
+                    </Route>
+
+                    <Route path='/student' render={() => {
+                        return role == null ? <Redirect to="/home" /> : <IndexDash />
+                    }}  >
+                    </Route>
 
 
-                        <Route path='/admin' render={() =>{
-                            return  role === "ROLE_ADMIN"  ?  <IndexAdmin /> : <Redirect to="/home" />
-                        }}  >   
-                        </Route>
-                        
-                        <Route path='/wath'  render={() =>{
-                            return <Indexwath />
-                        }}  >   
-                        
+                    <Route path='/admin' render={() => {
+                        return role === "ROLE_ADMIN" ? <IndexAdmin /> : <Redirect to="/home" />
+                    }}  >
+                    </Route>
+
+                    <Route path='/wath' render={() => {
+                        return <Indexwath />
+                    }}  >
+
                     </Route>
 
                     <Route path='/thanhcong' >
@@ -62,18 +64,26 @@ export default function Routers() {
                     <Route path='/taobaithi' >
                         <Taobaithi />
                     </Route>
+                    
+                    <Route path='/register' >
+                        <Register />
+                    </Route>
+
+                    <Route path="/exam">
+                        <Exam />
+                    </Route>
 
                     <Route path='/' >
                         <Indexstudent />
                     </Route>
 
-                    
-                    
+
+
                 </Switch>
 
 
 
-                </BrowserRouter>
+            </BrowserRouter>
         </div>
     )
 }

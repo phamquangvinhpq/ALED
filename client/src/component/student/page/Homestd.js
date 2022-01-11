@@ -11,10 +11,19 @@ export default function Homestd() {
     const [listFavorite, setListFavorite] = useState([]);
     const [listCategories, setListCategories] = useState([]);
     const [damua, setdamua] = useState(false);
-
     const user_id = localStorage.getItem("userid")
     const dispatch = useDispatch()
+    const [timeString,setTimeString] = useState('')
     let history = useHistory();
+
+    function fomatDate(now) {
+        const today = new Date();
+        const ngay = today.getDate()+'/'+(today.getMonth()+1)
+        const gio = today.getHours()
+        const phut = today.getMinutes()
+        const giay = today.getSeconds()
+        return `${ngay} : ${gio} : ${phut} : ${giay}`
+    }
 
     useEffect(() => {
         if (user_id) {
@@ -22,7 +31,15 @@ export default function Homestd() {
         }
         loadListCategories();
         loadListCourse();
-    }, []);
+        setInterval(()=>{
+            const today = new Date();
+            const newTimeString = fomatDate(today);
+
+            setTimeString(newTimeString)
+           
+        }, 1000);
+    }, [
+    ]);
 
     const checkTym = (value) => {
         if (user_id) {
@@ -90,7 +107,8 @@ export default function Homestd() {
 
         fetch(`${DEFAULT_API}favorite?user_id=${user_id}`, requestOptions)
             .then((response) => response.json())
-            .then((response) => setListFavorite(response));
+            .then((result) => setListFavorite(result))
+            .catch(error => console.log('error', error));
     };
 
     const loadListCourse = async () => {
@@ -145,7 +163,7 @@ export default function Homestd() {
             .then(result => {
                 console.log(result);
                 if (result === "bought") {
-                    alert("you bought this course")
+                    swal("Thông báo", "Bạn đã mua khóa học này")
                 } else {
                     history.push(`/checkout/${value.id}`)
                     
@@ -156,7 +174,6 @@ export default function Homestd() {
     }
 
     
-
     return (
         <div>
             <div>
@@ -176,11 +193,10 @@ export default function Homestd() {
                         <div className="row">
                             <div className="col-lg-8">
                                 <div className="hero-content">
-                                    <h1 className="home-2"><span>learn new skills online find best courses</span> &amp; become master</h1>
-                                    <div className="hero-description"><h6>hire proven pros with confidence using world largest remote talent platform.</h6></div>
+                                    <h1 className="home-2"><span>học các kỹ năng mới trực tuyến và tìm các khóa học tốt nhất</span> &amp; trở thành bậc thầy</h1>
+                                    <div className="hero-description"><h6>tự tin thuê những chuyên gia đã được chứng minh bằng cách sử dụng nền tảng nhân tài từ xa lớn nhất thế giới.</h6></div>
                                     <div className="hero-button">
-                                        <a href="https://www.youtube.com/watch?v=eybyQcXUdzM" className="template-button">start course <i className="fa fa-play-circle" /></a>
-                                        
+                                        <a href="https://www.youtube.com/watch?v=eybyQcXUdzM" className="template-button">bắt đầu khóa học <i className="fa fa-play-circle" /></a>
                                     </div>
                                 </div>
                             </div>
@@ -201,31 +217,19 @@ export default function Homestd() {
                                 <div className="row">
                                     <div className="col-lg-6">
                                         <div className="countdown-left">
-                                            <h2 className="home-2">upcoming our free <span>web design</span> course!</h2>
+                                            <h2 className="home-2">sắp tới miễn phí của chúng tôi <span>thiết kế web</span> khóa học!</h2>
                                         </div>
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="countdown-right">
                                             <ul className="countdown">
                                                 <li>
-                                                    <span className="days">00</span>
-                                                    <p className="days_ref">days</p>
+                                                 <h2 className="days_ref">ĐỒNG HỒ</h2>
+                                                    <span className="days" id='day'>{timeString}</span>
+                                                    
                                                 </li>
-                                                <li className="separator">:</li>
-                                                <li>
-                                                    <span className="hours">00</span>
-                                                    <p className="hours_ref">hours</p>
-                                                </li>
-                                                <li className="separator">:</li>
-                                                <li>
-                                                    <span className="minutes">00</span>
-                                                    <p className="minutes_ref">minutes</p>
-                                                </li>
-                                                <li className="separator">:</li>
-                                                <li>
-                                                    <span className="seconds">00</span>
-                                                    <p className="seconds_ref">seconds</p>
-                                                </li>
+                                                
+                                               
                                             </ul>
                                         </div>
                                     </div>
@@ -240,7 +244,7 @@ export default function Homestd() {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="section-title text-center margin-bottom-40">
-                                        <h2 className="home-2">see our <span>popular courses</span></h2>
+                                        <h2 className="home-2">Các khóa học phổ biến <span>của chúng tôi</span></h2>
                                     </div>
                                 </div>
                             </div>
@@ -319,10 +323,12 @@ export default function Homestd() {
                                                 <p className="margin-top-20">{value.description}</p>
                                                 
                                                 <div className="preview-button margin-top-20">
-                                                    <a onClick={() => {
-                                                        history.push("detail/" + value.id)
-                                                    }} className="template-button">course preview</a>
-                                                    {damua == true ? <a disabled="disabled" className="template-button margin-left-10" >buy now</a> : <a onClick={() => getcheckout(value)} className="template-button margin-left-10">buy now</a>}
+
+                                                    <a onClick={() =>{
+                                                         history.push("detail/"+value.id)
+                                                    }} className="template-button">Chi tiết khóa học</a>
+                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">Mua ngay</a> }
+                                                    
 
                                                 </div>
                                             </div>
@@ -341,7 +347,7 @@ export default function Homestd() {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="section-title text-center">
-                                    <h2 className="home-2">popular <span>categories</span></h2>
+                                    <h2 className="home-2">Danh mục <span>phổ biến</span></h2>
                                 </div>
                             </div>
                         </div>

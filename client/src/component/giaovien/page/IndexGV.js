@@ -12,9 +12,11 @@ import AddKH from "./AddKH";
 import AllKH from "./AllKH";
 import Answered from "./Answered";
 import Dashboard from "./Dashboard";
+import Exam from "./exam";
 import Leson from "./Leson";
 import MenuGV from "./MenuGV";
 import NotAnswered from "./NotAnswered";
+import Question from "./Question";
 import Section from "./Section";
 import UpdateKH from "./UpdateKH";
 
@@ -72,6 +74,13 @@ export default function IndexGV() {
 
               <Route path="/giangvien/Lesson/:id">
                 <Leson />
+              </Route>
+              <Route path="/giangvien/question">
+                <Question />
+              </Route>
+
+              <Route path="/giangvien/exam">
+                <Exam />
               </Route>
 
               <Route path="/giangvien/updateKH/:id">

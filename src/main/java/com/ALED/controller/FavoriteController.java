@@ -28,8 +28,10 @@ public class FavoriteController {
 	}
 
 	@GetMapping
-	public List<FavoriteDTO> findAllByUser(@RequestParam(name = "user_id", required = false) Integer user_id) {
-		return iFavoriteService.findAllByUser(user_id);
+	public List<FavoriteDTO> findAllByUser(@RequestParam(name = "user_id", required = false) Integer user_id,
+			@RequestParam(name = "page", defaultValue = "0") Integer page,
+			@RequestParam(name = "size", defaultValue = "5") Integer size) {
+		return iFavoriteService.findAllByUser(user_id , page , size);
 	}
 	
 	@DeleteMapping()

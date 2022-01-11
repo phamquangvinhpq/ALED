@@ -9,14 +9,14 @@ export default function MenuAdmin() {
           <br /><br />
           <li className="treeview active">
           <NavLink to="/admin/Dashboard">
-              <i className="fa fa-laptop" /> <span className="fa-laptop1">Dashboard</span>
+              <i className="fa fa-laptop" /> <span className="fa-laptop1">Thông tin </span>
             </NavLink>
           </li>
 
           <li className="treeview">
             <a href="#" >
               <i className="fa fa-newspaper-o" />
-              <span className="fa-newspaper-o1">Course</span>
+              <span className="fa-newspaper-o1">Khóa học</span>
               <span className="pull-right-container">
                 <i className="fa fa-angle-left pull-right" />
               </span>
@@ -24,17 +24,17 @@ export default function MenuAdmin() {
             <ul className="treeview-menu">
               <li > 
                 <NavLink to="/admin/CourseCategory">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Course Category</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Danh mục khóa học</span>
                 </NavLink>
               </li>
               <li > 
                 <NavLink to="/admin/ApprovedCourses">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Approved Courses</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Các khóa đã phê duyệt</span>
                 </NavLink>
               </li>
               <li > 
                 <NavLink to="/admin/PendingCourse">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Courses</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Các khóa học chờ xử lý</span>
                 </NavLink>
               </li>
 
@@ -44,7 +44,7 @@ export default function MenuAdmin() {
           <li className="treeview ">
             <a href="#">
               <i className="fa fa-user-circle-o" />
-              <span className="fa-newspaper-o1">User Section</span>
+              <span className="fa-newspaper-o1">Phần người dùng</span>
               <span className="pull-right-container">
                 <i className="fa fa-angle-left pull-right" />
               </span>
@@ -52,29 +52,29 @@ export default function MenuAdmin() {
             <ul className="treeview-menu">
             <li > 
                 <NavLink to="/admin/users">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Users</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Người dùng</span>
                 </NavLink>
               </li>
               <li > 
                 <NavLink to="/admin/Students">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Students</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Học sinh</span>
                 </NavLink>
               </li>
               <li > 
                 <NavLink to="/admin/Instructors">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Instructors</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Giảng viên</span>
                 </NavLink>
               </li>
               <li>
               <NavLink to="/admin/Pendinginstructer">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Pending Instructors</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Giảng viên chờ duyệt</span>
                 </NavLink>
               </li>
             </ul>
           </li>
           <li className="treeview ">
           <NavLink to="/admin/Payment">
-              <i className="fa fa-usd" /> <span className="fa-laptop1">Payment History</span>
+              <i className="fa fa-usd" /> <span className="fa-laptop1">Lịch sử thanh toán</span>
            </NavLink>
           </li>
 

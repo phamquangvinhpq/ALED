@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.SectionDTO;
@@ -41,6 +44,14 @@ public class SectionService implements ISectionService {
 
 	@Override
 	public SectionDTO create(SectionDTO SectionDTO) {
+		int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(SectionDTO.getCourse_id());
+		if (soLuongNguoiMua > 0) {
+			throw new RuntimeException("Khóa học đã có người mua, nên bạn không được thêm");
+		}
+		List<Section> listEntity = sectionRepository.findByCourseId(SectionDTO.getCourse_id());
+		if (listEntity.size() >= 10) {
+			throw new RuntimeException("Tổng số chương tối đa là 10");
+		}
 		Section section =new Section();
 		BeanUtils.copyProperties(SectionDTO, section);
 		section.setCourse(courseRepository.getById(SectionDTO.getCourse_id()));
@@ -52,14 +63,15 @@ public class SectionService implements ISectionService {
 
 
 	@Override
-	public SectionDTO update(SectionDTO section) {
-		Optional<Section> optional = sectionRepository.findById(section.getId());
-		if(optional.isPresent()) {
-			Section entity = optional.get();
-			BeanUtils.copyProperties(section, entity);
-			sectionRepository.save(entity);
+	public SectionDTO update(SectionDTO dto) {
+		int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(dto.getCourse_id());
+		if (soLuongNguoiMua > 0) {
+			throw new RuntimeException("Khóa học đã có người mua, nên bạn không được cập nhật");
 		}
-		return section;
+		Section entity = sectionRepository.getById(dto.getId());
+		BeanUtils.copyProperties(dto, entity);
+		sectionRepository.save(entity);
+		return dto;
 		
 	}
 
@@ -71,6 +83,10 @@ public class SectionService implements ISectionService {
 		Optional<Section> optional = sectionRepository.findById(id);
 		if(optional.isPresent()) {
 			Section entity = optional.get();
+			int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(entity.getCourse().getId());
+			if (soLuongNguoiMua > 0) {
+				throw new RuntimeException("Khóa học đã có người mua, nên bạn không được xóa");
+			}
 			BeanUtils.copyProperties(entity, section);
 			sectionRepository.delete(entity);
 		}
@@ -106,9 +122,12 @@ public class SectionService implements ISectionService {
 
 
 	@Override
-	public List<SectionDTO> detailcour(Integer id) {
+	public List<SectionDTO> detailcour(Integer id,int page,int size) {
 		List<SectionDTO> listSection = new ArrayList<SectionDTO>();
-		List<Section> entities = sectionRepository.timcour(id);
+		List<Section> entities = new ArrayList<Section>();
+		Pageable pageable = PageRequest.of(page, size);
+			Page<Section> page2 =	sectionRepository.timcour(id,pageable);
+			entities = page2.getContent();
 		for (Section Sections : entities) {
 			SectionDTO SectionDTO = new SectionDTO();
 			BeanUtils.copyProperties(Sections, SectionDTO);

@@ -49,6 +49,7 @@ public class AuthorController {
 		return AuthorService.detail(id);
 	}
 	
+	
 	@GetMapping("/viewuser/{pageno}/{pagesize}")
 	public List<Author> page(@PathVariable Integer pageno,@PathVariable Integer pagesize){
 		

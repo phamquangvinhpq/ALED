@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.FavoriteDTO;
@@ -12,14 +14,12 @@ import com.ALED.entities.Favorite;
 import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.FavoriteRepository;
 
-
-
 @Service
 public class FavoriteService implements IFavoriteService {
 
 	@Autowired
 	private FavoriteRepository favoriteRepository;
-	
+
 	@Autowired
 	private CourseRepository courseRepository;
 
@@ -30,8 +30,7 @@ public class FavoriteService implements IFavoriteService {
 		System.out.println(quantity);
 		if (quantity > 0) {
 			return null;
-		}
-		else {
+		} else {
 			BeanUtils.copyProperties(dto, entity);
 			favoriteRepository.save(entity);
 			dto.setId(entity.getId());
@@ -40,10 +39,10 @@ public class FavoriteService implements IFavoriteService {
 	}
 
 	@Override
-	public List<FavoriteDTO> findAllByUser(Integer user_id) {
+	public List<FavoriteDTO> findAllByUser(Integer user_id, Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
 		List<FavoriteDTO> dtos = new ArrayList<FavoriteDTO>();
-		List<Favorite> entitys = favoriteRepository.findAllByUser(user_id);
-		System.out.println(entitys);
+		List<Favorite> entitys = favoriteRepository.findAllByUserPage(user_id , pageable);
 		for (Favorite entity : entitys) {
 			FavoriteDTO dto = new FavoriteDTO();
 			BeanUtils.copyProperties(entity, dto);
@@ -65,8 +64,5 @@ public class FavoriteService implements IFavoriteService {
 		}
 		return false;
 	}
-	
-
-
 
 }

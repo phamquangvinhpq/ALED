@@ -99,6 +99,7 @@ public class LessionController {
 		return lessionService.updatestatus(les);
 	}
 	
+
 	@PutMapping("/updateTime")
 	public Lession updateTime(@RequestBody Lession les) {
 		return lessionService.updateTime(les);
@@ -107,6 +108,13 @@ public class LessionController {
 	@GetMapping("/getlessionbytime")
 	public Lession getlessionbytime() {
 		return lessionService.getLessionbyTime();
+	}
+
+	@PutMapping("/updateXemThu")
+	public boolean updateXemThu(@RequestParam(name = "id", required = false) Integer id,
+			@RequestParam(name = "demo", required = false) Integer demo) {
+		return lessionService.updateXemThu(id, demo);
+
 	}
 	
 	

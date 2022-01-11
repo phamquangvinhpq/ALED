@@ -113,8 +113,8 @@ export default function Courvideo() {
 
   const deleteNoteClick = (value) => {
     swal({
-      title: "Are you sure?",
-      text: "If you delete, you cannot restore!",
+      title: "Bạn chắc chứ ?",
+      text: "Nếu bạn xóa, Bạn sẽ không thể khôi phục!",
       icon: "warning",
       buttons: true,
       dangerMode: true,

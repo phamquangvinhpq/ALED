@@ -32,12 +32,12 @@ export default function AddCategory() {
         var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
         var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
         if(!regexName.test(DanhMuc.name)){
-          swal("Failed", "Name only text can be entered and cannot be left blank", "warning")
+          swal("Thất bại", "Tên danh mục chỉ có thể là chữ", "warning")
         }else if(!regexKhoangTrang.test(DanhMuc.name)){
-          swal("Failed", "Name not be empty", "warning")
+          swal("Thất bại", "Tên danh mục không được bỏ trống", "warning")
         
         }else if(regexKitu.test(DanhMuc.name)){
-          swal("Failed", "Name must not contain the character", "warning")
+          swal("Thất bại", "Tên danh mục chỉ không được chứa kí tự", "warning")
         
         }else{
 
@@ -79,10 +79,10 @@ export default function AddCategory() {
         <div className="content-wrapper">
             <section className="content-header">
                 <div className="content-header-left">
-                    <h1>Add Category</h1>
+                    <h1>Thêm Danh mục</h1>
                 </div>
                 <div className="content-header-right">
-                    <a href="/admin/CourseCategory" className="btn btn-primary btn-sm">View All</a>
+                    <a href="/admin/CourseCategory" className="btn btn-primary btn-sm">Xem tất cả</a>
                 </div>
             </section>
             <section className="content">
@@ -92,7 +92,7 @@ export default function AddCategory() {
                             <div className="box box-info">
                                 <div className="box-body">
                                     <div className="form-group">
-                                        <label htmlFor className="col-sm-3 control-label">Category Name
+                                        <label htmlFor className="col-sm-3 control-label">Tên danh mục
                                             <span>*</span></label>
                                         <div className="col-sm-4">
                                             <input type="text" className="form-control" name="name" onChange={onInputChange} />
@@ -104,7 +104,7 @@ export default function AddCategory() {
                                             <button onClick={
                 (event) => {
                   chuyentrangView(event)
-                }} type="submit" className="btn btn-success pull-left" name="form1">Submit</button>
+                }} type="submit" className="btn btn-success pull-left" name="form1">Đồng ý</button>
                                         </div>
                                     </div>
                                 </div>

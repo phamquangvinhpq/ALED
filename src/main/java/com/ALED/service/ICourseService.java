@@ -21,7 +21,7 @@ public interface ICourseService {
 
 	CourseDTO searchUser(String keyword);
 
-	List<CourseDTO> detailus(Integer id);
+	List<CourseDTO> detailus(Integer id,int page,int size);
 
 	List<CourseDTO> getAll(int page, int size);
 	
@@ -29,17 +29,44 @@ public interface ICourseService {
 	
 	List<CourseDTO> getAllByCategory(Integer categoryId, int page, int size);
 
-
 	Course AcceptCour(Course course);
 
-	List<CourseDTO> getAllCouNoAct();
+	List<CourseDTO> getAllCouNoAct(int page, int size);
 
-	List<CourseDTO> getAllCouAct();
+	List<CourseDTO> getAllCouAct(int page, int size);
 
 	List<CourseDTO> buythemost();
 	
 	List<CourseDTO> getCourseByAuthor(Integer author_id, int page, int size);
 
+	List<CourseDTO> getPriceAsc(int page, int size);
 
+	List<CourseDTO> getPriceDesc(int page, int size);
+
+	List<CourseDTO> getPriceAscByCate(Integer categoryId,int page, int size);
+
+	List<CourseDTO> getPriceDescByCate(Integer categoryId,int page, int size);
+	
+	List<CourseDTO> getRateAsc(int page, int size);
+
+	List<CourseDTO> getRateDesc(int page, int size);
+
+	List<CourseDTO> getRateAscByCate(Integer categoryId,int page, int size);
+
+	List<CourseDTO> getRateDescByCate(Integer categoryId,int page, int size);
+
+	List<CourseDTO> getPrice3ByCate(Integer categoryId, int page, int size);
+
+	List<CourseDTO> getPrice2ByCate(Integer categoryId, int page, int size);
+
+	List<CourseDTO> getPrice1ByCate(Integer categoryId, int page, int size);
+
+	List<CourseDTO> getPrice3(int page, int size);
+
+	List<CourseDTO> getPrice2(int page, int size);
+
+	List<CourseDTO> getPrice1(int page, int size);
+
+	
 
 }

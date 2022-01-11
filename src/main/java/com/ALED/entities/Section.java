@@ -3,6 +3,7 @@ package com.ALED.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,8 +39,10 @@ public class Section implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Lession
+
 	@JsonIgnore
-	@OneToMany(mappedBy="section")
+	@OneToMany(mappedBy="section",cascade = CascadeType.REMOVE)
+
 	private List<Lession> lessions;
 
 	//bi-directional many-to-one association to Course
