@@ -29,7 +29,7 @@ export default function MenuAdmin() {
               </li>
               <li > 
                 <NavLink to="/admin/ApprovedCourses">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Các khóa học được phê duyệt</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Các khóa đã phê duyệt</span>
                 </NavLink>
               </li>
               <li > 
@@ -67,7 +67,7 @@ export default function MenuAdmin() {
               </li>
               <li>
               <NavLink to="/admin/Pendinginstructer">
-                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Giảng viên đang chờ xác nhận</span>
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Giảng viên chờ duyệt</span>
                 </NavLink>
               </li>
             </ul>
