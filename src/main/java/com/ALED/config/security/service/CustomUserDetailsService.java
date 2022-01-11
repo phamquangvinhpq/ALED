@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     // Kiểm tra xem user có tồn tại trong database không?
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.findByUsername(username);
+        Users user = userRepository.findByUsername1(username);
         if (user == null) {
             throw new UsernameNotFoundException("Username not found" + username);
         }

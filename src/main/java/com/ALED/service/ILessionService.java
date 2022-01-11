@@ -23,5 +23,9 @@ public interface ILessionService {
 	
 	public Lession updatestatus(Lession lession);
 
+	public Lession 	updateTime(Lession lession);
+
+	Lession getLessionbyTime();
+
 
 }

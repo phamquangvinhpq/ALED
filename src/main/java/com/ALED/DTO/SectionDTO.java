@@ -11,7 +11,7 @@ public class SectionDTO {
 	private int id;
 	
 	@NotNull
-	@Size(min = 2, message = "lớn hơn 2 ký tự")
+	@Size(min = 2, message = " lớn hơn 2 ký tự")
 	private String name;
 	
 	

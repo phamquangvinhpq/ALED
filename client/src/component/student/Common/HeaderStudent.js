@@ -212,6 +212,7 @@ export default function HeaderStudent() {
      
           localStorage.setItem("accessToken", result.data.accessToken)
           localStorage.setItem("userid", result.data.id)
+          localStorage.setItem("username", result.data.username)
           result.data.roles.map((role) => {
             localStorage.setItem("role", role)
           })
@@ -333,10 +334,21 @@ export default function HeaderStudent() {
       .catch(error => console.log('error', error));
     }
   }
+  
   const [selectedFile, setSelectedFile] = useState();
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
+
+    if(event.target.files[0].type != "image/png")
+    {
+      alert("chọn định dạnh jpg")
+      document.getElementById("fileUpload").value="";
+
+    }
+    else{
+      setSelectedFile(event.target.files[0]);
     console.log(event.target.files[0]);
+    }
+    
   };
 
   const signupintructer = () => {
@@ -582,7 +594,7 @@ fetch(`${DEFAULT_API}` +`forgot-password`, requestOptions)
                             </div>
                             <div className="form-group">
                               <label >Image</label>
-                              <input type="file" className="form-control"  onChange={changeHandler} required />
+                              <input type="file" id="fileUpload" className="form-control"  onChange={changeHandler} required />
                             </div>
                           </div>
                           </div>

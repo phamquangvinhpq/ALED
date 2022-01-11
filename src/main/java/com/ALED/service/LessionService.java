@@ -1,6 +1,9 @@
 package com.ALED.service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -143,6 +146,32 @@ public class LessionService implements ILessionService {
 		}
 		
 		return lession;
+	}
+
+	private java.util.Date getTime() {
+		Calendar calendar = Calendar.getInstance();
+		java.util.Date currentTime = calendar.getTime();
+		return currentTime;
+	}
+	
+	@Override
+	public Lession updateTime(Lession lession) {
+	Lession Lessions = lessionRepository.findByyid(lession.getId());
+
+	System.out.println(getTime());
+		if (Lessions != null) {
+			Lessions.setTime(getTime());
+			lessionRepository.save(Lessions);
+		}
+		
+		return lession;
+	}
+
+
+	@Override
+	public Lession getLessionbyTime() {
+		return lessionRepository.findBytime();
+	
 	}
 
 }

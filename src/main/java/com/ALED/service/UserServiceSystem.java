@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -105,7 +107,7 @@ public class UserServiceSystem implements IUserServiceSystem {
 
 	@Override
 	public Users searchUser(String keyword) {
-		Users user = userRepository.findByUsername(keyword);
+		Users user = userRepository.findByUsername1(keyword);
 		return user;
 	}
 
@@ -321,6 +323,19 @@ public class UserServiceSystem implements IUserServiceSystem {
 		}
 
 		return ds;
+	}
+	
+	
+	@Override
+    public String getUserName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return username;
+    }
+
+	@Override
+	public Optional<Users> getUserByUsername(String username) {
+	     return userRepository.findByUsername(username);
 	}
 
 }

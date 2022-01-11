@@ -43,12 +43,16 @@ public class LessionController {
 	}
 
 	@PostMapping
-	public LessionDTO create(@RequestBody @RequestParam("file") MultipartFile file, LessionDTO lessionDTO)
+	public LessionDTO create(@RequestBody @RequestParam(value = "file",required = false) MultipartFile file, LessionDTO lessionDTO)
 			throws IOException {
-		if (file.getContentType() != null) {
+		if (file != null) {
 			lessionDTO.setLinkVideo(
 					serverProto + "://" + serverUrl + "/api/file/video?videoName=" + fileService.uploadImage(file));
 				lessionDTO.setType(file.getContentType());
+		}
+		else {
+			lessionDTO.setLinkVideo(lessionDTO.getLinkVideo());
+			lessionDTO.setType("test");
 		}
 		
 		return lessionService.create(lessionDTO);
@@ -93,6 +97,16 @@ public class LessionController {
 	@PutMapping("/updateStaus")
 	public Lession updateStaus(@RequestBody Lession les) {
 		return lessionService.updatestatus(les);
+	}
+	
+	@PutMapping("/updateTime")
+	public Lession updateTime(@RequestBody Lession les) {
+		return lessionService.updateTime(les);
+	}
+	
+	@GetMapping("/getlessionbytime")
+	public Lession getlessionbytime() {
+		return lessionService.getLessionbyTime();
 	}
 	
 	

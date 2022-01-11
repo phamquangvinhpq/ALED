@@ -11,6 +11,8 @@ import PayThatbai from './component/student/page/PayThatbai';
 import Courvideo from './component/student/page/Courvideo';
 import Homestd from './component/student/page/Homestd';
 import Not404 from './component/student/page/Not404';
+import Taocauhoi from './component/student/page/Taocauhoi';
+import Taobaithi from './component/student/page/Taobaithi';
 
 export default function Routers() {
     let role =localStorage.getItem("role");
@@ -41,8 +43,6 @@ export default function Routers() {
                         
                     </Route>
 
-
-
                     <Route path='/thanhcong' >
                         <Payhanhcong />
                     </Route>
@@ -51,8 +51,16 @@ export default function Routers() {
                         <PayThatbai />
                     </Route>
 
-                    <Route path='/404' >
+                    <Route path='/404/:id' >
                         <Not404 />
+                    </Route>
+
+                    <Route path='/taocauhoi' >
+                        <Taocauhoi />
+                    </Route>
+
+                    <Route path='/taobaithi' >
+                        <Taobaithi />
                     </Route>
 
                     <Route path='/' >

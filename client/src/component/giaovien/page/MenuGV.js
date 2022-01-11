@@ -5,10 +5,13 @@ import { DEFAULT_API } from "../../../conf/env";
 
 export default function MenuGV(props) {
   const [listQA, setListQA] = useState([]);
+  const [status, setstatus] = useState(0);
+
   const users_id = localStorage.getItem("userid");
 
   const change = (value) => {
     props.changleTitle(value);
+    setstatus(status+1)
   };
   
   const loadQA = () => {
@@ -25,7 +28,7 @@ export default function MenuGV(props) {
   console.log(listQA);
   useEffect(() => {
     loadQA();
-  }, []);
+  }, [status]);
 
   return (
     <div>

@@ -2,8 +2,6 @@ package com.ALED.config;
 
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.ALED.config.security.jwt.JwtAuthenticationEntryPoint;
 import com.ALED.config.security.jwt.JwtAuthenticationFilter;
@@ -29,7 +28,17 @@ import com.ALED.config.security.service.CustomUserDetailsService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-
+	 @Bean
+	  public ClassLoaderTemplateResolver emailTemplateResolver(){
+	    ClassLoaderTemplateResolver emailTemplateResolver=new ClassLoaderTemplateResolver();
+	    emailTemplateResolver.setPrefix("templates/");
+	    emailTemplateResolver.setTemplateMode("HTML5");
+	    emailTemplateResolver.setSuffix(".html");
+	    emailTemplateResolver.setTemplateMode("XHTML");
+	    emailTemplateResolver.setCharacterEncoding("UTF-8");
+	    emailTemplateResolver.setOrder(1);
+	    return emailTemplateResolver;
+	  }
 
 	 // Password encoder, để Spring Security sử dụng mã hóa mật khẩu người dùng
 	@Bean

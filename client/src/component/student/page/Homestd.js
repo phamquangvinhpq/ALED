@@ -180,6 +180,7 @@ export default function Homestd() {
                                     <div className="hero-description"><h6>hire proven pros with confidence using world largest remote talent platform.</h6></div>
                                     <div className="hero-button">
                                         <a href="https://www.youtube.com/watch?v=eybyQcXUdzM" className="template-button">start course <i className="fa fa-play-circle" /></a>
+                                        
                                     </div>
                                 </div>
                             </div>

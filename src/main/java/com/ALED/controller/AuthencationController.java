@@ -63,7 +63,7 @@ public class AuthencationController {
     public ResponseEntity<ResponseModel> signin(@Validated @RequestBody LoginRequest loginRequest) {
         log.info("Login {}", loginRequest.getUsername());
         try {
-            Users users = userRepository.findByUsername(loginRequest.getUsername());
+            Users users = userRepository.findByUsername1(loginRequest.getUsername());
             if (users == null) {
                 return new ResponseEntity<ResponseModel>(new ResponseModel(AppConts.ReturnCodeApi.ERROR, "Sai tài khoản hoặc mật khẩu"), HttpStatus.OK);
             } else {

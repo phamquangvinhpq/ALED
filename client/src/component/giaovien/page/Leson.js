@@ -44,6 +44,7 @@ export default function Leson() {
     checkkhoahocuser();
     getLessionBySection();
     jquer();
+    loadbaithi();
   }, [status]);
 
   const changeHandler = (event) => {
@@ -146,8 +147,12 @@ export default function Leson() {
 
   const onChangeSection = (event) => {
     setSelectedSection(event.target.value);
+    console.log(event.target.value);
+    setStatus(status+1)
 
   };
+
+
 
 
 
@@ -176,7 +181,7 @@ export default function Leson() {
     $('#vimeoBox').hide();
     $('#mp4Box').hide();
     $('#durationBox').hide();
-    $('#showMe').hide();
+    $('#kiemtra').hide();
 
     $('#lessonTypeSelect').on('click', function () {
       if ($('#lessonTypeSelect').val() == '') {
@@ -184,21 +189,25 @@ export default function Leson() {
         $('#vimeoBox').hide();
         $('#mp4Box').hide();
         $('#pdfBox').hide();
+        $('#kiemtra').hide();
         $('#durationBox').hide();
       } else if ($('#lessonTypeSelect').val() == 'video_youtube') {
         $('#youtubeBox').show();
         $('#vimeoBox').hide();
         $('#mp4Box').hide();
         $('#pdfBox').hide();
+        $('#kiemtra').hide();
         $('#durationBox').show();
-      } else if ($('#lessonTypeSelect').val() == 'video_vimeo') {
-        $('#youtubeBox').hide();
-        $('#vimeoBox').show();
+      } else if ($('#lessonTypeSelect').val() == 'kiem_tra') {
+        $('#kiemtra').show();
+
+        $('#vimeoBox').hide();
         $('#mp4Box').hide();
         $('#pdfBox').hide();
         $('#durationBox').show();
       } else if ($('#lessonTypeSelect').val() == 'video_mp4') {
         $('#youtubeBox').hide();
+        $('#kiemtra').hide();
         $('#vimeoBox').hide();
         $('#mp4Box').show();
         $('#pdfBox').hide();
@@ -206,10 +215,12 @@ export default function Leson() {
       } else if ($('#lessonTypeSelect').val() == 'pdf') {
         $('#youtubeBox').hide();
         $('#vimeoBox').hide();
+        $('#kiemtra').hide();
         $('#mp4Box').hide();
         $('#pdfBox').show();
         $('#durationBox').hide();
       }
+      
     });
 
 
@@ -251,7 +262,7 @@ export default function Leson() {
     formdata.append("name", lession.name);
     formdata.append("section_id", selectedSection);
     formdata.append("Courseid",  id.id);
-
+    formdata.append("linkVideo",  selectedSectionbaithi);
     var requestOptions = {
       method: 'POST',
       body: formdata,
@@ -304,7 +315,42 @@ export default function Leson() {
       ...lession,
       [name]: value,
     });
+    console.log(event.target.value);
   };
+
+
+
+// -------------------------------------------------------------------------------------------
+const [danhsachbaithi, setdanhsachbaithi] = useState([])
+
+const [selectedSectionbaithi, setSelectedSectionbaithi] = useState(-1);
+
+
+
+// -----------------------------------------------------------
+const loadbaithi = () =>{
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch(`http://localhost:8080/api/getexambyid/`+selectedSection, requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+      setdanhsachbaithi(result)
+    }
+      )
+    .catch(error => console.log('error', error));
+}
+
+const onChangeSectionbaithi = (event) => {
+  setSelectedSectionbaithi(event.target.value);
+  document.getElementById("title").value="bài kiểm tra"
+};
+
+
+
 
   return (
     <div>
@@ -369,6 +415,7 @@ export default function Leson() {
                     </label>
                     <div className="col-sm-6">
                       <input
+                      id="title"
                         type="text"
                         autoComplete="off"
                         className="form-control"
@@ -397,6 +444,8 @@ export default function Leson() {
 
                           <option value="video_mp4">file</option>
 
+                          <option value="kiem_tra">bài kiểm tra</option>
+
                         </select>
                       </div>
                     </div>
@@ -406,6 +455,32 @@ export default function Leson() {
                       </label>
                       <div className="col-sm-6">
                        <h4>đang cập nhập</h4>
+                      </div>
+                    </div>
+                    <div className="form-group" id="kiemtra">
+                      <label className="col-sm-3 control-label">
+                      Thêm bài kiểm tra
+                      </label>
+                      <div className="col-sm-6">
+                      <select
+                        type="text"
+                        autoComplete="off"
+                        className="form-control"
+                        name="namesection"
+                        value={selectedSectionbaithi}
+                        onChange={onChangeSectionbaithi}
+                      >
+                        <option>-- Select Category --</option>
+
+                        {danhsachbaithi.map((value, index) => {
+                          return (
+                            <option value={value.id} defaultValue={value.title} key={index}>
+                              {value.title}
+                            </option>
+                          );
+                        })}
+                      </select>
+                       <a href="" data-toggle="modal" data-target="#exampleModalCenter">thêm bài kiểm tra</a>
                       </div>
                     </div>
                     <div className="form-group" id="mp4Box">
@@ -666,6 +741,37 @@ export default function Leson() {
         </div>
       </div>
 
+
+
+                      {/* model thêm bài thi  */}
+
+                      <div>
+
+  {/* Modal */}
+  <div className="modal fade" id="exampleModalCenter" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div className="modal-body">
+          ...
+        </div>
+        <div className="modal-footer">
+          <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" className="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{/* tạo 1 trang tạo bài thi, hiển thị table các bài thi, có nút add thêm bài thi , ở trang lession sẽ hiển thị cái chọn 
+type là bài thi thì sẽ chọn bài thi hoặc là thêm bào thi mới thêm xong sẽ lưu lại xuống lession */}
 
     </div>
   );

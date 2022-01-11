@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,10 +38,12 @@ public class Section implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Lession
+	@JsonIgnore
 	@OneToMany(mappedBy="section")
 	private List<Lession> lessions;
 
 	//bi-directional many-to-one association to Course
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;

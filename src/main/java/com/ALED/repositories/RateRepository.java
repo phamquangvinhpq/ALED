@@ -34,8 +34,5 @@ public interface RateRepository extends JpaRepository<Rate, Integer> {
 	String findbyrate(@Param("userid") Integer userid,@Param("course") Integer course);
 	
 	
-	
 
-	
-	
 }

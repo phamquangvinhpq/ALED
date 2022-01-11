@@ -85,6 +85,7 @@ export default function Index() {
                         <Course />
                     </Route>
 
+          
                     <Route  path="/">
                         <Homestd />
                     </Route>

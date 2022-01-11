@@ -2,6 +2,8 @@ package com.ALED.Exception;
 
 import java.util.Date;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,5 +38,12 @@ public class GlobalExceptionHandler {
 				new ErrorDetails(new Date(), "Validate erro", exception.getBindingResult().getFieldError().getDefaultMessage(),"-1");
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
+	
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<?> ValidateParametersException(ConstraintViolationException exception) {
+        ErrorDetails errorDetails =
+                new ErrorDetails(new Date(), "not valid due to validation error: ", exception.getMessage(),"-1");
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 	
 }

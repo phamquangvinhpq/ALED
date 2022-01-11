@@ -27,6 +27,7 @@ export default function Detail() {
   let pagesize = 3
   const [infoTeacher, setInfoTeacher] = useState([]);
   const [infoAuthor, setInfoAuthor] = useState({});
+  
 var chek=isNaN(id.id);
 
   useEffect(() => {

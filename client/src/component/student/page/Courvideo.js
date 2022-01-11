@@ -14,10 +14,9 @@ export default function Courvideo() {
   const [checked, setChecked] = useState(false);
 
   const [lession, setLession] = useState({
-    linkVideo: "https://www.youtube.com/watch?v=CS2A8shF6To",
+    linkVideo: "https://www.youtube.com/watch?v=eybyQcXUdzM",
+
   });
-
-
 
   let id = useParams();
   let history = useHistory();
@@ -44,7 +43,7 @@ export default function Courvideo() {
   };
 
   const editNoteClick = (value) => {
-    setNote((values) => ({ ...values, note : value.note, id : value.id }));
+    setNote((values) => ({ ...values, note: value.note, id: value.id }));
   }
 
   const handleChange = (event) => {
@@ -66,14 +65,14 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` +`contentqa/student`, requestOptions)
+    fetch(`${DEFAULT_API}` + `contentqa/student`, requestOptions)
       .then(response => response.text())
       .then(result => loadQA())
       .catch(error => console.log('error', error));
-      setContentMess((values) => ({
-        ...values,
-        content : ""
-      }));
+    setContentMess((values) => ({
+      ...values,
+      content: ""
+    }));
   }
 
   const tinNhan = (value) => {
@@ -105,8 +104,8 @@ export default function Courvideo() {
       method: 'GET',
       redirect: 'follow'
     };
-    
-    fetch(`${DEFAULT_API}` +`contentqa/getallcontentstudent?users_id=${user_id}&course_id=+${id.id}`, requestOptions)
+
+    fetch(`${DEFAULT_API}` + `contentqa/getallcontentstudent?users_id=${user_id}&course_id=+${id.id}`, requestOptions)
       .then(response => response.json())
       .then(result => setListQA(result))
       .catch(error => console.log('error', error));
@@ -120,26 +119,26 @@ export default function Courvideo() {
       buttons: true,
       dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete) {
-        var requestOptions = {
-          method: "DELETE",
-          redirect: "follow",
-        };
-    
-        fetch(`${DEFAULT_API}` +`note/` + value, requestOptions)
-          .then((response) => response.json())
-          .then((result) => getListNote())
-          .catch((error) => console.log("error", error));
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete) {
+          var requestOptions = {
+            method: "DELETE",
+            redirect: "follow",
+          };
+
+          fetch(`${DEFAULT_API}` + `note/` + value, requestOptions)
+            .then((response) => response.json())
+            .then((result) => getListNote())
+            .catch((error) => console.log("error", error));
+        }
+      });
   };
 
   const addNoteClick = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    setNote((values) => ({ ...values, id : 0 }));
+    setNote((values) => ({ ...values, id: 0 }));
 
     var raw = JSON.stringify(note);
 
@@ -150,7 +149,7 @@ export default function Courvideo() {
       redirect: "follow",
     };
 
-    fetch(`${DEFAULT_API}` +`note`, requestOptions)
+    fetch(`${DEFAULT_API}` + `note`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         setNote((values) => ({ ...values, note: "" }));
@@ -173,7 +172,7 @@ export default function Courvideo() {
       redirect: "follow",
     };
 
-    fetch(`${DEFAULT_API}` +`note`, requestOptions)
+    fetch(`${DEFAULT_API}` + `note`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         setNote((values) => ({ ...values, note: "" }));
@@ -189,10 +188,10 @@ export default function Courvideo() {
     };
 
     fetch(
-      `${DEFAULT_API}` +`note?users_id=` +
-        user_id +
-        `&lession_id=` +
-        note.lession_id,
+      `${DEFAULT_API}` + `note?users_id=` +
+      user_id +
+      `&lession_id=` +
+      note.lession_id,
       requestOptions
     )
       .then((response) => response.json())
@@ -203,10 +202,17 @@ export default function Courvideo() {
   };
 
   useEffect(() => {
+    if (user_id == null) {
+      alert("vui lòng đăng nhập")
+      history.push('/home');
+      window.location.reload()
+    }
     damua();
+    getLessionByTime();
     loaddanhmuc();
     getLessionBySection();
   }, [status]);
+
 
   const getLessionBySection = async () => {
     var requestOptions = {
@@ -220,6 +226,7 @@ export default function Courvideo() {
       .then((response) => response.json())
       .then((result) => {
         setvideo(result);
+        
       })
       .catch((error) => console.log("error", error));
   };
@@ -239,7 +246,7 @@ export default function Courvideo() {
         if (result === "nobought") {
           history.push("/home");
           window.location.reload();
-          
+
         }
       })
       .catch((error) => console.log("error", error));
@@ -248,6 +255,7 @@ export default function Courvideo() {
   const getData = (value) => {
     lession.linkVideo = value.linkVideo;
     setNote((values) => ({ ...values, lession_id: value.id }));
+    videoVuaXem(value);
     setStatus(status + 1);
   };
 
@@ -276,6 +284,70 @@ export default function Courvideo() {
 
   function chuyentranghome() {
     history.push("/home");
+  }
+
+  const checkDaxem = (value, index) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "id": value,
+      "status": index
+    });
+
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/lession/updateStaus", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
+  const getLessionByTime = () => {
+    var myHeaders = new Headers();
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/lession/getlessionbytime", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.loicode == -1) {
+          lession.linkVideo = "https://www.youtube.com/watch?v=eybyQcXUdzM"
+        } else {
+          lession.linkVideo = result.linkVideo
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  const videoVuaXem = (value) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "id": value.id
+    });
+
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/lession/updateTime", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   }
 
   return (
@@ -320,7 +392,7 @@ export default function Courvideo() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-8 p-3 order-0 order-lg-2">
-              <div className="course-video-part">
+              <div className="course-video-part" >
                 <ReactPlayer
                   controls
                   width="100%"
@@ -345,7 +417,14 @@ export default function Courvideo() {
                       <span>Q&amp;A</span>
                     </li>
 
-                    <li
+                    {note.lession_id == null ? <li
+                      className="tab-three"
+                      type="button"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                    >
+                      <span>note</span>
+                    </li> : <li
                       className="tab-three"
                       type="button"
                       class="btn btn-primary"
@@ -354,323 +433,15 @@ export default function Courvideo() {
                       onClick={getListNote}
                     >
                       <span>note</span>
-                    </li>
+                    </li>}
+
                     <li className="tab-four">
                       <span>announcement</span>
                     </li>
                   </ul>
                   <div className="hr-line" />
                 </div>
-                <div className="tab-content">
-                  <div className="tab-one-content tab-content-bg overview-content lost active">
-                    <div className="video-tab-title">
-                      <h5>about this course</h5>
-                    </div>
-                    <p className="margin-top-20">
-                      Advanced story telling techniques for writers: Personas,
-                      Characters &amp; Plots Proven Tips and Tricks of the
-                      Digital Marketing Trade growth Hacking. Unique Ways of
-                      Promoting a Business from Scratch
-                    </p>
-                    <div className="video-tab-title margin-top-30">
-                      <h5>what you'll learn?</h5>
-                    </div>
-                    <div className="content-list-items margin-top-20">
-                      <div className="row">
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> Delectus harum
-                            deserunt ut optio corporis cum facilis aliquid
-                            tempore
-                          </span>
-                        </div>
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> Veniam maiores
-                            adipisci placeat ipsa dolorem culpa ipsam tenetur
-                          </span>
-                        </div>
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> Minima fugit nobis
-                            earum exercitationem a deleniti veniam maiores
-                          </span>
-                        </div>
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> Atque minima fugit
-                            nobis earum exercitationem ipsa obcaecati
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="video-tab-title margin-top-30">
-                      <h5>by the numbers</h5>
-                    </div>
-                    <div className="content-list-items margin-top-20">
-                      <div className="row">
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> skill level : beginner
-                          </span>
-                        </div>
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> lecture : 40
-                          </span>
-                        </div>
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> student : 50
-                          </span>
-                        </div>
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> video length : 02:00
-                          </span>
-                        </div>
-                        <div className="col-lg-6">
-                          <span className="single-list">
-                            <i className="fa fa-check" /> language : english
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="video-tab-title margin-top-30">
-                      <h5>certificate</h5>
-                    </div>
-                    <p className="margin-top-20">
-                      Get Course certificate by completing entire course
-                    </p>
-                    <div className="video-tab-title margin-top-30">
-                      <h5>description</h5>
-                    </div>
-                    <p className="margin-top-20">
-                      This course is aimed at teaching photographers what it
-                      takes to improve your techniques to earn more money.You'll
-                      start with the basics and tackle how a camera operates,
-                      the types of cameras and lenses available, and equipment
-                      you'll need for accomplishing your goals.{" "}
-                    </p>
-                    <span className="uppercase-font">
-                      UPDATED WITH A 273-PAGE NOTEBOOK &amp; NEW LESSONS
-                    </span>
-                    <p className="margin-top-20">
-                      This online photography course will teach you how to take
-                      amazing images and even sell them, whether you use a
-                      smartphone, mirrorless or DSLR camera.{" "}
-                    </p>
-                    <ul className="caret-list">
-                      <li>
-                        <i className="fa fa-caret-right" /> What do all these
-                        packages, tools, libraries and frameworks do?
-                      </li>
-                      <li>
-                        <i className="fa fa-caret-right" /> What IS a library
-                        and what's the difference to a framework?
-                      </li>
-                      <li>
-                        <i className="fa fa-caret-right" /> Which framework
-                        should you learn? Angular, React.js or Vue.js?
-                      </li>
-                      <li>
-                        <i className="fa fa-caret-right" /> What about jQuery?
-                      </li>
-                    </ul>
-                    <div className="video-tab-title margin-top-30">
-                      <h5>what you will learn</h5>
-                    </div>
-                    <ul className="caret-list">
-                      <li>
-                        <i className="fa fa-caret-right" /> Understand how
-                        cameras work and what gear you need
-                      </li>
-                      <li>
-                        <i className="fa fa-caret-right" /> Master shooting in
-                        manual mode and understanding your camera
-                      </li>
-                      <li>
-                        <i className="fa fa-caret-right" /> Know what equipment
-                        you should buy no matter what your budget
-                      </li>
-                      <li>
-                        <i className="fa fa-caret-right" /> Follow our practical
-                        demonstrations to see how we shoot in real-world
-                        scenarios
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="tab-two-content tab-content-bg q-a-content lost">
-                    <div className="header-search">
-                      <form action="#">
-                        <input type="text" placeholder="Search Question" />
-                        <button type="submit">
-                          <i className="fa fa-search" />
-                        </button>
-                      </form>
-                    </div>
-                    <div className="video-tab-title margin-top-30">
-                      <h5>10 questions in this course</h5>
-                    </div>
-                    <div className="hr-line" />
-                    <div className="single-question">
-                      <div className="question-image">
-                        <img
-                          src="assets/images/question-image.png"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="question-content">
-                        <h6>how to install wordpress in cpanel?</h6>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.!
-                        </p>
-                        <div className="content-bottom">
-                          <h6>john doe</h6>
-                          <span>5 min ago</span>
-                          <span>
-                            <a>
-                              <i className="fa fa-comments" /> 10 comments
-                            </a>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="single-question">
-                      <div className="question-image">
-                        <img
-                          src="assets/images/question-image.png"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="question-content">
-                        <h6>how to install wordpress in cpanel?</h6>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.!
-                        </p>
-                        <div className="content-bottom">
-                          <h6>john doe</h6>
-                          <span>5 min ago</span>
-                          <span>
-                            <a>
-                              <i className="fa fa-comments" /> 10 comments
-                            </a>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="single-question">
-                      <div className="question-image">
-                        <img
-                          src="assets/images/question-image.png"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="question-content">
-                        <h6>how to install wordpress in cpanel?</h6>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.!
-                        </p>
-                        <div className="content-bottom">
-                          <h6>john doe</h6>
-                          <span>5 min ago</span>
-                          <span>
-                            <a>
-                              <i className="fa fa-comments" /> 10 comments
-                            </a>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="single-question">
-                      <div className="question-image">
-                        <img
-                          src="assets/images/question-image.png"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="question-content">
-                        <h6>how to install wordpress in cpanel?</h6>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.!
-                        </p>
-                        <div className="content-bottom">
-                          <h6>john doe</h6>
-                          <span>5 min ago</span>
-                          <span>
-                            <a>
-                              <i className="fa fa-comments" /> 10 comments
-                            </a>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="tab-three-content tab-content-bg note-content lost">
-                    <div className="header-search">
-                      <form action="#">
-                        <input  type="text" placeholder="Create New Note" />
-                        <button type="submit">
-                          <i className="fa fa-plus" />
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                  <div className="tab-four-content tab-content-bg announcement-content lost">
-                    <div className="announcement-top">
-                      <div className="top-image">
-                        <img
-                          src="assets/images/course-instructor-2.png"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="top-name">
-                        <h6>john doe</h6>
-                        <span>product designer</span>
-                      </div>
-                    </div>
-                    <h5>My 7 Favorite Learning &amp; Growth Techniques</h5>
-                    <p className="margin-top-20">
-                      Hey! <br />A lot of you have asked me for my personal
-                      approach towards learning, how I learn new things and how
-                      I overcome motivational issues.In this article and video,
-                      I share my seven favorite techniques,
-                    </p>
-                    <p className="margin-top-20">
-                      "hacks" and thoughts on those topics - and I hope they are
-                      helpful to you as well!
-                    </p>
-                    <p className="margin-top-20">
-                      Unfortunately this will result in delayed responses by me
-                      in the Q&amp;A section and to direct messages. This is
-                      only for the next week and once back I will be back to
-                      100%.
-                    </p>
-                    <p className="margin-top-20">
-                      I will continue to do my best to respond to as many
-                      questions as possible but only one person, regularly I
-                      spend 4-5 hours daily on this and with over 440000
-                      students as you can image that its a lot of work.
-                    </p>
-                    <div className="announcement-comment margin-top-30">
-                      <div className="comment-image">
-                        <img
-                          src="assets/images/course-instructor-3.png"
-                          alt="image"
-                        />
-                      </div>
-                      <div className="comment-box">
-                        <form action="#">
-                          <input type="text" placeholder="Enter Your Comment" />
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
               </div>
             </div>
             <div className="col-lg-4 p-0 order-1 order-lg-2">
@@ -699,18 +470,33 @@ export default function Courvideo() {
                             {video.map((value, index) => (
                               <div className="single-course-video">
                                 <form>
-                                  <a
+                                  {value.type == "test" ? <a href={`/404/`+value.linkVideo}
+
+                                   
+                                    className="btn btn-light"
+                                  >
+                                    <i className="fa fa-play-circle" />{" "}
+                                    {value.name}
+                                  </a> : <a
+
                                     onClick={() => getData(value)}
                                     className="btn btn-light"
                                   >
-                                    <input
+                                    {/* {daxem(value.status)} */}
+                                    {value.status === 1 ? <span><input
+                                      onClick={() => checkDaxem(value.id, 0)}
                                       type="checkbox"
-                                      defaultChecked={checked}
-                                    />{" "}
-                                    &nbsp;&nbsp;
+                                      defaultChecked="checked"
+                                    />
+                                      &nbsp;&nbsp;</span> : <span><input
+                                        onClick={() => checkDaxem(value.id, 1)}
+                                        type="checkbox"
+                                      />
+                                      &nbsp;&nbsp;</span>}
                                     <i className="fa fa-play-circle" />{" "}
                                     {value.name}
-                                  </a>
+                                  </a>}
+                                           
                                 </form>
                               </div>
                             ))}
@@ -750,37 +536,37 @@ export default function Courvideo() {
               </button>
             </div>
             <div class="tab-three-content tab-content-bg note-content lost">
-                <br />
-                <span>
-                  <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg"
-                    onChange={handleChangeNote}
-                    type="text"
-                    placeholder="Create New Note"
-                    name="note"
-                    value={note.note}
-                  />
-                  <a onClick={addNoteClick} className="btn btn-primary">
-                    <i class="fa fa-plus"> Add</i>
-                  </a>
-                  &ensp;
-                  <a onClick={editNote} className="btn btn-primary">
-                    <i class="fa fa-plus"> Update</i>
-                  </a>
-                  </span>
-                <ul>
+              <br />
+              <span>
+                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg"
+                  onChange={handleChangeNote}
+                  type="text"
+                  placeholder="Create New Note"
+                  name="note"
+                  value={note.note}
+                />
+                <a onClick={addNoteClick} className="btn btn-primary">
+                  <i class="fa fa-plus"> Add</i>
+                </a>
+                &ensp;
+                <a onClick={editNote} className="btn btn-primary">
+                  <i class="fa fa-plus"> Update</i>
+                </a>
+              </span>
+              <ul>
                 {listNote.map((value, index) => (
                   <li>
-                   {value.note}
-                    <i className="fa fa-remove" style={{fontSize: '24px'}} 
+                    {value.note}
+                    <i className="fa fa-remove" style={{ fontSize: '24px' }}
                       onClick={() => deleteNoteClick(value.id)}
                     />
                     &ensp;
-                    <i className="fa fa-edit" style={{fontSize: '24px'}} 
-                       onClick={() => editNoteClick(value)}
+                    <i className="fa fa-edit" style={{ fontSize: '24px' }}
+                      onClick={() => editNoteClick(value)}
                     />
                   </li>
                 ))}
-                </ul>
+              </ul>
             </div>
             <div class="modal-footer">
               <button
@@ -844,9 +630,9 @@ export default function Courvideo() {
                         </div> */}
                       </div>
                       <div className="chat-history">
-                      {listQA.map((value, index) => (
+                        {listQA.map((value, index) => (
                           <ul className="m-b-0">
-                           {tinNhan(value)}
+                            {tinNhan(value)}
                           </ul>)
                         )}
                       </div>
@@ -862,13 +648,13 @@ export default function Courvideo() {
                           <br />
                           <br />
                           <div className="input-group-prepend">
-                          <button disabled={contentMess.content ? false : true}
-                            type="button"
-                            className="tab-two"
-                            class="btn btn-success"
-                            onClick={sendMess}
+                            <button disabled={contentMess.content ? false : true}
+                              type="button"
+                              className="tab-two"
+                              class="btn btn-success"
+                              onClick={sendMess}
                             >
-                            Reply
+                              Reply
                             </button>
                           </div>
                         </div>

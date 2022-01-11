@@ -1,6 +1,7 @@
 package com.ALED.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 
@@ -43,5 +44,9 @@ public interface IUserServiceSystem {
 	List<Users> getAllInsNoIsNable();
 
 	List<author_skill> getkill(Integer id);
+	
+	String getUserName();
+	
+	  Optional<Users> getUserByUsername(String username);
 
 }

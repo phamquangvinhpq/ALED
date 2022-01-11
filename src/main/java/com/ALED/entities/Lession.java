@@ -1,6 +1,7 @@
 package com.ALED.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -40,7 +43,9 @@ public class Lession implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "section_id")
 	private Section section;
-
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date time;
 	//bi-directional many-to-one association to Note
 //	@OneToMany(mappedBy="lession")
 //	private List<Note> notes;

@@ -39,8 +39,6 @@ public class SectionService implements ISectionService {
 		
 	}
 
-
-
 	@Override
 	public SectionDTO create(SectionDTO SectionDTO) {
 		Section section =new Section();
