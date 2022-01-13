@@ -11,6 +11,7 @@ export default function Pendinginstructer() {
     const [author, setAuthor] = useState([])
     const [ua, setUa] = useState([])
     const [pageSt, setPageSt] = useState(0);
+    const [page, setPage] = useState(0);
     const [totalCountSt, setTotalCountSt] = useState(0)
     let size = 10;
     useEffect(() => {
@@ -71,10 +72,13 @@ export default function Pendinginstructer() {
         setPageSt(pg)
     }
 
+
+
     const nextPageSt = async () => {
-        const pg = pageSt + 1
+        const pg =  pageSt + 1
         loadGiangVien(pg)
         setPageSt(pg)
+        console.log(pg);
     }
 
 
@@ -122,7 +126,6 @@ export default function Pendinginstructer() {
                 .then(result => {
                     setTotalCountSt(result.length)
                     setGiangVien(result)
-                    console.log(searchemai)
                 })
                 .catch(error => console.log('error', error));
         
@@ -217,7 +220,7 @@ export default function Pendinginstructer() {
                                                         className="btn btn-success btn-block btn-xs"
                                                     >Chấp nhận</a>
                                                     <a onClick={() => loadUa(value)}
-                                                        className="btn btn-danger btn-block btn-xs" data-toggle="modal" data-target="#sendMail"
+                                                        className="btn btn-info btn-block btn-xs" data-toggle="modal" data-target="#sendMail"
                                                     >Gửi thông báo</a>
                                                 </td>
                                             </tr>
@@ -226,8 +229,8 @@ export default function Pendinginstructer() {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                                    <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
-                                    <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
+                                    <button type="button" class="btn btn-outline-primary" disabled={pageSt <= 0} onClick={backPageSt} >Trước</button>
+                                    <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt/size)} onClick={nextPageSt} >Sau</button>
                                 </nav>
                             </div>
                         </div>

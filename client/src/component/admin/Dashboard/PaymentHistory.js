@@ -89,7 +89,8 @@ export default function PaymentHistory() {
 
                                 <nav aria-label="Page navigation example">
                                             <button type="button" class="btn btn-outline-primary" disabled={page == 0} onClick={backPage} >Trước</button>
-                                            <button type="button" class="btn btn-outline-primary" disabled={page >= Math.ceil(totalCount/size)} onClick={nextPage} >Sau</button>
+                                  
+                                            <button type="button" class="btn btn-outline-primary" disabled={page+1 >= Math.ceil(totalCount/size)} onClick={nextPage} >Sau</button>
                                         </nav>
                             </div>
                         </div>
