@@ -25,7 +25,7 @@ export default function Footer() {
           </ul>
         </div>
         <div className="copyright">
-          Copyright © 2020, courseplus. All Rights Reserved. </div>
+          Copyright © 2020, aled. All Rights Reserved. </div>
       </div>
     </div>
   </div>
