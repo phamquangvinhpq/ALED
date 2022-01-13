@@ -215,7 +215,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
                         </div>
                       </div>
                     </div>
-                    <button disabled={!checked} className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer} >Sign Up</button>
+                    <button disabled={!checked} className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer} >Đăng ký</button>
                   </form>
 
                 </div>

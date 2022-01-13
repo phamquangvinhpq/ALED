@@ -503,33 +503,33 @@ export default function HeaderStudent() {
                     <div className="modal-content">
                       <div className="modal-header">
                         <button type="button" className="close" data-dismiss="modal">×</button>
-                        <h4 className="modal-title">Sign Up</h4>
+                        <h4 className="modal-title">Đăng ký</h4>
                       </div>
 
                       <div className="modal-body">
                         <form acceptCharset="utf-8">
                           <div id="dangky" aria-hidden="true">
                             <div className="form-group">
-                              <label >Full Name</label>
-                              <input type="text" className="form-control" name="name" onChange={onInputChangedangki} placeholder="Full Name" required />
+                              <label >Họ tên</label>
+                              <input type="text" className="form-control" name="name" onChange={onInputChangedangki} placeholder="Họ tên" required />
                             </div>
                             <div className="form-group">
-                              <label >Email Address</label>
-                              <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email Address" required />
+                              <label >Email</label>
+                              <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email" required />
                             </div>
                             <div className="form-group">
-                              <label >User Name</label>
-                              <input type="text" className="form-control" name="username" onChange={onInputChangedangki} placeholder="Full Name" required />
+                              <label >Tài khoản</label>
+                              <input type="text" className="form-control" name="username" onChange={onInputChangedangki} placeholder="Tài khoản" required />
                             </div>
                           </div>
 
-                          <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signup}>Sign Up</a>
+                          <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signup}>Đăng ký</a>
                         </form>
 
                         <p className="mt_10">
-                          <a href='/register'>Register Instructors</a>
+                          <a href='/register'>Đăng ký giảng viên</a>
                           <br />
-                          Already have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Login</a>
+                          Bạn có sẵn sàng để tạo một tài khoản? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal" className="btn btn-warning">Đăng nhập</a>
                         </p>
                       </div>
                     </div>
@@ -628,18 +628,18 @@ export default function HeaderStudent() {
                     <div className="modal-content">
                       <div className="modal-header">
                         <button type="button" className="close" data-dismiss="modal">×</button>
-                        <h4 className="modal-title">Forget Password?</h4>
+                        <h4 className="modal-title">Quên mật khẩu</h4>
                       </div>
                       <div className="modal-body">
                         <form acceptCharset="utf-8">
                           <div className="form-group">
-                            <label >Email Address</label>
-                            <input type="email" className="form-control" placeholder="Email Address" name="gmail" required onChange={onInputChange} />
+                            <label >Email</label>
+                            <input type="email" className="form-control" placeholder="Email" name="gmail" required onChange={onInputChange} />
                           </div>
-                          <a onClick={doipassword} className="btn btn-primary btn-success" name="form_forget_password">Submit</a>
+                          <a onClick={doipassword} className="btn btn-primary btn-success" name="form_forget_password">Gửi</a>
                         </form>
                         <p className="mt_30">
-                          <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal">Go to Login Page</a>
+                          <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login_modal">Đi tới đăng nhập</a>
                         </p>
                       </div>
                     </div>
@@ -708,23 +708,23 @@ export default function HeaderStudent() {
           <div className="modal-content">
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal">×</button>
-              <h4 className="modal-title">Sign In</h4>
+              <h4 className="modal-title">Đăng nhập</h4>
             </div>
             <div className="modal-body">
               <form >
                 <div className="form-group">
-                  <label >User name</label>
-                  <input type="text" className="form-control" name="username" placeholder="user name" onChange={onInputChange} />
+                  <label >Tài khoản</label>
+                  <input type="text" className="form-control" name="username" placeholder="Tài khoản" onChange={onInputChange} />
                 </div>
                 <div className="form-group">
-                  <label >Password</label>
-                  <input type="password" className="form-control" name="password" placeholder="Password" onChange={onInputChange} />
+                  <label >Mật khẩu</label>
+                  <input type="password" className="form-control" name="password" placeholder="Mật khẩu" onChange={onInputChange} />
                 </div>
-                <a className="btn btn-primary btn-success" name="form_login" onClick={login}>Sign In</a>
+                <a className="btn btn-primary btn-success" name="form_login" onClick={login}>Đăng nhập</a>
               </form>
               <p className="mt_30">
-                <a data-dismiss="modal" data-toggle="modal" data-target="#forget_password_modal">Forget Password?</a><br />
-                Don't have an account? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#join_modal" className="btn btn-warning">Sign Up</a>
+                <a data-dismiss="modal" data-toggle="modal" data-target="#forget_password_modal">Quên mật khẩu?</a><br />
+                Không có tài khoản? <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#join_modal" className="btn btn-warning">Đăng ký</a>
               </p>
             </div>
           </div>

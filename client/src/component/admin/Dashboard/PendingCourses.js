@@ -218,7 +218,7 @@ export default function PendingCourse() {
                                                 className="btn btn-danger btn-block btn-xs"
                                                 >Không chấp nhận</a>
                                                 <a onClick={() => sendMail(value)}
-                                                className="btn btn-danger btn-block btn-xs"
+                                                className="btn btn-warning btn-block btn-xs"
                                                 >Gửi thông báo</a>
                                          </td>
                                      </tr>

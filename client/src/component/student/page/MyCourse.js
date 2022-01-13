@@ -11,9 +11,9 @@ export default function MyCourse() {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2>course page</h2>
+                        <h2>Trang khóa học</h2>
                         <div class="breadcrumb-link margin-top-10">
-                            <span><a href="index-2.html">home</a> / course page</span>
+                            <span><a href="index-2.html">Trang chủ</a> / Trang khóa học</span>
                         </div>
                     </div>
                 </div>
@@ -26,8 +26,8 @@ export default function MyCourse() {
                         <div class="col-md-6">
                             <div class="course-tab">
                                 <ul>
-                                    <li class="active" data-filter="*">All courses</li>
-                                    <li data-filter=".collection">collection</li>
+                                    <li class="active" data-filter="*">Tất cả khóa học</li>
+                                    <li data-filter=".collection">thu thập</li>
                                     <li data-filter=".wishlist">wishlist</li>
                                     <li data-filter=".archived">archived</li>
                                 </ul>

@@ -11,10 +11,15 @@ export default function UpdateKH() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const changeHandler = (event) => {
+    BaiGiang.image=URL.createObjectURL(event.target.files[0])
+    if(event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg"){
+      swal("Thất bại", "Chỉ được chọn file jpeg/png", "warning")
+      document.getElementById("uploadFile").value=""
+    } else{
     setSelectedFile(event.target.files[0]);
     console.log(event.target.files[0]);
     BaiGiang.image=URL.createObjectURL(event.target.files[0])
-
+    }
   };
 
 
@@ -91,7 +96,7 @@ export default function UpdateKH() {
       formdata.append("id", id.id);
       formdata.append("courseName", BaiGiang.courseName);
       formdata.append("price", price);
-      formdata.append("price", BaiGiang.discount);
+      formdata.append("discount", BaiGiang.discount);
       formdata.append("file",selectedFile);
       formdata.append("description", BaiGiang.description);
       formdata.append("status", "0");

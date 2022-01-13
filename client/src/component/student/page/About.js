@@ -6,11 +6,11 @@ export default function About() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <h1>About Us</h1>
+                            <h1>Về chúng tôi</h1>
                             <h3>
-                                <a href="https://phpscriptpoint.com/cc/courseplus/">Home</a>
+                                <a href="/home">Trang chủ</a>
                                 <i className="fa fa-angle-right" />
-                                About Us              </h3>
+                                Về chúng tôi            </h3>
                         </div> 
                     </div>
                 </div>
@@ -19,13 +19,21 @@ export default function About() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <h3>Our Vision</h3>
-                            <p>Mei ut errem legimus periculis, eos liber epicurei necessitatibus eu, facilisi postulant vel no. Ad mea commune disputando, cu vel choro exerci. Pri et oratio iisque atomorum, enim detracto mei ne, id eos soleat iudicabit. Ne reque reformidans mei, rebum delicata consequuntur an sit. Sea ad audire utamur. Ut mei ridens minimum intellegat, perpetua euripidis te qui, ad consul intellegebat comprehensam eum.</p>
-                            <p>Ex vix alienum sadipscing, quod melius philosophia id has. Ad qui quem reprimique, quo possit detracto reprimique no, sint reque officiis ei per. Ea regione commune volutpat pro, fabulas facilis omnesque mei ne. Cu unum detracto comprehensam sea, ad vim ancillae principes, ex usu fugit consulatu. Vis te purto equidem voluptatum.</p>
-                            <h3>Our Mission</h3>
-                            <p>Lorem ipsum dolor sit amet, an labores explicari qui, eu nostrum copiosae argumentum has. Latine propriae quo no, unum ridens expetenda id sit, at usu eius eligendi singulis. Sea ocurreret principes ne. At nonumy aperiri pri, nam quodsi copiosae intellegebat et, ex deserunt euripidis usu. Per ad ullum lobortis. Duo volutpat imperdiet ut, postea salutatus imperdiet ut per, ad utinam debitis invenire has.</p>
-                            <p>Liber utroque vim an, ne his brute vivendo, est fabulas consetetur appellantur an. In dolore legendos quo, ne ferri noluisse sed. Tantas eligendi at ius. Purto ipsum nemore sit ad.</p>
-                            <p>Vix tale noluisse voluptua ad, ne brute altera democritum cum. Omnes ornatus qui et, te aeterno discere ocurreret sea. Tollit cetero cu usu, etiam evertitur id nec. Id pro unum pertinax oportere, vel ad ridens mollis. Ad ius meis suavitate voluptaria. </p>
+                            <h3>Cải thiện cuộc sống thông qua học tập</h3>
+                            <h3>Thị trường trong nước về học tập và đào tạo</h3>
+                            <p>Bằng cách kết nối những người tham gia từ khắp nơi trên đất nước với những giảng viên giỏi nhất, Aled giúp mọi người đạt được mục tiêu và thực hiện ước mơ của họ.</p>
+                            <h3>Nguồn gốc của chúng tôi.</h3>
+                            <p>Người sáng lập ra Aled là một nhóm gồm 5 người từng tốt nghiệp tại FPT Polytechnic, có đam mê học tập nhiều điều nên đã sử dụng Internet cho giáo dục và rất muốn những người khác làm điều tương tự. </p>
+                            <h3>Thị trường của chúng tôi.</h3>
+                            <p>Tại Aled, chúng tôi tin rằng không phải lúc nào những giảng viên giỏi nhất thế giới cũng có mặt trong lớp học. Các giảng viên của chúng 
+                            đến từ trong nước và có kinh nghiệm cung cấp các khóa học bổ ích.
+                             </p>
+                             <h3>Các giảng viên của chúng tôi.</h3>
+                            <p> Các giảng viên tại Aled rất mong muốn chia sẻ kiến thức của họ
+                             và giúp đỡ những người tham gia. Họ là những chuyên gia 
+                             trong lĩnh vực của họ luôn tham gia cung cấp nội dung cập nhật nhất.
+                             </p>
+                       
                         </div>
                     </div>
                 </div>

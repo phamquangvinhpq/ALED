@@ -397,16 +397,13 @@ export default function Course() {
     // </div>
 
     <div>
-      <section className="course-category-section padding-top-20 padding-right-120 padding-bottom-90">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-4 padding-80">
-              <div className="course-category-sidebar">
-                <div className="lms-single-widget">
-                  {/* <div className="lms-widget-title">
-                    
-                  </div> */}
-                  <div className="form-check" onChange={onChangeValue}>
+    <section className="course-category-section  padding-right-120 padding-top-10 padding-bottom-90 ">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-4 padding-80">
+            <div className="course-category-sidebar">
+              <div className="lms-single-widget">
+                <div className="lms-widget-title">
                   <h4>Lọc theo giá</h4>
                 </div>
                 <div className="form-check">

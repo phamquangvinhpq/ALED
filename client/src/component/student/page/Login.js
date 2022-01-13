@@ -81,7 +81,7 @@ const login = () => {
 
   <div className="text-center">
     {/* Button HTML (to Trigger Modal) */}
-    <a href="#myModal" className="trigger-btn" data-toggle="modal">Click to Open Login Modal</a>
+    <a href="#myModal" className="trigger-btn" data-toggle="modal">Nhấp để mở phương thức đăng nhập</a>
   </div>
   {/* Modal HTML */}
   <div id="myModal" className="modal fade">
@@ -91,7 +91,7 @@ const login = () => {
           <div className="avatar">
             <img src="//images/avatar.png" alt="Avatar" />
           </div>				
-          <h4 className="modal-title">Member Login</h4>	
+          <h4 className="modal-title">Đăng nhập thành viên</h4>	
           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
         </div>
         <div className="modal-body">
@@ -103,12 +103,12 @@ const login = () => {
               <input type="password" className="form-control" name="password" placeholder="Password" required="required" />	
             </div>        
             <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-lg btn-block login-btn">Login</button>
+              <button type="submit" className="btn btn-primary btn-lg btn-block login-btn">Đăng nhập</button>
             </div>
           </form>
         </div>
         <div className="modal-footer">
-          <a href="#">Forgot Password?</a>
+          <a href="#">Quên mật khẩu?</a>
         </div>
       </div>
     </div>

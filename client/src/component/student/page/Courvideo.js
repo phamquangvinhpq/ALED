@@ -689,7 +689,7 @@ export default function Courvideo() {
                               class="btn btn-success"
                               onClick={sendMess}
                             >
-                              Reply
+                              phản hồi
                             </button>
                           </div>
                         </div>
@@ -705,7 +705,7 @@ export default function Courvideo() {
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>

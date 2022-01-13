@@ -332,7 +332,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getPriceAsc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>();
+		List<Course> lstCourse = new ArrayList<Course>(); 
 		Page<Course> page2 = courseRepository.getPriceAsc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -353,7 +353,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getPriceDesc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>();
+		List<Course> lstCourse = new ArrayList<Course>(); 
 		Page<Course> page2 = courseRepository.getPriceDesc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -422,7 +422,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getRateAsc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>();
+		List<Course> lstCourse = new ArrayList<Course>(); 
 		Page<Course> page2 = courseRepository.getRateAsc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -443,7 +443,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getRateDesc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>();
+		List<Course> lstCourse = new ArrayList<Course>(); 
 		Page<Course> page2 = courseRepository.getRateDesc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -507,12 +507,12 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
-
+	
 	@Override
 	public List<CourseDTO> getPrice1(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>();
+		List<Course> lstCourse = new ArrayList<Course>(); 
 		Page<Course> page2 = courseRepository.getPrice1(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -528,12 +528,11 @@ public class CourseService implements ICourseService {
 		}
 		return lstCourseDTO;
 	}
-
 	@Override
 	public List<CourseDTO> getPrice2(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>();
+		List<Course> lstCourse = new ArrayList<Course>(); 
 		Page<Course> page2 = courseRepository.getPrice2(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -549,12 +548,12 @@ public class CourseService implements ICourseService {
 		}
 		return lstCourseDTO;
 	}
-
+	
 	@Override
 	public List<CourseDTO> getPrice3(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>();
+		List<Course> lstCourse = new ArrayList<Course>(); 
 		Page<Course> page2 = courseRepository.getPrice3(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -570,7 +569,7 @@ public class CourseService implements ICourseService {
 		}
 		return lstCourseDTO;
 	}
-
+	
 	@Override
 	public List<CourseDTO> getPrice1ByCate(Integer categoryId, int page, int size) {
 		List<Course> listEnity = new ArrayList<Course>();
@@ -594,7 +593,7 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
-
+	
 	@Override
 	public List<CourseDTO> getPrice2ByCate(Integer categoryId, int page, int size) {
 		List<Course> listEnity = new ArrayList<Course>();
@@ -618,7 +617,7 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
-
+	
 	@Override
 	public List<CourseDTO> getPrice3ByCate(Integer categoryId, int page, int size) {
 		List<Course> listEnity = new ArrayList<Course>();
