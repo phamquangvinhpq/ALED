@@ -9,5 +9,6 @@ public class ALEDApplication {
     public static void main(String[] args) {
         SpringApplication.run(ALEDApplication.class, args);
     }
+    
 
 }

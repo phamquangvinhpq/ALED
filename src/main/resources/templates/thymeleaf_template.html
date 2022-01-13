@@ -1,8 +1,40 @@
-<!DOCTYPE HTML>
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<style type='text/css'>
+* {
+	font-family: 'Arial Unicode MS';
+}
+</style>
 </head>
-<body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
+<body style="text-align: center;">
+	<div class="background"
+		style="background: url(https://i.imgur.com/h0X3rL6.png) no-repeat; height: 477px; width: 712px; text-align: center;">
+		<p class="text-1"
+			style="padding-top: 10px; font-size: 25px; color: #3b5c68;">Website
+			Học Online ALED</p>
+		<span class="text-2" style="font-size: 27px; color: #ecc16b;">Chứng
+			nhận</span><br></br> <span class="name"
+			style="color: #3b5c68; font-size: 40px" th:text="${name}"></span><br></br>
+		<span class="hoan-thanh">Đã hoàn thành khóa học</span><br></br> <span
+			class="ke-toan" style="font-size: 30px; color: red;" th:text="${tenkh}"></span><br></br> <i class="ngay-hoan-thanh" style="font-size: 20px;"><span
+			style="color: #ecc16b">Ngày hoàn thành:</span><i th:text="${ngayfull}"></i> </i><br></br> <br></br> <span
+			class="class-ngay-thang" style="padding-right: 350px;">Số Hiệu
+			Chứng Nhận</span> <span class="class-ngay-thang"
+			style="padding-left: 350px;" th:text="${ngayfull1}"></span>
+		<br></br>
+		 <span class="giam-doc" style="padding-right: 350px;">ALED
+			- 2524001040</span> 
+		<span class="giam-doc" style="padding-left: 350px; font-style: italic">ALED</span>
+
+
+	</div>
+
+
+
 </body>
 </html>

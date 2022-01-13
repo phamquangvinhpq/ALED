@@ -161,6 +161,7 @@ export default function HeaderStudent() {
 
   function chuyentrang() {
     let role = localStorage.getItem("role");
+
     if (role == "ROLE_GIANGVIEN") {
       history.push("/giangvien")
       window.location.reload()
@@ -211,6 +212,8 @@ export default function HeaderStudent() {
           localStorage.setItem("accessToken", result.data.accessToken)
           localStorage.setItem("userid", result.data.id)
           localStorage.setItem("username", result.data.username)
+          localStorage.setItem("fullname", result.data.fullName)
+          
           result.data.roles.map((role) => {
             localStorage.setItem("role", role)
           })

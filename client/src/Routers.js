@@ -69,7 +69,7 @@ export default function Routers() {
                         <Register />
                     </Route>
 
-                    <Route path="/exam">
+                    <Route path="/exam/:id">
                         <Exam />
                     </Route>
 

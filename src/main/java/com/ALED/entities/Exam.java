@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +57,8 @@ public class Exam implements Serializable {
 
 	@Column(name = "question_data", columnDefinition = "text")
 	private String questionData;
-
+	
+	@NotBlank(message = "không để trống tên bài thi")
 	@Column(name = "title")
 	private String title;
 

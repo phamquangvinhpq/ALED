@@ -211,6 +211,7 @@ export default function Courvideo() {
     getLessionByTime();
     loaddanhmuc();
     getLessionBySection();
+    ttkh1();
   }, [status]);
 
 
@@ -226,7 +227,7 @@ export default function Courvideo() {
       .then((response) => response.json())
       .then((result) => {
         setvideo(result);
-        
+
       })
       .catch((error) => console.log("error", error));
   };
@@ -255,7 +256,7 @@ export default function Courvideo() {
   const getData = (value) => {
     lession.linkVideo = value.linkVideo;
     setNote((values) => ({ ...values, lession_id: value.id }));
-    videoVuaXem(value);
+
     setStatus(status + 1);
   };
 
@@ -287,11 +288,12 @@ export default function Courvideo() {
   }
 
   const checkDaxem = (value, index) => {
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "id": value,
+      "id": value.id,
       "status": index
     });
 
@@ -350,6 +352,38 @@ export default function Courvideo() {
       .catch(error => console.log('error', error));
   }
 
+  const [ttkh, setttkh] = useState([]);
+  const [tenkhchungchi, settenkhchungchi] = useState({
+    tenkh:''
+  });
+
+  var fullname=localStorage.getItem("fullname");
+  const ttkh1 = () => {
+    var myHeaders = new Headers();
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`http://localhost:8080/course/` + id.id, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+
+        setttkh(result)
+        result.map((value)=>
+        tenkhchungchi.tenkh=value.courseName
+        )
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  const chungchi = () => {
+    window.location=`http://localhost:8080/Pdf/xuat?name=`+fullname+`&tenkh=`+tenkhchungchi.tenkh
+    
+  }
+
   return (
     <div>
       <header className="header-section-backend">
@@ -365,7 +399,9 @@ export default function Courvideo() {
                     </a>
                   </div>
                   <div className="header-title">
-                    <h5>WordPress Development Beginner to Pro</h5>
+                    {ttkh.map((value) =>
+                      <h5>{value.courseName}</h5>
+                    )}
                   </div>
                 </div>
               </div>
@@ -435,8 +471,8 @@ export default function Courvideo() {
                       <span>note</span>
                     </li>}
 
-                    <li className="tab-four">
-                      <span>announcement</span>
+                    <li className="tab-four" onClick={chungchi}>
+                      <span >Chứng chỉ</span>
                     </li>
                   </ul>
                   <div className="hr-line" />
@@ -470,9 +506,8 @@ export default function Courvideo() {
                             {video.map((value, index) => (
                               <div className="single-course-video">
                                 <form>
-                                  {value.type == "test" ? <a href={`/404/`+value.linkVideo}
+                                  {value.type == "test" ? <a href={`/exam/` + value.linkVideo}
 
-                                   
                                     className="btn btn-light"
                                   >
                                     <i className="fa fa-play-circle" />{" "}
@@ -484,19 +519,19 @@ export default function Courvideo() {
                                   >
                                     {/* {daxem(value.status)} */}
                                     {value.status === 1 ? <span><input
-                                      onClick={() => checkDaxem(value.id, 0)}
+                                      onClick={() => checkDaxem(value, 0)}
                                       type="checkbox"
                                       defaultChecked="checked"
                                     />
                                       &nbsp;&nbsp;</span> : <span><input
-                                        onClick={() => checkDaxem(value.id, 1)}
+                                        onClick={() => checkDaxem(value, 1)}
                                         type="checkbox"
                                       />
                                       &nbsp;&nbsp;</span>}
                                     <i className="fa fa-play-circle" />{" "}
-                                    {value.name}
+                                    <a onClick={() => videoVuaXem(value)}> {value.name}</a>
                                   </a>}
-                                           
+
                                 </form>
                               </div>
                             ))}

@@ -326,10 +326,18 @@ export default function Leson() {
     };
 
     fetch(`${DEFAULT_API}` + "lession", requestOptions)
-      .then(response => response.text())
+      .then(response => response.json())
       .then(result => {
-        swal("Thông báo", "Thêm thành công", "success")
-         setStatus(status + 1) })
+        console.log(result);
+        if(result.loicode == "-1")
+        {
+          swal("Thông báo", result.message, "warning")
+        }
+        else{
+          swal("Thông báo", "Thêm thành công", "success")
+         setStatus(status + 1) 
+        }
+        })
       .catch(error => console.log('error', error));
   }
   };
@@ -544,7 +552,7 @@ const onChangeSectionbaithi = (event) => {
                           );
                         })}
                       </select>
-                       <a href="" data-toggle="modal" data-target="#exampleModalCenter">thêm bài kiểm tra</a>
+                       <a href="" > <NavLink to="/giangvien/dethi">thêm bài kiểm tra</NavLink></a>
                       </div>
                     </div>
                     <div className="form-group" id="mp4Box">

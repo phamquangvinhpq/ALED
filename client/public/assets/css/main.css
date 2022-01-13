@@ -3021,3 +3021,74 @@ table.front-end-course-table .btn-danger {
     width: 1080px;
    margin: auto;
 }
+#diem{ color: red;}
+
+
+
+
+
+
+
+
+
+.background {
+    background: url(https://img4.thuthuatphanmem.vn/uploads/2020/12/26/khung-vien-dep-powerpoint_022258315.png) no-repeat;
+    height: 885px;
+    width: 1322px;
+    text-align: center;
+}
+
+.text-1 {
+    padding-top:60px;
+    font-size: 30px;
+    font-weight:500;
+}
+
+.text-2 {
+    font-size: 30px;
+    font-weight:500;
+    color: #ecc16b;
+}
+
+.name {
+    position: relative;
+    padding-top: 20px;
+    font-size: 70px
+}
+
+.name:before {
+    content:"";
+    position: absolute;
+    border-bottom: 3px solid #ecc16b;
+    width: 400px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    bottom: 0;
+}
+
+.hoan-thanh {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.ke-toan {
+    font-size: 48px;
+    color: red;
+    font-weight: 600;
+}
+
+.ngay-hoan-thanh {
+    font-size: 25px;
+}
+
+.padding-top {
+    padding-top: 50px;
+}
+
+.class-ngay-thang {
+    font-size: 20px;
+}
+
+.giam-doc {
+    font-size: 26px;
+}

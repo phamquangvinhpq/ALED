@@ -7,6 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,6 +36,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import com.lowagie.text.pdf.BaseFont;
+
 @RestController
 @RequestMapping("/Pdf")
 public class TaoPDFController {
@@ -47,11 +52,34 @@ public class TaoPDFController {
 	@Value("${image.path}")
 	private String linkFolder;
 
-	@GetMapping("/xuat")
-	public RedirectView xuat(HttpServletResponse response) throws Exception {
-		Map<String, String> data = new HashMap<String, String>();
-		data.put("name", "James");
+	@GetMapping("/ngay")
+	public void layngay() {
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		int year = localDate.getYear();
+		int month = localDate.getMonthValue();
+		int day = localDate.getDayOfMonth();
 
+		System.out.println(day + ":" + month + ":" + year);
+	}
+	
+
+	@GetMapping("/xuat")
+	public RedirectView xuat(HttpServletResponse response, @RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "tenkh", required = false) String tenkh) throws Exception {
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		int year = localDate.getYear();
+		int month = localDate.getMonthValue();
+		int day = localDate.getDayOfMonth();
+		String fullngay = day + "/" +"0"+ month + "/" + year;
+		String fullngay1 = "Hà Nội, ngày " + day + " tháng " + "0" + month + " năm " + year;
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("name", name);
+		data.put("tenkh", tenkh);
+
+		data.put("ngayfull", fullngay);
+		data.put("ngayfull1", fullngay1);
 		Assert.notNull("thymeleaf_template.html", "The templateName can not be null");
 		Context ctx = new Context();
 		if (data != null) {
@@ -68,17 +96,17 @@ public class TaoPDFController {
 		try {
 			String outputFolder = linkFolder + fileName + ".pdf";
 			OutputStream outputStream = new FileOutputStream(outputFolder);
-
 			ITextRenderer renderer = new ITextRenderer();
+			renderer.getFontResolver().addFont(linkFolder + "ARIALUNI.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 			renderer.setDocumentFromString(processedHtml);
+
 			renderer.layout();
 			renderer.createPDF(outputStream);
 			outputStream.close();
 
 			RedirectView redirectView = new RedirectView();
 
-			redirectView.setUrl(
-					serverProto + "://" + serverUrl + "/Pdf/downloadFile/?name=" + fileName);
+			redirectView.setUrl(serverProto + "://" + serverUrl + "/Pdf/downloadFile/?name=" + fileName);
 
 			return redirectView;
 
@@ -102,7 +130,7 @@ public class TaoPDFController {
 		// Set mimeType trả về
 		responseHeader.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		// Thiết lập thông tin trả về
-		responseHeader.set("Content-disposition", "attachment; filename=" + file2Upload.getName());
+		responseHeader.set("Content-disposition", "attachment; filename=" + "ALED.pdf");
 		responseHeader.setContentLength(data.length);
 		InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(data));
 		InputStreamResource inputStreamResource = new InputStreamResource(inputStream);

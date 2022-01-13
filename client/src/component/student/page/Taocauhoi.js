@@ -201,120 +201,229 @@ export default function Taocauhoi() {
         <div>
             <form className="form-horizontal" id='create-course-form'>
                 <fieldset>
-                    {/* Form Name */}
-                    <legend>Form Name</legend>
-                    {/* Select Basic */}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="selectbasic">khóa học</label>
-                        <div className="col-md-4">
-                            <select id="selectbasic" name="selectbasic" className="form-control" value={selectedSection}
-                                onChange={onChangeSection} >
-                                <option value="nodata" >chọn khóa học</option>
-                                {baigiang.map((value, index) => {
-                                    return (
-                                        <option value={value.id} key={index}>
-                                            {value.courseName}
-                                        </option>
-                                    );
-                                })}
-
-                            </select>
-                        </div>
-                    </div>
-                    {/* Select Basic */}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="selectbasic1">Select Basic</label>
-                        <div className="col-md-4">
-                            <select id="selectbasic" name="selectbasic" className="form-control" onChange={onChangeSection1}>
-                                <option >chọn chương</option>
-                                {section.map((value, index) => {
-                                    return (
-                                        <option value={value.id} key={index}>
-                                            {value.name}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                    </div>
-                    {/* Text input*/}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="textinput">câu hỏi</label>
-                        <div className="col-md-4">
-                            <input id="textinput" name="questionText" type="text" placeholder="placeholder" value={Cauhoi.questionText} className="form-control input-md" onChange={onInputChange} />
-                            <span className="help-block"></span>
-                        </div>
-                    </div>
-                    {/* Text input*/}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="textinput">đáp án 1</label>
-                        <div className="col-md-4">
-                            <input id="textinput" name="choice_text1" type="text" placeholder="placeholder" className="form-control input-md" onChange={onInputChange} />
-                            <span className="help-block"><div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={(e) => dapandung1(e)} />
-                                <label className="form-check-label" htmlFor="flexRadioDefault1"  >
-                                    Đáp án đúng
-                                </label>
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label" >Khóa học  <span>*</span></label>
+                                <div className="col-sm-9">
+                                    <select className="form-control w-100-p" value={selectedSection}
+                                        onChange={onChangeSection} >
+                                        <option value="nodata" >chọn khóa học</option>
+                                        {baigiang.map((value, index) => {
+                                            return (
+                                                <option value={value.id} key={index}>
+                                                    {value.courseName}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
                             </div>
-                            </span>
-                        </div>
-                    </div>
 
-                    {/* Text input*/}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="textinput">đáp án 2</label>
-                        <div className="col-md-4">
-                            <input id="textinput" name="choice_text2" type="text" placeholder="placeholder" className="form-control input-md" onChange={onInputChange} />
-                            <span className="help-block"><div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={(e) => dapandung2(e)} />
-                                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                    Đáp án đúng
-                                </label>
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
+                                <div className="col-sm-9">
+                                    <select className="form-control w-100-p" onChange={onChangeSection1}>
+                                        <option >chọn chương</option>
+                                        {section.map((value, index) => {
+                                            return (
+                                                <option value={value.id} key={index}>
+                                                    {value.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
                             </div>
-                            </span>
-                        </div>
-                    </div>
-                    {/* Text input*/}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="textinput">đáp án 3</label>
-                        <div className="col-md-4">
-                            <input id="textinput" name="choice_text3" type="text" placeholder="placeholder" className="form-control input-md" onChange={onInputChange} />
-                            <span className="help-block"><div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={(e) => dapandung3(e)} />
-                                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                    Đáp án đúng
-                                </label>
-                            </div></span>
-                        </div>
-                    </div>
-                    {/* Text input*/}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="textinput">đáp án 4</label>
-                        <div className="col-md-4">
-                            <input id="textinput" name="choice_text4" type="text" placeholder="placeholder" className="form-control input-md" onChange={onInputChange} />
-                            <span className="help-block"><div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={(e) => dapandung4(e)} />
-                                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                    Đáp án đúng
-                                </label>
-                            </div></span>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="textinput">điểm</label>
-                        <div className="col-md-4">
-                            <input id="textinput" name="point" type="text" placeholder="placeholder" className="form-control input-md" onChange={onInputChange} />
-                        </div>
-                    </div>
-                    {/* Button */}
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="singlebutton">Single Button</label>
-                        <div className="col-md-4">
-                            <a id="singlebutton" onClick={taocauhoi} name="singlebutton" className="btn btn-primary">Button</a>
-                        </div>
-                    </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">Câu hỏi *</label>
+                                <div className="col-sm-9">
+                                    <input type="text" name="questionText" className="form-control" onChange={onInputChange} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 1</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung1(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text1" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 2</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung2(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text2" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 3</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung3(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text3" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 4</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung4(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text4" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">Điểm</label>
+                                <div className="col-sm-9">
+                                    <input type="text" name="courseName" name="point" className="form-control" onChange={onInputChange} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <div className="col-sm-offset-3 col-sm-6">
+                                    <a className="btn btn-default btn-success" onClick={cancelCourse} name="form1">xóa</a>
+
+                                    <a type="submit" className="btn btn-default btn-success" onClick={taocauhoi} name="form1">Thêm</a>
+                                </div>
+                            </div>
+                        
                 </fieldset>
             </form>
+
+
+            <form className="form-horizontal"
+                encType="multipart/form-data"
+                acceptCharset="utf-8"
+                id='create-course-form'
+            >
+                <div className="form-group mb_5 ovh">
+                    <div className="col-md-9">
+                        <form className="form-horizontal" >
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label" >Khóa học  <span>*</span></label>
+                                <div className="col-sm-9">
+                                    <select className="form-control w-100-p" value={selectedSection}
+                                        onChange={onChangeSection} >
+                                        <option value="nodata" >chọn khóa học</option>
+                                        {baigiang.map((value, index) => {
+                                            return (
+                                                <option value={value.id} key={index}>
+                                                    {value.courseName}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
+                                <div className="col-sm-9">
+                                    <select className="form-control w-100-p" onChange={onChangeSection1}>
+                                        <option >chọn chương</option>
+                                        {section.map((value, index) => {
+                                            return (
+                                                <option value={value.id} key={index}>
+                                                    {value.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">Câu hỏi *</label>
+                                <div className="col-sm-9">
+                                    <input type="text" name="questionText" className="form-control" onChange={onInputChange} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 1</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung1(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text1" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 2</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung2(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text2" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 3</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung3(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text3" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">đáp án 4</label>
+                                <div className="col-sm-9">
+                                    <div className=" input-group">
+                                        <span className="input-group-addon">
+                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung4(e)} />
+                                        </span>
+                                        <input type="text" className="form-control" name="choice_text4" aria-label="..." onChange={onInputChange} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor className="col-sm-3 control-label">Điểm</label>
+                                <div className="col-sm-9">
+                                    <input type="text" name="courseName" name="point" className="form-control" onChange={onInputChange} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <div className="col-sm-offset-3 col-sm-6">
+                                    <a className="btn btn-default btn-success" onClick={cancelCourse} name="form1">xóa</a>
+
+                                    <a type="submit" className="btn btn-default btn-success" onClick={taocauhoi} name="form1">Thêm</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </form>
+
+
 
             <div className="table-responsive">
                 <table className="table table-bordered t3">

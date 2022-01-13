@@ -1,7 +1,6 @@
 package com.ALED.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,13 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.validation.annotation.Validated;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +37,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "question")
+@Validated
 public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +50,7 @@ public class Question implements Serializable {
 
 
 	@NotNull(message = "Vui lòng nhập điểm")
+	@Positive (message = "Điểm phải là số dương")
 	@Column(name = "point")
 	private int point;
 
@@ -62,11 +64,10 @@ public class Question implements Serializable {
 	@JoinColumn(name = "question_type_id")
 	private QuestionType questionType;
 	
-	
+	@Valid
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id")
 	private List<Choice> choices;
-
 
 	@ManyToOne()
 	@JoinColumn(name = "Section_id")

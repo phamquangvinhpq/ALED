@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +41,7 @@ import com.ALED.DTO.Exam.ExamQuestionPoint;
 import com.ALED.DTO.Exam.ExamResult;
 import com.ALED.DTO.Exam.PageResult;
 import com.ALED.DTO.Exam.QuestionExamReport;
+import com.ALED.Exception.ResourceNotFoundException;
 import com.ALED.entities.Choice;
 import com.ALED.entities.Exam;
 import com.ALED.entities.ExamUser;
@@ -46,6 +49,7 @@ import com.ALED.entities.Question;
 import com.ALED.entities.Section;
 import com.ALED.entities.Users;
 import com.ALED.repositories.ExamRepository;
+import com.ALED.repositories.ExamUserRepository;
 import com.ALED.repositories.SectionRepository;
 import com.ALED.service.ExamService;
 import com.ALED.service.ExamUserService;
@@ -72,6 +76,8 @@ public class ExamController {
 	
 	@Autowired
 	private ExamRepository examRepository;
+	@Autowired
+	private ExamUserRepository examUserRepository;
 
 	@Autowired
 	public ExamController(ExamService examService, QuestionService questionService, UserServiceSystem userService,
@@ -150,7 +156,7 @@ public class ExamController {
 //	[{"questionId":2,"choices":[{"id":1,"choiceText":"bo cau hoi","isCorrected":1},{"id":2,"choiceText":"dap án thư 2","isCorrected":0},{"id":3,"choiceText":"dap án thư 3","isCorrected":0},{"id":4,"choiceText":"dap án thư 4","isCorrected":0}],"point":5},{"questionId":4,"choices":[{"id":17,"choiceText":"đáp án 1=2","isCorrected":1},{"id":18,"choiceText":"dap án thư 2=9","isCorrected":0},{"id":19,"choiceText":"dap án thư 3=6","isCorrected":0},{"id":20,"choiceText":"dap án thư 4=5","isCorrected":0}],"point":5}]
 
 	@GetMapping(value = "/exams/{examId}/questions")
-	public ResponseEntity<ExamQuestionList> getAllQuestions(@PathVariable Integer examId,@RequestParam("username") String username) throws IOException {
+	public ResponseEntity<ExamQuestionList> getAllQuestions(@PathVariable Integer examId,@RequestParam("username") String username) throws IOException, MethodArgumentNotValidException {
 		
 		
 		Users user = userService.getUserByUsername(username).get();
@@ -166,10 +172,10 @@ public class ExamController {
 			
 			Exam ex=exam.get();
 			examUserService.create(ex, user);
-	
+			throw new ResourceNotFoundException("loi");
 		}
 		if(examUser.getIsFinished().equals(true)) {
-			System.out.println("đã làm bài thi này");
+			throw new ConstraintViolationException(null, null);
 			
 		}
 		else if(examUser.getIsStarted().equals(true) && examUser.getIsFinished().equals(false)) {
@@ -583,6 +589,16 @@ public class ExamController {
 		return 	examRepository.findByCreated_by_id(id);
 		
 		
+	}
+	
+	
+	@PutMapping("/lamlai")
+	public void lamlai(@RequestParam("id") Integer id,@RequestParam("username") String username) {
+		ExamUser examUser = examUserService.findByExamAndUser(id, username);
+		
+	
+			examUserRepository.delete(examUser);
+			
 	}
 
 	@GetMapping(value = "/exams/{id}/cancel")

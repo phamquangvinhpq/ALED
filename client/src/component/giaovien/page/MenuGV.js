@@ -51,8 +51,11 @@ export default function MenuGV(props) {
               <li onClick={() => change("Not Answered")} className="menuvalue">
                 <NavLink to="/giangvien/NoteAnswered">Chưa trả lời</NavLink> {listQA.length != 0 ? <span class="header__cart-notice">?</span>:""}
               </li>
-              <li onClick={() => change("question")} className="menuvalue">
-                <NavLink to="/giangvien/question">Question</NavLink>
+              <li onClick={() => change("Câu Hỏi")} className="menuvalue">
+                <NavLink to="/giangvien/question">Câu Hỏi</NavLink>
+              </li>
+              <li onClick={() => change("Đề thi")} className="menuvalue">
+                <NavLink to="/giangvien/dethi">Đề Thi</NavLink>
               </li>
             </ul>
           </div>

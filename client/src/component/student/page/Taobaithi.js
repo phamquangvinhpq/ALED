@@ -229,7 +229,7 @@ export default function Taobaithi() {
                 tong += value.point
             )
         }
-        setdiem(tong)
+       
 
         if (tong != 100) {
             alert("số điểm bài thi phải 100 điểm")
@@ -313,7 +313,7 @@ export default function Taobaithi() {
             </form>
 
             <div className="table-responsive">
-                <h4>Danh sách câu hỏi</h4>
+                <h4>Danh sách bài thi</h4>
                 <table class="table">
                     <thead>
                         <tr>

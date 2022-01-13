@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import swal from 'sweetalert';
-import $ from "jquery";
 
-
-export default function Question() {
+export default function Dsbaithi() {
+    var arr = []
     let user_id = localStorage.getItem("userid")
+    var username = localStorage.getItem("username")
+
     const [baigiang, setbaigiang] = useState([])
     const [selectedSection, setSelectedSection] = useState(-1);
     const [section, setsection] = useState([])
@@ -13,42 +14,31 @@ export default function Question() {
 
     const [PartID, SetPartid] = useState([])
     const [trangthai, settrangthai] = useState(1)
+    const [diem, setdiem] = useState(0)
 
-    const [Cauhoi, setCauhoi] = useState({
-        point: "",
-        questionText: "",
-        choice_text1: "",
-        choice_text2: "",
-        choice_text3: "",
-        choice_text4: "",
-        isCorrected1: '',
-        isCorrected2: '',
-        isCorrected3: '',
-        isCorrected4: '',
+    const [cauhoidachon, setcauhoidachon] = useState(arr)
+
+
+    const [baithi, setbaithi] = useState({
+        title: ''
     });
-
-    const cancelCourse = (event) => {
-        document.getElementById("create-course-form").reset();
-     
-    }
-
-  
 
     const onInputChange = (event) => {
         const { name, value } = event.target;
-        setCauhoi({
-            ...Cauhoi,
-            [name]: value,
-        });
+       baithi.title=event.target.value
     };
+
+    const cancelCourse = () => {
+        document.getElementById("create-course-form").reset();
+    }
 
 
     useEffect(() => {
-
         loadBaiGiang();
 
+
     }, [
-        
+        trangthai
     ])
 
     const loadBaiGiang = async () => {
@@ -83,14 +73,7 @@ export default function Question() {
 
     };
 
-    const onChangeSection1 = (event) => {
-
-        SetPartid(event.target.value)
-        loadcauhoi(event.target.value)
-
-
-    };
-
+    
 
 
     const loaddanhmuc = async (value) => {
@@ -110,95 +93,6 @@ export default function Question() {
             .catch((error) => console.log("error", error));
     };
 
-    const taocauhoi = () => {
-        var regexPoin = /[1-9][0-9]*/;
-        if (!regexPoin.test(Cauhoi.point)) {
-            swal("Failed", "Point phải là số dương", "warning")
-        }
-        else {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "point": Cauhoi.point,
-                "questionText": Cauhoi.questionText,
-                "choices": [
-                    {
-                        "choiceText": Cauhoi.choice_text1,
-                        "isCorrected": Cauhoi.isCorrected1
-                    },
-                    {
-                        "choiceText": Cauhoi.choice_text2,
-                        "isCorrected": Cauhoi.isCorrected2
-                    },
-                    {
-                        "choiceText": Cauhoi.choice_text3,
-                        "isCorrected": Cauhoi.isCorrected3
-                    },
-                    {
-                        "choiceText": Cauhoi.choice_text4,
-                        "isCorrected": Cauhoi.isCorrected4
-                    }
-                ]
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-
-            fetch(`http://localhost:8080/api/questions?questionType=MC&&partId=` + PartID, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.loicode == "-1") {        
-                        swal("Failed", result.message, "warning")
-                       
-
-                    }
-                    else {
-                        swal("Thông báo", "Thêm thành công", "success")
-                        .then(
-                            document.getElementById("dongclick").click()
-                    )
-                    cancelCourse();
-                    settrangthai(trangthai+1)
-                    }
-
-
-                })
-                .catch(error => console.log('error', error));
-        }
-    }
-    const dapandung1 = (even) => {
-        Cauhoi.isCorrected1 = 1
-        Cauhoi.isCorrected2 = 0
-        Cauhoi.isCorrected3 = 0
-        Cauhoi.isCorrected4 = 0
-    }
-    const dapandung2 = (even) => {
-        Cauhoi.isCorrected2 = 1
-        Cauhoi.isCorrected1 = 0
-        Cauhoi.isCorrected3 = 0
-        Cauhoi.isCorrected4 = 0
-        console.log(Cauhoi);
-    }
-    const dapandung3 = (even) => {
-        Cauhoi.isCorrected3 = 1
-        Cauhoi.isCorrected2 = 0
-        Cauhoi.isCorrected1 = 0
-        Cauhoi.isCorrected4 = 0
-        console.log(Cauhoi);
-    }
-    const dapandung4 = (even) => {
-        Cauhoi.isCorrected4 = 1
-        Cauhoi.isCorrected2 = 0
-        Cauhoi.isCorrected3 = 0
-        Cauhoi.isCorrected1 = 0
-        console.log(Cauhoi);
-    }
 
     const loadcauhoi = (value) => {
         var myHeaders = new Headers();
@@ -213,19 +107,164 @@ export default function Question() {
             .then(response => response.json())
             .then(result => {
                 setdanhsachcauhoi(result.data)
-                console.log(result.status);
-                console.log(danhsachcauhoi);
+
             })
             .catch(error => console.log('error', error));
     }
 
-    const cliclupdate = (value) => {
 
-        setCauhoi(Cauhoi.questionText = value.questionText)
+
+    const laydulieu = (value, id) => {
+
+        var checkchecked = document.getElementById(`check` + id).checked
+        console.log(checkchecked);
+
+        if (checkchecked == true) {
+
+            arr.push({
+                "questionId": value.id,
+                "point": value.point
+            })
+
+        }
+        else {
+            console.log("ok11");
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].questionId === value.id) {
+                    console.log("ok");
+                    console.log(arr[i].questionId);
+                    arr.splice(i, 1);
+                }
+                else {
+
+                }
+            }
+
+        }
+
+
+
+        var uniqueArray = arr
+            .map(v => v['questionId'])
+            .map((v, i, array) => array.indexOf(v) === i && i)
+            .filter(v => arr[v])
+            .map(v => arr[v]);
+        var json = JSON.stringify(uniqueArray)
+
+        console.log(json);
+
+
+    }
+
+
+    const thembaithi = () => {
+
+        var uniqueArray = arr
+            .map(v => v['questionId'])
+            .map((v, i, array) => array.indexOf(v) === i && i)
+            .filter(v => arr[v])
+            .map(v => arr[v]);
+        
+        var tong = 0;
+        {
+            uniqueArray.map((value, index) =>
+                tong += value.point
+            )
+        }
+       
+        document.getElementById("diem").value=tong+"/100"
+
+        if (tong != 100) {
+            swal("Failed", "Tổng Điểm bài thi bằng 100", "warning")
+         
+        } else if(baithi.title == ''){
+            swal("Failed", "không được để trống name", "warning")
+        }
+         else {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw1 = JSON.stringify(uniqueArray)
+
+            var raw = JSON.stringify({
+                "title": baithi.title,
+                "questionData": raw1
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            fetch(`http://localhost:8080/api/exams/?partId=28&isShuffle=true&username=` + username, requestOptions)
+                .then(response => response.json())
+                .then(result => {console.log(result)
+                   
+                    if (result.loicode == "-1") {        
+                        swal("Failed", result.message, "warning")
+                       
+
+                    }
+                    else {
+                        swal("Thông báo", "Thêm thành công", "success")
+                        .then(
+                            document.getElementById("dongclick").click()
+                    )
+                    cancelCourse();
+                   
+                    }
+                
+                })
+                .catch(error => console.log('error', error));
+        }
+    }
+
+
+
+    const onChangeSection1 = (event) => {
+
+        SetPartid(event.target.value)
+        loadcauhoi(event.target.value)
+        loadbaithi(event.target.value)
+
+
+    };
+
+
+
+
+
+
+
+
+
+
+    const [danhsachbaithi, setdanhsachbaithi] = useState([])
+
+    const [selectedSectionbaithi, setSelectedSectionbaithi] = useState(-1);
+
+
+
+    // -----------------------------------------------------------
+    const loadbaithi = (value) => {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch(`http://localhost:8080/api/getexambyid/` + value, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                setdanhsachbaithi(result)
+            }
+            )
+            .catch(error => console.log('error', error));
     }
 
     return (
         <div>
+
             <div className="modal" id='add_question' tabIndex={-1} aria-labelledby="demo-default-modal" aria-hidden="true">
                 <div className="modal-dialog w-60-p">
                     <div className="modal-content">
@@ -237,7 +276,7 @@ export default function Question() {
                             >
                                 ×
                             </button>
-                            <h4 className="modal-title">Thêm câu hỏi</h4>
+                            <h4 className="modal-title">Thêm Bài Thi</h4>
                         </div>
 
 
@@ -284,70 +323,43 @@ export default function Question() {
                                             </div>
 
                                             <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">Câu hỏi *</label>
+                                                <label htmlFor className="col-sm-3 control-label">Tên Bài Thi *</label>
                                                 <div className="col-sm-9">
-                                                    <input type="text" name="questionText" className="form-control" onChange={onInputChange} />
+                                                    <input type="text" name="title" className="form-control" onChange={onInputChange} />
                                                 </div>
                                             </div>
+                                            <h4 className="modal-title">Danh Sách Câu Hỏi</h4>
+                                            <input id='diem' disabled></input>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th>Id</th>
+                                                        <th>Câu hỏi</th>
+                                                        <th>Loại câu hỏi</th>
+                                                        <th>Điểm</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {danhsachcauhoi.map((value, index) =>
+
+                                                        <tr key={index} >
+                                                            <td> <input type="checkbox" id={`check` + index} onClick={() => laydulieu(value, index)} /></td>
+                                                            <td>{index + 1}</td>
+                                                            <td>{value.questionText}</td>
+                                                            <td>
+                                                                {value.questionType.description}
+                                                            </td>
+                                                            <td>   {value.point} </td>
+                                                        </tr>
+                                                    )}
+
+                                                </tbody>
+                                            </table>
 
                                             <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 1</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung1(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text1" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 2</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung2(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text2" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 3</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung3(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text3" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 4</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung4(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text4" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">Điểm</label>
-                                                <div className="col-sm-9">
-                                                    <input type="text" name="courseName" name="point" className="form-control" onChange={onInputChange} />
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <div className="col-sm-offset-3 col-sm-6">
-                                                    <a  className="btn btn-default btn-success" onClick={taocauhoi}  name="form1" >Thêm</a>
+                                                <div className="col-sm-offset-0 col-sm-6">
+                                                    <a className="btn btn-default btn-success" onClick={thembaithi} name="form1" >Thêm</a>
                                                 </div>
                                             </div>
                                         </form>
@@ -360,7 +372,7 @@ export default function Question() {
 
                         <div className="modal-footer">
                             <button
-                            id='dongclick'
+                                id='dongclick'
                                 type="button"
                                 className="btn btn-danger"
                                 data-dismiss="modal"
@@ -373,9 +385,10 @@ export default function Question() {
             </div>
 
 
+
             <div className="col-md-9">
                 <form className="form-horizontal" >
-                    <h3>Ngân hàng câu hỏi</h3>
+                    <h3>Dang Sách Đề Thi</h3>
                     <a data-target="#add_question" data-toggle="modal">Thêm Mới</a>
                     <div className="form-group">
                         <label htmlFor className="col-sm-3 control-label" >Khóa học  <span>*</span></label>
@@ -390,6 +403,7 @@ export default function Question() {
                                         </option>
                                     );
                                 })}
+
                             </select>
                         </div>
                     </div>
@@ -416,41 +430,29 @@ export default function Question() {
                             <div className="box box-info pt_0">
                                 <div className="box-body">
 
-                                    <h3 className="sec_title">Danh sách câu hỏi</h3>
+
                                     <div className="table-responsive">
                                         <table id className="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Câu hỏi</th>
+                                                    <th>Tên Bài Thi</th>
                                                     <th>Danh Mục</th>
-                                                    <th>Loại câu hỏi</th>
+
                                                     <th>Điểm</th>
                                                     {/* <th className="w-100">hành động</th> */}
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {danhsachcauhoi.map((value, index) =>
+                                                {danhsachbaithi.map((value, index) =>
                                                     <tr key={index} >
                                                         <td>{index + 1}</td>
-                                                        <td>{value.questionText}</td>
+                                                        <td> {value.title}</td>
                                                         <td>
                                                             {value.section.name}
                                                         </td>
-                                                        <td>
-                                                            {value.questionType.description}
-                                                        </td>
-
-                                                        <td>  {value.point} </td>
-                                                        {/* <td>
-                                                            <a className="btn btn-primary btn-sm btn-block">
-                                                                xóa							</a>
-                                                            <a onClick={() => cliclupdate(value)} className="btn btn-primary btn-sm btn-block">
-                                                                Edit									</a>
-
-                                                        </td> */}
+                                                        <td>  100  </td>
                                                     </tr>
-
                                                 )}
 
                                             </tbody>
@@ -462,9 +464,6 @@ export default function Question() {
                     </div>
                 </form>
             </div>
-
-
-
         </div>
     )
 }
