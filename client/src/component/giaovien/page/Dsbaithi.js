@@ -196,7 +196,7 @@ export default function Dsbaithi() {
                 body: raw,
                 redirect: 'follow'
             };
-            fetch(`http://localhost:8080/api/exams/?partId=28&isShuffle=true&username=` + username, requestOptions)
+            fetch(`http://localhost:8080/api/exams/?partId=`+PartID+`&isShuffle=true&username=` + username, requestOptions)
                 .then(response => response.json())
                 .then(result => {console.log(result)
                    

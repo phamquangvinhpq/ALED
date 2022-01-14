@@ -27,11 +27,11 @@ export default function Course() {
 
   }
   useEffect(() => {
-    if(isNaN(id.id))
-    {
-      history.push("/404")
-      window.location.reload();
-    }
+    // if(isNaN(id.id))
+    // {
+    //   history.push("/404")
+    //   window.location.reload();
+    // }
     if (user_id) {
       loadFavorite();
     }

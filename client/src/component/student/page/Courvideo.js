@@ -354,10 +354,10 @@ export default function Courvideo() {
 
   const [ttkh, setttkh] = useState([]);
   const [tenkhchungchi, settenkhchungchi] = useState({
-    tenkh:''
+    tenkh: ''
   });
 
-  var fullname=localStorage.getItem("fullname");
+  var fullname = localStorage.getItem("fullname");
   const ttkh1 = () => {
     var myHeaders = new Headers();
 
@@ -372,16 +372,37 @@ export default function Courvideo() {
       .then(result => {
 
         setttkh(result)
-        result.map((value)=>
-        tenkhchungchi.tenkh=value.courseName
+        result.map((value) =>
+          tenkhchungchi.tenkh = value.courseName
         )
       })
       .catch(error => console.log('error', error));
   }
 
   const chungchi = () => {
-    window.location=`http://localhost:8080/Pdf/xuat?name=`+fullname+`&tenkh=`+tenkhchungchi.tenkh
+    window.location = `http://localhost:8080/Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
+
+  }
+
+
+  const checkhoanthanh = ()=>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
     
+    fetch("http://localhost:8080/giangvien/listhoanthanh/29", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if(result=="yes")
+        {
+          swal("Lỗi", "Bạn chưa hoàn thành hết các bài học", "warning")
+        }
+        else{
+          chungchi();
+        }
+      })
+      .catch(error => console.log('error', error));
   }
 
   return (
@@ -471,7 +492,7 @@ export default function Courvideo() {
                       <span>note</span>
                     </li>}
 
-                    <li className="tab-four" onClick={chungchi}>
+                    <li className="tab-four" onClick={checkhoanthanh}>
                       <span >Chứng chỉ</span>
                     </li>
                   </ul>
@@ -492,7 +513,7 @@ export default function Courvideo() {
                   <div class="accordion" id="myAccordion">
                     {listSection.map((value, index) => (
                       <div class="panel">
-                        <a
+                        <a 
                           onClick={() => tesst(value)}
                           className="btn btn-light"
                           data-toggle="collapse"
@@ -510,7 +531,7 @@ export default function Courvideo() {
 
                                     className="btn btn-light"
                                   >
-                                    <i className="fa fa-play-circle" />{" "}
+                                    <i className="fa fa-book" />{" "}
                                     {value.name}
                                   </a> : <a
 

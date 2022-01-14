@@ -393,6 +393,7 @@ export default function Leson() {
 // -------------------------------------------------------------------------------------------
 const [danhsachbaithi, setdanhsachbaithi] = useState([])
 
+
 const [selectedSectionbaithi, setSelectedSectionbaithi] = useState(-1);
 
 
@@ -617,9 +618,12 @@ const onChangeSectionbaithi = (event) => {
                                       <FaVideo onClick={() => xemThu(value.id, value.demo)} /> : <FaVideoSlash  onClick={() => xemThu(value.id, value.demo)}/>}</td>
                                     <td>{value.section_id}</td>
                                     <td>
-                                      <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
+                                      {value.type=="test" ?   <a className="btn btn-info "   href={`/exam/` + value.linkVideo} >
+                                        <i  /> Xem bài thi
+                                      </a> :  <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
                                         <i className="fa fa-video-camera" /> Xem
-                                      </a>
+                                      </a>}
+                                     
 
                                     </td>
                                     <td>

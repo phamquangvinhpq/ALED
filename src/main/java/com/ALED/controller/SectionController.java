@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ALED.DTO.DahoanthanhDTO;
 import com.ALED.DTO.SectionDTO;
 import com.ALED.service.SectionService;
 
@@ -72,6 +73,12 @@ public class SectionController {
 	@GetMapping("/Coursebyid/{id}/{course_id}")
 	public String Coursebyid(@PathVariable Integer id, @PathVariable Integer course_id) {
 		return sectionService.finbykhoahocuser(id, course_id);
+	}
+	
+	
+	@GetMapping("/listhoanthanh/{id}")
+	public String listhoanthanh(@PathVariable("id") Integer id){
+		return sectionService.listdahoanthanh(id);
 	}
 
 }
