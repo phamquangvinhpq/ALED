@@ -34,7 +34,7 @@ export default function Section() {
     isEnable
   ])
 
-  const loadsection = async () => {
+  const loadsection = async (pg = pageSt, pgsize = size) => {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -47,11 +47,11 @@ export default function Section() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}?page=${pg}&size=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setDSsection(result)
-
+        setTotalCountSt(result.length)
       })
       .catch(error => console.log('error', error));
   }
@@ -65,6 +65,21 @@ export default function Section() {
 
     });
     
+  }
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 5;
+
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loadsection(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loadsection(pg)
+    setPageSt(pg)
   }
 
   const addsection = () => {
@@ -242,6 +257,10 @@ export default function Section() {
                         )}
                       </tbody>
                     </table>
+                    <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
+                </nav>
                   </div>
                 </div>
               </div>

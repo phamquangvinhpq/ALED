@@ -17,7 +17,7 @@ export default function Register() {
     skill: '',
     education: '',
   });
-
+  const [isEnable, setIsEnable] = useState(0);
   const onInputChangedangki = (event) => {
     const { name, value } = event.target;
     setusers({
@@ -26,6 +26,12 @@ export default function Register() {
 
     });
   }
+
+  useEffect(() => {
+
+  }, [
+    isEnable
+  ])
 
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile2, setSelectedFile2] = useState();
@@ -120,8 +126,10 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
             swal("Thông báo", "Đã xảy ra lỗi, hãy kiểm tra lại thông tin", "warning")
           }
           else {
-            swal("Thông báo", "Kiểm tra email để lấy mật khẩu", "success")
+            console.log("đéo chuyển");
+            setIsEnable(isEnable +1)
             history.push("/home")
+            swal("Thông báo", "Kiểm tra email để lấy mật khẩu", "success")
           }
 
         })
@@ -160,12 +168,12 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
           </div>
         </div>
       </div>
-      <main className="signup-form">
+      <main className="signupins-form">
         <div className="cotainer">
           <div className="row justify-content-center">
             <div className="col-md-4">
               <div className="card">
-                <h3 className="card-header text-center">Đăng ký giảng viên</h3>
+                <h3 className="card-header">Đăng ký giảng viên</h3>
                 <div className="card-body">
 
                   <form acceptCharset="utf-8" >
@@ -215,8 +223,13 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
                         </div>
                       </div>
                     </div>
-                    <button disabled={!checked} className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer} >Đăng ký</button>
-                  </form>
+                    <div className="form-group">
+            
+              <button type="button" disabled={!checked} className="btn btn-success pull-left c-button" onClick={
+                signupintructer} name="form1">Đăng ký</button>
+            
+          </div>
+                   </form>
 
                 </div>
               </div>
