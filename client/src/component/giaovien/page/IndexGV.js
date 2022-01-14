@@ -22,7 +22,7 @@ import Section from "./Section";
 import UpdateKH from "./UpdateKH";
 
 export default function IndexGV() {
-  const [title, setTitle] = useState("Instructor Setting");
+  const [title, setTitle] = useState("Cài đặt của giảng viên");
   const changleTitle = (text) => {
     setTitle(text);
   };
