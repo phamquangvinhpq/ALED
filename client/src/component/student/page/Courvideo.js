@@ -432,11 +432,11 @@ export default function Courvideo() {
                     href="/student/EnrolledCourses"
                     className="template-button"
                   >
-                    Back To My Course
+                    Quay lại khóa học của tôi
                   </a>
                   <a href="/home" className="template-button-2">
                     {" "}
-                    Home
+                    Trang chủ
                   </a>
                 </div>
               </div>
@@ -461,7 +461,7 @@ export default function Courvideo() {
                 <div className="tab">
                   <ul>
                     <li className="tab-one active">
-                      <span>overview</span>
+                      <span>Tổng quát</span>
                     </li>
                     <li
                       onClick={() => loadQA()}
@@ -480,7 +480,7 @@ export default function Courvideo() {
                       class="btn btn-primary"
                       data-toggle="modal"
                     >
-                      <span>note</span>
+                      <span>ghi chú</span>
                     </li> : <li
                       className="tab-three"
                       type="button"
@@ -489,7 +489,7 @@ export default function Courvideo() {
                       data-target="#exampleModalCenter"
                       onClick={getListNote}
                     >
-                      <span>note</span>
+                      <span>ghi chú</span>
                     </li>}
 
                     <li className="tab-four" onClick={checkhoanthanh}>
@@ -580,7 +580,7 @@ export default function Courvideo() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                NOTE
+              GHI CHÚ
               </h5>
               <button
                 type="button"
@@ -602,11 +602,11 @@ export default function Courvideo() {
                   value={note.note}
                 />
                 <a onClick={addNoteClick} className="btn btn-primary">
-                  <i class="fa fa-plus"> Add</i>
+                  <i class="fa fa-plus"> Thêm</i>
                 </a>
                 &ensp;
                 <a onClick={editNote} className="btn btn-primary">
-                  <i class="fa fa-plus"> Update</i>
+                  <i class="fa fa-plus"> Sửa</i>
                 </a>
               </span>
               <ul>
@@ -630,7 +630,7 @@ export default function Courvideo() {
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>
@@ -650,7 +650,7 @@ export default function Courvideo() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                QA Question
+              Câu hỏi QA
               </h5>
               <button
                 type="button"

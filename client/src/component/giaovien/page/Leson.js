@@ -73,7 +73,7 @@ export default function Leson() {
 
   const [pageSt, setPageSt] = useState(0);
   const [totalCountSt, setTotalCountSt] = useState(0)
-  let size = 10;
+  let size = 5;
 
   const backPageSt = async () => {
     const pg = pageSt - 1

@@ -17,7 +17,7 @@ export default function Register() {
     skill: '',
     education: '',
   });
-
+  const [isEnable, setIsEnable] = useState(0);
   const onInputChangedangki = (event) => {
     const { name, value } = event.target;
     setusers({
@@ -27,23 +27,28 @@ export default function Register() {
     });
   }
 
+  useEffect(() => {
+
+  }, [
+    isEnable
+  ])
+
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile2, setSelectedFile2] = useState();
   const changeHandler = (event) => {
-    if (event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg") {
+    if(event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg"){
       swal("Thất bại", "Chỉ được chọn file jpeg/png", "warning")
-      document.getElementById("uploadFile").value = ""
-    } else {
-     
+      document.getElementById("uploadFile").value=""
+    } else{
       setSelectedFile(event.target.files[0]);
     }
   };
 
   const changeHandler2 = (event) => {
-    if (event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg" && event.target.files[0].type != "application/pdf") {
+    if(event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpeg" && event.target.files[0].type != "application/pdf" ){
       swal("Thất bại", "Chỉ được chọn file jpeg/png và pdf", "warning")
-      document.getElementById("uploadFile2").value = ""
-    } else {
+      document.getElementById("uploadFile2").value=""
+    } else{
       setSelectedFile2(event.target.files[0]);
     }
   };
@@ -59,7 +64,7 @@ export default function Register() {
       window.location.reload()
     }
     else {
-
+      
       // window.location.reload()
 
     }
@@ -78,7 +83,7 @@ export default function Register() {
     var regexKitu = /[\@\#\$\%\^\&\*\(\)\_\+\!]/
     if (!regexName.test(users.name) || regexKitu.test(users.name)) {
       swal("Failed", "Tên phải là chữ", "warning")
-    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) || !regexKhoangTrang.test(users.phone) || !regexKhoangTrang.test(users.skill) || !regexKhoangTrang.test(users.address) || !regexKhoangTrang.test(users.education)) {
+    } else if (!regexKhoangTrang.test(users.name) || !regexKhoangTrang.test(users.username) || !regexKhoangTrang.test(users.email) ||!regexKhoangTrang.test(users.phone) || !regexKhoangTrang.test(users.skill) || !regexKhoangTrang.test(users.address) || !regexKhoangTrang.test(users.education) ) {
       swal("Failed", "Không được để trống", "warning")
     }
     else if (regexKitu.test(users.username)) {
@@ -93,43 +98,44 @@ export default function Register() {
       var formdata = new FormData();
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      formdata.append("username", users.username);
-      formdata.append("address", users.address);
-      formdata.append("email", users.email);
-      formdata.append("name", users.name);
-      formdata.append("phone", users.phone);
-      formdata.append("isEnable", "0");
-      formdata.append("status", "1");
-      formdata.append("education", users.education);
-      formdata.append("roles", "3");
-      formdata.append("skill", users.skill);
-      formdata.append("file", selectedFile);
-      formdata.append("file2", selectedFile2);
-      formdata.append("description", "Thầy giáo");
+formdata.append("username", users.username);
+formdata.append("address", users.address);
+formdata.append("email", users.email);
+formdata.append("name", users.name);
+formdata.append("phone", users.phone);
+formdata.append("isEnable", "0");
+formdata.append("status", "1");
+formdata.append("education", users.education);
+formdata.append("roles", "3");
+formdata.append("skill", users.skill);
+formdata.append("file", selectedFile);
+formdata.append("file2", selectedFile2);
+formdata.append("description", "Thầy giáo");
 
-      var requestOptions = {
-        method: 'POST',
-        body: formdata,
-        redirect: 'follow'
-      };
+var requestOptions = {
+  method: 'POST',
+  body: formdata,
+  redirect: 'follow'
+};
 
-      fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
-        .then(response => response.json())
+fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
+  .then(response => response.json())
         .then(result => {
 
           if (result.loicode == -1) {
             swal("Thông báo", "Đã xảy ra lỗi, hãy kiểm tra lại thông tin", "warning")
           }
           else {
-            swal("Thông báo", "Kiểm tra email để lấy mật khẩu", "success")
+         
+            setIsEnable(isEnable +1)
             history.push("/home")
+            swal("Thông báo", "Kiểm tra email để lấy mật khẩu", "success")
           }
 
         })
-        .catch(error => console.log('error', error));
+  .catch(error => console.log('error', error));
     }
   }
-
 
 
 
@@ -201,7 +207,6 @@ export default function Register() {
             
 
 
-
       <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
           <div className="modal-dialog modal-vit w-60-p" role="document">
             <div className="modal-content">
@@ -227,7 +232,6 @@ export default function Register() {
           </div>
         </div>
     </div>
-
 
 
   )
