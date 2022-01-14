@@ -26,8 +26,8 @@ public interface SectionRepository extends JpaRepository<Section, Integer> {
 	@Query(value = "SELECT * FROM section WHERE course_id = ?1 ", nativeQuery = true)
 	List<Section> findByCourseId(Integer course_id);
 	
-	@Query(value = "SELECT lession.status FROM `section` JOIN course ON section.course_id=course.id JOIN lession ON section.id=lession.section_id  WHERE section.course_id=:id AND lession.status=0 LIMIT 1", nativeQuery = true)
-	String findbyleshoanthanh(@Param("id") Integer id);
+	@Query(value = "SELECT AVG(total_point) FROM `exam_user` WHERE user_id=:userid AND course_id=:courseid", nativeQuery = true)
+	String findbyleshoanthanh(@Param("userid") Integer userid,@Param("courseid") Integer courseid);
 	
 
 }

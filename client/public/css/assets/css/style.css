@@ -4109,7 +4109,7 @@ img {
         float: none;
         text-align: center; } }
     .header-section-backend .header-backend-buttons a {
-      margin-left: 20px; }
+      }
     .header-section-backend .header-backend-buttons .template-button-2 {
       color: #ffffff; }
     .header-section-backend .header-backend-buttons .template-button:hover {

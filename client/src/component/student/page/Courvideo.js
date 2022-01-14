@@ -13,12 +13,15 @@ export default function Courvideo() {
   const [sectionId, setSectionId] = useState(-1);
   const [checked, setChecked] = useState(false);
 
+  const [trangthaidaxem, settrangthaidaxem] = useState([]);
+
   const [lession, setLession] = useState({
     linkVideo: "https://www.youtube.com/watch?v=eybyQcXUdzM",
 
   });
 
   let id = useParams();
+  localStorage.setItem("courseid",id.id);
   let history = useHistory();
   const user_id = localStorage.getItem("userid");
 
@@ -203,25 +206,24 @@ export default function Courvideo() {
 
   useEffect(() => {
     if (user_id == null) {
-      alert("vui lòng đăng nhập")
+      swal("Lỗi", "Vui lòng đăng nhập để xem video", "warning")
       history.push('/home');
       window.location.reload()
     }
     damua();
     getLessionByTime();
     loaddanhmuc();
-    getLessionBySection();
     ttkh1();
   }, [status]);
 
 
-  const getLessionBySection = async () => {
+  const getLessionBySection = (value) => {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
     fetch(
-      `${DEFAULT_API}` + "lession/find-all-by-section?sectionId=" + sectionId,
+      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=`+value.id ,
       requestOptions
     )
       .then((response) => response.json())
@@ -260,12 +262,13 @@ export default function Courvideo() {
     setStatus(status + 1);
   };
 
-  const tesst = (value) => {
-    setSectionId(value.id);
-    getLessionBySection();
+  const tesst = (value) => {  
+    getLessionBySection(value);
+    testcheck(value);
     setStatus(status + 1);
   };
 
+  
 
   const loaddanhmuc = async () => {
     var myHeaders = new Headers();
@@ -347,7 +350,7 @@ export default function Courvideo() {
     };
 
     fetch("http://localhost:8080/lession/updateTime", requestOptions)
-      .then(response => response.text())
+      .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   }
@@ -385,18 +388,40 @@ export default function Courvideo() {
   }
 
 
+
+function testcheck(value) {
+   var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    fetch(
+      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=` + value.id,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+      settrangthaidaxem(result)
+    
+      setStatus(status+1);
+     
+      })
+      .catch((error) => console.log("error", error));
+}
+
+
+
   const checkhoanthanh = ()=>{
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
     
-    fetch("http://localhost:8080/giangvien/listhoanthanh/29", requestOptions)
+    fetch(`http://localhost:8080/giangvien/listhoanthanh/?user=`+user_id+`&courseid=`+id.id, requestOptions)
       .then(response => response.text())
       .then(result => {
-        if(result=="yes")
+        if(result < 80)
         {
-          swal("Lỗi", "Bạn chưa hoàn thành hết các bài học", "warning")
+          swal("Lỗi", "Vui lòng hoàn thành tất cả bài kiểm tra đạt tối thiểu 80đ", "warning")
         }
         else{
           chungchi();
@@ -524,9 +549,9 @@ export default function Courvideo() {
                         </a>
                         <div id={`collapsible` + index} class="collapse">
                           <div className="card-body">
-                            {video.map((value, index) => (
+                            {trangthaidaxem.map((value, index) => (
                               <div className="single-course-video">
-                                <form>
+                                
                                   {value.type == "test" ? <a href={`/exam/` + value.linkVideo}
 
                                     className="btn btn-light"
@@ -538,22 +563,13 @@ export default function Courvideo() {
                                     onClick={() => getData(value)}
                                     className="btn btn-light"
                                   >
-                                    {/* {daxem(value.status)} */}
-                                    {value.status === 1 ? <span><input
-                                      onClick={() => checkDaxem(value, 0)}
-                                      type="checkbox"
-                                      defaultChecked="checked"
-                                    />
-                                      &nbsp;&nbsp;</span> : <span><input
-                                        onClick={() => checkDaxem(value, 1)}
-                                        type="checkbox"
-                                      />
-                                      &nbsp;&nbsp;</span>}
+{/*                                    
+                                    {value.status === 1 ? <span><input onClick={() => checkDaxem(value, 0)} type="checkbox" defaultChecked="checked"/>&nbsp;&nbsp;</span>
+                                    : <span><input onClick={() => checkDaxem(value, 1)}  type="checkbox"/> &nbsp;&nbsp;</span>} */}
                                     <i className="fa fa-play-circle" />{" "}
                                     <a onClick={() => videoVuaXem(value)}> {value.name}</a>
+                                   
                                   </a>}
-
-                                </form>
                               </div>
                             ))}
                           </div>

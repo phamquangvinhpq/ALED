@@ -147,14 +147,11 @@ public class SectionService implements ISectionService {
 	}
 
 	@Override
-	public String listdahoanthanh(Integer courseid) {
+	public String listdahoanthanh(Integer usserid,Integer courseid) {
 
-		String a = sectionRepository.findbyleshoanthanh(courseid);
+		String a = sectionRepository.findbyleshoanthanh(usserid,courseid);
 
-		if (a != null) {
-			return "yes";
-		}
-		return "no";
-	}
+	return a;
 
 }
+	}

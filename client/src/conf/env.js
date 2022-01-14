@@ -6,6 +6,7 @@ export const MESSAGE = (result) => {
         swal("Thất Bại", result.message, "error")
         return false
     }
+    
     else{
         swal("Thành Công", "", "success")
         return true

@@ -74,8 +74,9 @@ public class TaoPDFController {
 		int day = localDate.getDayOfMonth();
 		String fullngay = day + "/" +"0"+ month + "/" + year;
 		String fullngay1 = "Hà Nội, ngày " + day + " tháng " + "0" + month + " năm " + year;
+		String namehoa=name.toUpperCase();
 		Map<String, String> data = new HashMap<String, String>();
-		data.put("name", name);
+		data.put("name", namehoa);
 		data.put("tenkh", tenkh);
 
 		data.put("ngayfull", fullngay);

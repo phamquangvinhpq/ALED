@@ -8,7 +8,7 @@ import com.ALED.entities.ExamUser;
 import com.ALED.entities.Users;
 
 public interface ExamUserService {
-    void create(Exam exam, Users userSet);
+    void create(Exam exam, Users userSet,Integer courseid);
     List<ExamUser> getExamListByUsername(String username);
     ExamUser findByExamAndUser(Integer examId, String username);
     void update(ExamUser examUser);

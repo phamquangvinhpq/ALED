@@ -27,7 +27,7 @@ public interface ISectionService {
 	
 	public String finbykhoahocuser(Integer user_id,Integer course_id);
 	
-	public String listdahoanthanh(Integer courseid);
+	public String listdahoanthanh(Integer usserid,Integer courseid);
 	
 
 }

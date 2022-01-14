@@ -8,10 +8,10 @@ export default function Dsbaithi() {
     var username = localStorage.getItem("username")
 
     const [baigiang, setbaigiang] = useState([])
-    const [selectedSection, setSelectedSection] = useState(-1);
+    const [selectedSection, setSelectedSection] = useState([]);
     const [section, setsection] = useState([])
     const [danhsachcauhoi, setdanhsachcauhoi] = useState([])
-
+    const [idkhoahoc, setidkhoahoc] = useState([])
     const [PartID, SetPartid] = useState([])
     const [trangthai, settrangthai] = useState(1)
     const [diem, setdiem] = useState(0)
@@ -65,6 +65,7 @@ export default function Dsbaithi() {
 
     const onChangeSection = (event) => {
         setSelectedSection(event.target.value);
+        setidkhoahoc(event.target.value)
         console.log(event.target.value);
         console.log(selectedSection);
         if (event.target.value != "nodata") {
@@ -196,7 +197,7 @@ export default function Dsbaithi() {
                 body: raw,
                 redirect: 'follow'
             };
-            fetch(`http://localhost:8080/api/exams/?partId=`+PartID+`&isShuffle=true&username=` + username, requestOptions)
+            fetch(`http://localhost:8080/api/exams/?partId=`+PartID+`&isShuffle=true&username=` + username+`&courseid=`+idkhoahoc, requestOptions)
                 .then(response => response.json())
                 .then(result => {console.log(result)
                    
@@ -229,13 +230,6 @@ export default function Dsbaithi() {
 
 
     };
-
-
-
-
-
-
-
 
 
 

@@ -76,9 +76,9 @@ public class SectionController {
 	}
 	
 	
-	@GetMapping("/listhoanthanh/{id}")
-	public String listhoanthanh(@PathVariable("id") Integer id){
-		return sectionService.listdahoanthanh(id);
+	@GetMapping("/listhoanthanh")
+	public String listhoanthanh(@RequestParam("user") Integer user,@RequestParam("courseid") Integer courseid){
+		return sectionService.listdahoanthanh(user,courseid);
 	}
 
 }
