@@ -142,7 +142,7 @@ fetch(`${DEFAULT_API}` + "createauthoer", requestOptions)
 
 
   return (
-    <div>
+    <div className="background-form">
 
       <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div className="modal-dialog modal-vit w-60-p" role="document">

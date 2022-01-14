@@ -113,10 +113,14 @@ ul {
   list-style: none; }
 
 
+.background-form {
+  background-image: url("https://secure.sportsaffinity.com/1011/css/blue7/background.jpg");
+  background-repeat: no-repeat;
+  background-size: 1450px 650px;
+}
 
 .signupins-form {
-  width: 800px;
-  height: 200px;
+  /* color: white; */
   margin: 30px auto;
   margin-left: 550px;
 }
