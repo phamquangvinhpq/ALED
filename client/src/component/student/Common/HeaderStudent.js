@@ -50,6 +50,7 @@ export default function HeaderStudent() {
     history.push(`/Course/${event.target.value}`)
     setSelectedDanhMuc(event.target.value);
     findByCategory(event.target.value)
+    window.location.reload()
   };
 
 
@@ -94,6 +95,7 @@ export default function HeaderStudent() {
 
         setIsEnable(isEnable + 1)
         history.push(`/Course`)
+        window.location.reload()
       }
       )
       .catch(error => console.log('error', error));
@@ -580,7 +582,7 @@ export default function HeaderStudent() {
                                 <input type="file" className="form-control" onChange={changeHandler} required />
                               </div>
                             </div>
-<<<<<<< HEAD
+
                             <div className="form-group">
                               <label >Email Address</label>
                               <input type="email" className="form-control" name="email" onChange={onInputChangedangki} placeholder="Email Address" required />
@@ -606,8 +608,7 @@ export default function HeaderStudent() {
                               <input type="file" id="fileUpload" className="form-control"  onChange={changeHandler} required />
                             </div>
                           </div>
-=======
->>>>>>> 85a26d1364e80367c51635e25bb19fc9e1c1fcca
+
                           </div>
                           <a type="submit" className="btn btn-primary btn-success" name="form_registration" onClick={signupintructer}>Sign Up</a>
                         </form>
