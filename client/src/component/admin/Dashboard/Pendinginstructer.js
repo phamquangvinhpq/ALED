@@ -61,11 +61,30 @@ export default function Pendinginstructer() {
     const onChaneInputSendMail = (event) => {
         setLayValue(event.target.value)
         if(event.target.value==1){
-            setSendEmail('thắng đzai1');
+
+
+            setSendEmail("Chào bạn ,\n"+"Chúng tôi đã nhận được thông báo ứng tuyển của bạn về việc đăng ký làm giảng viện tại website ALED \n"+
+			"Sau khi xem xét kỹ lưỡng chúng tôi cảm thấy bạn có khả năng phù hợp với Website của chúng tôi\n"+
+			"Vui lòng gửi CV đầy đủ về email của chúng tôi!!\n"+"CVbao gồm : 1 Bản CV đầy đủ về bản thân,CMT hoặc CCCD photo có công chứng,Bằng đại học hoặc các chứng chỉ liên quan photo có công chứng\n"+
+            "Vui lòng trả lời lại email để xác nhận thông tin!!\n"+
+			"Xin cảm ơn!!"
+            );
+
         }else if(event.target.value==2){
-            setSendEmail('thắng đzai2');
+            setSendEmail("Chào bạn,\n"+
+			"Chúng tôi đã nhận được đầy đủ CV của bạn,"+
+			"Đội ngũ tại ALED đã xem xét cụ thể. Chúng tôi cảm thấy khả năng của bạn phù hợp để làm giảng viên tại Website "+
+			" Bạn có thể sử dụng tài khoản đã đăng ký sau khi nhận được email này!!\n"+
+			"Tất cả các hoạt động của bạn sẽ phải tuẩn thủ các điều khoản ở mục đăng ký\n"+
+			
+			"Xin cảm ơn!!");
         }else{
-            setSendEmail('thắng đzai3');
+            setSendEmail("Chào bạn ,\n"+
+			"Chúng tôi đã nhận được thông báo ứng tuyển của bạn về việc đăng ký làm giảng viện tại website ALED."+
+			" Sau khi xem xét kỹ lưỡng chúng tôi cảm thấy bạn chưa phù hợp với Website của chúng tôi. \n"+
+			"Chúng tôi đánh giá cao khả năng của bạn.\n"+
+             "Hy vọng chúng có thể hợp tác với bạn trong tương lai !!\n"+
+			"ALED trân trọng !!!");
         }
         console.log(event.target.value);
     }

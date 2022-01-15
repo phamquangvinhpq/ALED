@@ -368,6 +368,7 @@ export default function Dsbaithi() {
                             <button
                                 id='dongclick'
                                 type="button"
+                                onClick={cancelCourse}
                                 className="btn btn-danger"
                                 data-dismiss="modal"
                             >

@@ -24,7 +24,15 @@ export default function Leson() {
     linkVideo: "",
     section_id: "",
   });
+  
+  const cancelCourse = () => {
+    setLession(lession.linkVideo="")
+    document.getElementById("create-course-form").reset();
+}
 
+var input=document.getElementById("myModalAllWatch0");
+   
+  console.log(input.onclick);
   
   let history = useHistory();
   let id = useParams();
@@ -614,8 +622,9 @@ const onChangeSectionbaithi = (event) => {
                                   <tr key={index}>
                                     <td>{index+1}</td>
                                     <td>{value.name}</td>
-                                    <td>{value.demo == 1 ? 
-                                      <FaVideo onClick={() => xemThu(value.id, value.demo)} /> : <FaVideoSlash  onClick={() => xemThu(value.id, value.demo)}/>}</td>
+                                    {value.type=="test" ?
+                                    <td></td>: <td>{value.demo == 1 ? 
+                                      <FaVideo onClick={() => xemThu(value.id, value.demo)} /> : <FaVideoSlash  onClick={() => xemThu(value.id, value.demo)}/>}</td>}
                                     <td>{value.section_id}</td>
                                     <td>
                                       {value.type=="test" ?   <a className="btn btn-info "   href={`/exam/` + value.linkVideo} >
@@ -626,7 +635,11 @@ const onChangeSectionbaithi = (event) => {
                                      
 
                                     </td>
+                                    {value.type=="test" ?
                                     <td>
+                                      
+                                      <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Xóa</a>
+                                    </td> : <td>
                                       <a
                                         href
                                         className="btn btn-primary btn-sm"
@@ -636,7 +649,7 @@ const onChangeSectionbaithi = (event) => {
                                         Sửa
                                       </a>
                                       <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Xóa</a>
-                                    </td>
+                                    </td> }
                                   </tr>
                                 ))}
                               </tbody>
@@ -798,7 +811,7 @@ const onChangeSectionbaithi = (event) => {
         id="myModalAllWatch0" className="modal"  aria-hidden="true"  >
         <div id="myForm" className="modal-dialog w-50-p" >
           <div className="modal-content">
-            <form>
+            <form id='create-course-form'>
               <div >
                 <ReactPlayer
                   controls
@@ -815,7 +828,7 @@ const onChangeSectionbaithi = (event) => {
                 type="button"
                 className="btn btn-default"
                 data-dismiss="modal"
-
+                      onClick={cancelCourse}
               >
                 Đóng
               </button>

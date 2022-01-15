@@ -95,7 +95,7 @@ export default function HeaderStudent() {
 
         setIsEnable(isEnable + 1)
         history.push(`/Course`)
-        window.location.reload()
+        
       }
       )
       .catch(error => console.log('error', error));
@@ -666,7 +666,7 @@ export default function HeaderStudent() {
             <div className="col-md-8 col-sm-9">
 
               <div className="search">
-                <form action="" className="form-inline" method="post" acceptCharset="utf-8">
+                <form  className="form-inline"  acceptCharset="utf-8">
 
 
                   <div className="form-group">

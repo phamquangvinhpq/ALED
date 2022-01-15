@@ -453,6 +453,9 @@ function testcheck(value) {
         .catch(error => console.log('error', error));
 }
 
+const thongbao =()=>{
+  swal("Lỗi", "Vui chọn bài giảng cần ghi chú", "warning")
+}
 
 
   return (
@@ -527,6 +530,7 @@ function testcheck(value) {
                       type="button"
                       class="btn btn-primary"
                       data-toggle="modal"
+                      onClick={thongbao}
                     >
                       <span>ghi chú</span>
                     </li> : <li

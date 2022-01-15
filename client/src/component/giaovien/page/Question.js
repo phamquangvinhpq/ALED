@@ -8,6 +8,8 @@ export default function Question() {
     let user_id = localStorage.getItem("userid")
     const [baigiang, setbaigiang] = useState([])
     const [selectedSection, setSelectedSection] = useState(-1);
+    const [selectedSection1, setSelectedSection1] = useState(-1);
+
     const [section, setsection] = useState([])
     const [danhsachcauhoi, setdanhsachcauhoi] = useState([])
 
@@ -84,6 +86,7 @@ export default function Question() {
     };
 
     const onChangeSection1 = (event) => {
+        setSelectedSection1(event.target.value);
 
         SetPartid(event.target.value)
         loadcauhoi(event.target.value)
@@ -113,7 +116,9 @@ export default function Question() {
     const taocauhoi = () => {
         var regexPoin = /[1-9][0-9]*/;
         if (!regexPoin.test(Cauhoi.point)) {
-            swal("Failed", "Point phải là số dương", "warning")
+            swal("Failed", "Điểm phải là số dương", "warning")
+        }else if (Cauhoi.isCorrected1==0 &&Cauhoi.isCorrected2==0&&Cauhoi.isCorrected3==0&&Cauhoi.isCorrected4==0 ){
+            swal("Failed", "Vui Lòng chọn đáp án dúng", "warning")
         }
         else {
             var myHeaders = new Headers();
@@ -270,7 +275,7 @@ export default function Question() {
                                             <div className="form-group">
                                                 <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
                                                 <div className="col-sm-9">
-                                                    <select className="form-control w-100-p" onChange={onChangeSection1}>
+                                                    <select className="form-control w-100-p" value={selectedSection1} onChange={onChangeSection1}>
                                                         <option >chọn chương</option>
                                                         {section.map((value, index) => {
                                                             return (
@@ -362,6 +367,7 @@ export default function Question() {
                             <button
                             id='dongclick'
                                 type="button"
+                                onClick={cancelCourse}
                                 className="btn btn-danger"
                                 data-dismiss="modal"
                             >

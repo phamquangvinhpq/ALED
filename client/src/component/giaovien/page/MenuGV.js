@@ -36,19 +36,19 @@ export default function MenuGV(props) {
         <div className="col-md-3">
           <div className="customer-sidebar">
             <ul>
-              <li onClick={() => change("Dashboard")} className="menuvalue">
-                <NavLink to="/giangvien/dashboard">Bảng điều khiển</NavLink>
+              <li onClick={() => change("Tổng quát")} className="menuvalue">
+                <NavLink to="/giangvien/dashboard">Tổng Quát</NavLink>
               </li>
-              <li onClick={() => change("Add Course")} className="menuvalue">
+              <li onClick={() => change("Thêm khóa học")} className="menuvalue">
                 <NavLink to="/giangvien/AddCourse">Thêm khóa học </NavLink>
               </li>
-              <li onClick={() => change("All Courses")} className="menuvalue">
+              <li onClick={() => change("Tất cả khóa học")} className="menuvalue">
                 <NavLink to="/giangvien/AllCourses">Tất cả khóa học</NavLink>
               </li>
-              <li onClick={() => change("Answered")} className="menuvalue">
+              <li onClick={() => change("Câu hỏi đã trả lời ")} className="menuvalue">
                 <NavLink to="/giangvien/Answered">Đã trả lời</NavLink>
               </li>
-              <li onClick={() => change("Not Answered")} className="menuvalue">
+              <li onClick={() => change("Câu hỏi chưa trả lời")} className="menuvalue">
                 <NavLink to="/giangvien/NoteAnswered">Chưa trả lời</NavLink> {listQA.length != 0 ? <span class="header__cart-notice">?</span>:""}
               </li>
               <li onClick={() => change("Câu Hỏi")} className="menuvalue">
