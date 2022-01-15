@@ -26,7 +26,7 @@ export default function Taobaithi() {
              redirect: 'follow'
            };
            
-           fetch("http://localhost:8080/api/getallbycourse?userid=112&courseid=29", requestOptions)
+           fetch(`${DEFAULT_API}` + "api/getallbycourse?userid=112&courseid=29", requestOptions)
              .then(response => response.json())
              .then(result => setdata(result))
              .catch(error => console.log('error', error));

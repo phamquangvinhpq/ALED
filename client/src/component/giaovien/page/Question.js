@@ -155,7 +155,7 @@ export default function Question() {
             };
 
 
-            fetch(`http://localhost:8080/api/questions?questionType=MC&&partId=` + PartID, requestOptions)
+            fetch(`${DEFAULT_API}` + `api/questions?questionType=MC&&partId=` + PartID, requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.loicode == "-1") {        
@@ -214,7 +214,7 @@ export default function Question() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/parts/` + value + `/questions`, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setdanhsachcauhoi(result.data)

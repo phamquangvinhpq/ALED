@@ -104,7 +104,7 @@ export default function Dsbaithi() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/parts/` + value + `/questions`, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setdanhsachcauhoi(result.data)
@@ -197,7 +197,7 @@ export default function Dsbaithi() {
                 body: raw,
                 redirect: 'follow'
             };
-            fetch(`http://localhost:8080/api/exams/?partId=`+PartID+`&isShuffle=true&username=` + username+`&courseid=`+idkhoahoc, requestOptions)
+            fetch(`${DEFAULT_API}` + `api/exams/?partId=`+PartID+`&isShuffle=true&username=` + username+`&courseid=`+idkhoahoc, requestOptions)
                 .then(response => response.json())
                 .then(result => {console.log(result)
                    
@@ -246,7 +246,7 @@ export default function Dsbaithi() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/getexambyid/` + value, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/getexambyid/` + value, requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result);

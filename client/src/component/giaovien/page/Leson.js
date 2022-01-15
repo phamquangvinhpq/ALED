@@ -413,7 +413,7 @@ const loadbaithi = () =>{
     redirect: 'follow'
   };
   
-  fetch(`http://localhost:8080/api/getexambyid/`+selectedSection, requestOptions)
+  fetch(`${DEFAULT_API}` + `api/getexambyid/`+selectedSection, requestOptions)
     .then(response => response.json())
     .then(result => {
       console.log(result);

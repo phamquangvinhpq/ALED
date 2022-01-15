@@ -315,7 +315,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/lession/updateStaus", requestOptions)
+    fetch(`${DEFAULT_API}` + "lession/updateStaus", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -330,7 +330,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/lession/getlessionbytime", requestOptions)
+    fetch(`${DEFAULT_API}` + "lession/getlessionbytime", requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.loicode == -1) {
@@ -357,7 +357,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/lession/updateTime", requestOptions)
+    fetch(`${DEFAULT_API}` + "lession/updateTime", requestOptions)
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -378,7 +378,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch(`http://localhost:8080/course/` + id.id, requestOptions)
+    fetch(`${DEFAULT_API}` + `course/` + id.id, requestOptions)
       .then(response => response.json())
       .then(result => {
 
@@ -391,7 +391,7 @@ export default function Courvideo() {
   }
 
   const chungchi = () => {
-    window.location = `http://localhost:8080/Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
+    window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
 
   }
 
@@ -424,7 +424,7 @@ function testcheck(value) {
       redirect: 'follow'
     };
     
-    fetch(`http://localhost:8080/giangvien/listhoanthanh/?user=`+user_id+`&courseid=`+id.id, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/listhoanthanh/?user=`+user_id+`&courseid=`+id.id, requestOptions)
       .then(response => response.text())
       .then(result => {
         if(result < 80)
@@ -447,7 +447,7 @@ function testcheck(value) {
         redirect: 'follow'
       };
       
-      fetch(`http://localhost:8080/api/getallbycourse?userid=`+user_id+`&courseid=`+id.id, requestOptions)
+      fetch(`${DEFAULT_API}` + `api/getallbycourse?userid=`+user_id+`&courseid=`+id.id, requestOptions)
         .then(response => response.json())
         .then(result => setdata(result))
         .catch(error => console.log('error', error));
