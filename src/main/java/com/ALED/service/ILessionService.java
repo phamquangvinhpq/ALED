@@ -30,4 +30,6 @@ public interface ILessionService {
 
 	public boolean updateXemThu(Integer id, Integer demo);
 
+	LessionDTO Admindelete(Integer id);
+
 }

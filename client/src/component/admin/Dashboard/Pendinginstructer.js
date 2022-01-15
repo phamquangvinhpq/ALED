@@ -13,6 +13,7 @@ export default function Pendinginstructer() {
     const [pageSt, setPageSt] = useState(0);
     const [page, setPage] = useState(0);
     const [totalCountSt, setTotalCountSt] = useState(0)
+    const [layValue,setLayValue] = useState('')
     let size = 10;
     useEffect(() => {
         loadGiangVien()
@@ -20,9 +21,7 @@ export default function Pendinginstructer() {
         isEnable
     ])
 
-    const [sendEmail, setSendEmail] = useState({
-        mailText: ''
-    })
+    const [sendEmail, setSendEmail] = useState('')
 
     const [searchemai, setSearchEmail] = useState('')
 
@@ -40,7 +39,7 @@ export default function Pendinginstructer() {
 
         var raw = JSON.stringify({
             "email": ua,
-            "mail": sendEmail.mailText
+            "mail": sendEmail
         });
 
         var requestOptions = {
@@ -59,12 +58,18 @@ export default function Pendinginstructer() {
 
     }
 
-    const onInputSendMail = (event) => {
-        setSendEmail({
-            mailText: event.target.value
-        });
+    const onChaneInputSendMail = (event) => {
+        setLayValue(event.target.value)
+        if(event.target.value==1){
+            setSendEmail('thắng đzai1');
+        }else if(event.target.value==2){
+            setSendEmail('thắng đzai2');
+        }else{
+            setSendEmail('thắng đzai3');
+        }
         console.log(event.target.value);
     }
+
 
     const backPageSt = async () => {
         const pg = pageSt - 1
@@ -280,8 +285,11 @@ export default function Pendinginstructer() {
 
                         <div className="modal-body">
                             <input type="text" rows="9" cols="70" className="form-control" name="email" value={"Gửi tới: " + ua} disabled />
-                            <textarea rows="9" cols="70" name='mail' placeholder="Lời nhắn" onChange={onInputSendMail} />
-
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" value={1} onChange={onChaneInputSendMail} id="flexRadioDefault1" /> Yêu cầu gửi CV
+                            <input className="form-check-input1" type="radio" name="flexRadioDefault" value={2} onChange={onChaneInputSendMail}  id="flexRadioDefault1" /> Xác nhận giảng viên
+                            <input className="form-check-input1" type="radio" name="flexRadioDefault" value={3} onChange={onChaneInputSendMail}  id="flexRadioDefault1" /> Từ chối
+                            <br/>
+                            <textarea rows="9" cols="70" name='mail' placeholder="Lời nhắn" disabled value={sendEmail} />
                         </div>
                         <div className="modal-footer">
                             <button type="submit" className="btn btn-danger" onClick={sendMailForIns} data-dismiss="modal">Gửi</button>

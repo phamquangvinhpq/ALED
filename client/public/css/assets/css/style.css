@@ -119,6 +119,10 @@ ul {
   background-size: 1450px 650px;
 }
 
+.modal-body .form-check-input1{
+  margin-left: 20px;
+}
+
 .signupins-form {
   /* color: white; */
   margin: 30px auto;

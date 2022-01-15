@@ -278,7 +278,7 @@ export default function Leson() {
           redirect: "follow",
         };
 
-        fetch(`${DEFAULT_API}` + "lession/" + value.id, requestOptions)
+        fetch(`${DEFAULT_API}` + "lession/admin/" + value.id, requestOptions)
           .then((response) => response.text())
           .then((result) => {
             console.log(result);
