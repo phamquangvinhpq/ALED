@@ -67,6 +67,20 @@ public class LessionService implements ILessionService {
 		} else
 			return null;
 	}
+	
+	@Override
+	public LessionDTO Admindelete(Integer id) {
+		Optional<Lession> optionalLession = lessionRepository.findById(id);
+		if (optionalLession.isPresent()) {
+			LessionDTO lessionDTO = new LessionDTO();
+			Lession lession = optionalLession.get();
+			BeanUtils.copyProperties(lession, lessionDTO);
+			lessionRepository.deleteById(id);
+			lessionDTO.setSection_id(lession.getSection().getId());
+			return lessionDTO;
+		} else
+			return null;
+	}
 
 	@Override
 	public LessionDTO detail(Integer id) {
