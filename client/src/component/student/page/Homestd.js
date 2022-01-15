@@ -327,7 +327,7 @@ export default function Homestd() {
                                                     <a onClick={() =>{
                                                          history.push("detail/"+value.id)
                                                     }} className="template-button">Chi tiết khóa học</a>
-                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">Mua ngay</a> }
+                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >mua ngay</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">Mua ngay</a> }
                                                     
 
                                                 </div>

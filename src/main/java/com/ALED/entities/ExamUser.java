@@ -75,4 +75,5 @@ public class ExamUser implements Serializable {
 	@JoinColumn(name = "user_id")
 	private Users user;
 
+	private Integer course_id;
 }

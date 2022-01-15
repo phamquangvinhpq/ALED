@@ -29,13 +29,14 @@ public class ExamUserServiceImpl implements ExamUserService {
 	}
 
 	@Override
-	public void create(Exam exam, Users userSet) {
+	public void create(Exam exam, Users userSet,Integer courseid) {
 		List<ExamUser> examUserList = new ArrayList<>();
 		System.out.println("size: " + examUserList.size());
 		
 			ExamUser examUser = new ExamUser();
 			examUser.setUser(userSet);
 			examUser.setExam(exam);
+			examUser.setCourse_id(courseid);
 			examUser.setTotalPoint(-1.0);
 			examUserList.add(examUser);
 

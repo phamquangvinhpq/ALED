@@ -151,7 +151,8 @@ var chek=isNaN(id.id);
   };
 
   function chuyentrang(value) {
-    history.push(`/wath/video/${value}`)
+    history.push(`/wath/video/${value.id}`)
+    
 
   }
 
@@ -323,7 +324,7 @@ var chek=isNaN(id.id);
                   >
                     Thanh toán
                   </a>: <a
-                 
+                 href=''
                     className="btn btn-info btn-sm"
                     onClick={()=> chuyentrang(value)}
                   >

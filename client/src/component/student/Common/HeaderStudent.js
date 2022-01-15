@@ -679,8 +679,6 @@ export default function HeaderStudent() {
 
                   <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
                         <option value="" >-- Tất cả khóa học --</option>
-
- 
                         {DScategory.map((value, index) => {
                           return (
                             <option value={value.id} key={index}>
@@ -692,7 +690,7 @@ export default function HeaderStudent() {
 
                   </div>
 
-                  <a className="btn btn-success" type="button" name="form_search_header" onClick={findByName}><i className="fa fa-search" /></a>
+                  <a className="btn btn-success"  name="form_search_header" onClick={findByName}><i className="fa fa-search" /></a>
 
                 </form>
               </div>

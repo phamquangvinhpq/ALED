@@ -15,6 +15,7 @@ import Taocauhoi from './component/student/page/Taocauhoi';
 import Taobaithi from './component/student/page/Taobaithi';
 import Register from './component/giaovien/page/Register';
 import Exam from './component/student/page/Exam';
+import Dangky from './component/student/page/Dangky';
 
 export default function Routers() {
     let role = localStorage.getItem("role");
@@ -62,7 +63,7 @@ export default function Routers() {
                     </Route>
 
                     <Route path='/taobaithi' >
-                        <Taobaithi />
+                        <Dangky />
                     </Route>
                     
                     <Route path='/register' >

@@ -247,7 +247,6 @@ export default function UpdateKH() {
                     <div className="form-group">
                       <label htmlFor className="col-sm-3 control-label">          </label>
                       <div className="col-sm-9">
-
                       <img src={BaiGiang.image} className="w-100" />
                       </div>
                     </div>

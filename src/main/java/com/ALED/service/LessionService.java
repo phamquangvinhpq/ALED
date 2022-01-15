@@ -48,6 +48,7 @@ public class LessionService implements ILessionService {
 	}
 
 	
+	
 
 	@Override
 	public LessionDTO delete(Integer id) {
@@ -193,7 +194,7 @@ public class LessionService implements ILessionService {
 			lessionRepository.save(Lessions);
 		}
 		
-		return lession;
+		return Lessions;
 	}
 
 

@@ -2,6 +2,7 @@ package com.ALED.service;
 
 import java.util.List;
 
+import com.ALED.DTO.DahoanthanhDTO;
 import com.ALED.DTO.SectionDTO;
 
 
@@ -26,6 +27,7 @@ public interface ISectionService {
 	
 	public String finbykhoahocuser(Integer user_id,Integer course_id);
 	
+	public String listdahoanthanh(Integer usserid,Integer courseid);
 	
 
 }

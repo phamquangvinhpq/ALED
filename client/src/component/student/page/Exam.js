@@ -19,7 +19,7 @@ export default function Exam() {
     var username = localStorage.getItem("username")
 
     const [dethi, setdethi] = useState({});
-
+var courseid=localStorage.getItem("courseid");
     const loadcauhoi = () => {
         var myHeaders = new Headers();
 
@@ -29,7 +29,7 @@ export default function Exam() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/exams/` + id.id + `/questions?username=` + username, requestOptions)
+        fetch(`http://localhost:8080/api/exams/` + id.id + `/questions?username=` + username+`&courseid=`+courseid, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.message == "loi") {
@@ -165,7 +165,7 @@ const lamlai =()=>{
         redirect: 'follow'
       };
       
-      fetch("http://localhost:8080/api/lamlai/?id=157&username=giangvien", requestOptions)
+      fetch(`http://localhost:8080/api/lamlai/?id=`+id.id+`&username=`+username, requestOptions)
         .then(response => response.text())
         .then(result => {settrangthai(trangthai+1)})
         .catch(error => console.log('error', error));
