@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ALED.DTO.Exam.TongdiemDTO;
 import com.ALED.entities.Exam;
 import com.ALED.entities.ExamUser;
 import com.ALED.entities.Users;
@@ -29,18 +30,17 @@ public class ExamUserServiceImpl implements ExamUserService {
 	}
 
 	@Override
-	public void create(Exam exam, Users userSet,Integer courseid) {
+	public void create(Exam exam, Users userSet, Integer courseid) {
 		List<ExamUser> examUserList = new ArrayList<>();
 		System.out.println("size: " + examUserList.size());
-		
-			ExamUser examUser = new ExamUser();
-			examUser.setUser(userSet);
-			examUser.setExam(exam);
-			examUser.setCourse_id(courseid);
-			examUser.setTotalPoint(-1.0);
-			examUserList.add(examUser);
 
-		
+		ExamUser examUser = new ExamUser();
+		examUser.setUser(userSet);
+		examUser.setExam(exam);
+		examUser.setCourse_id(courseid);
+		examUser.setTotalPoint(0.0);
+		examUserList.add(examUser);
+
 		examUserRepository.saveAll(examUserList);
 
 	}
@@ -58,7 +58,7 @@ public class ExamUserServiceImpl implements ExamUserService {
 	@Override
 	public void update(ExamUser examUser) {
 		examUserRepository.save(examUser);
-		
+
 	}
 
 	@Override
@@ -82,5 +82,19 @@ public class ExamUserServiceImpl implements ExamUserService {
 	@Override
 	public List<ExamUser> findExamUsersByIsFinishedIsTrueAndExam_Id(Integer examId) {
 		return examUserRepository.findExamUsersByIsFinishedIsTrueAndExam_Id(examId);
+	}
+
+	@Override
+	public List<TongdiemDTO> findAllBycourse(Integer userid,Integer courseid) {
+		List<TongdiemDTO> tongdiemDTOs=new ArrayList<TongdiemDTO>();
+	List<ExamUser> list=	examUserRepository.findAllByUser_UsernameAndCourse_id(userid,courseid);
+		for (ExamUser examUser : list) {
+			TongdiemDTO tongdiemDTO=new TongdiemDTO();
+			tongdiemDTO.setDiem(examUser.getTotalPoint());
+			tongdiemDTO.setName(examUser.getExam().getTitle());
+			tongdiemDTOs.add(tongdiemDTO);
+			
+		}
+		return tongdiemDTOs;
 	}
 }

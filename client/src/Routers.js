@@ -63,7 +63,7 @@ export default function Routers() {
                     </Route>
 
                     <Route path='/taobaithi' >
-                        <Dangky />
+                        <Taobaithi />
                     </Route>
                     
                     <Route path='/register' >

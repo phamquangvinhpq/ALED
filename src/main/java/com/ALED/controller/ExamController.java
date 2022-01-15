@@ -41,6 +41,7 @@ import com.ALED.DTO.Exam.ExamQuestionPoint;
 import com.ALED.DTO.Exam.ExamResult;
 import com.ALED.DTO.Exam.PageResult;
 import com.ALED.DTO.Exam.QuestionExamReport;
+import com.ALED.DTO.Exam.TongdiemDTO;
 import com.ALED.Exception.ResourceNotFoundException;
 import com.ALED.entities.Choice;
 import com.ALED.entities.Exam;
@@ -614,6 +615,12 @@ public class ExamController {
 			logger.error("LLLLL");
 
 		}
+	}
+	
+	
+	@GetMapping("/getallbycourse")
+	public List<TongdiemDTO> getallbycourse(@RequestParam("userid") Integer userid,@RequestParam("courseid") Integer Courseid){
+		return examUserService.findAllBycourse(userid,Courseid);
 	}
 
 }

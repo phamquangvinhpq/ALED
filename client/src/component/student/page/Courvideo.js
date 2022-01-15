@@ -5,6 +5,15 @@ import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import { DEFAULT_API } from "../../../conf/env";
 import { useHistory } from "react-router-dom";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from "recharts";
 
 export default function Courvideo() {
   const [listSection, setListSection] = useState([]);
@@ -259,7 +268,6 @@ export default function Courvideo() {
     lession.linkVideo = value.linkVideo;
     setNote((values) => ({ ...values, lession_id: value.id }));
 
-    setStatus(status + 1);
   };
 
   const tesst = (value) => {  
@@ -430,6 +438,23 @@ function testcheck(value) {
       .catch(error => console.log('error', error));
   }
 
+  const [data, setdata] = useState([]);
+
+
+  const bieudo = ()=>{
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch(`http://localhost:8080/api/getallbycourse?userid=`+user_id+`&courseid=`+id.id, requestOptions)
+        .then(response => response.json())
+        .then(result => setdata(result))
+        .catch(error => console.log('error', error));
+}
+
+
+
   return (
     <div>
       <header className="header-section-backend">
@@ -485,9 +510,7 @@ function testcheck(value) {
               <div className="course-video-tab padding-top-60">
                 <div className="tab">
                   <ul>
-                    <li className="tab-one active">
-                      <span>Tổng quát</span>
-                    </li>
+                    
                     <li
                       onClick={() => loadQA()}
                       className="tab-two"
@@ -517,10 +540,15 @@ function testcheck(value) {
                       <span>ghi chú</span>
                     </li>}
 
+                    <li className="tab-four"  data-dismiss="modal" data-toggle="modal" data-target="#rules" onClick={bieudo}>
+                      <span  >Điểm</span>
+                    </li>
+
                     <li className="tab-four" onClick={checkhoanthanh}>
                       <span >Chứng chỉ</span>
                     </li>
                   </ul>
+                 
                   <div className="hr-line" />
                 </div>
 
@@ -748,6 +776,41 @@ function testcheck(value) {
           </div>
         </div>
       </div>
+
+
+
+
+
+
+      <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+          <div className="modal-dialog modal-vit w-60-p" role="document">
+            <div className="modal-content">
+              <div className="modal-body">
+                <h2>Thông Tin Điểm Kiểm Tra</h2>
+                <br />
+                <h4>Hoàn thành 80% mỗi bài kiểm tra để in được chứng nhận</h4>
+                <BarChart
+            width={700}
+            height={300}
+            data={data}
+          
+            barSize={25}
+        >
+            <XAxis dataKey="name"  padding={{ left: 30, right: 20 }} />
+            <YAxis type="number" domain={[0, 100]} />
+            <Tooltip />
+            <Legend />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Bar dataKey="diem" fill="#8884d8" background={{ fill: "#eee" }} />
+        </BarChart>
+                
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal">Đóng</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
 
