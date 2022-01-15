@@ -213,7 +213,7 @@ export default function PendingCourse() {
                                              <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >Xem chi tiết nội dung khóa học</NavLink>
                                              <a onClick={() => Accept(value)}
                                                 className="btn btn-success btn-block btn-xs"
-                                                >Chập nhận</a>
+                                                >Chấp nhận</a>
                                              <a onClick={() => deletecourse(value)}
                                                 className="btn btn-danger btn-block btn-xs"
                                                 >Không chấp nhận</a>
