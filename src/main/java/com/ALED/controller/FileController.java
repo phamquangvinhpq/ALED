@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ALED.entities.Author;
 import com.ALED.entities.Course;
+import com.ALED.entities.Report;
 import com.ALED.entities.Users;
 import com.ALED.repositories.AuthorRepository;
 import com.ALED.repositories.AuthorSkillRepository;
 import com.ALED.repositories.CourseRepository;
+import com.ALED.repositories.ReportRepository;
 import com.ALED.repositories.UserRepository;
 import com.ALED.service.FileService;
 import com.ALED.service.VideoStreamService;
@@ -42,6 +44,9 @@ public class FileController {
 	
 	@Autowired
 	private VideoStreamService videoStreamService;
+	
+	@Autowired
+	private ReportRepository reportRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -67,6 +72,20 @@ public class FileController {
 	@GetMapping(value = "/file/imageuser")
 	public ResponseEntity<?> downloadImage1(@RequestParam String videoName) throws IOException {
 		Users type = userRepository.findByImage(videoName);
+		File imageFile = fileService.path(videoName);
+		InputStreamResource imageStream = new InputStreamResource(new FileInputStream(imageFile));
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", videoName));
+		headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+		headers.add("Pragma", "no-cache");
+		headers.add("Expires", "0");
+	
+		return ResponseEntity.ok().contentType(MediaType.valueOf(type.getType())).body(imageStream);
+	}
+	
+	@GetMapping(value = "/file/report")
+	public ResponseEntity<?> downloadImageReport(@RequestParam String videoName) throws IOException {
+		Report type = reportRepository.findByImage(videoName);
 		File imageFile = fileService.path(videoName);
 		InputStreamResource imageStream = new InputStreamResource(new FileInputStream(imageFile));
 		HttpHeaders headers = new HttpHeaders();

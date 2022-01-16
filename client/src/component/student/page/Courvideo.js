@@ -87,6 +87,8 @@ export default function Courvideo() {
     }));
   }
 
+
+
   const tinNhan = (value) => {
     if (value.people === 1) {
       return (
@@ -438,6 +440,49 @@ function testcheck(value) {
       .catch(error => console.log('error', error));
   }
 
+
+  const [formReport, setFormReport] = useState();
+  const [selectedFile, setSelectedFile] = useState()
+
+  const changeHandler = (event) => {
+      setSelectedFile(event.target.files[0]);
+  };
+
+  const onInputChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormReport((values) => ({ ...values, [name]: value }));
+  }
+
+  const report = (event) => {
+    event.preventDefault();
+
+    var formdata = new FormData();
+    formdata.append("content", formReport.content);
+    formdata.append("users_id", user_id);
+    formdata.append("course_id", id.id);
+    formdata.append("status", 0);
+    formdata.append("file", selectedFile );
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/report", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      if(result.loicode == -1){
+        swal("Thất Bại", result.message, "error")
+      }
+      else{
+        swal("Thành Công", "Chúng tôi sẽ xem xét báo cáo của bạn và liên hệ lại với bạn qua email", "success")
+      }
+    })
+    .catch(error => console.log('error', error));
+  }
+
   const [data, setdata] = useState([]);
 
 
@@ -456,7 +501,6 @@ function testcheck(value) {
 const thongbao =()=>{
   swal("Lỗi", "Vui chọn bài giảng cần ghi chú", "warning")
 }
-
 
   return (
     <div>
@@ -550,6 +594,11 @@ const thongbao =()=>{
 
                     <li className="tab-four" onClick={checkhoanthanh}>
                       <span >Chứng chỉ</span>
+                    </li>
+                    <li>
+                      <span data-toggle="modal" data-target="#myModalRating1">
+                        Báo cáo
+                      </span>
                     </li>
                   </ul>
                  
@@ -781,12 +830,37 @@ const thongbao =()=>{
         </div>
       </div>
 
+      <div id="myModalRating1" className="modal fade" role="dialog">
+            <div className="modal-dialog w-40-p">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal">×</button>
+                  <h4 className="modal-title">Báo Cáo</h4>
+                </div>
 
 
+                <div className="modal-body">
+                  <form acceptCharset="utf-8" />
+                  <div className="form-group">
+                    <label htmlFor>Chọn tệp</label>
+                    <input type="file" name="lesson_mp4" id="uploadFile" accept="image/*, video/mp4*" onChange={changeHandler} /><span className="c-red">
+                          (Chỉ được chọn tệp ảnh hoặc video dạng MP4)</span>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor>Nội dung báo cáo vi phạm chi tiết</label>
+                    <textarea name="content" className="form-control h-100" cols={20} rows={10} required defaultValue={""} onChange={onInputChange} />
+                  </div>
+                  <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={report}>Gửi Báo Cáo</button>
+                </div>
+               
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Đóng</b></button>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
 
-
-
-      <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                  <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
           <div className="modal-dialog modal-vit w-60-p" role="document">
             <div className="modal-content">
               <div className="modal-body">
@@ -815,9 +889,13 @@ const thongbao =()=>{
             </div>
           </div>
         </div>
+                          
+
+                  </div>
 
 
+                          
 
-    </div>
+      
   );
 }
