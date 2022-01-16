@@ -8,6 +8,7 @@ import CourseCategory from './CourseCategory';
 import Dashboard from './Dashboard';
 import Instructors from './Instructors';
 import EditCategory from './EditCategory'
+import Report from './Report'
 import PaymentHistory from './PaymentHistory';
 import PendingCourse from './PendingCourses';
 import Students from './Students';
@@ -86,6 +87,10 @@ export default function IndexAdmin() {
 
                             <Route path="/admin/Pendinginstructer">
                                 <Pendinginstructer />
+                            </Route>
+
+                            <Route path="/admin/Report">
+                                <Report />
                             </Route>
                         </Switch>
                     </div>

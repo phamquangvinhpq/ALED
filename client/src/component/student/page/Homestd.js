@@ -31,6 +31,7 @@ export default function Homestd() {
         }
         loadListCategories();
         loadListCourse();
+        loadListCourseCreateDate()
         setInterval(()=>{
             const today = new Date();
             const newTimeString = fomatDate(today);
@@ -111,6 +112,25 @@ export default function Homestd() {
             .catch(error => console.log('error', error));
     };
 
+    const [listCourseCreateDate, setListCourseCreateDate ] = useState([])
+
+    const loadListCourseCreateDate =  () => {
+        var myHeaders = new Headers();
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch(`${DEFAULT_API}course/createdate?sort=DESC`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                setListCourseCreateDate(result)
+            })
+            .catch(error => console.log('error', error));
+    }
+
     const loadListCourse = async () => {
         var myHeaders = new Headers();
 
@@ -123,7 +143,6 @@ export default function Homestd() {
         fetch(`${DEFAULT_API}course/buythemost`, requestOptions)
             .then(response => response.json())
             .then(result => {
-                console.log(result);
                 setListCourse(result)
             })
             .catch(error => console.log('error', error));
@@ -332,6 +351,110 @@ export default function Homestd() {
 
                                                 </div>
                                             </div>
+                                        </div>
+
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="course-home-2 padding-top-115 padding-bottom-90">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="section-title text-center margin-bottom-40">
+                                        <h2 className="home-2">Các khóa học đăng gần nhất <span>của chúng tôi</span></h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="row grid">
+                                {listCourseCreateDate.map((value, index) =>
+                                    <div className="col-lg-4 col-md-6 grid-item marketing">
+                                        <div className="single-course-item">
+                                            <div className="course-image">
+                                                <img src={value.image} style={{ height: 250, maxWidth: 350 }} alt="image" />
+                                            </div>
+                                            <div className="course-content margin-top-30">
+                                                <div className="course-title">
+                                                    <h4 className="home-2">{value.courseName}</h4>
+                                                </div>
+                                                <div className="course-instructor-rating margin-top-20">
+                                                    <div className="course-instructor">
+                                                        <img src={value.imageAuthor} alt="instructor" />
+                                                        <h6>{value.authorName}</h6>
+                                                    </div>
+                                                    <div className="course-rating">
+                                                        <span>
+                                                            {value.rate ?
+                                                                <ReactStars
+                                                                    edit={false}
+                                                                    value={value.rate}
+                                                                    size={22}
+                                                                    isHalf={true}
+                                                                    emptyIcon={<i className="far fa-star"></i>}
+                                                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                                                    fullIcon={<i className="fa fa-star"></i>}
+                                                                    activeColor="#ffd700" /> :
+                                                                "Chưa có đánh giá"}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div className="course-info margin-top-20">
+                                                    <div className="course-video">
+                                                        <i className="fa fa-play-circle-o" />
+                                                        <span>Số chương : {value.countChapter}</span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div className="course-price-cart margin-top-20">
+                                                    <div className="course-price">
+                                                        <span className="span-big">{value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</span>
+                                                        {/* <span className="span-cross">$ 500.00</span> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div className="hover-state">
+
+                                                {/* {ListFavorite.includes(value.id) ? <span onClick={() => deleteFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart" /></span> : <span onClick={() => addFavoriteClick(value.id)} className="heart-icon"><i className="fa fa-heart-o" /></span>} */}
+                                                {checkTym(value.id)}
+
+                                                <span className="title-tag">Giảng viên : {value.authorName}</span>
+
+                                                <div className="course-title margin-top-10">
+                                                    <h4 className="home-2"><a >{value.courseName}</a></h4>
+                                                </div>
+                                                <div className="course-price-info margin-top-20">
+                                                    <span className="best-seller">danh mục : {value.categoryName}</span>   
+                                                    <span className="course-price">{value.price.toLocaleString('vi-VN', {
+                                                        style: 'currency',
+                                                        currency: 'VND'
+                                                    })}</span>
+                                                </div>
+                                                <div className="course-info margin-top-30">
+                                                </div>
+                                                <p className="margin-top-20">{value.create_date}</p>
+                                                <p className="margin-top-20">{value.description}</p>
+                                                
+                                                <div className="preview-button margin-top-20">
+
+                                                    <a onClick={() =>{
+                                                         history.push("detail/"+value.id)
+                                                    }} className="template-button">Chi tiết khóa học</a>
+                                                    {damua==true ?  <a   disabled="disabled" className="template-button margin-left-10" >buy now</a>: <a onClick={() => getcheckout(value)} className="template-button margin-left-10">Mua ngay</a> }
+                                                    
+
+                                                </div>
+                                            </div>
+
+                                            
                                         </div>
 
                                     </div>

@@ -26,10 +26,7 @@ export default function EditCategory() {
   let id = useParams()
 
   let history = useHistory();
-  const chuyentrang = function (event) {
-    updateCate();
-    history.push("/admin/CourseCategory")
-  }
+
 
   const loadcate = () => {
 
@@ -92,12 +89,14 @@ export default function EditCategory() {
             });
 
           } else {
+            history.push("/admin/CourseCategory")
+            swal("Thông báo", "Sửa thành công", "success") 
             setIsEnable(isEnable + 1)
-            swal("Thông báo", "Sửa thành công", "success")
           }
         })
         .catch(error => console.log('error', error));
     }
+    return true;
   }
 
   const onInputChange = (event) => {
@@ -133,10 +132,10 @@ export default function EditCategory() {
                   <div className="form-group">
                     <label htmlFor className="col-sm-3 control-label" />
                     <div className="col-sm-6">
-                      <button onClick={
+                      <a onClick={
                         (event) => {
-                          chuyentrang(event)
-                        }} type="submit" className="btn btn-success pull-left" name="form1">Cập nhập</button>
+                          updateCate(event)
+                        }} className="btn btn-success pull-left" name="form1">Cập nhập</a>
                     </div>
                   </div>
                 </div>

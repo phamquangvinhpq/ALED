@@ -37,9 +37,16 @@ export default function MenuAdmin() {
                   <i className="fa fa-circle-o" /> <span className="fa-laptop1">Các khóa học chờ xử lý</span>
                 </NavLink>
               </li>
+              <li > 
+                <NavLink to="/admin/Report">
+                  <i className="fa fa-circle-o" /> <span className="fa-laptop1">Các đơn báo cáo</span>
+                </NavLink>
+              </li>
 
             </ul>
           </li>
+
+          
           
           <li className="treeview ">
             <a href="#">

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.ALED.DTO.CourseDTO;
@@ -104,7 +105,6 @@ public class CourseService implements ICourseService {
 		}
 		return author;
 	}
-	
 
 	@Override
 	public CourseDTO delete(Integer id) {
@@ -332,7 +332,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getPriceAsc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>(); 
+		List<Course> lstCourse = new ArrayList<Course>();
 		Page<Course> page2 = courseRepository.getPriceAsc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -353,7 +353,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getPriceDesc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>(); 
+		List<Course> lstCourse = new ArrayList<Course>();
 		Page<Course> page2 = courseRepository.getPriceDesc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -422,7 +422,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getRateAsc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>(); 
+		List<Course> lstCourse = new ArrayList<Course>();
 		Page<Course> page2 = courseRepository.getRateAsc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -443,7 +443,7 @@ public class CourseService implements ICourseService {
 	public List<CourseDTO> getRateDesc(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>(); 
+		List<Course> lstCourse = new ArrayList<Course>();
 		Page<Course> page2 = courseRepository.getRateDesc(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -507,12 +507,12 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
-	
+
 	@Override
 	public List<CourseDTO> getPrice1(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>(); 
+		List<Course> lstCourse = new ArrayList<Course>();
 		Page<Course> page2 = courseRepository.getPrice1(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -528,11 +528,12 @@ public class CourseService implements ICourseService {
 		}
 		return lstCourseDTO;
 	}
+
 	@Override
 	public List<CourseDTO> getPrice2(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>(); 
+		List<Course> lstCourse = new ArrayList<Course>();
 		Page<Course> page2 = courseRepository.getPrice2(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -548,12 +549,12 @@ public class CourseService implements ICourseService {
 		}
 		return lstCourseDTO;
 	}
-	
+
 	@Override
 	public List<CourseDTO> getPrice3(int page, int size) {
 		List<CourseDTO> lstCourseDTO = new ArrayList<CourseDTO>();
 		Pageable paging = PageRequest.of(page, size);
-		List<Course> lstCourse = new ArrayList<Course>(); 
+		List<Course> lstCourse = new ArrayList<Course>();
 		Page<Course> page2 = courseRepository.getPrice3(paging);
 		lstCourse = page2.getContent();
 		for (Course course : lstCourse) {
@@ -569,7 +570,7 @@ public class CourseService implements ICourseService {
 		}
 		return lstCourseDTO;
 	}
-	
+
 	@Override
 	public List<CourseDTO> getPrice1ByCate(Integer categoryId, int page, int size) {
 		List<Course> listEnity = new ArrayList<Course>();
@@ -593,7 +594,7 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
-	
+
 	@Override
 	public List<CourseDTO> getPrice2ByCate(Integer categoryId, int page, int size) {
 		List<Course> listEnity = new ArrayList<Course>();
@@ -617,7 +618,7 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
-	
+
 	@Override
 	public List<CourseDTO> getPrice3ByCate(Integer categoryId, int page, int size) {
 		List<Course> listEnity = new ArrayList<Course>();
@@ -641,6 +642,24 @@ public class CourseService implements ICourseService {
 		}
 		return listDto;
 	}
-	
-	
+
+	@Override
+	public List<CourseDTO> findAllByCreateDate(String sort, int page, int size) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("create_date").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("create_date").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+		List<CourseDTO> dtos = new ArrayList<CourseDTO>();
+		List<Course> entitys = courseRepository.findAllByCreateDate(pageable);
+		for (Course entity : entitys) {
+			CourseDTO dto = convertToDTO(entity);
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+
 }

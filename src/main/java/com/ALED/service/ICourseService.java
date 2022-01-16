@@ -67,6 +67,6 @@ public interface ICourseService {
 
 	List<CourseDTO> getPrice1(int page, int size);
 
-	
+	List<CourseDTO> findAllByCreateDate(String sort, int page, int size);
 
 }
