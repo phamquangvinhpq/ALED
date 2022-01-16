@@ -50,6 +50,7 @@ public class LessionService implements ILessionService {
 	}
 
 	
+	
 
 	@Override
 	public LessionDTO delete(Integer id) {
@@ -61,6 +62,20 @@ public class LessionService implements ILessionService {
 			if (soLuongNguoiMua > 0) {
 				throw new RuntimeException("Khóa học đã có người mua, nên bạn không được xóa");
 			}
+			BeanUtils.copyProperties(lession, lessionDTO);
+			lessionRepository.deleteById(id);
+			lessionDTO.setSection_id(lession.getSection().getId());
+			return lessionDTO;
+		} else
+			return null;
+	}
+	
+	@Override
+	public LessionDTO Admindelete(Integer id) {
+		Optional<Lession> optionalLession = lessionRepository.findById(id);
+		if (optionalLession.isPresent()) {
+			LessionDTO lessionDTO = new LessionDTO();
+			Lession lession = optionalLession.get();
 			BeanUtils.copyProperties(lession, lessionDTO);
 			lessionRepository.deleteById(id);
 			lessionDTO.setSection_id(lession.getSection().getId());
@@ -195,7 +210,7 @@ public class LessionService implements ILessionService {
 			lessionRepository.save(Lessions);
 		}
 		
-		return lession;
+		return Lessions;
 	}
 
 

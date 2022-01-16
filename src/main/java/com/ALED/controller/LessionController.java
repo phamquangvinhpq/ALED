@@ -64,6 +64,11 @@ public class LessionController {
 	public LessionDTO delete(@PathVariable Integer id) {
 		return lessionService.delete(id);
 	}
+	
+	@DeleteMapping("/admin/{id}")
+	public LessionDTO Admindelete(@PathVariable Integer id) {
+		return lessionService.Admindelete(id);
+	}
 
 	
 	@PutMapping
@@ -104,6 +109,7 @@ public class LessionController {
 	public Lession updateTime(@RequestBody Lession les) {
 		return lessionService.updateTime(les);
 	}
+	
 	
 	@GetMapping("/getlessionbytime")
 	public Lession getlessionbytime() {

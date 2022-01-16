@@ -13,6 +13,7 @@ export default function Pendinginstructer() {
     const [pageSt, setPageSt] = useState(0);
     const [page, setPage] = useState(0);
     const [totalCountSt, setTotalCountSt] = useState(0)
+    const [layValue,setLayValue] = useState('')
     let size = 10;
     useEffect(() => {
         loadGiangVien()
@@ -20,9 +21,7 @@ export default function Pendinginstructer() {
         isEnable
     ])
 
-    const [sendEmail, setSendEmail] = useState({
-        mailText: ''
-    })
+    const [sendEmail, setSendEmail] = useState('')
 
     const [searchemai, setSearchEmail] = useState('')
 
@@ -40,7 +39,7 @@ export default function Pendinginstructer() {
 
         var raw = JSON.stringify({
             "email": ua,
-            "mail": sendEmail.mailText
+            "mail": sendEmail
         });
 
         var requestOptions = {
@@ -59,12 +58,37 @@ export default function Pendinginstructer() {
 
     }
 
-    const onInputSendMail = (event) => {
-        setSendEmail({
-            mailText: event.target.value
-        });
+    const onChaneInputSendMail = (event) => {
+        setLayValue(event.target.value)
+        if(event.target.value==1){
+
+
+            setSendEmail("Chào bạn ,\n"+"Chúng tôi đã nhận được thông báo ứng tuyển của bạn về việc đăng ký làm giảng viện tại website ALED \n"+
+			"Sau khi xem xét kỹ lưỡng chúng tôi cảm thấy bạn có khả năng phù hợp với Website của chúng tôi\n"+
+			"Vui lòng gửi CV đầy đủ về email của chúng tôi!!\n"+"CVbao gồm : 1 Bản CV đầy đủ về bản thân,CMT hoặc CCCD photo có công chứng,Bằng đại học hoặc các chứng chỉ liên quan photo có công chứng\n"+
+            "Vui lòng trả lời lại email để xác nhận thông tin!!\n"+
+			"Xin cảm ơn!!"
+            );
+
+        }else if(event.target.value==2){
+            setSendEmail("Chào bạn,\n"+
+			"Chúng tôi đã nhận được đầy đủ CV của bạn,"+
+			"Đội ngũ tại ALED đã xem xét cụ thể. Chúng tôi cảm thấy khả năng của bạn phù hợp để làm giảng viên tại Website "+
+			" Bạn có thể sử dụng tài khoản đã đăng ký sau khi nhận được email này!!\n"+
+			"Tất cả các hoạt động của bạn sẽ phải tuẩn thủ các điều khoản ở mục đăng ký\n"+
+			
+			"Xin cảm ơn!!");
+        }else{
+            setSendEmail("Chào bạn ,\n"+
+			"Chúng tôi đã nhận được thông báo ứng tuyển của bạn về việc đăng ký làm giảng viện tại website ALED."+
+			" Sau khi xem xét kỹ lưỡng chúng tôi cảm thấy bạn chưa phù hợp với Website của chúng tôi. \n"+
+			"Chúng tôi đánh giá cao khả năng của bạn.\n"+
+             "Hy vọng chúng có thể hợp tác với bạn trong tương lai !!\n"+
+			"ALED trân trọng !!!");
+        }
         console.log(event.target.value);
     }
+
 
     const backPageSt = async () => {
         const pg = pageSt - 1
@@ -280,8 +304,11 @@ export default function Pendinginstructer() {
 
                         <div className="modal-body">
                             <input type="text" rows="9" cols="70" className="form-control" name="email" value={"Gửi tới: " + ua} disabled />
-                            <textarea rows="9" cols="70" name='mail' placeholder="Lời nhắn" onChange={onInputSendMail} />
-
+                            <input className="form-check-input" type="radio" name="flexRadioDefault" value={1} onChange={onChaneInputSendMail} id="flexRadioDefault1" /> Yêu cầu gửi CV
+                            <input className="form-check-input1" type="radio" name="flexRadioDefault" value={2} onChange={onChaneInputSendMail}  id="flexRadioDefault1" /> Xác nhận giảng viên
+                            <input className="form-check-input1" type="radio" name="flexRadioDefault" value={3} onChange={onChaneInputSendMail}  id="flexRadioDefault1" /> Từ chối
+                            <br/>
+                            <textarea rows="9" cols="70" name='mail' placeholder="Lời nhắn" disabled value={sendEmail} />
                         </div>
                         <div className="modal-footer">
                             <button type="submit" className="btn btn-danger" onClick={sendMailForIns} data-dismiss="modal">Gửi</button>

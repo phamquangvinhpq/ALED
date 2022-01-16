@@ -19,7 +19,7 @@ export default function AllKH() {
   const [formdata, setformdata] = useState([])
   const [pageSt, setPageSt] = useState(0);
   const [totalCountSt, setTotalCountSt] = useState(0)
-  let size = 10;
+  let size = 5;
 
 
 

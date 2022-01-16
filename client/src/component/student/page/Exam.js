@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import swal from 'sweetalert';
 import { useHistory } from "react-router-dom";
+import { DEFAULT_API } from "../../../conf/env";
 
 
 export default function Exam() {
@@ -19,7 +20,7 @@ export default function Exam() {
     var username = localStorage.getItem("username")
 
     const [dethi, setdethi] = useState({});
-
+var courseid=localStorage.getItem("courseid");
     const loadcauhoi = () => {
         var myHeaders = new Headers();
 
@@ -29,7 +30,7 @@ export default function Exam() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/exams/` + id.id + `/questions?username=` + username, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/exams/` + id.id + `/questions?username=` + username+`&courseid=`+courseid, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.message == "loi") {
@@ -97,7 +98,7 @@ export default function Exam() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/exams/` + id.id, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/exams/` + id.id, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setxacnhanlambai(result)
@@ -118,7 +119,7 @@ export default function Exam() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/exams/` + id.id + `/users/` + username + `/result`, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/exams/` + id.id + `/users/` + username + `/result`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.totalPoint > 80) {
@@ -165,7 +166,7 @@ const lamlai =()=>{
         redirect: 'follow'
       };
       
-      fetch("http://localhost:8080/api/lamlai/?id=157&username=giangvien", requestOptions)
+      fetch(`${DEFAULT_API}` + `api/lamlai/?id=`+id.id+`&username=`+username, requestOptions)
         .then(response => response.text())
         .then(result => {settrangthai(trangthai+1)})
         .catch(error => console.log('error', error));
@@ -188,7 +189,7 @@ const lamlai =()=>{
         };
 
 
-        fetch(`http://localhost:8080/api/exams/` + id.id + `/questions-by-user?isFinish=true&username=` + username, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/exams/` + id.id + `/questions-by-user?isFinish=true&username=` + username, requestOptions)
             .then(response => response.text())
             .then(result => {
                 console.log(result)

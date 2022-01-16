@@ -214,10 +214,10 @@ public class UserServiceSystem implements IUserServiceSystem {
 			SimpleMailMessage message = new SimpleMailMessage();
 
 			message.setTo(user.getEmail());
-			message.setSubject("Reset Password ALED");
-			message.setText("We hope you had a pleasant experience on our website.\r\n"
-					+ "Don't worry if you don't remember your password. This is a common problem for everyone:\r\n"
-					+ "Your new password will be:"+newPassword);
+			message.setSubject("Đặt lại mật khẩu ALED");
+			message.setText("Chúng tôi hy vọng bạn đã có một trải nghiệm thú vị trên trang web của chúng tôi.\r\n"
+					+ "Đừng lo lắng nếu bạn không nhớ mật khẩu của mình. Đây là một vấn đề chung cho tất cả mọi người:\r\n"
+					+ "Mật khẩu mới của bạn sẽ là:"+newPassword);
 
 			// Send Message!
 			emailSender.send(message);
@@ -279,12 +279,12 @@ public class UserServiceSystem implements IUserServiceSystem {
 		SimpleMailMessage message = new SimpleMailMessage();
 
 		message.setTo(UserAuthorDTO.getEmail());
-		message.setSubject("REGISTER AN ACCOUNT ALED");
-		message.setText("Thank you for trusting and choosing ALED as a place to learn knowledge.\r\n"
-				+ "We will bring you the useful courses you are looking for and maybe you will like other courses too\r\n"
-				+ "Here is your password:"+newPassword +"\r\n"
-				+ "Hope you won't mind changing your password\r\n"
-				+ "Wish you have a great experience with our website");
+		message.setSubject("ĐĂNG KÝ TÀI KHOẢN ĐƯỢC ALED");
+		message.setText("Cảm ơn bạn đã tin tưởng và lựa chọn ALED là nơi học hỏi kiến ​​thức.\r\n"
+				+ "Chúng tôi sẽ mang đến cho bạn những khóa học bổ ích mà bạn đang tìm kiếm và có thể bạn cũng sẽ thích những khóa học khác\r\n"
+				+ "Đây là mật khẩu của bạn:"+newPassword +"\r\n"
+				+ "Hy vọng bạn sẽ không phiền khi thay đổi mật khẩu của mình\r\n"
+				+ "Chúc bạn có một trải nghiệm tuyệt vời với trang web của chúng tôi");
 
 		// Send Message!
 		emailSender.send(message);

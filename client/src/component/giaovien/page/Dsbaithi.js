@@ -8,10 +8,10 @@ export default function Dsbaithi() {
     var username = localStorage.getItem("username")
 
     const [baigiang, setbaigiang] = useState([])
-    const [selectedSection, setSelectedSection] = useState(-1);
+    const [selectedSection, setSelectedSection] = useState([]);
     const [section, setsection] = useState([])
     const [danhsachcauhoi, setdanhsachcauhoi] = useState([])
-
+    const [idkhoahoc, setidkhoahoc] = useState([])
     const [PartID, SetPartid] = useState([])
     const [trangthai, settrangthai] = useState(1)
     const [diem, setdiem] = useState(0)
@@ -65,6 +65,7 @@ export default function Dsbaithi() {
 
     const onChangeSection = (event) => {
         setSelectedSection(event.target.value);
+        setidkhoahoc(event.target.value)
         console.log(event.target.value);
         console.log(selectedSection);
         if (event.target.value != "nodata") {
@@ -103,7 +104,7 @@ export default function Dsbaithi() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/parts/` + value + `/questions`, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setdanhsachcauhoi(result.data)
@@ -196,7 +197,7 @@ export default function Dsbaithi() {
                 body: raw,
                 redirect: 'follow'
             };
-            fetch(`http://localhost:8080/api/exams/?partId=28&isShuffle=true&username=` + username, requestOptions)
+            fetch(`${DEFAULT_API}` + `api/exams/?partId=`+PartID+`&isShuffle=true&username=` + username+`&courseid=`+idkhoahoc, requestOptions)
                 .then(response => response.json())
                 .then(result => {console.log(result)
                    
@@ -232,13 +233,6 @@ export default function Dsbaithi() {
 
 
 
-
-
-
-
-
-
-
     const [danhsachbaithi, setdanhsachbaithi] = useState([])
 
     const [selectedSectionbaithi, setSelectedSectionbaithi] = useState(-1);
@@ -252,7 +246,7 @@ export default function Dsbaithi() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/getexambyid/` + value, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/getexambyid/` + value, requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result);
@@ -374,6 +368,7 @@ export default function Dsbaithi() {
                             <button
                                 id='dongclick'
                                 type="button"
+                                onClick={cancelCourse}
                                 className="btn btn-danger"
                                 data-dismiss="modal"
                             >

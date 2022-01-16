@@ -27,11 +27,11 @@ export default function Course() {
 
   }
   useEffect(() => {
-    if(isNaN(id.id))
-    {
-      history.push("/404")
-      window.location.reload();
-    }
+    // if(isNaN(id.id))
+    // {
+    //   history.push("/404")
+    //   window.location.reload();
+    // }
     if (user_id) {
       loadFavorite();
     }
@@ -57,7 +57,7 @@ export default function Course() {
       fetch(`${DEFAULT_API}` + `course/get-price-asc-by-category?categoryId=${param.id}&page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
         .then(result => {
-          
+          setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("result 321123")
           setIsEnable(isEnable + 1)
@@ -71,6 +71,7 @@ export default function Course() {
           dispatch({ type: "GET_DATA", payload: result })
           console.log("123321")
           setIsEnable(isEnable + 1)
+          setTotalCount(result.length)
         }
         )
         .catch(error => console.log('error', error));
@@ -81,6 +82,7 @@ export default function Course() {
           dispatch({ type: "GET_DATA", payload: result })
           console.log("result 123")
           setIsEnable(isEnable + 1)
+          setTotalCount(result.length)
         }
         )
         .catch(error => console.log('error', error));
@@ -91,6 +93,7 @@ export default function Course() {
           dispatch({ type: "GET_DATA", payload: result })
           console.log(" 321")
           setIsEnable(isEnable + 1)
+          setTotalCount(result.length)
         }
         )
         .catch(error => console.log('error', error));
@@ -98,6 +101,7 @@ export default function Course() {
       fetch(`${DEFAULT_API}` + `course/get-price-3-by-category?categoryId=${param.id}&page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
         .then(result => {
+          setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("result 123")
           setIsEnable(isEnable + 1)
@@ -107,7 +111,7 @@ export default function Course() {
     }else if (param.id && value == 6) {
       fetch(`${DEFAULT_API}` + `course/get-rate-asc-by-category?categoryId=${param.id}&page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log(" 321")
           setIsEnable(isEnable + 1)
@@ -117,7 +121,7 @@ export default function Course() {
     }else if (param.id && value == 7) {
       fetch(`${DEFAULT_API}` + `course/get-rate-desc-by-category?categoryId=${param.id}&page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log(" 321")
           setIsEnable(isEnable + 1)
@@ -128,7 +132,7 @@ export default function Course() {
     else if(value == 1) {
       fetch(`${DEFAULT_API}` + `course/price-asc?page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi")
           setIsEnable(isEnable + 1)
@@ -139,7 +143,7 @@ export default function Course() {
     }else if(value == 2) {
       fetch(`${DEFAULT_API}` + `course/price-desc?page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi123")
           setIsEnable(isEnable + 1)
@@ -150,7 +154,7 @@ export default function Course() {
     }else if(value == 3) {
       fetch(`${DEFAULT_API}` + `course/price-1?page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi123")
           setIsEnable(isEnable + 1)
@@ -161,7 +165,7 @@ export default function Course() {
     }else if(value == 4) {
       fetch(`${DEFAULT_API}` + `course/price-2?page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi123")
           setIsEnable(isEnable + 1)
@@ -172,7 +176,7 @@ export default function Course() {
     }else if(value == 5) {
       fetch(`${DEFAULT_API}` + `course/price-3?page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi123")
           setIsEnable(isEnable + 1)
@@ -183,7 +187,7 @@ export default function Course() {
     }else if(value == 6) {
       fetch(`${DEFAULT_API}` + `course/rate-asc?page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi123")
           setIsEnable(isEnable + 1)
@@ -194,7 +198,7 @@ export default function Course() {
     }else if(value == 7) {
       fetch(`${DEFAULT_API}` + `course/rate-desc?page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log("hiihi123")
           setIsEnable(isEnable + 1)
@@ -206,7 +210,7 @@ export default function Course() {
     else if (param.id) {
       fetch(`${DEFAULT_API}` + `course/get-all-by-category?categoryId=${param.id}&page=${pg}&size=${pagesize}`, requestOptions)
         .then(response => response.json())
-        .then(result => {
+        .then(result => {setTotalCount(result.length)
           dispatch({ type: "GET_DATA", payload: result })
           console.log(result)
           setIsEnable(isEnable + 1)

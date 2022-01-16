@@ -22,6 +22,21 @@ export default function Leson() {
     section_id: selectedSection,
   });
 
+  const [pageSt, setPageSt] = useState(0);
+  const [totalCountSt, setTotalCountSt] = useState(0)
+  let size = 5;
+
+  const backPageSt = async () => {
+    const pg = pageSt - 1
+    loaddanhmuc(pg)
+    setPageSt(pg)
+  }
+
+  const nextPageSt = async () => {
+    const pg = pageSt + 1
+    loaddanhmuc(pg)
+    setPageSt(pg)
+  }
 
   let id = useParams();
   const [giatriID, setgiatriID] = useState(-1)
@@ -194,7 +209,7 @@ export default function Leson() {
 
 
 
-  const loaddanhmuc = async () => {
+  const loaddanhmuc = async (pg = pageSt, pgsize = size) => {
     var myHeaders = new Headers();
 
     var requestOptions = {
@@ -202,9 +217,10 @@ export default function Leson() {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}`, requestOptions)
+    fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/${id.id}?page=${pg}&size=${pgsize}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        setTotalCountSt(result.length)
         console.log(result);
         setListSection(result);
       })
@@ -262,7 +278,7 @@ export default function Leson() {
           redirect: "follow",
         };
 
-        fetch(`${DEFAULT_API}` + "lession/" + value.id, requestOptions)
+        fetch(`${DEFAULT_API}` + "lession/admin/" + value.id, requestOptions)
           .then((response) => response.text())
           .then((result) => {
             console.log(result);
@@ -335,10 +351,10 @@ export default function Leson() {
                               <thead>
                                 <tr>
                                 <th className="w-10-p">ID</th>
-                                  <th className="w-40-p">Name</th>
-                                  <th className="w-30-p">Lesson Section ID</th>
-                                  <th className="w-15-p">Lesson Content</th>
-                                  <th >Action </th>
+                                  <th className="w-40-p">Tên bài học</th>
+                                  <th className="w-30-p">ID chương bài học</th>
+                                  <th className="w-15-p">Nội dung bài học</th>
+                                  <th >Hoạt động </th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -349,13 +365,13 @@ export default function Leson() {
                                     <td>{value.section_id}</td>
                                     <td>
                                       <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
-                                        <i className="fa fa-video-camera" /> Watch Video
+                                        <i className="fa fa-video-camera" /> Xem Video
                                       </a>
 
                                     </td>
                                     <td>
                                      
-                                      <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Delete</a>
+                                      <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Xóa</a>
                                     </td>
                                   </tr>
                                 ))}
@@ -367,7 +383,10 @@ export default function Leson() {
                       </div>
                     </div>
                   )}
-
+              <nav aria-label="Page navigation example">
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Trước</button>
+                  <button type="button" class="btn btn-outline-primary" disabled={pageSt >= Math.ceil(totalCountSt / size)} onClick={nextPageSt} >Sau</button>
+                </nav>
                 </div>
 
               </div>
@@ -408,7 +427,7 @@ export default function Leson() {
                 data-dismiss="modal"
 
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import { NavLink } from "react-router-dom";
-
+import swal from "sweetalert";
 
 export default function ApprovedCourses() {
     const [isEnable, setIsEnable] = useState(0);
@@ -53,6 +53,33 @@ export default function ApprovedCourses() {
             .catch(error => console.log('error', error));
         
     }
+
+    const Accept = async (value) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+    
+        var raw = JSON.stringify({
+          "id": value.id,
+          "status": 0
+        });
+    
+        var requestOptions = {
+          method: 'PUT',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+    
+        fetch(`${DEFAULT_API}` + "course/accept", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            console.log(result)
+            console.log("hiha:" +value.id);
+            swal("Thông báo", "Đã đưa về chờ duyệt", "success")
+            setIsEnable(isEnable + 1)
+          })
+          .catch(error => console.log('error', error));
+      }
 
     return (
         <div className="content-wrapper">
@@ -115,7 +142,10 @@ export default function ApprovedCourses() {
 
 
                                                     <NavLink to={`/admin/Section/${value.id}`} className="btn btn-info btn-block btn-xs" >Xem chi tiết nội dung khóa học</NavLink>
-
+                                                    
+                                                    <a onClick={() => Accept(value)}
+                                                className="btn btn-danger btn-block btn-xs"
+                                                >Chuyển về chờ duyệt</a>
                                                 </td>
                                             </tr>
                                         )}

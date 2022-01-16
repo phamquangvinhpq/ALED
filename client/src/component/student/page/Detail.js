@@ -50,6 +50,11 @@ var chek=isNaN(id.id);
 
   }, [status])
 
+  const cancelCourse = () => {
+    setVideoDemo(videoDemo="")
+    document.getElementById("create-course-form").reset();
+}
+
   const xemThu = (value) => {
     var requestOptions = {
       method: 'GET',
@@ -151,7 +156,8 @@ var chek=isNaN(id.id);
   };
 
   function chuyentrang(value) {
-    history.push(`/wath/video/${value}`)
+    history.push(`/wath/video/${value.id}`)
+    
 
   }
 
@@ -323,7 +329,7 @@ var chek=isNaN(id.id);
                   >
                     Thanh toán
                   </a>: <a
-                 
+                 href=''
                     className="btn btn-info btn-sm"
                     onClick={()=> chuyentrang(value)}
                   >
@@ -443,7 +449,7 @@ var chek=isNaN(id.id);
                                       id="myModalAllWatch0" className="modal" aria-hidden="true"  >
                                       <div id="myForm" className="modal-dialog w-50-p" >
                                         <div className="modal-content">
-                                          <form>
+                                          <form id='create-course-form'>
                                             <div >
                                               <ReactPlayer
                                                 controls
@@ -460,7 +466,7 @@ var chek=isNaN(id.id);
                                               type="button"
                                               className="btn btn-default"
                                               data-dismiss="modal"
-
+                                              onClick={cancelCourse}
                                             >
                                               Đóng
                                             </button>

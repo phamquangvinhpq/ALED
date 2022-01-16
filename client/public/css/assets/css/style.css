@@ -112,6 +112,24 @@ ul {
   padding: 0;
   list-style: none; }
 
+
+.background-form {
+  background-image: url("https://secure.sportsaffinity.com/1011/css/blue7/background.jpg");
+  background-repeat: no-repeat;
+  background-size: 1450px 650px;
+}
+
+.modal-body .form-check-input1{
+  margin-left: 20px;
+}
+
+.signupins-form {
+  /* color: white; */
+  margin: 30px auto;
+  margin-left: 550px;
+}
+
+
 a:hover,
 a:focus {
   text-decoration: none;
@@ -4095,7 +4113,7 @@ img {
         float: none;
         text-align: center; } }
     .header-section-backend .header-backend-buttons a {
-      margin-left: 20px; }
+      }
     .header-section-backend .header-backend-buttons .template-button-2 {
       color: #ffffff; }
     .header-section-backend .header-backend-buttons .template-button:hover {

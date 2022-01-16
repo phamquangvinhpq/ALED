@@ -139,7 +139,7 @@ export default function Taocauhoi() {
         };
 
 
-        fetch(`http://localhost:8080/api/questions?questionType=MC&&partId=` + PartID, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/questions?questionType=MC&&partId=` + PartID, requestOptions)
             .then(response => response.json())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -182,7 +182,7 @@ export default function Taocauhoi() {
             redirect: 'follow'
         };
 
-        fetch(`http://localhost:8080/api/parts/` + value + `/questions`, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setdanhsachcauhoi(result.data)

@@ -58,7 +58,7 @@ export default function Checkout1() {
 
         var raw = JSON.stringify({
             "price": DSkhoahoc.price,
-            "description": "pay the course on aled",
+            "description": "Thanh Toán Khóa Học ",
             "user_id": user_id,
             "course_id": DSkhoahoc.id
         });

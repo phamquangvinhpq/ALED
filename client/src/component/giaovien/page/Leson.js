@@ -24,7 +24,15 @@ export default function Leson() {
     linkVideo: "",
     section_id: "",
   });
+  
+  const cancelCourse = () => {
+    setLession(lession.linkVideo="")
+    document.getElementById("create-course-form").reset();
+}
 
+var input=document.getElementById("myModalAllWatch0");
+   
+  console.log(input.onclick);
   
   let history = useHistory();
   let id = useParams();
@@ -73,7 +81,7 @@ export default function Leson() {
 
   const [pageSt, setPageSt] = useState(0);
   const [totalCountSt, setTotalCountSt] = useState(0)
-  let size = 10;
+  let size = 5;
 
   const backPageSt = async () => {
     const pg = pageSt - 1
@@ -393,6 +401,7 @@ export default function Leson() {
 // -------------------------------------------------------------------------------------------
 const [danhsachbaithi, setdanhsachbaithi] = useState([])
 
+
 const [selectedSectionbaithi, setSelectedSectionbaithi] = useState(-1);
 
 
@@ -404,7 +413,7 @@ const loadbaithi = () =>{
     redirect: 'follow'
   };
   
-  fetch(`http://localhost:8080/api/getexambyid/`+selectedSection, requestOptions)
+  fetch(`${DEFAULT_API}` + `api/getexambyid/`+selectedSection, requestOptions)
     .then(response => response.json())
     .then(result => {
       console.log(result);
@@ -613,16 +622,24 @@ const onChangeSectionbaithi = (event) => {
                                   <tr key={index}>
                                     <td>{index+1}</td>
                                     <td>{value.name}</td>
-                                    <td>{value.demo == 1 ? 
-                                      <FaVideo onClick={() => xemThu(value.id, value.demo)} /> : <FaVideoSlash  onClick={() => xemThu(value.id, value.demo)}/>}</td>
+                                    {value.type=="test" ?
+                                    <td></td>: <td>{value.demo == 1 ? 
+                                      <FaVideo onClick={() => xemThu(value.id, value.demo)} /> : <FaVideoSlash  onClick={() => xemThu(value.id, value.demo)}/>}</td>}
                                     <td>{value.section_id}</td>
                                     <td>
-                                      <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
+                                      {value.type=="test" ?   <a className="btn btn-info "   href={`/exam/` + value.linkVideo} >
+                                        <i  /> Xem bài thi
+                                      </a> :  <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
                                         <i className="fa fa-video-camera" /> Xem
-                                      </a>
+                                      </a>}
+                                     
 
                                     </td>
+                                    {value.type=="test" ?
                                     <td>
+                                      
+                                      <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Xóa</a>
+                                    </td> : <td>
                                       <a
                                         href
                                         className="btn btn-primary btn-sm"
@@ -632,7 +649,7 @@ const onChangeSectionbaithi = (event) => {
                                         Sửa
                                       </a>
                                       <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Xóa</a>
-                                    </td>
+                                    </td> }
                                   </tr>
                                 ))}
                               </tbody>
@@ -794,7 +811,7 @@ const onChangeSectionbaithi = (event) => {
         id="myModalAllWatch0" className="modal"  aria-hidden="true"  >
         <div id="myForm" className="modal-dialog w-50-p" >
           <div className="modal-content">
-            <form>
+            <form id='create-course-form'>
               <div >
                 <ReactPlayer
                   controls
@@ -811,7 +828,7 @@ const onChangeSectionbaithi = (event) => {
                 type="button"
                 className="btn btn-default"
                 data-dismiss="modal"
-
+                      onClick={cancelCourse}
               >
                 Đóng
               </button>

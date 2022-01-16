@@ -41,6 +41,7 @@ import com.ALED.DTO.Exam.ExamQuestionPoint;
 import com.ALED.DTO.Exam.ExamResult;
 import com.ALED.DTO.Exam.PageResult;
 import com.ALED.DTO.Exam.QuestionExamReport;
+import com.ALED.DTO.Exam.TongdiemDTO;
 import com.ALED.Exception.ResourceNotFoundException;
 import com.ALED.entities.Choice;
 import com.ALED.entities.Exam;
@@ -156,7 +157,7 @@ public class ExamController {
 //	[{"questionId":2,"choices":[{"id":1,"choiceText":"bo cau hoi","isCorrected":1},{"id":2,"choiceText":"dap án thư 2","isCorrected":0},{"id":3,"choiceText":"dap án thư 3","isCorrected":0},{"id":4,"choiceText":"dap án thư 4","isCorrected":0}],"point":5},{"questionId":4,"choices":[{"id":17,"choiceText":"đáp án 1=2","isCorrected":1},{"id":18,"choiceText":"dap án thư 2=9","isCorrected":0},{"id":19,"choiceText":"dap án thư 3=6","isCorrected":0},{"id":20,"choiceText":"dap án thư 4=5","isCorrected":0}],"point":5}]
 
 	@GetMapping(value = "/exams/{examId}/questions")
-	public ResponseEntity<ExamQuestionList> getAllQuestions(@PathVariable Integer examId,@RequestParam("username") String username) throws IOException, MethodArgumentNotValidException {
+	public ResponseEntity<ExamQuestionList> getAllQuestions(@PathVariable Integer examId,@RequestParam("username") String username,@RequestParam("courseid") Integer courseid) throws IOException, MethodArgumentNotValidException {
 		
 		
 		Users user = userService.getUserByUsername(username).get();
@@ -171,7 +172,7 @@ public class ExamController {
 		{
 			
 			Exam ex=exam.get();
-			examUserService.create(ex, user);
+			examUserService.create(ex, user,courseid);
 			throw new ResourceNotFoundException("loi");
 		}
 		if(examUser.getIsFinished().equals(true)) {
@@ -261,7 +262,7 @@ public class ExamController {
 //tạo đề thi mới 
 	@PostMapping(value = "/exams")
 	public ResponseEntity<?> createExam(@Valid @RequestBody Exam exam, @RequestParam Integer partId,
-			@RequestParam("username") String username,@RequestParam boolean isShuffle, boolean locked) {
+			@RequestParam("username") String username,@RequestParam boolean isShuffle, boolean locked,@RequestParam("courseid") Integer courseid) {
 		try {
 			
 			Users user = userService.getUserByUsername(username).get();
@@ -277,7 +278,7 @@ public class ExamController {
 			this.examService.saveExam(exam);
 //			List<Users> users = userService.findAllByIntakeId(intakeId);
 //			List<Users> users = (List<Users>) userService.getUserByUsername(username).get();
-			examUserService.create(exam, user);
+			examUserService.create(exam, user,courseid);
 
 //            Convert question data json to array object
 			ObjectMapper mapper = new ObjectMapper();
@@ -614,6 +615,12 @@ public class ExamController {
 			logger.error("LLLLL");
 
 		}
+	}
+	
+	
+	@GetMapping("/getallbycourse")
+	public List<TongdiemDTO> getallbycourse(@RequestParam("userid") Integer userid,@RequestParam("courseid") Integer Courseid){
+		return examUserService.findAllBycourse(userid,Courseid);
 	}
 
 }

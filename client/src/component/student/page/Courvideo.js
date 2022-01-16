@@ -5,6 +5,15 @@ import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import { DEFAULT_API } from "../../../conf/env";
 import { useHistory } from "react-router-dom";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from "recharts";
 
 export default function Courvideo() {
   const [listSection, setListSection] = useState([]);
@@ -13,12 +22,15 @@ export default function Courvideo() {
   const [sectionId, setSectionId] = useState(-1);
   const [checked, setChecked] = useState(false);
 
+  const [trangthaidaxem, settrangthaidaxem] = useState([]);
+
   const [lession, setLession] = useState({
     linkVideo: "https://www.youtube.com/watch?v=eybyQcXUdzM",
 
   });
 
   let id = useParams();
+  localStorage.setItem("courseid",id.id);
   let history = useHistory();
   const user_id = localStorage.getItem("userid");
 
@@ -74,6 +86,8 @@ export default function Courvideo() {
       content: ""
     }));
   }
+
+
 
   const tinNhan = (value) => {
     if (value.people === 1) {
@@ -203,25 +217,24 @@ export default function Courvideo() {
 
   useEffect(() => {
     if (user_id == null) {
-      alert("vui lòng đăng nhập")
+      swal("Lỗi", "Vui lòng đăng nhập để xem video", "warning")
       history.push('/home');
       window.location.reload()
     }
     damua();
     getLessionByTime();
     loaddanhmuc();
-    getLessionBySection();
     ttkh1();
   }, [status]);
 
 
-  const getLessionBySection = async () => {
+  const getLessionBySection = (value) => {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
     fetch(
-      `${DEFAULT_API}` + "lession/find-all-by-section?sectionId=" + sectionId,
+      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=`+value.id ,
       requestOptions
     )
       .then((response) => response.json())
@@ -257,15 +270,15 @@ export default function Courvideo() {
     lession.linkVideo = value.linkVideo;
     setNote((values) => ({ ...values, lession_id: value.id }));
 
+  };
+
+  const tesst = (value) => {  
+    getLessionBySection(value);
+    testcheck(value);
     setStatus(status + 1);
   };
 
-  const tesst = (value) => {
-    setSectionId(value.id);
-    getLessionBySection();
-    setStatus(status + 1);
-  };
-
+  
 
   const loaddanhmuc = async () => {
     var myHeaders = new Headers();
@@ -304,7 +317,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/lession/updateStaus", requestOptions)
+    fetch(`${DEFAULT_API}` + "lession/updateStaus", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -319,7 +332,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/lession/getlessionbytime", requestOptions)
+    fetch(`${DEFAULT_API}` + "lession/getlessionbytime", requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.loicode == -1) {
@@ -346,18 +359,18 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/lession/updateTime", requestOptions)
-      .then(response => response.text())
+    fetch(`${DEFAULT_API}` + "lession/updateTime", requestOptions)
+      .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   }
 
   const [ttkh, setttkh] = useState([]);
   const [tenkhchungchi, settenkhchungchi] = useState({
-    tenkh:''
+    tenkh: ''
   });
 
-  var fullname=localStorage.getItem("fullname");
+  var fullname = localStorage.getItem("fullname");
   const ttkh1 = () => {
     var myHeaders = new Headers();
 
@@ -367,21 +380,64 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch(`http://localhost:8080/course/` + id.id, requestOptions)
+    fetch(`${DEFAULT_API}` + `course/` + id.id, requestOptions)
       .then(response => response.json())
       .then(result => {
 
         setttkh(result)
-        result.map((value)=>
-        tenkhchungchi.tenkh=value.courseName
+        result.map((value) =>
+          tenkhchungchi.tenkh = value.courseName
         )
       })
       .catch(error => console.log('error', error));
   }
 
   const chungchi = () => {
-    window.location=`http://localhost:8080/Pdf/xuat?name=`+fullname+`&tenkh=`+tenkhchungchi.tenkh
+    window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
+
+  }
+
+
+
+function testcheck(value) {
+   var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    fetch(
+      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=` + value.id,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+      settrangthaidaxem(result)
     
+      setStatus(status+1);
+     
+      })
+      .catch((error) => console.log("error", error));
+}
+
+
+
+  const checkhoanthanh = ()=>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`${DEFAULT_API}` + `giangvien/listhoanthanh/?user=`+user_id+`&courseid=`+id.id, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if(result < 80)
+        {
+          swal("Lỗi", "Vui lòng hoàn thành tất cả bài kiểm tra đạt tối thiểu 80đ", "warning")
+        }
+        else{
+          chungchi();
+        }
+      })
+      .catch(error => console.log('error', error));
   }
 
 
@@ -427,6 +483,25 @@ export default function Courvideo() {
     .catch(error => console.log('error', error));
   }
 
+  const [data, setdata] = useState([]);
+
+
+  const bieudo = ()=>{
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch(`${DEFAULT_API}` + `api/getallbycourse?userid=`+user_id+`&courseid=`+id.id, requestOptions)
+        .then(response => response.json())
+        .then(result => setdata(result))
+        .catch(error => console.log('error', error));
+}
+
+const thongbao =()=>{
+  swal("Lỗi", "Vui chọn bài giảng cần ghi chú", "warning")
+}
+
   return (
     <div>
       <header className="header-section-backend">
@@ -454,11 +529,11 @@ export default function Courvideo() {
                     href="/student/EnrolledCourses"
                     className="template-button"
                   >
-                    Back To My Course
+                    Quay lại khóa học của tôi
                   </a>
                   <a href="/home" className="template-button-2">
                     {" "}
-                    Home
+                    Trang chủ
                   </a>
                 </div>
               </div>
@@ -482,9 +557,7 @@ export default function Courvideo() {
               <div className="course-video-tab padding-top-60">
                 <div className="tab">
                   <ul>
-                    <li className="tab-one active">
-                      <span>overview</span>
-                    </li>
+                    
                     <li
                       onClick={() => loadQA()}
                       className="tab-two"
@@ -501,8 +574,9 @@ export default function Courvideo() {
                       type="button"
                       class="btn btn-primary"
                       data-toggle="modal"
+                      onClick={thongbao}
                     >
-                      <span>note</span>
+                      <span>ghi chú</span>
                     </li> : <li
                       className="tab-three"
                       type="button"
@@ -511,10 +585,14 @@ export default function Courvideo() {
                       data-target="#exampleModalCenter"
                       onClick={getListNote}
                     >
-                      <span>note</span>
+                      <span>ghi chú</span>
                     </li>}
 
-                    <li className="tab-four" onClick={chungchi}>
+                    <li className="tab-four"  data-dismiss="modal" data-toggle="modal" data-target="#rules" onClick={bieudo}>
+                      <span  >Điểm</span>
+                    </li>
+
+                    <li className="tab-four" onClick={checkhoanthanh}>
                       <span >Chứng chỉ</span>
                     </li>
                     <li>
@@ -523,6 +601,7 @@ export default function Courvideo() {
                       </span>
                     </li>
                   </ul>
+                 
                   <div className="hr-line" />
                 </div>
 
@@ -540,7 +619,7 @@ export default function Courvideo() {
                   <div class="accordion" id="myAccordion">
                     {listSection.map((value, index) => (
                       <div class="panel">
-                        <a
+                        <a 
                           onClick={() => tesst(value)}
                           className="btn btn-light"
                           data-toggle="collapse"
@@ -551,36 +630,27 @@ export default function Courvideo() {
                         </a>
                         <div id={`collapsible` + index} class="collapse">
                           <div className="card-body">
-                            {video.map((value, index) => (
+                            {trangthaidaxem.map((value, index) => (
                               <div className="single-course-video">
-                                <form>
+                                
                                   {value.type == "test" ? <a href={`/exam/` + value.linkVideo}
 
                                     className="btn btn-light"
                                   >
-                                    <i className="fa fa-play-circle" />{" "}
+                                    <i className="fa fa-book" />{" "}
                                     {value.name}
                                   </a> : <a
 
                                     onClick={() => getData(value)}
                                     className="btn btn-light"
                                   >
-                                    {/* {daxem(value.status)} */}
-                                    {value.status === 1 ? <span><input
-                                      onClick={() => checkDaxem(value, 0)}
-                                      type="checkbox"
-                                      defaultChecked="checked"
-                                    />
-                                      &nbsp;&nbsp;</span> : <span><input
-                                        onClick={() => checkDaxem(value, 1)}
-                                        type="checkbox"
-                                      />
-                                      &nbsp;&nbsp;</span>}
+{/*                                    
+                                    {value.status === 1 ? <span><input onClick={() => checkDaxem(value, 0)} type="checkbox" defaultChecked="checked"/>&nbsp;&nbsp;</span>
+                                    : <span><input onClick={() => checkDaxem(value, 1)}  type="checkbox"/> &nbsp;&nbsp;</span>} */}
                                     <i className="fa fa-play-circle" />{" "}
                                     <a onClick={() => videoVuaXem(value)}> {value.name}</a>
+                                   
                                   </a>}
-
-                                </form>
                               </div>
                             ))}
                           </div>
@@ -607,7 +677,7 @@ export default function Courvideo() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                NOTE
+              GHI CHÚ
               </h5>
               <button
                 type="button"
@@ -629,11 +699,11 @@ export default function Courvideo() {
                   value={note.note}
                 />
                 <a onClick={addNoteClick} className="btn btn-primary">
-                  <i class="fa fa-plus"> Add</i>
+                  <i class="fa fa-plus"> Thêm</i>
                 </a>
                 &ensp;
                 <a onClick={editNote} className="btn btn-primary">
-                  <i class="fa fa-plus"> Update</i>
+                  <i class="fa fa-plus"> Sửa</i>
                 </a>
               </span>
               <ul>
@@ -657,7 +727,7 @@ export default function Courvideo() {
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Đóng
               </button>
             </div>
           </div>
@@ -677,7 +747,7 @@ export default function Courvideo() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                QA Question
+              Câu hỏi QA
               </h5>
               <button
                 type="button"
@@ -768,6 +838,7 @@ export default function Courvideo() {
                   <h4 className="modal-title">Báo Cáo</h4>
                 </div>
 
+
                 <div className="modal-body">
                   <form acceptCharset="utf-8" />
                   <div className="form-group">
@@ -784,10 +855,47 @@ export default function Courvideo() {
                
                 <div className="modal-footer">
                   <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Đóng</b></button>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+                  <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+          <div className="modal-dialog modal-vit w-60-p" role="document">
+            <div className="modal-content">
+              <div className="modal-body">
+                <h2>Thông Tin Điểm Kiểm Tra</h2>
+                <br />
+                <h4>Hoàn thành 80% mỗi bài kiểm tra để in được chứng nhận</h4>
+                <BarChart
+            width={700}
+            height={300}
+            data={data}
+          
+            barSize={25}
+        >
+            <XAxis dataKey="name"  padding={{ left: 30, right: 20 }} />
+            <YAxis type="number" domain={[0, 100]} />
+            <Tooltip />
+            <Legend />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Bar dataKey="diem" fill="#8884d8" background={{ fill: "#eee" }} />
+        </BarChart>
+                
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal">Đóng</button>
                 </div>
               </div>
             </div>
           </div>
-    </div>
+        </div>
+                          
+
+                  </div>
+
+
+                          
+
+      
   );
 }

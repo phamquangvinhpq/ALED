@@ -11,21 +11,23 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ALED.DTO.DahoanthanhDTO;
+import com.ALED.DTO.LessionDTO;
 import com.ALED.DTO.SectionDTO;
+import com.ALED.entities.Lession;
 import com.ALED.entities.Section;
 import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.SectionRepository;
-
 
 @Service
 public class SectionService implements ISectionService {
 
 	@Autowired
 	private SectionRepository sectionRepository;
-	
+
 	@Autowired
 	private CourseRepository courseRepository;
-	
+
 	@Override
 	public List<SectionDTO> readAll() {
 		List<SectionDTO> listSection = new ArrayList<SectionDTO>();
@@ -37,9 +39,7 @@ public class SectionService implements ISectionService {
 			listSection.add(SectionDTO);
 		}
 		return listSection;
-		
 
-		
 	}
 
 	@Override
@@ -52,15 +52,13 @@ public class SectionService implements ISectionService {
 		if (listEntity.size() >= 10) {
 			throw new RuntimeException("Tổng số chương tối đa là 10");
 		}
-		Section section =new Section();
+		Section section = new Section();
 		BeanUtils.copyProperties(SectionDTO, section);
 		section.setCourse(courseRepository.getById(SectionDTO.getCourse_id()));
 		sectionRepository.save(section);
 		SectionDTO.setId(section.getId());
 		return SectionDTO;
 	}
-
-
 
 	@Override
 	public SectionDTO update(SectionDTO dto) {
@@ -72,16 +70,14 @@ public class SectionService implements ISectionService {
 		BeanUtils.copyProperties(dto, entity);
 		sectionRepository.save(entity);
 		return dto;
-		
+
 	}
-
-
 
 	@Override
 	public SectionDTO delete(Integer id) {
 		SectionDTO section = new SectionDTO();
 		Optional<Section> optional = sectionRepository.findById(id);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			Section entity = optional.get();
 			int soLuongNguoiMua = courseRepository.totalStudentBuyCourse(entity.getCourse().getId());
 			if (soLuongNguoiMua > 0) {
@@ -93,8 +89,6 @@ public class SectionService implements ISectionService {
 		return section;
 	}
 
-
-
 	@Override
 	public SectionDTO detail(Integer id) {
 		Optional<Section> optional = sectionRepository.findById(id);
@@ -102,16 +96,12 @@ public class SectionService implements ISectionService {
 			SectionDTO sectionDTO = new SectionDTO();
 			Section section = optional.get();
 			BeanUtils.copyProperties(section, sectionDTO);
-			
+
 			sectionDTO.setCourse_id(section.getCourse().getId());
 			return sectionDTO;
-		}
-		else
+		} else
 			return null;
 	}
-	
-
-
 
 	@Override
 	public List<SectionDTO> findpage(Integer pageno, Integer pagesize) {
@@ -119,15 +109,13 @@ public class SectionService implements ISectionService {
 		return null;
 	}
 
-
-
 	@Override
-	public List<SectionDTO> detailcour(Integer id,int page,int size) {
+	public List<SectionDTO> detailcour(Integer id, int page, int size) {
 		List<SectionDTO> listSection = new ArrayList<SectionDTO>();
 		List<Section> entities = new ArrayList<Section>();
 		Pageable pageable = PageRequest.of(page, size);
-			Page<Section> page2 =	sectionRepository.timcour(id,pageable);
-			entities = page2.getContent();
+		Page<Section> page2 = sectionRepository.timcour(id, pageable);
+		entities = page2.getContent();
 		for (Section Sections : entities) {
 			SectionDTO SectionDTO = new SectionDTO();
 			BeanUtils.copyProperties(Sections, SectionDTO);
@@ -137,39 +125,33 @@ public class SectionService implements ISectionService {
 		return listSection;
 	}
 
-
-
 	@Override
 	public String muakhoahoc(Integer user_id, Integer course_id) {
-			String a = sectionRepository.finbykhoahoc(user_id, course_id);
-			
-			if(a != null)
-			{
-				return "bought";
-			}
+		String a = sectionRepository.finbykhoahoc(user_id, course_id);
+
+		if (a != null) {
+			return "bought";
+		}
 		return "nobought";
 	}
 
-
-
 	@Override
 	public String finbykhoahocuser(Integer user_id, Integer course_id) {
-		
+
 		String a = sectionRepository.finbykhoahocAuthor(user_id, course_id);
-		
-		if(a != null)
-		{
+
+		if (a != null) {
 			return "yes";
 		}
-	return "no";
+		return "no";
 	}
 
+	@Override
+	public String listdahoanthanh(Integer usserid,Integer courseid) {
 
+		String a = sectionRepository.findbyleshoanthanh(usserid,courseid);
 
-	
-
-	
-
-	
+	return a;
 
 }
+	}
