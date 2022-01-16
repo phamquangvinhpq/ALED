@@ -290,7 +290,7 @@ export default function Homestd() {
                                                                 <ReactStars
                                                                     edit={false}
                                                                     value={value.rate}
-                                                                    size={24}
+                                                                    size={22}
                                                                     isHalf={true}
                                                                     emptyIcon={<i className="far fa-star"></i>}
                                                                     halfIcon={<i className="fa fa-star-half-alt"></i>}
@@ -391,7 +391,7 @@ export default function Homestd() {
                                                                 <ReactStars
                                                                     edit={false}
                                                                     value={value.rate}
-                                                                    size={24}
+                                                                    size={22}
                                                                     isHalf={true}
                                                                     emptyIcon={<i className="far fa-star"></i>}
                                                                     halfIcon={<i className="fa fa-star-half-alt"></i>}
