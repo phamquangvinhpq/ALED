@@ -33,6 +33,8 @@ public class LessionService implements ILessionService {
 	@Autowired
 	private CourseRepository courseRepository;
 	
+	
+	
 
 	@Override
 	public List<LessionDTO> readAll() {
@@ -110,8 +112,8 @@ public class LessionService implements ILessionService {
 		
 		lessionDTO.setId(lession.getId());
 		
-		Optional<Course> op=courseRepository.findById(lessionDTO.getCourseid());
-		Course sou=op.get();
+//		Optional<Course> op=courseRepository.findById(lessionDTO.getCourseid());
+		Course sou= lession.getSection().getCourse();
 		sou.setStatus(0);
 		courseRepository.save(sou);
 		return lessionDTO;

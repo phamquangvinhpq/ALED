@@ -1,6 +1,7 @@
 package com.ALED.DTO;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +15,8 @@ public class LessionDTO implements Serializable {
 	private int id;
 
 	private String linkVideo;
+	
+	private String time;
 
 	@NotBlank(message = "Tên bài học không được để trống")
     @Min(value = 8, message = "Tên bài học phải từ 8 kí tự trở lên")

@@ -70,6 +70,9 @@ public class Users  {
     @JsonIgnore
     @OneToMany(mappedBy = "users")
     private List<QA> qas;
+    
+    @OneToMany(mappedBy = "users")
+    private List<Report> reports;
    
 
     public static enum Status {
