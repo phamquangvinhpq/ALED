@@ -8,7 +8,7 @@ import {
     Legend
 } from "recharts";
 import React, { useEffect, useState } from "react";
-
+import { DEFAULT_API } from '../../../conf/env';
 
 
 export default function Taobaithi() {
