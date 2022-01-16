@@ -71,7 +71,6 @@ public class UserController {
 	 * @param id
 	 * @return Users
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')  ")
 	@DeleteMapping("/user/{id}")
 	public Users delete(@PathVariable Integer id) {
 		return userService.delete(id);

@@ -271,20 +271,20 @@ export default function Homestd() {
                                                                 <ReactStars
                                                                     edit={false}
                                                                     value={value.rate}
-                                                                    size={24}
+                                                                    size={22}
                                                                     isHalf={true}
                                                                     emptyIcon={<i className="far fa-star"></i>}
                                                                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                                                                     fullIcon={<i className="fa fa-star"></i>}
                                                                     activeColor="#ffd700" /> :
-                                                                "There are no reviews yet"}
+                                                                "Chưa Có Đánh Giá"}
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div className="course-info margin-top-20">
                                                     <div className="course-video">
                                                         <i className="fa fa-play-circle-o" />
-                                                        <span> Chapter: {value.countChapter}</span>
+                                                        <span>Số Chương: {value.countChapter}</span>
                                                     </div>
                                                     
                                                 </div>
@@ -320,7 +320,7 @@ export default function Homestd() {
                                                 </div>
                                                 <div className="course-info margin-top-30">
                                                 </div>
-                                                <p className="margin-top-20">{value.description}</p>
+                                                <p class="dxLjPX1" >{value.description}</p>
                                                 
                                                 <div className="preview-button margin-top-20">
 

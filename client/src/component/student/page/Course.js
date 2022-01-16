@@ -312,6 +312,7 @@ export default function Course() {
   };
 
 
+
   return (
     // <div>
     //   <div className="course-page-content padding-120">
@@ -484,7 +485,7 @@ export default function Course() {
                         >
                           <div className="course-single-item">
                             <div className="course-image">
-                              <img
+                              <img onClick={() => chuyentrang(value)}
                                 src={value.image}
                                 style={{ height: 250, maxWidth: 350 }}
                                 alt="image"
@@ -499,23 +500,28 @@ export default function Course() {
                               </div>
                             </div>
                             <div className="course-content">
-                              <h4>
-                                <a onClick={() => chuyentrang(value)}>
+
+                            <a href='' onClick={() => chuyentrang(value)}>
+                              <h4 className='courseName'>
                                   Tên: {value.courseName}
+                                  </h4>
                                 </a>
-                              </h4>
-                              <p className="margin-top-20">
+                             
+                              <p  class="dxLjPX">
                                 Mô tả: {value.description}
                               </p>
-                              <div className="signle-progressbar margin-top-20">
-                                <div className="row align-items-center">
-
-
-                                </div>
-                              </div>
+                              <div className="course-price-cart margin-top-20">
+                                                    <div className="course-price">
+                                                        <span className="span-big">{value.price.toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        })}</span>
+                                                        {/* <span className="span-cross">$ 500.00</span> */}
+                                                    </div>
+                                                </div>
                               <div className="cotent-bottom margin-top-20">
                                 <div className="content-left">
-                                  <h5>{value.rate ? ("Rating: " + value.rate) : ("Chưa có đánh giá")}</h5>
+                                  <h5>{value.rate ? ("Đánh Giá: " + value.rate) : ("Chưa có đánh giá")}</h5>
                                 </div>
                                 <div className="content-right">
                                   <span>

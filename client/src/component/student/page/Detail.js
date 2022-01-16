@@ -300,7 +300,7 @@ var chek=isNaN(id.id);
                             activeColor="#ffd700"
                           />
                         ) : (
-                          "There are no reviews yet"
+                          "Chưa Có Đánh Giá"
                         )}
                       </span>
                       {value.rate}
@@ -538,7 +538,7 @@ var chek=isNaN(id.id);
                 Trường học: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-                Mô tả: {infoAuthor.description}
+                Mô tả: {infoAuthor.skill}
                 <br />
               </div>
               <div className="author-detail-button mt_30">

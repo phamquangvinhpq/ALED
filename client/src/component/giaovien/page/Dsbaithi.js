@@ -8,11 +8,12 @@ export default function Dsbaithi() {
     var username = localStorage.getItem("username")
 
     const [baigiang, setbaigiang] = useState([])
-    const [selectedSection, setSelectedSection] = useState([]);
+    const [selectedSection, setSelectedSection] = useState(-1);
+
     const [section, setsection] = useState([])
     const [danhsachcauhoi, setdanhsachcauhoi] = useState([])
     const [idkhoahoc, setidkhoahoc] = useState([])
-    const [PartID, SetPartid] = useState([])
+    const [PartID, SetPartid] = useState(-1)
     const [trangthai, settrangthai] = useState(1)
     const [diem, setdiem] = useState(0)
 
@@ -35,7 +36,10 @@ export default function Dsbaithi() {
 
     useEffect(() => {
         loadBaiGiang();
-
+        if(PartID != "-1"){
+            loadbaithi(PartID)
+        }
+      
 
     }, [
         trangthai
@@ -63,12 +67,13 @@ export default function Dsbaithi() {
             .catch(error => console.log('error', error));
     }
 
+
     const onChangeSection = (event) => {
-        setSelectedSection(event.target.value);
-        setidkhoahoc(event.target.value)
-        console.log(event.target.value);
-        console.log(selectedSection);
+        
+ 
         if (event.target.value != "nodata") {
+            setSelectedSection(event.target.value);
+        setidkhoahoc(event.target.value)
             loaddanhmuc(event.target.value);
         }
 
@@ -212,7 +217,7 @@ export default function Dsbaithi() {
                             document.getElementById("dongclick").click()
                     )
                     cancelCourse();
-                   
+                    settrangthai(trangthai+1)
                     }
                 
                 })
@@ -223,14 +228,13 @@ export default function Dsbaithi() {
 
 
     const onChangeSection1 = (event) => {
-
-        SetPartid(event.target.value)
-        loadcauhoi(event.target.value)
-        loadbaithi(event.target.value)
-
-
+        if (event.target.value != "nodata") {
+            SetPartid(event.target.value)
+            loadcauhoi(event.target.value)
+        }
+      
+    
     };
-
 
 
     const [danhsachbaithi, setdanhsachbaithi] = useState([])
@@ -278,7 +282,6 @@ export default function Dsbaithi() {
                             <form className="form-horizontal"
                                 encType="multipart/form-data"
                                 acceptCharset="utf-8"
-
                             >
                                 <div className="form-group mb_5 ovh">
                                     <div className="col-md-11">
@@ -303,8 +306,8 @@ export default function Dsbaithi() {
                                             <div className="form-group">
                                                 <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
                                                 <div className="col-sm-9">
-                                                    <select className="form-control w-100-p" onChange={onChangeSection1}>
-                                                        <option >chọn chương</option>
+                                                    <select className="form-control w-100-p" value={PartID} onChange={onChangeSection1}>
+                                                        <option value="nodata" >chọn chương</option>
                                                         {section.map((value, index) => {
                                                             return (
                                                                 <option value={value.id} key={index}>
@@ -407,7 +410,7 @@ export default function Dsbaithi() {
                         <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
                         <div className="col-sm-9">
                             <select className="form-control w-100-p" onChange={onChangeSection1}>
-                                <option >chọn chương</option>
+                                <option value="nodata" >chọn chương</option>
                                 {section.map((value, index) => {
                                     return (
                                         <option value={value.id} key={index}>

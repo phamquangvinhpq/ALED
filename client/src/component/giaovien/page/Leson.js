@@ -30,9 +30,7 @@ export default function Leson() {
     document.getElementById("create-course-form").reset();
 }
 
-var input=document.getElementById("myModalAllWatch0");
-   
-  console.log(input.onclick);
+
   
   let history = useHistory();
   let id = useParams();
@@ -95,6 +93,7 @@ var input=document.getElementById("myModalAllWatch0");
     setPageSt(pg)
   }
 
+  localStorage.setItem("courseid",id.id);
 
   const getLessionBySection = async () => {
 
@@ -337,9 +336,13 @@ var input=document.getElementById("myModalAllWatch0");
       .then(response => response.json())
       .then(result => {
         console.log(result);
-        if(result.loicode == "-1")
+        if(result.message == "Unable to find com.ALED.entities.Section with id -1")
         {
-          swal("Thông báo", result.message, "warning")
+          swal("Thông báo", "Bạn Chưa chọn Chương", "warning")
+        }
+        else if (result.message=="loi")
+        {
+          swal("Thông báo", "Bạn chưa chọn video", "warning")
         }
         else{
           swal("Thông báo", "Thêm thành công", "success")

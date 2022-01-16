@@ -90,8 +90,10 @@ public class UserServiceSystem implements IUserServiceSystem {
 	@Override
 	public Users delete(Integer id) {
 		Optional<Users> optional = userRepository.findById(id);
+	
 		if (optional.isPresent()) {
-
+			authorskillRepository.deleteById(id);
+			authorrepository.deleteById(id);
 			userRepository.deleteById(id);
 		}
 		return optional.get();
@@ -182,17 +184,17 @@ public class UserServiceSystem implements IUserServiceSystem {
 	public String sendMailReport(UserAuthorDTO authorDTO,Integer id)  {
 
 		List<Course> courses = courseRepository.timcoursbyuserid(id);
-		for (Course course : courses) {
+	
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setTo(authorDTO.getEmail());
 			message.setSubject("Thông báo");
-			message.setText("Khóa học " + course.getCourseName() + " của bạn đã vi phạm điều khoản của chúng tôi, xin vui lòng kiểm tra lại khóa học "
+			message.setText("Khóa học " + " của bạn đã vi phạm điều khoản của chúng tôi, xin vui lòng kiểm tra lại khóa học "
 					+ "trong 2 ngày nếu không khóa học của bạn sẽ bị xóa. Xin cảm ơn");
 
 			// Send Message!
 			emailSender.send(message);
 		
-		}
+		
 			
 		return "thành công";
 		
@@ -214,10 +216,10 @@ public class UserServiceSystem implements IUserServiceSystem {
 			SimpleMailMessage message = new SimpleMailMessage();
 
 			message.setTo(user.getEmail());
-			message.setSubject("Reset Password ALED");
-			message.setText("We hope you had a pleasant experience on our website.\r\n"
-					+ "Don't worry if you don't remember your password. This is a common problem for everyone:\r\n"
-					+ "Your new password will be:"+newPassword);
+			message.setSubject("Khôi Phục Mật Khẩu ALED");
+			message.setText("Chúng tôi hy vọng bạn đã có một trải nghiệm tốt trên trang web của chúng tôi.\r\n"
+					+ "Đừng lo lắng nếu bạn không nhớ mật khẩu của mình. Đây là một vấn đề chung cho tất cả mọi người:\r\n"
+					+ "Mật khẩu mới của bạn là:"+newPassword);
 
 			// Send Message!
 			emailSender.send(message);

@@ -72,6 +72,13 @@ export default function MenuAdmin() {
               </li>
             </ul>
           </li>
+
+          <li className="treeview ">
+          <NavLink to="/admin/Chungchi">
+              <i className="fa fa-book" /> <span className="fa-laptop1">Chứng Chỉ</span>
+           </NavLink>
+          </li>
+
           <li className="treeview ">
           <NavLink to="/admin/Payment">
               <i className="fa fa-usd" /> <span className="fa-laptop1">Lịch sử thanh toán</span>

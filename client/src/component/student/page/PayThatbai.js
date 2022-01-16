@@ -1,32 +1,26 @@
+
 import React from 'react'
 
-export default function Paythatbai() {
-    return (
-
-
-        <section id="cover" style={{ 
-            backgroundImage: `url("https://i.pinimg.com/564x/db/f7/7b/dbf77b09006b15c60809fa8ab3d802f8.jpg")` 
-          }}>
-        <div id="cover-caption">
-          <div id="container" className="container">
-            <div className="row">
-              <div className="col-sm-10 offset-sm-1 text-center">
-                  <br /><br /><br /><br /><br /><br /><br />
-                <h1 >   Thanh toán thất bại</h1>
-                <div className="info-form">
-                  <form action className="form-inline justify-content-center">
-                
-                    <h2>  Cảm ơn bạn đã sử dụng dịch vụ</h2>
-                    <a href='/home' className="btn btn-success ">Trang chủ</a>
-                  </form>
-                </div>
-                <br />
-              </div>
-            </div>
-          </div>
+export default function Payhanhcong() {
+  return (
+    <div className="col-lg-5 padding-100 margin-left-200">
+      {/* <div className="course-category-sidebar"> */}
+      <div className="lms-single-widget">
+        <h3 className='payment'> Thanh toán Thất bại!</h3>
+        <div>
+        <a ><img className='img-payment' src="https://www.pngfind.com/pngs/m/16-169960_section-fail-osu-fail-png-transparent-png.png" alt="logo" /></a>
         </div>
-      </section>
-      
+        <div>
+         <h2>Thanh Toán Thất Bại Cảm Ơn Bạn Đã Sử dụng Dịch Vụ ALED</h2>
+        </div>
+        <br /><br /><br /><br /><br /><br />
+        <div className='group-payment'>
         
-    )
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; <a href='/home'  type="button" class="btn btn-primary">Home</a>
+        </div>
+
+      </div>
+      {/* </div> */}
+    </div>
+  )
 }

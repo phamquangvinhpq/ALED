@@ -4879,4 +4879,53 @@ img {
 
     
      
-      
+      .payment{
+        text-align: center;
+        color: #62e35f;
+        font-weight: bold;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .btn-payment{
+        text-align: center;
+        margin: 5px;
+        width: 70px;
+        height: 30px;
+        background-color: #1d8ecd;
+        color: white;
+      }
+      .group-payment{
+        margin-left: 30%;
+      }
+      .left-payment{
+        float: left;
+        margin: 20px;
+      }
+      .right-payment{
+        float: right;
+        margin: 20px;
+      }
+      .txt-payment{
+        margin: 7px;
+        font-weight: bold;
+      }
+      .payment-false{
+        text-align: center;
+        color: red;
+        font-weight: bold;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .report{
+        text-align: center;
+        font-weight: bold;
+        padding-top: 5px;
+      }
+      .img-payment{
+        width: 10%;
+        height: auto;
+        display: block;
+        margin: auto;
+        background-color: white;
+      }
+      .margin-left-200{
+        margin-left :30%;
+      }

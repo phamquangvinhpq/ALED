@@ -3023,13 +3023,30 @@ table.front-end-course-table .btn-danger {
 }
 #diem{ color: red;}
 
+.dxLjPX {
+   
+    width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    height: 75px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
 
 
 
 
-
-
-
+  .courseName {
+  
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+  }
+  
+ 
+  
 
 .background {
     background: url(https://img4.thuthuatphanmem.vn/uploads/2020/12/26/khung-vien-dep-powerpoint_022258315.png) no-repeat;

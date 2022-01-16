@@ -8,15 +8,17 @@ export default function Instructors() {
   const [layID, setLayID] = useState({
     id: ""
   })
+  const [skill, setskill] = useState([])
+
   const [pageSt, setPageSt] = useState(0);
   const [totalCountSt, setTotalCountSt] = useState(0)
   const [pageCr, setPageCr] = useState(0);
   const [totalCountCr, setTotalCountCr] = useState(0)
   const [searchemai, setSearchEmail] = useState('')
   const [isEnable, setIsEnable] = useState(0);
-    const onInputEmailChange = (event) => {
-        setSearchEmail(event.target.value);
-    }
+  const onInputEmailChange = (event) => {
+    setSearchEmail(event.target.value);
+  }
   useEffect(() => {
     loadGiangVien()
   }, [
@@ -64,7 +66,7 @@ export default function Instructors() {
 
       redirect: 'follow'
     };
-    
+
     fetch(`${DEFAULT_API}` + `course/user/${value}?page=${pg}&size=${size}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -82,7 +84,7 @@ export default function Instructors() {
       headers: myHeaders,
       redirect: 'follow'
     };
-    
+
     fetch(`${DEFAULT_API}` + `get-gv?pageno=${pg}&pagesize=${pgsize}`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -90,8 +92,26 @@ export default function Instructors() {
         setTotalCountSt(result.length)
       })
       .catch(error => console.log('error', error));
-    
+
   }
+
+  const loadskill = async (value) => {
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch(`${DEFAULT_API}` + `getskill/${value}`, requestOptions)
+
+        .then(response => response.json())
+        .then(result => {
+            setskill(result)
+
+        })
+        .catch(error => console.log('error', error));
+
+
+}
 
   return (
     <div className="content-wrapper">
@@ -140,7 +160,7 @@ export default function Instructors() {
 
                               </tr>
                             )}
-                             <nav aria-label="Page navigation example">
+                            <nav aria-label="Page navigation example">
                               <button type="button" class="btn btn-outline-primary" disabled={pageCr == 0} onClick={backPageCr} >Trước</button>
                               <button type="button" class="btn btn-outline-primary" disabled={pageCr >= Math.ceil(totalCountCr / size)} onClick={nextPageCr} >Sau</button>
                             </nav>
@@ -154,8 +174,8 @@ export default function Instructors() {
                   </div>
                 </div>
                 <div class="form-group col-sm-3">
-                                    <input type="text" class="form-control" placeholder="Tìm kiếm theo email" name='email' onChange={onInputEmailChange} /> 
-                                </div>
+                  <input type="text" class="form-control" placeholder="Tìm kiếm theo email" name='email' onChange={onInputEmailChange} />
+                </div>
 
                 <table id="example1" className="table table-bordered table-striped">
                   <thead>
@@ -169,15 +189,15 @@ export default function Instructors() {
                     </tr>
                   </thead>
                   <tbody>
-                    {giangVien.filter((value)=>{
-                                            if(searchemai == ""){
-                                                return value
-                                            }else if(value.email.toLowerCase().includes(searchemai.toLowerCase())){
-                                                return value
-                                            }
-                                        }).map((value, index) =>
+                    {giangVien.filter((value) => {
+                      if (searchemai == "") {
+                        return value
+                      } else if (value.email.toLowerCase().includes(searchemai.toLowerCase())) {
+                        return value
+                      }
+                    }).map((value, index) =>
                       <tr key={index}>
-                        <td>{value.id}</td>
+                        <td>{index+1}</td>
                         <td>
                           <img src={value.image} alt="" className="w-150" />
                         </td>
@@ -187,16 +207,15 @@ export default function Instructors() {
                           {value.status == 1 ? "Active" : "No-Active"}</td>
                         <td>
 
-                          <a href className="btn btn-primary btn-xs btn-block" onClick={() => loadBaiGiang(value)} data-toggle="modal" data-target="#enrolledCourses1"> Xem khóa học </a>
                           <a href className="btn btn-primary btn-xs btn-block" onClick={() => layid(value)} data-toggle="modal" data-target="#enrolledCourses1"> Hiển thị Khóa học </a>
-
+                          <a onClick={() => loadskill(value.id)} className="btn btn-primary btn-xs btn-block" data-toggle="modal" data-target="#enrolledCourses2"> Xem kỹ năng </a>
 
                         </td>
                       </tr>
                     )}
 
                   </tbody>
-                 
+
                 </table>
                 <nav aria-label="Page navigation example">
                   <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
@@ -207,6 +226,39 @@ export default function Instructors() {
           </div>
         </div>
       </section>
+
+
+      <div id="enrolledCourses2" className="modal fade" role="dialog">
+                <div className="modal-dialog w-50-p">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal">×</button>
+                            <h4 className="modal-title">Kỹ năng</h4>
+                        </div>
+                        <div className="modal-body">
+                            {skill.map((value) =>
+                                <textarea rows="6" cols="60" disabled>
+                                    {value.skill}
+                                </textarea>
+                            )}
+                            <h4 className="modal-title">Ảnh</h4>
+                            {skill.map((value) =>
+                                <img
+                                    src={value.photo} className="w-200" />
+
+
+
+                            )}
+
+                        </div>
+
+
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 
   )

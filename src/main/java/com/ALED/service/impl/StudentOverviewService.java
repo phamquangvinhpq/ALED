@@ -30,7 +30,9 @@ public class StudentOverviewService implements IStudentOverviewService{
 		Integer totalCourse = 0;
 		float totalMoneySpent = 0;
 		Integer totalRatingGiven = 0;
+		
 		for (Mycourse entity : entities) {
+			System.out.println(entity.getUser().getId());
 			if (entity.getUser().getId() == user_id) {
 				totalCourse+=1;
 				totalMoneySpent += entity.getCourse().getPrice();

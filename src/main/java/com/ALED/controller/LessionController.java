@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ALED.DTO.LessionDTO;
+import com.ALED.Exception.ResourceNotFoundException;
 import com.ALED.entities.Lession;
 import com.ALED.service.FileService;
 import com.ALED.service.LessionService;
@@ -50,7 +51,12 @@ public class LessionController {
 					serverProto + "://" + serverUrl + "/api/file/video?videoName=" + fileService.uploadImage(file));
 				lessionDTO.setType(file.getContentType());
 		}
+		else if(lessionDTO.getLinkVideo().equalsIgnoreCase("-1")) {
+			throw new ResourceNotFoundException("loi");
+			
+		}
 		else {
+			
 			lessionDTO.setLinkVideo(lessionDTO.getLinkVideo());
 			lessionDTO.setType("test");
 		}
@@ -112,9 +118,10 @@ public class LessionController {
 	
 	
 	@GetMapping("/getlessionbytime")
-	public Lession getlessionbytime() {
-		return lessionService.getLessionbyTime();
+	public Lession getlessionbytime(@RequestParam("course") Integer course) {
+		return lessionService.getLessionbyTime(course);
 	}
+	
 
 	@PutMapping("/updateXemThu")
 	public boolean updateXemThu(@RequestParam(name = "id", required = false) Integer id,

@@ -17,5 +17,7 @@ public class AuthorDTO {
 	
 	private String type;
 	
-	private String photo;
+	private String skill;
+	
+	
 }

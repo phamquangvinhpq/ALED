@@ -76,7 +76,7 @@ public class AuthencationController {
                     JwtAuthenticationResponse response = new JwtAuthenticationResponse();
                     response.setAccessToken(token);
                     response.setId(users.getId());
-                    response.setFullName(users.getUsername());
+                    response.setFullName(users.getName());
                     response.setUsername(users.getUsername());
                     List<String> lsRole = new ArrayList<>();
                     List<UserRole> lsUserRole = users.getUserRole();
