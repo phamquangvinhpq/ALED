@@ -34,8 +34,6 @@ public interface ICourseService {
 	List<CourseDTO> getAllCouNoAct(int page, int size);
 
 	List<CourseDTO> getAllCouAct(int page, int size);
-
-	List<CourseDTO> buythemost();
 	
 	List<CourseDTO> getCourseByAuthor(Integer author_id, int page, int size);
 
@@ -68,5 +66,7 @@ public interface ICourseService {
 	List<CourseDTO> getPrice1(int page, int size);
 
 	List<CourseDTO> findAllByCreateDate(String sort, int page, int size);
+
+	List<CourseDTO> buythemost(Integer page, Integer size);
 
 }

@@ -90,8 +90,9 @@ public class CourseController {
 	}
 
 	@GetMapping("buythemost")
-	public List<CourseDTO> buythemost() {
-		return courseService.buythemost();
+	public List<CourseDTO> buythemost(@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "6") Integer size) {
+		return courseService.buythemost(page, size);
 	}
 
 	@PostMapping("/save")

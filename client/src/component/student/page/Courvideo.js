@@ -273,9 +273,10 @@ export default function Courvideo() {
   };
 
   const tesst = (value) => {  
-    getLessionBySection(value);
-    testcheck(value);
-    setStatus(status + 1);
+    // getLessionBySection(value);
+    console.log(value.id)
+    testcheck(value.id);
+    // setStatus(status + 1);
   };
 
   
@@ -405,14 +406,14 @@ function testcheck(value) {
       redirect: "follow",
     };
     fetch(
-      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=` + value.id,
+      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=` + value,
       requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
       settrangthaidaxem(result)
     
-      setStatus(status+1);
+      // setStatus(status+1);
      
       })
       .catch((error) => console.log("error", error));
@@ -485,6 +486,7 @@ function testcheck(value) {
 
   const [data, setdata] = useState([]);
 
+  console.log(trangthaidaxem)
 
   const bieudo = ()=>{
     var requestOptions = {
@@ -631,7 +633,7 @@ const thongbao =()=>{
                         <div id={`collapsible` + index} class="collapse">
                           <div className="card-body">
                             {trangthaidaxem.map((value, index) => (
-                              <div className="single-course-video">
+                              <div key={index} className="single-course-video">
                                 
                                   {value.type == "test" ? <a href={`/exam/` + value.linkVideo}
 
@@ -644,9 +646,13 @@ const thongbao =()=>{
                                     onClick={() => getData(value)}
                                     className="btn btn-light"
                                   >
-{/*                                    
-                                    {value.status === 1 ? <span><input onClick={() => checkDaxem(value, 0)} type="checkbox" defaultChecked="checked"/>&nbsp;&nbsp;</span>
-                                    : <span><input onClick={() => checkDaxem(value, 1)}  type="checkbox"/> &nbsp;&nbsp;</span>} */}
+                                    {/* {value.status == 1 ? (<input onClick={() => checkDaxem(value, 0)} type="checkbox" checked/>)
+                                    : (<input onClick={() => checkDaxem(value, 1)}  type="checkbox" unchecked/> )} */}
+                                    {value.status == 1 ? 
+                                      <input className="form-check-input" type="radio" name={value.id} id="flexRadioDefault1" defaultChecked />
+                                    : 
+                                      <input className="form-check-input" type="radio" name={value.id} id="flexRadioDefault2"  />
+                                    }
                                     <i className="fa fa-play-circle" />{" "}
                                     <a onClick={() => videoVuaXem(value)}> {value.name}</a>
                                    

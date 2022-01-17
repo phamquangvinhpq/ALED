@@ -2,6 +2,8 @@ package com.ALED.DTO;
 
 
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -51,6 +53,8 @@ public class CourseDTO {
 	
 	private String create_date;
 	
+//	@Min(value = 0, message = "Giảm giá chỉ từ 0 - 100")
+//    @Max(value = 100, message = "Giảm giá chỉ từ 0 - 100")
 	private Integer discount;
 	
 	private Double price_discount;

@@ -195,8 +195,12 @@ export default function Report() {
                 <div className="modal-body">
                   <form acceptCharset="utf-8" />
                   <div className="form-group">
+                    <label htmlFor>Gửi tới: {email}</label>
+                    </div>
+                  <div className="form-group">
                     <label htmlFor>Nội dung email</label>
-                    <textarea name="content" className="form-control h-100" cols={20} rows={10} onChange={(event) => setLoiNhan(event.target.value)} required defaultValue={""}  />
+                    <textarea name="content" className="form-control h-100" cols={20} rows={10} onChange={(event) => setLoiNhan(event.target.value)} required 
+                    defaultValue={"Xin chào bạn, thư này được gửi từ website học trực tuyến ALED, chúng tôi đã xem xét về báo cáo của bạn. Quyết định của chúng tôi là : "}  />
                   </div>
                   <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={guiVaDuyet}>Gửi và duyệt đơn</button>
                 </div>

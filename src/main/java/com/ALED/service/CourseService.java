@@ -94,16 +94,24 @@ public class CourseService implements ICourseService {
 	}
 
 	@Override
-	public CourseDTO update(CourseDTO author) {
-		Optional<Course> optional = courseRepository.findById(author.getId());
-		if (optional.isPresent()) {
-			Course course = optional.get();
-			BeanUtils.copyProperties(author, course);
-			course.setCategory(categoryRepository.getById(author.getCategory_id()));
-
-			courseRepository.save(course);
+	public CourseDTO update(CourseDTO dto) {
+		if (dto.getDiscount() > 100 || dto.getDiscount() < 0) {
+			throw new RuntimeException("Giảm giá chỉ được nhập từ 0 đến 100");
 		}
-		return author;
+		Course entity = courseRepository.getById(dto.getId());
+		Integer totalStudentBuyCourse = courseRepository.totalStudentBuyCourse(entity.getId());
+		if (totalStudentBuyCourse > 0 && entity.getDiscount() == dto.getDiscount()) {
+			throw new RuntimeException("Bạn chỉ có thể sửa giảm giá khi khóa học đã có người mua");
+		}
+		if (totalStudentBuyCourse > 0 && entity.getDiscount() != dto.getDiscount()) {
+			entity.setDiscount(dto.getDiscount());
+			courseRepository.save(entity);
+			return dto;
+		}
+
+		BeanUtils.copyProperties(dto, entity);
+		courseRepository.save(entity);
+		return dto;
 	}
 
 	@Override
@@ -224,9 +232,10 @@ public class CourseService implements ICourseService {
 	}
 
 	@Override
-	public List<CourseDTO> buythemost() {
+	public List<CourseDTO> buythemost(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
 		List<CourseDTO> listDto = new ArrayList<CourseDTO>();
-		List<Integer> list = courseRepository.buyTheMost();
+		List<Integer> list = courseRepository.buyTheMost(pageable);
 		for (Integer integer : list) {
 			Course entity = courseRepository.getById(integer);
 			listDto.add(convertToDTO(entity));
