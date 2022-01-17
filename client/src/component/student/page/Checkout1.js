@@ -7,7 +7,7 @@ export default function Checkout1() {
     const [khoahoc, setkhoahoc] = useState([])
     const [DSkhoahoc, setDSkhoahoc] = useState({
         courseName:'',
-        price:''
+        price_discount:''
     })
   
     let id = useParams();
@@ -57,7 +57,7 @@ export default function Checkout1() {
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-            "price": DSkhoahoc.price,
+            "price": DSkhoahoc.price_discount,
             "description": "Thanh Toan Khoa Hoc Tren Aled ",
             "user_id": user_id,
             "course_id": DSkhoahoc.id
@@ -123,7 +123,7 @@ export default function Checkout1() {
                                                 <img src={value.image} className="w-100" />
                                             </td>
                                             <td>{value.courseName}</td>
-                                            <td>{value.price.toLocaleString('vi-VN', {
+                                            <td>{value.price_discount.toLocaleString('vi-VN', {
                                                             style: 'currency',
                                                             currency: 'VND'
                                                         })}</td>
@@ -131,7 +131,7 @@ export default function Checkout1() {
 
                                         <tr>
                                             <td colSpan={3} className="tot tar">Tổng: </td>
-                                            <td colSpan={2} className="tot">{value.price.toLocaleString('vi-VN', {
+                                            <td colSpan={2} className="tot">{value.price_discount.toLocaleString('vi-VN', {
                                                             style: 'currency',
                                                             currency: 'VND'
                                                         })}</td>

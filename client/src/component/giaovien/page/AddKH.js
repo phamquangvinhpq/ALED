@@ -184,10 +184,10 @@ export default function AddKH() {
           </div>
 
           <div className="form-group">
-            <label htmlFor className="col-sm-3 control-label">Chọn Danh mục *</label>
+            <label htmlFor className="col-sm-3 control-label">Danh mục *</label>
             <div className="col-sm-6">
               <select className="form-control w-100-p" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                <option>-- Chọn Danh mục --</option>
+                <option>Chọn danh mục --</option>
 
                 {danhmuc.map((value, index) => {
                   return (

@@ -56,8 +56,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 			"WHERE course.author_id = ?1", nativeQuery = true)
 	String instructorRating(Integer authorId);
 
-	@Query(value = "SELECT course_id FROM `mycourse`GROUP BY course_id ORDER BY COUNT(mycourse.course_id) DESC LIMIT 6", nativeQuery = true)
-	List<Integer> buyTheMost();
+	@Query(value = "SELECT course_id FROM `mycourse`GROUP BY course_id ORDER BY COUNT(mycourse.course_id) DESC ", nativeQuery = true)
+	List<Integer> buyTheMost(Pageable pageable);
 	
 	@Query(value = "SELECT COUNT(*) FROM `mycourse` WHERE course_id = ?1", nativeQuery = true)
 	Integer totalStudentBuyCourse(Integer course_id);

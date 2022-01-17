@@ -115,12 +115,9 @@ export default function UpdateKH() {
         .then(response => response.json())
         .then(result => {
           if(result.loicode==-1){
-            swal("nhập đầy đủ thông tin", {
-              text: `yêu cầu nhập giá ` ,
-              icon: "warning",
-            });
+            swal("Thất Bại", result.message, "error");
           }else{
-          swal("Thông báo", "Sửa khóa học thành công", "success")
+          swal("Thành Công", "Sửa khóa học thành công", "success")
           history.push(`/giangvien/AllCourses/`);
           setIsEnable(isEnable + 1)
           }
@@ -222,7 +219,7 @@ export default function UpdateKH() {
                       
                     </div>
                     <div className="form-group">
-                      <label htmlFor className="col-sm-3 control-label">Discount</label>
+                      <label htmlFor className="col-sm-3 control-label">Giảm giá</label>
                       <div className="col-sm-9">
 
                         <input type="text" name="discount" className="form-control" onChange={onInputChange} value={BaiGiang.discount} />
@@ -258,7 +255,7 @@ export default function UpdateKH() {
                       <label htmlFor className="col-sm-3 control-label"> Danh mục *</label>
                       <div className="col-sm-6">
                         <select className="form-control" value={selectedDanhMuc} onChange={onChangeDanhMuc}>
-                          <option>-- Chọn Danh mục --</option>
+                          <option>Chọn danh mục</option>
 
                           {danhmuc.map((value, index) => {
                             return (
