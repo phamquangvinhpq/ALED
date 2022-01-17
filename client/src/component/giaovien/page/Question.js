@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import swal from 'sweetalert';
 import $ from "jquery";
+import { log } from '@antv/g2plot/lib/utils';
 
 
 export default function Question() {
@@ -10,10 +11,13 @@ export default function Question() {
     const [selectedSection, setSelectedSection] = useState(-1);
     const [selectedSection1, setSelectedSection1] = useState(-1);
     const [selectedSection3, setSelectedSection3] = useState(1);
+    const [pageSt, setPageSt] = useState(0);
 
 
     const [section, setsection] = useState([])
     const [danhsachcauhoi, setdanhsachcauhoi] = useState([])
+    const [danhsachcauhoi1, setdanhsachcauhoi1] = useState([])
+
 
     const [PartID, SetPartid] = useState([])
     const [trangthai, settrangthai] = useState(1)
@@ -56,7 +60,7 @@ export default function Question() {
 
 
     }, [
-        trangthai
+        trangthai, pageSt
     ])
 
     const loadBaiGiang = async () => {
@@ -76,7 +80,6 @@ export default function Question() {
             .then(response => response.json())
             .then(result => {
                 setbaigiang(result)
-                console.log(result);
             })
             .catch(error => console.log('error', error));
     }
@@ -123,7 +126,6 @@ export default function Question() {
         fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/` + value, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
                 setsection(result);
             })
             .catch((error) => console.log("error", error));
@@ -224,21 +226,28 @@ export default function Question() {
         Cauhoi.isCorrected1 = 0
         Cauhoi.isCorrected3 = 0
         Cauhoi.isCorrected4 = 0
-        console.log(Cauhoi);
     }
     const dapandung3 = (even) => {
         Cauhoi.isCorrected3 = 1
         Cauhoi.isCorrected2 = 0
         Cauhoi.isCorrected1 = 0
         Cauhoi.isCorrected4 = 0
-        console.log(Cauhoi);
     }
     const dapandung4 = (even) => {
         Cauhoi.isCorrected4 = 1
         Cauhoi.isCorrected2 = 0
         Cauhoi.isCorrected3 = 0
         Cauhoi.isCorrected1 = 0
-        console.log(Cauhoi);
+    }
+
+    const backPageSt = async () => {
+        const pg = pageSt - 1
+        setPageSt(pg)
+    }
+
+    const nextPageSt = async () => {
+        const pg = pageSt + 1
+        setPageSt(pg)
     }
 
     const loadcauhoi = (value) => {
@@ -250,12 +259,12 @@ export default function Question() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions`, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions/?page=` + pageSt, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setdanhsachcauhoi(result.data)
-                console.log(result.status);
-                console.log(danhsachcauhoi);
+                setdanhsachcauhoi1(result)
+            
             })
             .catch(error => console.log('error', error));
     }
@@ -263,7 +272,6 @@ export default function Question() {
     const clicksetdiem = (value) => {
 
         Cauhoi.point = value
-        console.log(Cauhoi.point);
     }
 
     const typecauhoi = () => {
@@ -377,18 +385,13 @@ export default function Question() {
                     <label htmlFor className="col-sm-3 control-label">Điểm</label>
                     <div className="col-sm-9">
                         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        &ensp;  <label className="btn btn-secondary active">
-                                <input type="radio" name="options" class="btn btn-outline-primary"  id="option1" autoComplete="off" defaultChecked onClick={() => clicksetdiem(5)} /> 5 Điểm
-                            </label>
-                            &ensp;  <label className="btn btn-secondary">
-                                <input type="radio" name="options" class="btn btn-outline-primary"  id="option2" autoComplete="off" onClick={() => clicksetdiem(10)} /> 10 Điểm
-                                &ensp;   </label>
-                            <label className="btn btn-secondary">
-                                <input type="radio" name="options" class="btn btn-outline-primary"  id="option3" autoComplete="off" onClick={() => clicksetdiem(20)}/> 20 Điểm
-                            </label>
+                            &ensp;  <button type="button" class="btn btn-outline-primary" onClick={() => clicksetdiem(5)}>5 Điểm</button>
+                            &ensp;  <button type="button" class="btn btn-outline-secondary" onClick={() => clicksetdiem(10)}>10 Điểm</button>
+                            &ensp;   <button type="button" class="btn btn-outline-success" onClick={() => clicksetdiem(20)}>20 Điểm</button>
+
                         </div>
 
-                         
+
                     </div>
                 </div>
 
@@ -576,11 +579,15 @@ export default function Question() {
 
                                                         </td> */}
                                                     </tr>
-
+                                                    
                                                 )}
-
+                                               
                                             </tbody>
+                                      
                                         </table>
+                                       
+                                  
+                                      
                                     </div>
                                 </div>
                             </div>

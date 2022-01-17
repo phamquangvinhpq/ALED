@@ -189,9 +189,12 @@ export default function Pendinginstructer() {
             redirect: 'follow'
           };
           
-          fetch(`${DEFAULT_API}` +`/user/`+value, requestOptions)
+          fetch(`${DEFAULT_API}` +`user/`+value, requestOptions)
             .then(response => response.text())
-            .then(result =>  swal("Thông báo", "Xóa Thành Công", "success"))
+            .then(result => { swal("Thông báo", "Xóa Thành Công", "success")
+            setIsEnable(isEnable+1)
+        
+        })
             .catch(error => console.log('error', error));
     }
 

@@ -36,6 +36,7 @@ export default function Dsbaithi() {
 
     useEffect(() => {
         loadBaiGiang();
+
         if(PartID != "-1"){
             loadbaithi(PartID)
         }
@@ -231,6 +232,7 @@ export default function Dsbaithi() {
         if (event.target.value != "nodata") {
             SetPartid(event.target.value)
             loadcauhoi(event.target.value)
+            settrangthai(trangthai+1)
         }
       
     
@@ -386,7 +388,7 @@ export default function Dsbaithi() {
 
             <div className="col-md-9">
                 <form className="form-horizontal" >
-                    <h3>Dang Sách Đề Thi</h3>
+                    <h3>Danh Sách Đề Thi</h3>
                     <a data-target="#add_question" data-toggle="modal">Thêm Mới</a>
                     <div className="form-group">
                         <label htmlFor className="col-sm-3 control-label" >Khóa học  <span>*</span></label>
@@ -409,7 +411,7 @@ export default function Dsbaithi() {
                     <div className="form-group">
                         <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
                         <div className="col-sm-9">
-                            <select className="form-control w-100-p" onChange={onChangeSection1}>
+                            <select className="form-control w-100-p"  onChange={onChangeSection1}>
                                 <option value="nodata" >chọn chương</option>
                                 {section.map((value, index) => {
                                     return (

@@ -75,7 +75,8 @@ export default function Register() {
 
 
 
-  const signupintructer = () => {
+  const signupintructer = (event) => {
+    event.preventDefault();
     var regexPhone = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
     var regexKhoangTrang = /\S/;
     var regex = /[A-Za-z0-9]/
@@ -129,7 +130,7 @@ export default function Register() {
 
             swal("Thông báo", "Kiểm tra email để lấy mật khẩu", "success")
             history.push("/home")
-            window.location.reload();
+          
           }
 
         })
