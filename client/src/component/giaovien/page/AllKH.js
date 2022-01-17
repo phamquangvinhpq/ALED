@@ -143,7 +143,7 @@ export default function AllKH() {
                   <td>
                     <img src={value.image} style={{ height: 80 }} className="w-100" />
                   </td>
-                  <td>{value.description}</td>
+                  <td class="dxLjPX">{value.description}</td>
                   <td>
                     <a onClick={
                       (event) => {
