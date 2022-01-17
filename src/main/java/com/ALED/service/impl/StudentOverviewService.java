@@ -33,13 +33,13 @@ public class StudentOverviewService implements IStudentOverviewService{
 		
 		for (Mycourse entity : entities) {
 			System.out.println(entity.getUser().getId());
-			if (entity.getUser().getId() == user_id) {
+			if (entity.getUser().getId().equals(user_id)) {
 				totalCourse+=1;
 				totalMoneySpent += entity.getCourse().getPrice();
 			}
 		}
 		for (Rate entity : entitiesRate) {
-			if (entity.getUser().getId() == user_id) {
+			if (entity.getUser().getId().equals(user_id)) {
 				totalRatingGiven+=1;
 			}
 		}
