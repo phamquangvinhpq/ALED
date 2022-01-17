@@ -121,12 +121,12 @@ public class VnpayController {
 			@RequestParam(value = "vnp_OrderInfo", required = false) String mota,
 			@RequestParam(value = "vnp_PayDate", required = false) String ngaytao,
 			@RequestParam(value = "vnp_ResponseCode", required = false) int trangthai) throws ParseException {
-
+		int gia1 = gia/100;
 		Date date = new SimpleDateFormat("yyyyMMddHHmmss").parse(ngaytao);
 		OrderDTO order = new OrderDTO();
 		order.setBank(nganhang);
 		order.setCreateDate(date);
-		order.setMonny(gia);
+		order.setMonny(gia1);
 		order.setMota(mota);
 		order.setStatus(trangthai);
 		order.setUser((int) context.getAttribute("user_id"));
