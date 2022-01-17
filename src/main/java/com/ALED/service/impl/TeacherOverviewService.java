@@ -50,14 +50,17 @@ public class TeacherOverviewService implements ITeacherOverviewService{
 		AuthorDTO dto = new AuthorDTO();
 		Author entity = new Author();
 		author_skill skill=authorSkillRepository.getById(author_id);
-		try {
+		
 			entity = authorRepository.getById(author_id);
-			BeanUtils.copyProperties(entity, dto);
+			dto.setId(entity.getId());
+			dto.setDescription(entity.getDescription());
+			dto.setEducation(entity.getEducation());
+			dto.setImage(entity.getImage());
+			dto.setName(entity.getName());
+			dto.setType(entity.getType());
 			dto.setSkill(skill.getSkill());
 			
-		} catch (Exception e) {
-			return null;
-		}
+		
 		return dto;
 	}
 

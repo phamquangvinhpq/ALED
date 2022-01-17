@@ -74,7 +74,27 @@ export default function ViewDetail() {
   };
 
   function getcheckout(value) {
-    damuakhoahoc(value)
+    checkchoduyet(value)
+  }
+
+  const checkchoduyet = (value)=>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`${DEFAULT_API}` +`course/`+value.id, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result[0].status==0)
+        {
+          swal("Thất Bại", "Khóa Học Đang Chờ Duyệt", "error")
+        }
+        else{
+          damuakhoahoc(value)
+        }
+      })
+      .catch(error => console.log('error', error));
   }
 
   const damuakhoahoc = async (value) => {
