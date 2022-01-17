@@ -20,7 +20,7 @@ export default function Exam() {
     var username = localStorage.getItem("username")
 
     const [dethi, setdethi] = useState({});
-var courseid=localStorage.getItem("courseid");
+    var courseid = localStorage.getItem("courseid");
     const loadcauhoi = () => {
         var myHeaders = new Headers();
 
@@ -30,7 +30,7 @@ var courseid=localStorage.getItem("courseid");
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}` + `api/exams/` + id.id + `/questions?username=` + username+`&courseid=`+courseid, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/exams/` + id.id + `/questions?username=` + username + `&courseid=` + courseid, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.message == "loi") {
@@ -38,7 +38,7 @@ var courseid=localStorage.getItem("courseid");
                 }
 
                 if (result.message == "not valid due to validation error: ") {
-                  
+
                     thongbaodiem();
                 }
 
@@ -53,7 +53,7 @@ var courseid=localStorage.getItem("courseid");
     useEffect(() => {
         baithiuser();
         loadcauhoi();
-        
+
 
 
     }, [trangthai])
@@ -106,7 +106,7 @@ var courseid=localStorage.getItem("courseid");
             .catch(error => console.log('error', error));
     }
 
- 
+
 
 
     const thongbaodiem = () => {
@@ -122,7 +122,7 @@ var courseid=localStorage.getItem("courseid");
         fetch(`${DEFAULT_API}` + `api/exams/` + id.id + `/users/` + username + `/result`, requestOptions)
             .then(response => response.json())
             .then(result => {
-                if (result.totalPoint > 80) {
+                if (result.totalPoint >= 80) {
                     swal({
                         title: "Bạn đã hoàn thành bài kiểm tra:" + result.totalPoint,
                         text: "Thời gian hoàn thành:" + result.userTimeFinish,
@@ -132,7 +132,7 @@ var courseid=localStorage.getItem("courseid");
                     })
                         .then((willDelete) => {
                             if (willDelete) {
-                               history.goBack();
+                                history.goBack();
                             } else {
                                 lamlai();
                             }
@@ -151,7 +151,7 @@ var courseid=localStorage.getItem("courseid");
                             if (willDelete) {
                                 history.goBack();
                             } else {
-                               lamlai();
+                                lamlai();
                             }
                         });
                 }
@@ -159,18 +159,18 @@ var courseid=localStorage.getItem("courseid");
             .catch(error => console.log('error', error));
     }
 
-    
-const lamlai =()=>{
-    var requestOptions = {
-        method: 'PUT',
-        redirect: 'follow'
-      };
-      
-      fetch(`${DEFAULT_API}` + `api/lamlai/?id=`+id.id+`&username=`+username, requestOptions)
-        .then(response => response.text())
-        .then(result => {settrangthai(trangthai+1)})
-        .catch(error => console.log('error', error));
-}
+
+    const lamlai = () => {
+        var requestOptions = {
+            method: 'PUT',
+            redirect: 'follow'
+        };
+
+        fetch(`${DEFAULT_API}` + `api/lamlai/?id=` + id.id + `&username=` + username, requestOptions)
+            .then(response => response.text())
+            .then(result => { settrangthai(trangthai + 1) })
+            .catch(error => console.log('error', error));
+    }
 
     const sunmit = () => {
         var myHeaders = new Headers();

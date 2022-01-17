@@ -38,8 +38,8 @@ export default function PaymentHistory() {
               <tr>
                 <th>STT</th>
                 <th>Nội Dung</th>
-                <th>Số Tiền</th>
                 <th>Ngân Hàng</th>
+                <th>Số Tiền</th>
                 <th>Ngày Thanh Toán</th>
               </tr>
             </thead>
