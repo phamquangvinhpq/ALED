@@ -2,6 +2,7 @@ package com.ALED.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.ALED.DTO.AuthorDTO;
 import com.ALED.DTO.TeacherOverviewDTO;
 import com.ALED.entities.Author;
+import com.ALED.entities.author_skill;
 import com.ALED.repositories.AuthorRepository;
+import com.ALED.repositories.AuthorSkillRepository;
 import com.ALED.repositories.CourseRepository;
 import com.ALED.repositories.MycourseRepository;
 import com.ALED.service.ITeacherOverviewService;
@@ -25,6 +28,9 @@ public class TeacherOverviewService implements ITeacherOverviewService{
 	
 	@Autowired
 	AuthorRepository authorRepository;
+	
+	@Autowired
+	AuthorSkillRepository authorSkillRepository;
 	
 
 	@Override
@@ -43,12 +49,18 @@ public class TeacherOverviewService implements ITeacherOverviewService{
 	public AuthorDTO getInfoAuthor(Integer author_id) {
 		AuthorDTO dto = new AuthorDTO();
 		Author entity = new Author();
-		try {
+		author_skill skill=authorSkillRepository.getById(author_id);
+		
 			entity = authorRepository.getById(author_id);
-			BeanUtils.copyProperties(entity, dto);
-		} catch (Exception e) {
-			return null;
-		}
+			dto.setId(entity.getId());
+			dto.setDescription(entity.getDescription());
+			dto.setEducation(entity.getEducation());
+			dto.setImage(entity.getImage());
+			dto.setName(entity.getName());
+			dto.setType(entity.getType());
+			dto.setSkill(skill.getSkill());
+			
+		
 		return dto;
 	}
 

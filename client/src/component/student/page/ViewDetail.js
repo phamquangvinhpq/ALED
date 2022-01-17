@@ -22,7 +22,7 @@ export default function ViewDetail() {
     };
 
     fetch(
-      `${DEFAULT_API}` +`course/get_course_author?author_id=${author_id}&page=${page}`,
+      `${DEFAULT_API}` + `course/get_course_author?author_id=${author_id}&page=${page}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -37,7 +37,7 @@ export default function ViewDetail() {
     };
 
     fetch(
-      `${DEFAULT_API}` +`teacheroverview?author_id=${author_id}`,
+      `${DEFAULT_API}` + `teacheroverview?author_id=${author_id}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -50,8 +50,8 @@ export default function ViewDetail() {
       method: 'GET',
       redirect: 'follow'
     };
-    
-    fetch(`${DEFAULT_API}` +`teacheroverview/getinfoauthor?author_id=${author_id}`, requestOptions)
+
+    fetch(`${DEFAULT_API}` + `teacheroverview/getinfoauthor?author_id=${author_id}`, requestOptions)
       .then(response => response.json())
       .then(result => setInfoAuthor(result))
       .catch(error => console.log('error', error));
@@ -59,8 +59,7 @@ export default function ViewDetail() {
   const user_id = localStorage.getItem("userid")
 
   useEffect(() => {
-    if(isNaN(id.id))
-    {
+    if (isNaN(id.id)) {
       history.push("/404")
       window.location.reload();
     }
@@ -75,28 +74,48 @@ export default function ViewDetail() {
   };
 
   function getcheckout(value) {
-    damuakhoahoc(value)
+    checkchoduyet(value)
+  }
+
+  const checkchoduyet = (value)=>{
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch(`${DEFAULT_API}` +`course/`+value.id, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result[0].status==0)
+        {
+          swal("Thất Bại", "Khóa Học Đang Chờ Duyệt", "error")
+        }
+        else{
+          damuakhoahoc(value)
+        }
+      })
+      .catch(error => console.log('error', error));
   }
 
   const damuakhoahoc = async (value) => {
 
     var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
+      method: 'GET',
+      redirect: 'follow'
     };
     fetch(`${DEFAULT_API}` + `giangvien/test/` + `${user_id}` + `/${value.id}`, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            console.log(result);
-            if (result === "bought") {
-               swal("Thất Bại", "Bạn đã mua khóa học này rồi", "error")
-            } else {
-                history.push(`/checkout/${value.id}`)
-            }
+      .then(response => response.text())
+      .then(result => {
+        console.log(result);
+        if (result === "bought") {
+          swal("Thất Bại", "Bạn đã mua khóa học này rồi", "error")
+        } else {
+          history.push(`/checkout/${value.id}`)
+        }
 
-        })
-        .catch(error => console.log('error', error));
-}
+      })
+      .catch(error => console.log('error', error));
+  }
 
 
   return (
@@ -135,7 +154,7 @@ export default function ViewDetail() {
                   <div className="profile_content">
                     <p className="card_text"></p>
                     <div className="review">
-                    <span>
+                      <span>
                         <ReactStars
                           edit={false}
                           value={teacher.instructorRating}
@@ -146,7 +165,7 @@ export default function ViewDetail() {
                           fullIcon={<i className="fa fa-star"></i>}
                           activeColor="#ffd700"
                         />
-                      </span> 
+                      </span>
                     </div>
                     <div className="text-muted">
                       <i className="fa fa-star" /> Đánh giá trung bình:{" "}
@@ -173,10 +192,10 @@ export default function ViewDetail() {
             <div className="col-md-9">
               <h3 className="profile_title">{infoAuthor.name}</h3>
               <p className="profile_sub_title">
-              Trường: {infoAuthor.education}
+                Trường: {infoAuthor.education}
               </p>
               <div className="tab-pane active">
-              Chi tiết: {infoAuthor.description}
+                Chi tiết: {infoAuthor.skill}
                 <br />
               </div>
             </div>
@@ -203,7 +222,7 @@ export default function ViewDetail() {
                       <li>Danh mục: {value.categoryName}</li>
                     </ul>
                     <div className="review">
-                    <span>
+                      <span>
                         <ReactStars
                           edit={false}
                           value={value.rate}
@@ -218,9 +237,9 @@ export default function ViewDetail() {
                       <span className="review-text">(Tổng đánh giá: {value.totalRating})</span>
                     </div>
                     <div className="price">{value.price.toLocaleString('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-    })}</div>
+                      style: 'currency',
+                      currency: 'VND'
+                    })}</div>
                     <div className="buy">
                       <a
                         onClick={() => getcheckout(value)}

@@ -26,7 +26,7 @@ public interface ILessionService {
 
 	public Lession 	updateTime(Lession lession);
 
-	Lession getLessionbyTime();
+	Lession getLessionbyTime(Integer course);
 
 	public boolean updateXemThu(Integer id, Integer demo);
 

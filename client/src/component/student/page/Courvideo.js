@@ -33,7 +33,7 @@ export default function Courvideo() {
   localStorage.setItem("courseid",id.id);
   let history = useHistory();
   const user_id = localStorage.getItem("userid");
-
+const username=localStorage.getItem("username")
   const [lessionId, setLesssionId] = useState(-1);
   const [listNote, setListNote] = useState([]);
   const [listQA, setListQA] = useState([]);
@@ -333,7 +333,7 @@ export default function Courvideo() {
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + "lession/getlessionbytime", requestOptions)
+    fetch(`${DEFAULT_API}` + "lession/getlessionbytime/?course="+id.id, requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.loicode == -1) {
@@ -362,7 +362,7 @@ export default function Courvideo() {
 
     fetch(`${DEFAULT_API}` + "lession/updateTime", requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result))
+      .then(result => {})
       .catch(error => console.log('error', error));
   }
 
@@ -394,8 +394,8 @@ export default function Courvideo() {
   }
 
   const chungchi = () => {
-    window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
-
+    checkchungchi();
+  
   }
 
 
@@ -502,6 +502,65 @@ function testcheck(value) {
 
 const thongbao =()=>{
   swal("Lỗi", "Vui chọn bài giảng cần ghi chú", "warning")
+ 
+}
+
+const luuchungchi =()=>{
+  var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+var today = new Date(),
+date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+var aledid=Math.floor(Math.random() * 1004000) + 12044678;
+var namecourse;
+{ttkh.map((value) =>
+    namecourse= value.courseName
+)}
+
+
+var raw = JSON.stringify({
+  "username": username,
+  "namecourse": namecourse,
+  "ngay": date,
+  "aledid": "ALED-"+aledid,
+  "namepdf": "aled",
+  "idcourse": id.id
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch(`${DEFAULT_API}` + "addchungchi", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+}
+
+const checkchungchi=()=>{
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch(`${DEFAULT_API}` +`checkchungchi?username=`+username+`&course=`+id.id, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      if(result=="yes")
+      {
+      
+        window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
+    
+      }
+      else{
+        luuchungchi();
+        window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
+    
+      }
+    })
+    .catch(error => console.log('error', error));
 }
 
   return (
@@ -646,13 +705,9 @@ const thongbao =()=>{
                                     onClick={() => getData(value)}
                                     className="btn btn-light"
                                   >
-                                    {/* {value.status == 1 ? (<input onClick={() => checkDaxem(value, 0)} type="checkbox" checked/>)
-                                    : (<input onClick={() => checkDaxem(value, 1)}  type="checkbox" unchecked/> )} */}
-                                    {value.status == 1 ? 
-                                      <input className="form-check-input" type="radio" name={value.id} id="flexRadioDefault1" defaultChecked />
-                                    : 
-                                      <input className="form-check-input" type="radio" name={value.id} id="flexRadioDefault2"  />
-                                    }
+{/*                                    
+                                    // {value.status === 1 ? <span><input onClick={() => checkDaxem(value, 0)} type="checkbox" defaultChecked="checked"/>&nbsp;&nbsp;</span>
+                                    // : <span><input onClick={() => checkDaxem(value, 1)}  type="checkbox"/> &nbsp;&nbsp;</span>} */}
                                     <i className="fa fa-play-circle" />{" "}
                                     <a onClick={() => videoVuaXem(value)}> {value.name}</a>
                                    

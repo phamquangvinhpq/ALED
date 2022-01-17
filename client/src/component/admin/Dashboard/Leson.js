@@ -39,6 +39,7 @@ export default function Leson() {
   }
 
   let id = useParams();
+  localStorage.setItem("courseid",id.id);
   const [giatriID, setgiatriID] = useState(-1)
 
   const getData = (value) => {
@@ -344,17 +345,18 @@ export default function Leson() {
                           </a>
                         </h4>
                       </div>
+                          
                       <div id={`ok` + index} className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div className="panel-body">
                           <div className="table-responsive">
-                          <table className="table table-bordered table-striped" >
+                            <table className="table table-bordered table-striped" >
                               <thead>
                                 <tr>
-                                <th className="w-10-p">ID</th>
-                                  <th className="w-40-p">Tên bài học</th>
-                                  <th className="w-30-p">ID chương bài học</th>
-                                  <th className="w-15-p">Nội dung bài học</th>
-                                  <th >Hoạt động </th>
+                                <th className="w-10-p">STT</th>
+                                  <th className="w-40-p">Tên Bài Học</th>
+                                  <th className="w-30-p">Tên Chương</th>
+                                  <th className="w-15-p">Nội Dung</th>
+                                  <th >Action </th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -362,17 +364,22 @@ export default function Leson() {
                                   <tr key={index}>
                                     <td>{index+1}</td>
                                     <td>{value.name}</td>
+                                  
                                     <td>{value.section_id}</td>
                                     <td>
-                                      <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
-                                        <i className="fa fa-video-camera" /> Xem Video
-                                      </a>
+                                      {value.type=="test" ?   <a className="btn btn-info "   href={`/exam/` + value.linkVideo} >
+                                        <i  /> Xem bài thi
+                                      </a> :  <a className="btn btn-block btn-warning btn-sm" data-toggle="modal" data-target="#myModalAllWatch0" onClick={() => getData(value)} >
+                                        <i className="fa fa-video-camera" /> Xem
+                                      </a>}
+                                     
 
                                     </td>
                                     <td>
                                      
+                                    
                                       <a href className="btn btn-danger btn-sm" onClick={() => deleteLession(value)}>Xóa</a>
-                                    </td>
+                                    </td> 
                                   </tr>
                                 ))}
                               </tbody>

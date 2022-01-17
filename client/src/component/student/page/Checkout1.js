@@ -58,7 +58,7 @@ export default function Checkout1() {
 
         var raw = JSON.stringify({
             "price": DSkhoahoc.price,
-            "description": "Thanh Toán Khóa Học ",
+            "description": "Thanh Toan Khoa Hoc Tren Aled ",
             "user_id": user_id,
             "course_id": DSkhoahoc.id
         });

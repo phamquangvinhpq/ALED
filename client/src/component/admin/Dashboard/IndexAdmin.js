@@ -18,6 +18,7 @@ import Leson from './Leson';
 import Section from './Section';
 import Pendinginstructer from './Pendinginstructer';
 import AddUser from './AddUser';
+import Chungchi from './Chungchi';
 
 export default function IndexAdmin() {
     return (
@@ -51,6 +52,9 @@ export default function IndexAdmin() {
 
                             <Route path="/admin/Payment">
                                 <PaymentHistory />
+                            </Route>
+                            <Route path="/admin/Chungchi">
+                                <Chungchi />
                             </Route>
 
                             <Route path="/admin/Instructors">

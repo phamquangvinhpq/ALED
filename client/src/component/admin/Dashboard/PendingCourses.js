@@ -51,6 +51,7 @@ export default function PendingCourse() {
       fetch(`${DEFAULT_API}` + `sendmailreport?userId=${value.author_id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
+          console.log(result);
           swal("Thành công", "Đã gửi thành công", "success")
         })
         .catch(error => console.log('error', error));

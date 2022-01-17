@@ -183,6 +183,21 @@ export default function Pendinginstructer() {
             .catch(error => console.log('error', error));
     }
 
+    const deleteuser = (value)=>{
+        var requestOptions = {
+            method: 'DELETE',
+            redirect: 'follow'
+          };
+          
+          fetch(`${DEFAULT_API}` +`user/`+value, requestOptions)
+            .then(response => response.text())
+            .then(result => { swal("Thông báo", "Xóa Thành Công", "success")
+            setIsEnable(isEnable+1)
+        
+        })
+            .catch(error => console.log('error', error));
+    }
+
 
     return (
         <div className="content-wrapper">
@@ -243,9 +258,13 @@ export default function Pendinginstructer() {
                                                     <a onClick={() => huyActive(value)}
                                                         className="btn btn-success btn-block btn-xs"
                                                     >Chấp nhận</a>
+                                                  
                                                     <a onClick={() => loadUa(value)}
                                                         className="btn btn-info btn-block btn-xs" data-toggle="modal" data-target="#sendMail"
                                                     >Gửi thông báo</a>
+                                                     <a onClick={() =>  deleteuser(value.id)}
+                                                        className="btn btn-success btn-block btn-xs"
+                                                    >Xóa</a>
                                                 </td>
                                             </tr>
                                         )}

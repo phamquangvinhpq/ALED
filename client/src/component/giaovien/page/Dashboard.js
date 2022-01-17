@@ -45,7 +45,7 @@ export default function Dashboard() {
                 <td>{value.totalStudents}</td>
               </tr>
               <tr>
-                <th>Tổng số người hướng dẫn</th>
+                <th>Trung Sao Đánh Giá</th>
                 <td>{value.instructorRating}</td>
               </tr>
             </tbody>

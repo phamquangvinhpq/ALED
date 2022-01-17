@@ -24,8 +24,9 @@ public interface LessionRepository extends JpaRepository<Lession, Integer> {
 	@Query(value = "SELECT * FROM lession WHERE id=:id", nativeQuery = true)
 	Lession findByyid(@Param("id") Integer id);
 
-    @Query(value = "SELECT  * FROM `lession`  ORDER BY time DESC LIMIT 1", nativeQuery = true)
-   	Lession findBytime();
+    @Query(value = "SELECT  * FROM `lession` JOIN section ON lession.section_id=section.id WHERE section.course_id =:course\r\n"
+    		+ "ORDER BY time DESC LIMIT 1", nativeQuery = true)
+   	Lession findBytime(@Param("course") Integer course);
 
 	
 	@Query(value = "SELECT * FROM lession WHERE section_id = ?1 ", nativeQuery = true)

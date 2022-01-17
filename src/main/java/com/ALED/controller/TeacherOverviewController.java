@@ -28,4 +28,5 @@ public class TeacherOverviewController {
 	public AuthorDTO getInfoAuthor(@RequestParam(name = "author_id", required = false) Integer author_id) {
 		return iTeacherOverviewService.getInfoAuthor(author_id);
 	}
+	
 }

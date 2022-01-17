@@ -58,8 +58,8 @@ export default function Homestd() {
     }
 
     function getcheckout(value) {
-
-        damuakhoahoc(value)
+        checkchoduyet(value)
+       
 
     }
 
@@ -207,6 +207,50 @@ export default function Homestd() {
             .catch(error => console.log('error', error));
     }
 
+
+    const getCoursebyid = async (value) => {
+        var myHeaders = new Headers();
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow',
+        };
+    
+        fetch(`${DEFAULT_API}` + `course/${value}`, requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            console.log(result);
+            if (result[0].status == 0) {
+                swal("Thông báo", "Khóa Học Đang Chờ Duyệt")
+            }
+            else{
+
+            }
+           
+            
+          })
+          .catch(error => console.log('error', error));
+      }
+
+      const checkchoduyet = (value)=>{
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        
+        fetch(`${DEFAULT_API}` +`course/`+value.id, requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            if(result[0].status==0)
+            {
+              swal("Thất Bại", "Khóa Học Đang Chờ Duyệt", "error")
+            }
+            else{
+                damuakhoahoc(value)
+            }
+          })
+          .catch(error => console.log('error', error));
+      }
     
     return (
         <div>
@@ -366,7 +410,7 @@ export default function Homestd() {
                                                         <span>{value.create_date}</span>
                                                     </div>
                                                 </div>
-                                                <p className="margin-top-20">{value.description}</p>
+                                                <p class="dxLjPX1" >{value.description}</p>
                                                 
                                                 <div className="preview-button margin-top-20">
 

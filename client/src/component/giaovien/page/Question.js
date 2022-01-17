@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { DEFAULT_API } from '../../../conf/env';
 import swal from 'sweetalert';
 import $ from "jquery";
+import { log } from '@antv/g2plot/lib/utils';
 
 
 export default function Question() {
@@ -9,9 +10,16 @@ export default function Question() {
     const [baigiang, setbaigiang] = useState([])
     const [selectedSection, setSelectedSection] = useState(-1);
     const [selectedSection1, setSelectedSection1] = useState(-1);
+    const [selectedSection3, setSelectedSection3] = useState(1);
+    const [totalCountSt, setTotalCountSt] = useState(5)
+
+    const [pageSt, setPageSt] = useState(0);
+
 
     const [section, setsection] = useState([])
     const [danhsachcauhoi, setdanhsachcauhoi] = useState([])
+    const [danhsachcauhoi1, setdanhsachcauhoi1] = useState(-1)
+
 
     const [PartID, SetPartid] = useState([])
     const [trangthai, settrangthai] = useState(1)
@@ -31,10 +39,10 @@ export default function Question() {
 
     const cancelCourse = (event) => {
         document.getElementById("create-course-form").reset();
-     
+
     }
 
-  
+
 
     const onInputChange = (event) => {
         const { name, value } = event.target;
@@ -48,9 +56,13 @@ export default function Question() {
     useEffect(() => {
 
         loadBaiGiang();
+        if (selectedSection1 != "-1") {
+            loadcauhoi(selectedSection1)
+        }
+
 
     }, [
-        
+        trangthai, pageSt
     ])
 
     const loadBaiGiang = async () => {
@@ -70,26 +82,35 @@ export default function Question() {
             .then(response => response.json())
             .then(result => {
                 setbaigiang(result)
-                console.log(result);
             })
             .catch(error => console.log('error', error));
     }
 
     const onChangeSection = (event) => {
-        setSelectedSection(event.target.value);
-        console.log(event.target.value);
-        console.log(selectedSection);
+
         if (event.target.value != "nodata") {
+            setSelectedSection(event.target.value);
+
             loaddanhmuc(event.target.value);
         }
 
     };
 
     const onChangeSection1 = (event) => {
-        setSelectedSection1(event.target.value);
+        if (event.target.value != "nodata") {
+            setSelectedSection1(event.target.value);
 
-        SetPartid(event.target.value)
-        loadcauhoi(event.target.value)
+            SetPartid(event.target.value)
+
+            settrangthai(trangthai + 1)
+        }
+
+
+    };
+
+    const onChangeSection3 = (event) => {
+        setSelectedSection3(event.target.value)
+
 
 
     };
@@ -107,7 +128,6 @@ export default function Question() {
         fetch(`${DEFAULT_API}` + `giangvien/Sectioncour/` + value, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
                 setsection(result);
             })
             .catch((error) => console.log("error", error));
@@ -117,35 +137,55 @@ export default function Question() {
         var regexPoin = /[1-9][0-9]*/;
         if (!regexPoin.test(Cauhoi.point)) {
             swal("Failed", "Điểm phải là số dương", "warning")
-        }else if (Cauhoi.isCorrected1==0 &&Cauhoi.isCorrected2==0&&Cauhoi.isCorrected3==0&&Cauhoi.isCorrected4==0 ){
+        } else if (Cauhoi.isCorrected1 == 0 && Cauhoi.isCorrected2 == 0 && Cauhoi.isCorrected3 == 0 && Cauhoi.isCorrected4 == 0) {
             swal("Failed", "Vui Lòng chọn đáp án dúng", "warning")
         }
         else {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
+            if (selectedSection3 == 2) {
+                var raw = JSON.stringify({
+                    "point": Cauhoi.point,
+                    "questionText": Cauhoi.questionText,
+                    "choices": [
+                        {
+                            "choiceText": "Đúng",
+                            "isCorrected": Cauhoi.isCorrected1
+                        },
+                        {
+                            "choiceText": "Sai",
+                            "isCorrected": Cauhoi.isCorrected2
+                        },
 
-            var raw = JSON.stringify({
-                "point": Cauhoi.point,
-                "questionText": Cauhoi.questionText,
-                "choices": [
-                    {
-                        "choiceText": Cauhoi.choice_text1,
-                        "isCorrected": Cauhoi.isCorrected1
-                    },
-                    {
-                        "choiceText": Cauhoi.choice_text2,
-                        "isCorrected": Cauhoi.isCorrected2
-                    },
-                    {
-                        "choiceText": Cauhoi.choice_text3,
-                        "isCorrected": Cauhoi.isCorrected3
-                    },
-                    {
-                        "choiceText": Cauhoi.choice_text4,
-                        "isCorrected": Cauhoi.isCorrected4
-                    }
-                ]
-            });
+                    ]
+                });
+            }
+            else {
+                var raw = JSON.stringify({
+                    "point": Cauhoi.point,
+                    "questionText": Cauhoi.questionText,
+                    "choices": [
+                        {
+                            "choiceText": Cauhoi.choice_text1,
+                            "isCorrected": Cauhoi.isCorrected1
+                        },
+                        {
+                            "choiceText": Cauhoi.choice_text2,
+                            "isCorrected": Cauhoi.isCorrected2
+                        },
+                        {
+                            "choiceText": Cauhoi.choice_text3,
+                            "isCorrected": Cauhoi.isCorrected3
+                        },
+                        {
+                            "choiceText": Cauhoi.choice_text4,
+                            "isCorrected": Cauhoi.isCorrected4
+                        }
+                    ]
+                });
+            }
+
+
 
             var requestOptions = {
                 method: 'POST',
@@ -158,20 +198,17 @@ export default function Question() {
             fetch(`${DEFAULT_API}` + `api/questions?questionType=MC&&partId=` + PartID, requestOptions)
                 .then(response => response.json())
                 .then(result => {
-                    if (result.loicode == "-1") {        
+                    if (result.loicode == "-1") {
                         swal("Failed", result.message, "warning")
-                       
-
                     }
                     else {
                         swal("Thông báo", "Thêm thành công", "success")
-                        .then(
-                            document.getElementById("dongclick").click()
-                    )
-                    cancelCourse();
-                    settrangthai(trangthai+1)
+                            .then(
+                                document.getElementById("dongclick").click()
+                            )
+                        cancelCourse();
+                        settrangthai(trangthai + 1)
                     }
-
 
                 })
                 .catch(error => console.log('error', error));
@@ -188,21 +225,28 @@ export default function Question() {
         Cauhoi.isCorrected1 = 0
         Cauhoi.isCorrected3 = 0
         Cauhoi.isCorrected4 = 0
-        console.log(Cauhoi);
     }
     const dapandung3 = (even) => {
         Cauhoi.isCorrected3 = 1
         Cauhoi.isCorrected2 = 0
         Cauhoi.isCorrected1 = 0
         Cauhoi.isCorrected4 = 0
-        console.log(Cauhoi);
     }
     const dapandung4 = (even) => {
         Cauhoi.isCorrected4 = 1
         Cauhoi.isCorrected2 = 0
         Cauhoi.isCorrected3 = 0
         Cauhoi.isCorrected1 = 0
-        console.log(Cauhoi);
+    }
+
+    const backPageSt = async () => {
+        const pg = pageSt - 1
+        setPageSt(pg)
+    }
+
+    const nextPageSt = async () => {
+        const pg = pageSt + 1
+        setPageSt(pg)
     }
 
     const loadcauhoi = (value) => {
@@ -214,19 +258,151 @@ export default function Question() {
             redirect: 'follow'
         };
 
-        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions`, requestOptions)
+        fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions/?page=` + pageSt, requestOptions)
             .then(response => response.json())
             .then(result => {
+                console.log(result);
                 setdanhsachcauhoi(result.data)
-                console.log(result.status);
-                console.log(danhsachcauhoi);
+                setdanhsachcauhoi1(result.data.length)
+                setTotalCountSt(result.paginationDetails.totalPage)
+
             })
             .catch(error => console.log('error', error));
     }
 
-    const cliclupdate = (value) => {
+    const clicksetdiem = (value) => {
 
-        setCauhoi(Cauhoi.questionText = value.questionText)
+        Cauhoi.point = value
+    }
+
+    const typecauhoi = () => {
+        if (selectedSection3 == 1) {
+            return <div>
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">Câu hỏi *</label>
+                    <div className="col-sm-9">
+                        <input type="text" name="questionText" className="form-control" onChange={onInputChange} />
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">đáp án 1</label>
+                    <div className="col-sm-9">
+                        <div className=" input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung1(e)} />
+                            </span>
+                            <input type="text" className="form-control" name="choice_text1" aria-label="..." onChange={onInputChange} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">đáp án 2</label>
+                    <div className="col-sm-9">
+                        <div className=" input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung2(e)} />
+                            </span>
+                            <input type="text" className="form-control" name="choice_text2" aria-label="..." onChange={onInputChange} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">đáp án 3</label>
+                    <div className="col-sm-9">
+                        <div className=" input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung3(e)} />
+                            </span>
+                            <input type="text" className="form-control" name="choice_text3" aria-label="..." onChange={onInputChange} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">đáp án 4</label>
+                    <div className="col-sm-9">
+                        <div className=" input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung4(e)} />
+                            </span>
+                            <input type="text" className="form-control" name="choice_text4" aria-label="..." onChange={onInputChange} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">Điểm</label>
+                    <div className="col-sm-9">
+                        &ensp;  <button type="button" class="btn btn-outline-primary" onClick={() => clicksetdiem(5)}>5 Điểm</button>
+                        &ensp;  <button type="button" class="btn btn-outline-secondary" onClick={() => clicksetdiem(10)}>10 Điểm</button>
+                        &ensp;   <button type="button" class="btn btn-outline-success" onClick={() => clicksetdiem(20)}>20 Điểm</button>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <div className="col-sm-offset-3 col-sm-6">
+                        <a className="btn btn-default btn-success" onClick={taocauhoi} name="form1" >Thêm</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else {
+            return <div>
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">Câu hỏi *</label>
+                    <div className="col-sm-9">
+                        <input type="text" name="questionText" className="form-control" onChange={onInputChange} />
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">đáp án 1</label>
+                    <div className="col-sm-9">
+                        <div className=" input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung1(e)} />
+                            </span>
+                            <input type="text" className="form-control" name="choice_text1" Value="Đúng" disabled aria-label="..." onChange={onInputChange} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">đáp án 2</label>
+                    <div className="col-sm-9">
+                        <div className=" input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung2(e)} />
+                            </span>
+                            <input type="text" className="form-control" name="choice_text2" Value="sai" disabled aria-label="..." onChange={onInputChange} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor className="col-sm-3 control-label">Điểm</label>
+                    <div className="col-sm-9">
+                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                            &ensp;  <button type="button" class="btn btn-outline-primary" onClick={() => clicksetdiem(5)}>5 Điểm</button>
+                            &ensp;  <button type="button" class="btn btn-outline-secondary" onClick={() => clicksetdiem(10)}>10 Điểm</button>
+                            &ensp;   <button type="button" class="btn btn-outline-success" onClick={() => clicksetdiem(20)}>20 Điểm</button>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <div className="col-sm-offset-3 col-sm-6">
+                        <a className="btn btn-default btn-success" onClick={taocauhoi} name="form1" >Thêm</a>
+                    </div>
+                </div>
+            </div>
+        }
     }
 
     return (
@@ -276,7 +452,7 @@ export default function Question() {
                                                 <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
                                                 <div className="col-sm-9">
                                                     <select className="form-control w-100-p" value={selectedSection1} onChange={onChangeSection1}>
-                                                        <option >chọn chương</option>
+                                                        <option value="nodata">chọn chương</option>
                                                         {section.map((value, index) => {
                                                             return (
                                                                 <option value={value.id} key={index}>
@@ -287,74 +463,22 @@ export default function Question() {
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">Câu hỏi *</label>
+                                                <label htmlFor className="col-sm-3 control-label" >Loại Câu Hỏi</label>
                                                 <div className="col-sm-9">
-                                                    <input type="text" name="questionText" className="form-control" onChange={onInputChange} />
+                                                    <select className="form-control w-100-p" onChange={onChangeSection3}>
+                                                        <option value="1">Một Lựa Chọn</option>
+                                                        <option value="2">Đúng Sai</option>
+
+                                                    </select>
                                                 </div>
                                             </div>
 
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 1</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung1(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text1" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 2</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung2(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text2" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {typecauhoi()}
 
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 3</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung3(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text3" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">đáp án 4</label>
-                                                <div className="col-sm-9">
-                                                    <div className=" input-group">
-                                                        <span className="input-group-addon">
-                                                            <input type="radio" aria-label="..." name="flexRadioDefault" value="1" onChange={(e) => dapandung4(e)} />
-                                                        </span>
-                                                        <input type="text" className="form-control" name="choice_text4" aria-label="..." onChange={onInputChange} />
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div className="form-group">
-                                                <label htmlFor className="col-sm-3 control-label">Điểm</label>
-                                                <div className="col-sm-9">
-                                                    <input type="text" name="courseName" name="point" className="form-control" onChange={onInputChange} />
-                                                </div>
-                                            </div>
-
-                                            <div className="form-group">
-                                                <div className="col-sm-offset-3 col-sm-6">
-                                                    <a  className="btn btn-default btn-success" onClick={taocauhoi}  name="form1" >Thêm</a>
-                                                </div>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -365,7 +489,7 @@ export default function Question() {
 
                         <div className="modal-footer">
                             <button
-                            id='dongclick'
+                                id='dongclick'
                                 type="button"
                                 onClick={cancelCourse}
                                 className="btn btn-danger"
@@ -404,7 +528,7 @@ export default function Question() {
                         <label htmlFor className="col-sm-3 control-label" >Chương <span>*</span></label>
                         <div className="col-sm-9">
                             <select className="form-control w-100-p" onChange={onChangeSection1}>
-                                <option >chọn chương</option>
+                                <option value="nodata" >chọn chương</option>
                                 {section.map((value, index) => {
                                     return (
                                         <option value={value.id} key={index}>
@@ -460,7 +584,12 @@ export default function Question() {
                                                 )}
 
                                             </tbody>
+
                                         </table>
+
+                                        <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                                        {danhsachcauhoi1 == "-1" ? <button type="button" class="btn btn-outline-primary" disabled >Next</button> : <button type="button" class="btn btn-outline-primary" disabled={pageSt == totalCountSt - 1} onClick={nextPageSt} >Next</button>}
+
                                     </div>
                                 </div>
                             </div>

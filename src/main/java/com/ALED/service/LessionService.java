@@ -215,8 +215,8 @@ public class LessionService implements ILessionService {
 
 
 	@Override
-	public Lession getLessionbyTime() {
-		return lessionRepository.findBytime();
+	public Lession getLessionbyTime(Integer course) {
+		return lessionRepository.findBytime(course);
 	
 	}
 
