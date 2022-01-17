@@ -11,12 +11,14 @@ export default function Question() {
     const [selectedSection, setSelectedSection] = useState(-1);
     const [selectedSection1, setSelectedSection1] = useState(-1);
     const [selectedSection3, setSelectedSection3] = useState(1);
+    const [totalCountSt, setTotalCountSt] = useState(5)
+
     const [pageSt, setPageSt] = useState(0);
 
 
     const [section, setsection] = useState([])
     const [danhsachcauhoi, setdanhsachcauhoi] = useState([])
-    const [danhsachcauhoi1, setdanhsachcauhoi1] = useState([])
+    const [danhsachcauhoi1, setdanhsachcauhoi1] = useState(-1)
 
 
     const [PartID, SetPartid] = useState([])
@@ -198,8 +200,6 @@ export default function Question() {
                 .then(result => {
                     if (result.loicode == "-1") {
                         swal("Failed", result.message, "warning")
-
-
                     }
                     else {
                         swal("Thông báo", "Thêm thành công", "success")
@@ -209,7 +209,6 @@ export default function Question() {
                         cancelCourse();
                         settrangthai(trangthai + 1)
                     }
-
 
                 })
                 .catch(error => console.log('error', error));
@@ -262,9 +261,11 @@ export default function Question() {
         fetch(`${DEFAULT_API}` + `api/parts/` + value + `/questions/?page=` + pageSt, requestOptions)
             .then(response => response.json())
             .then(result => {
+                console.log(result);
                 setdanhsachcauhoi(result.data)
-                setdanhsachcauhoi1(result)
-            
+                setdanhsachcauhoi1(result.data.length)
+                setTotalCountSt(result.paginationDetails.totalPage)
+
             })
             .catch(error => console.log('error', error));
     }
@@ -579,15 +580,16 @@ export default function Question() {
 
                                                         </td> */}
                                                     </tr>
-                                                    
+
                                                 )}
-                                               
+
                                             </tbody>
-                                      
+
                                         </table>
-                                       
-                                  
-                                      
+
+                                        <button type="button" class="btn btn-outline-primary" disabled={pageSt == 0} onClick={backPageSt} >Previous</button>
+                                        {danhsachcauhoi1 == "-1" ? <button type="button" class="btn btn-outline-primary" disabled >Next</button> : <button type="button" class="btn btn-outline-primary" disabled={pageSt == totalCountSt - 1} onClick={nextPageSt} >Next</button>}
+
                                     </div>
                                 </div>
                             </div>

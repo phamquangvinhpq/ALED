@@ -340,6 +340,16 @@ export default function Leson() {
         {
           swal("Thông báo", "Bạn Chưa chọn Chương", "warning")
         }
+        if(result.message == "Khóa học đã có người mua, nên bạn không được thêm")
+        {
+          swal("Thông báo", "Khóa học đã có người mua, nên bạn không được thêm", "warning")
+        }
+
+        if(result.message == "Tổng số bài học tối đa là 10")
+        {
+          swal("Thông báo", "Tổng số bài học tối đa là 10", "warning")
+        }
+      
         else if (result.message=="loi")
         {
           swal("Thông báo", "Bạn chưa chọn video", "warning")
