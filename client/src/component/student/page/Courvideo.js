@@ -30,10 +30,10 @@ export default function Courvideo() {
   });
 
   let id = useParams();
-  localStorage.setItem("courseid",id.id);
+  localStorage.setItem("courseid", id.id);
   let history = useHistory();
   const user_id = localStorage.getItem("userid");
-const username=localStorage.getItem("username")
+  const username = localStorage.getItem("username")
   const [lessionId, setLesssionId] = useState(-1);
   const [listNote, setListNote] = useState([]);
   const [listQA, setListQA] = useState([]);
@@ -221,6 +221,10 @@ const username=localStorage.getItem("username")
       history.push('/home');
       window.location.reload()
     }
+    if (isNaN(id.id)) {
+      history.push("/404")
+      window.location.reload();
+    }
     damua();
     getLessionByTime();
     loaddanhmuc();
@@ -234,7 +238,7 @@ const username=localStorage.getItem("username")
       redirect: "follow",
     };
     fetch(
-      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=`+value.id ,
+      `${DEFAULT_API}` + `lession/find-all-by-section?sectionId=` + value.id,
       requestOptions
     )
       .then((response) => response.json())
@@ -272,13 +276,13 @@ const username=localStorage.getItem("username")
 
   };
 
-  const tesst = (value) => {  
+  const tesst = (value) => {
     getLessionBySection(value);
     testcheck(value);
     setStatus(status + 1);
   };
 
-  
+
 
   const loaddanhmuc = async () => {
     var myHeaders = new Headers();
@@ -332,7 +336,7 @@ const username=localStorage.getItem("username")
       redirect: 'follow'
     };
 
-    fetch(`${DEFAULT_API}` + "lession/getlessionbytime/?course="+id.id, requestOptions)
+    fetch(`${DEFAULT_API}` + "lession/getlessionbytime/?course=" + id.id, requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.loicode == -1) {
@@ -361,7 +365,7 @@ const username=localStorage.getItem("username")
 
     fetch(`${DEFAULT_API}` + "lession/updateTime", requestOptions)
       .then(response => response.json())
-      .then(result => {})
+      .then(result => { })
       .catch(error => console.log('error', error));
   }
 
@@ -394,13 +398,13 @@ const username=localStorage.getItem("username")
 
   const chungchi = () => {
     checkchungchi();
-  
+
   }
 
 
 
-function testcheck(value) {
-   var requestOptions = {
+  function testcheck(value) {
+    var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
@@ -410,30 +414,29 @@ function testcheck(value) {
     )
       .then((response) => response.json())
       .then((result) => {
-      settrangthaidaxem(result)
-    
-      setStatus(status+1);
-     
+        settrangthaidaxem(result)
+
+        setStatus(status + 1);
+
       })
       .catch((error) => console.log("error", error));
-}
+  }
 
 
 
-  const checkhoanthanh = ()=>{
+  const checkhoanthanh = () => {
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
-    
-    fetch(`${DEFAULT_API}` + `giangvien/listhoanthanh/?user=`+user_id+`&courseid=`+id.id, requestOptions)
+
+    fetch(`${DEFAULT_API}` + `giangvien/listhoanthanh/?user=` + user_id + `&courseid=` + id.id, requestOptions)
       .then(response => response.text())
       .then(result => {
-        if(result < 80)
-        {
+        if (result < 80) {
           swal("Lỗi", "Vui lòng hoàn thành tất cả bài kiểm tra đạt tối thiểu 80đ", "warning")
         }
-        else{
+        else {
           chungchi();
         }
       })
@@ -445,7 +448,7 @@ function testcheck(value) {
   const [selectedFile, setSelectedFile] = useState()
 
   const changeHandler = (event) => {
-      setSelectedFile(event.target.files[0]);
+    setSelectedFile(event.target.files[0]);
   };
 
   const onInputChange = (event) => {
@@ -462,7 +465,7 @@ function testcheck(value) {
     formdata.append("users_id", user_id);
     formdata.append("course_id", id.id);
     formdata.append("status", 0);
-    formdata.append("file", selectedFile );
+    formdata.append("file", selectedFile);
 
     var requestOptions = {
       method: 'POST',
@@ -471,359 +474,360 @@ function testcheck(value) {
     };
 
     fetch("http://localhost:8080/report", requestOptions)
-    .then(response => response.json())
-    .then(result => {
-      if(result.loicode == -1){
-        swal("Thất Bại", result.message, "error")
-      }
-      else{
-        swal("Thành Công", "Chúng tôi sẽ xem xét báo cáo của bạn và liên hệ lại với bạn qua email", "success")
-      }
-    })
-    .catch(error => console.log('error', error));
+      .then(response => response.json())
+      .then(result => {
+        if (result.loicode == -1) {
+          swal("Thất Bại", result.message, "error")
+        }
+        else {
+          swal("Thành Công", "Chúng tôi sẽ xem xét báo cáo của bạn và liên hệ lại với bạn qua email", "success")
+        }
+      })
+      .catch(error => console.log('error', error));
   }
 
   const [data, setdata] = useState([]);
 
 
-  const bieudo = ()=>{
+  const bieudo = () => {
     var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      };
-      
-      fetch(`${DEFAULT_API}` + `api/getallbycourse?userid=`+user_id+`&courseid=`+id.id, requestOptions)
-        .then(response => response.json())
-        .then(result => setdata(result))
-        .catch(error => console.log('error', error));
-}
+      method: 'GET',
+      redirect: 'follow'
+    };
 
-const thongbao =()=>{
-  swal("Lỗi", "Vui chọn bài giảng cần ghi chú", "warning")
- 
-}
+    fetch(`${DEFAULT_API}` + `api/getallbycourse?userid=` + user_id + `&courseid=` + id.id, requestOptions)
+      .then(response => response.json())
+      .then(result => setdata(result))
+      .catch(error => console.log('error', error));
+  }
 
-const luuchungchi =()=>{
-  var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-var today = new Date(),
-date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-var aledid=Math.floor(Math.random() * 1004000) + 12044678;
-var namecourse;
-{ttkh.map((value) =>
-    namecourse= value.courseName
-)}
+  const thongbao = () => {
+    swal("Lỗi", "Vui chọn bài giảng cần ghi chú", "warning")
 
+  }
 
-var raw = JSON.stringify({
-  "username": username,
-  "namecourse": namecourse,
-  "ngay": date,
-  "aledid": "ALED-"+aledid,
-  "namepdf": "aled",
-  "idcourse": id.id
-});
+  const luuchungchi = (machungchi) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var today = new Date(),
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var namecourse;
+    {
+      ttkh.map((value) =>
+        namecourse = value.courseName
+      )
+    }
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
+    var raw = JSON.stringify({
+      "username": username,
+      "namecourse": namecourse,
+      "ngay": date,
+      "aledid": machungchi,
+      "namepdf": "aled",
+      "idcourse": id.id
+    });
 
-fetch(`${DEFAULT_API}` + "addchungchi", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-}
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
 
-const checkchungchi=()=>{
-  var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-  
-  fetch(`${DEFAULT_API}` +`checkchungchi?username=`+username+`&course=`+id.id, requestOptions)
-    .then(response => response.text())
-    .then(result => {
-      if(result=="yes")
-      {
-      
-        window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
+    fetch(`${DEFAULT_API}` + "addchungchi", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
+  const checkchungchi = () => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    var aledid = Math.floor(Math.random() * 1004000) + 12044678;
+    var machungchi="ALED-" + aledid
     
-      }
-      else{
-        luuchungchi();
-        window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh
-    
+    fetch(`${DEFAULT_API}` + `checkchungchi?username=` + username + `&course=` + id.id, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if (result == "yes") {
+
+        
+          window.location = `${DEFAULT_API}` + `Pdf/xuat?name=` + fullname + `&tenkh=` + tenkhchungchi.tenkh+`&machungchi=`+machungchi
+      
+        }
+        else {
+          luuchungchi(machungchi);
+      
       }
     })
-    .catch(error => console.log('error', error));
+    .catch (error => console.log('error', error));
 }
 
-  return (
-    <div>
-      <header className="header-section-backend">
-        {/* main Header Starts */}
-        <div className="main-header">
-          <div className="container-fluid">
-            <div className="row align-items-center">
-              <div className="col-lg-8">
-                <div className="header-left">
-                  <div className="header-logo">
-                    <a>
-                      <img src="/assets/uploads/logoaled.png" alt="logo" />
-                    </a>
-                  </div>
-                  <div className="header-title">
-                    {ttkh.map((value) =>
-                      <h5>{value.courseName}</h5>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="header-backend-buttons">
-                  <a
-                    href="/student/EnrolledCourses"
-                    className="template-button"
-                  >
-                    Quay lại khóa học của tôi
-                  </a>
-                  <a href="/home" className="template-button-2">
-                    {" "}
-                    Trang chủ
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-      <br />
-      <section className="course-video-section padding-bottom-110">
+return (
+  <div>
+    <header className="header-section-backend">
+      {/* main Header Starts */}
+      <div className="main-header">
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-8 p-3 order-0 order-lg-2">
-              <div className="course-video-part" >
-                <ReactPlayer
-                  controls
-                  width="100%"
-                  height="500px"
-                  url={lession.linkVideo}
-                />
-              </div>
-              <div className="course-video-tab padding-top-60">
-                <div className="tab">
-                  <ul>
-                    
-                    <li
-                      onClick={() => loadQA()}
-                      className="tab-two"
-                      type="button"
-                      class="btn btn-primary"
-                      data-toggle="modal"
-                      data-target="#exampleModalCenter1"
-                    >
-                      <span>Q&amp;A</span>
-                    </li>
-
-                    {note.lession_id == null ? <li
-                      className="tab-three"
-                      type="button"
-                      class="btn btn-primary"
-                      data-toggle="modal"
-                      onClick={thongbao}
-                    >
-                      <span>ghi chú</span>
-                    </li> : <li
-                      className="tab-three"
-                      type="button"
-                      class="btn btn-primary"
-                      data-toggle="modal"
-                      data-target="#exampleModalCenter"
-                      onClick={getListNote}
-                    >
-                      <span>ghi chú</span>
-                    </li>}
-
-                    <li className="tab-four"  data-dismiss="modal" data-toggle="modal" data-target="#rules" onClick={bieudo}>
-                      <span  >Điểm</span>
-                    </li>
-
-                    <li className="tab-four" onClick={checkhoanthanh}>
-                      <span >Chứng chỉ</span>
-                    </li>
-                    <li>
-                      <span data-toggle="modal" data-target="#myModalRating1">
-                        Báo cáo
-                      </span>
-                    </li>
-                  </ul>
-                 
-                  <div className="hr-line" />
+          <div className="row align-items-center">
+            <div className="col-lg-8">
+              <div className="header-left">
+                <div className="header-logo">
+                  <a>
+                    <img src="/assets/uploads/logoaled.png" alt="logo" />
+                  </a>
                 </div>
-
+                <div className="header-title">
+                  {ttkh.map((value) =>
+                    <h5>{value.courseName}</h5>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="col-lg-4 p-0 order-1 order-lg-2">
-              <div className="video-playlist-sidebar">
-                <h3>Danh Sách Bài Học</h3>
-                <div
-                  className="panel-group"
-                  id="accordion"
-                  role="tablist"
-                  aria-multiselectable="false"
+            <div className="col-lg-4">
+              <div className="header-backend-buttons">
+                <a
+                  href="/student/EnrolledCourses"
+                  className="template-button"
                 >
-                  <div class="accordion" id="myAccordion">
-                    {listSection.map((value, index) => (
-                      <div class="panel">
-                        <a 
-                          onClick={() => tesst(value)}
-                          className="btn btn-light"
-                          data-toggle="collapse"
-                          data-target={`#collapsible` + index}
-                          data-parent="#myAccordion"
-                        >
-                          {value.name}
-                        </a>
-                        <div id={`collapsible` + index} class="collapse">
-                          <div className="card-body">
-                            {trangthaidaxem.map((value, index) => (
-                              <div className="single-course-video">
-                                
-                                  {value.type == "test" ? <a href={`/exam/` + value.linkVideo}
-
-                                    className="btn btn-light"
-                                  >
-                                    <i className="fa fa-book" />{" "}
-                                    {value.name}
-                                  </a> : <a
-
-                                    onClick={() => getData(value)}
-                                    className="btn btn-light"
-                                  >
-{/*                                    
-                                    // {value.status === 1 ? <span><input onClick={() => checkDaxem(value, 0)} type="checkbox" defaultChecked="checked"/>&nbsp;&nbsp;</span>
-                                    // : <span><input onClick={() => checkDaxem(value, 1)}  type="checkbox"/> &nbsp;&nbsp;</span>} */}
-                                    <i className="fa fa-play-circle" />{" "}
-                                    <a onClick={() => videoVuaXem(value)}> {value.name}</a>
-                                   
-                                  </a>}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                  Quay lại khóa học của tôi
+                </a>
+                <a href="/home" className="template-button-2">
+                  {" "}
+                  Trang chủ
+                </a>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div
-        class="modal fade"
-        id="exampleModalCenter"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
-              GHI CHÚ
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="tab-three-content tab-content-bg note-content lost">
-              <br />
-              <span>
-                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg"
-                  onChange={handleChangeNote}
-                  type="text"
-                  placeholder="Create New Note"
-                  name="note"
-                  value={note.note}
-                />
-                <a onClick={addNoteClick} className="btn btn-primary">
-                  <i class="fa fa-plus"> Thêm</i>
-                </a>
-                &ensp;
-                <a onClick={editNote} className="btn btn-primary">
-                  <i class="fa fa-plus"> Sửa</i>
-                </a>
-              </span>
-              <ul>
-                {listNote.map((value, index) => (
-                  <li>
-                    {value.note}
-                    <i className="fa fa-remove" style={{ fontSize: '24px' }}
-                      onClick={() => deleteNoteClick(value.id)}
-                    />
-                    &ensp;
-                    <i className="fa fa-edit" style={{ fontSize: '24px' }}
-                      onClick={() => editNoteClick(value)}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Đóng
-              </button>
             </div>
           </div>
         </div>
       </div>
-
-
-
-      <div
-        class="modal fade"
-        id="exampleModalCenter1"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
-              Câu hỏi QA
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+    </header>
+    <br />
+    <section className="course-video-section padding-bottom-110">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-8 p-3 order-0 order-lg-2">
+            <div className="course-video-part" >
+              <ReactPlayer
+                controls
+                width="100%"
+                height="500px"
+                url={lession.linkVideo}
+              />
             </div>
-            <div class="tab-three-content tab-content-bg note-content lost">
-              <div className="container">
-                <div className="row clearfix">
-                  <div className="col-lg-6">
-                    <div className="chat">
-                      <div className="chat-header clearfix">
-                        {/* <div className="row">
+            <div className="course-video-tab padding-top-60">
+              <div className="tab">
+                <ul>
+
+                  <li
+                    onClick={() => loadQA()}
+                    className="tab-two"
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter1"
+                  >
+                    <span>Q&amp;A</span>
+                  </li>
+
+                  {note.lession_id == null ? <li
+                    className="tab-three"
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    onClick={thongbao}
+                  >
+                    <span>ghi chú</span>
+                  </li> : <li
+                    className="tab-three"
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
+                    onClick={getListNote}
+                  >
+                    <span>ghi chú</span>
+                  </li>}
+
+                  <li className="tab-four" data-dismiss="modal" data-toggle="modal" data-target="#rules" onClick={bieudo}>
+                    <span  >Điểm</span>
+                  </li>
+
+                  <li className="tab-four" onClick={checkhoanthanh}>
+                    <span >Chứng chỉ</span>
+                  </li>
+                  <li>
+                    <span data-toggle="modal" data-target="#myModalRating1">
+                      Báo cáo
+                    </span>
+                  </li>
+                </ul>
+
+                <div className="hr-line" />
+              </div>
+
+            </div>
+          </div>
+          <div className="col-lg-4 p-0 order-1 order-lg-2">
+            <div className="video-playlist-sidebar">
+              <h3>Danh Sách Bài Học</h3>
+              <div
+                className="panel-group"
+                id="accordion"
+                role="tablist"
+                aria-multiselectable="false"
+              >
+                <div class="accordion" id="myAccordion">
+                  {listSection.map((value, index) => (
+                    <div class="panel">
+                      <a
+                        onClick={() => tesst(value)}
+                        className="btn btn-light"
+                        data-toggle="collapse"
+                        data-target={`#collapsible` + index}
+                        data-parent="#myAccordion"
+                      >
+                        {value.name}
+                      </a>
+                      <div id={`collapsible` + index} class="collapse">
+                        <div className="card-body">
+                          {trangthaidaxem.map((value, index) => (
+                            <div className="single-course-video">
+
+                              {value.type == "test" ? <a href={`/exam/` + value.linkVideo}
+
+                                className="btn btn-light"
+                              >
+                                <i className="fa fa-book" />{" "}
+                                {value.name}
+                              </a> : <a
+
+                                onClick={() => getData(value)}
+                                className="btn btn-light"
+                              >
+                                {/*                                    
+                                    // {value.status === 1 ? <span><input onClick={() => checkDaxem(value, 0)} type="checkbox" defaultChecked="checked"/>&nbsp;&nbsp;</span>
+                                    // : <span><input onClick={() => checkDaxem(value, 1)}  type="checkbox"/> &nbsp;&nbsp;</span>} */}
+                                <i className="fa fa-play-circle" />{" "}
+                                <a onClick={() => videoVuaXem(value)}> {value.name}</a>
+
+                              </a>}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              GHI CHÚ
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="tab-three-content tab-content-bg note-content lost">
+            <br />
+            <span>
+              <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg"
+                onChange={handleChangeNote}
+                type="text"
+                placeholder="Create New Note"
+                name="note"
+                value={note.note}
+              />
+              <a onClick={addNoteClick} className="btn btn-primary">
+                <i class="fa fa-plus"> Thêm</i>
+              </a>
+              &ensp;
+              <a onClick={editNote} className="btn btn-primary">
+                <i class="fa fa-plus"> Sửa</i>
+              </a>
+            </span>
+            <ul>
+              {listNote.map((value, index) => (
+                <li>
+                  {value.note}
+                  <i className="fa fa-remove" style={{ fontSize: '24px' }}
+                    onClick={() => deleteNoteClick(value.id)}
+                  />
+                  &ensp;
+                  <i className="fa fa-edit" style={{ fontSize: '24px' }}
+                    onClick={() => editNoteClick(value)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div
+      class="modal fade"
+      id="exampleModalCenter1"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              Câu hỏi QA
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="tab-three-content tab-content-bg note-content lost">
+            <div className="container">
+              <div className="row clearfix">
+                <div className="col-lg-6">
+                  <div className="chat">
+                    <div className="chat-header clearfix">
+                      {/* <div className="row">
                           <div className="col-lg-6">
                             <a
                               href="javascript:void(0);"
@@ -840,35 +844,34 @@ const checkchungchi=()=>{
                             </div>
                           </div>
                         </div> */}
-                      </div>
-                      <div className="chat-history">
-                        {listQA.map((value, index) => (
-                          <ul className="m-b-0">
-                            {tinNhan(value)}
-                          </ul>)
-                        )}
-                      </div>
-                      <div className="chat-message clearfix">
-                        <div className="input-group mb-0">
-                          <input onChange={handleChange}
-                            value={contentMess.content}
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter text here..."
-                            name="content"
-                          />
-                          <br />
-                          <br />
-                          <div className="input-group-prepend">
-                            <button disabled={contentMess.content ? false : true}
-                              type="button"
-                              className="tab-two"
-                              class="btn btn-success"
-                              onClick={sendMess}
-                            >
-                              phản hồi
-                            </button>
-                          </div>
+                    </div>
+                    <div className="chat-history">
+                      {listQA.map((value, index) => (
+                        <ul className="m-b-0">
+                          {tinNhan(value)}
+                        </ul>)
+                      )}
+                    </div>
+                    <div className="chat-message clearfix">
+                      <div className="input-group mb-0">
+                        <input onChange={handleChange}
+                          value={contentMess.content}
+                          type="text"
+                          className="form-control"
+                          placeholder="Enter text here..."
+                          name="content"
+                        />
+                        <br />
+                        <br />
+                        <div className="input-group-prepend">
+                          <button disabled={contentMess.content ? false : true}
+                            type="button"
+                            className="tab-two"
+                            class="btn btn-success"
+                            onClick={sendMess}
+                          >
+                            phản hồi
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -876,85 +879,86 @@ const checkchungchi=()=>{
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Đóng
-              </button>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="myModalRating1" className="modal fade" role="dialog">
+      <div className="modal-dialog w-40-p">
+        <div className="modal-content">
+          <div className="modal-header">
+            <button type="button" className="close" data-dismiss="modal">×</button>
+            <h4 className="modal-title">Báo Cáo</h4>
+          </div>
+
+
+          <div className="modal-body">
+            <form acceptCharset="utf-8" />
+            <div className="form-group">
+              <label htmlFor>Chọn tệp</label>
+              <input type="file" name="lesson_mp4" id="uploadFile" accept="image/*, video/mp4*" onChange={changeHandler} /><span className="c-red">
+                (Chỉ được chọn tệp ảnh hoặc video dạng MP4)</span>
+            </div>
+            <div className="form-group">
+              <label htmlFor>Nội dung báo cáo vi phạm chi tiết</label>
+              <textarea name="content" className="form-control h-100" cols={20} rows={10} required defaultValue={""} onChange={onInputChange} />
+            </div>
+            <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={report}>Gửi Báo Cáo</button>
+          </div>
+
+          <div className="modal-footer">
+            <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Đóng</b></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+      <div className="modal-dialog modal-vit w-60-p" role="document">
+        <div className="modal-content">
+          <div className="modal-body">
+            <h2>Thông Tin Điểm Kiểm Tra</h2>
+            <br />
+            <h4>Hoàn thành 80% mỗi bài kiểm tra để in được chứng nhận</h4>
+            <BarChart
+              width={700}
+              height={300}
+              data={data}
+
+              barSize={25}
+            >
+              <XAxis dataKey="name" padding={{ left: 30, right: 20 }} />
+              <YAxis type="number" domain={[0, 100]} />
+              <Tooltip />
+              <Legend />
+              <CartesianGrid strokeDasharray="3 3" />
+              <Bar dataKey="diem" fill="#8884d8" background={{ fill: "#eee" }} />
+            </BarChart>
+
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">Đóng</button>
             </div>
           </div>
         </div>
       </div>
-
-      <div id="myModalRating1" className="modal fade" role="dialog">
-            <div className="modal-dialog w-40-p">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal">×</button>
-                  <h4 className="modal-title">Báo Cáo</h4>
-                </div>
+    </div>
 
 
-                <div className="modal-body">
-                  <form acceptCharset="utf-8" />
-                  <div className="form-group">
-                    <label htmlFor>Chọn tệp</label>
-                    <input type="file" name="lesson_mp4" id="uploadFile" accept="image/*, video/mp4*" onChange={changeHandler} /><span className="c-red">
-                          (Chỉ được chọn tệp ảnh hoặc video dạng MP4)</span>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor>Nội dung báo cáo vi phạm chi tiết</label>
-                    <textarea name="content" className="form-control h-100" cols={20} rows={10} required defaultValue={""} onChange={onInputChange} />
-                  </div>
-                  <button type="submit" className="btn btn-default btn-success" name="form_rating" onClick={report}>Gửi Báo Cáo</button>
-                </div>
-               
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-default bg-ddd c-000 bd-0" data-dismiss="modal"><b>Đóng</b></button>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-
-                  <div className="modal fade" id="rules" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-          <div className="modal-dialog modal-vit w-60-p" role="document">
-            <div className="modal-content">
-              <div className="modal-body">
-                <h2>Thông Tin Điểm Kiểm Tra</h2>
-                <br />
-                <h4>Hoàn thành 80% mỗi bài kiểm tra để in được chứng nhận</h4>
-                <BarChart
-            width={700}
-            height={300}
-            data={data}
-          
-            barSize={25}
-        >
-            <XAxis dataKey="name"  padding={{ left: 30, right: 20 }} />
-            <YAxis type="number" domain={[0, 100]} />
-            <Tooltip />
-            <Legend />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="diem" fill="#8884d8" background={{ fill: "#eee" }} />
-        </BarChart>
-                
-                <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal">Đóng</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-                          
-
-                  </div>
+  </div>
 
 
-                          
 
-      
-  );
+
+
+);
 }

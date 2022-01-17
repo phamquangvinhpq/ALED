@@ -66,7 +66,7 @@ public class TaoPDFController {
 
 	@GetMapping("/xuat")
 	public RedirectView xuat(HttpServletResponse response, @RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "tenkh", required = false) String tenkh) throws Exception {
+			@RequestParam(value = "tenkh", required = false) String tenkh,@RequestParam("machungchi") String machungchi) throws Exception {
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		int year = localDate.getYear();
@@ -78,7 +78,7 @@ public class TaoPDFController {
 		Map<String, String> data = new HashMap<String, String>();
 		data.put("name", namehoa);
 		data.put("tenkh", tenkh);
-
+		data.put("machungchi", machungchi);
 		data.put("ngayfull", fullngay);
 		data.put("ngayfull1", fullngay1);
 		Assert.notNull("thymeleaf_template.html", "The templateName can not be null");
